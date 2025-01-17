@@ -25,3 +25,4 @@ replay_pid*
 
 # LibreOffice Writer for design doc
 *.odt
+*.odt*
