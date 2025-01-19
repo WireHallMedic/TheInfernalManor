@@ -13,10 +13,11 @@ s#i0
 s#k0
 s#j0
 s#l0
-!447;g
+!471;g
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011%uStrictCurses%sSCPanel.java
+%\011GUI%sGUITools.java
 %\011TIMMain.java
 %\011images%sWidlerTiles_16x16.png
 %\011images%sWidlerTiles_8x16.png
@@ -28,10 +29,11 @@ s#l0
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
 %\011GUI%sTIMPanel.java
-!447;f
+!471;f
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011%uStrictCurses%sSCPanel.java
+%\011GUI%sGUITools.java
 %\011TIMMain.java
 %\011images%sWidlerTiles_16x16.png
 %\011images%sWidlerTiles_8x16.png
@@ -43,3 +45,5 @@ s#l0
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
 %\011GUI%sTIMPanel.java
+!35;m
+RunSelect	TheInfernalManor.TIMMain
