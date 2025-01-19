@@ -6,12 +6,15 @@ import java.util.*;
 import java.awt.event.*;
 import StrictCurses.*;
 
-public class TIMFrame extends JFrame implements SCConstants, ComponentListener
+public class TIMFrame extends JFrame implements SCConstants, ComponentListener, KeyListener
 {
    private SCTilePalette x1y1Palette;
    private SCTilePalette x1y2Palette;
    private Vector<TIMPanel> panelList;
    private JPanel basePanel;
+   private TIMPanel curPanel;
+   private SplashPanel splashPanel;
+   private HelpPanel helpPanel;
    
    public TIMFrame()
    {
@@ -39,7 +42,17 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener
       
       panelList = new Vector<TIMPanel>();
       
+      addKeyListener(this);
+      basePanel.addComponentListener(this);
+      basePanel.addKeyListener(this);
+      
+      splashPanel = new SplashPanel(x1y2Palette, this);
+      addPanel(splashPanel);
+      helpPanel = new HelpPanel(x1y2Palette, this);
+      addPanel(helpPanel);
+      
       setVisible(true);
+      setVisiblePanel("SplashPanel");
    }
    
    public void addPanel(TIMPanel newPanel)
@@ -57,20 +70,40 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener
    public void componentShown(ComponentEvent e){}
    public void componentResized(ComponentEvent e)
    {
-      for(SCPanel panel : panelList)
+      for(TIMPanel panel : panelList)
       {
          panel.setSize(basePanel.getWidth(), basePanel.getHeight());
       }
    }
    
-   public void setVisiblePanel(Class panelClass)
+   public void setVisiblePanel(String panelName)
    {
-      for(SCPanel panel : panelList)
+      for(TIMPanel panel : panelList)
       {
-         if(panel.getClass() == panelClass)
+         if(panel.getPanelName().equals(panelName))
+         {
             panel.setVisible(true);
+            curPanel = panel;
+         }
          else
             panel.setVisible(false);
       }
+      repaint();
+   }
+   
+   public void keyPressed(KeyEvent ke)
+   {
+      if(curPanel != null)
+         curPanel.keyPressed(ke);
+   }
+   public void keyTyped(KeyEvent ke)
+   {
+      if(curPanel != null)
+         curPanel.keyTyped(ke);
+   }
+   public void keyReleased(KeyEvent ke)
+   {
+      if(curPanel != null)
+         curPanel.keyReleased(ke);
    }
 }

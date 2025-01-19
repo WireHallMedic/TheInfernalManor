@@ -1,18 +1,21 @@
 package TheInfernalManor.GUI;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
 import StrictCurses.*;
+import java.awt.event.*;
 
-public class TIMPanel extends SCPanel implements GUIConstants
+public class TIMPanel extends SCPanel implements GUIConstants, KeyListener
 {
-   private TIMFrame parentFrame;
+   protected TIMFrame parentFrame;
+   
+   public String getPanelName(){return this.getClass().getSimpleName();}
    
    public TIMPanel(SCTilePalette tilePalette, TIMFrame pFrame)
    {
       super(tilePalette, TILES_WIDE, TILES_TALL);
       parentFrame = pFrame;
    }
+   
+   public void keyPressed(KeyEvent ke){}
+   public void keyTyped(KeyEvent ke){}
+   public void keyReleased(KeyEvent ke){}
 }
