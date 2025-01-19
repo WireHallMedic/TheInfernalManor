@@ -50,4 +50,15 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener
          panel.setSize(basePanel.getWidth(), basePanel.getHeight());
       }
    }
+   
+   public void setVisiblePanel(Class panelClass)
+   {
+      for(SCPanel panel : panelList)
+      {
+         if(panel.getClass() == panelClass)
+            panel.setVisible(true);
+         else
+            panel.setVisible(false);
+      }
+   }
 }
