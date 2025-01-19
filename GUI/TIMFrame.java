@@ -8,8 +8,9 @@ import StrictCurses.*;
 
 public class TIMFrame extends JFrame implements SCConstants, ComponentListener
 {
-   private SCTilePalette palette;
-   private Vector<SCPanel> panelList;
+   private SCTilePalette x1y1Palette;
+   private SCTilePalette x1y2Palette;
+   private Vector<TIMPanel> panelList;
    private JPanel basePanel;
    
    public TIMFrame()
@@ -25,12 +26,23 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener
       basePanel.setLayout(null);
       add(basePanel);
       
-      panelList = new Vector<SCPanel>();
+      String x1y1Str = "TheInfernalManor/images/WidlerTiles_8x16.png";
+      String x1y2Str = "TheInfernalManor/images/WidlerTiles_16x16.png";
+      
+      if(TIMFrame.class.getResource("TIMFrame.class").toString().contains(".jar"))
+      {
+         x1y1Str = "WidlerTiles_8x16.png";
+         x1y2Str = "WidlerTiles_16x16.png";
+      }
+      x1y1Palette = new SCTilePalette(x1y1Str, 8, 16);
+      x1y2Palette = new SCTilePalette(x1y2Str, 16, 16);
+      
+      panelList = new Vector<TIMPanel>();
       
       setVisible(true);
    }
    
-   public void addPanel(SCPanel newPanel)
+   public void addPanel(TIMPanel newPanel)
    {
       newPanel.setLocation(0, 0);
       newPanel.setSize(basePanel.getWidth(), basePanel.getHeight());
