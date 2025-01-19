@@ -6,20 +6,22 @@ import java.util.*;
 import java.awt.event.*;
 import StrictCurses.*;
 
-public class TIMFrame extends JFrame implements SCConstants, ComponentListener, KeyListener
+public class TIMFrame extends JFrame implements SCConstants, ComponentListener, KeyListener, GUIConstants
 {
    private SCTilePalette x1y1Palette;
    private SCTilePalette x1y2Palette;
    private Vector<TIMPanel> panelList;
    private JPanel basePanel;
    private TIMPanel curPanel;
+   private TIMPanel lastPanel;
+   
    private SplashPanel splashPanel;
    private HelpPanel helpPanel;
    
    public TIMFrame()
    {
       super();      
-      setSize(1500, 800);
+      setSize(100, 100);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setTitle("The Infernal Manor");
       setLayout(new GridLayout(1, 1));
@@ -29,16 +31,16 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       basePanel.setLayout(null);
       add(basePanel);
       
-      String x1y1Str = "TheInfernalManor/images/WidlerTiles_8x16.png";
-      String x1y2Str = "TheInfernalManor/images/WidlerTiles_16x16.png";
+      String x1y1Str = "TheInfernalManor/images/WidlerTiles_16x16.png";
+      String x1y2Str = "TheInfernalManor/images/WidlerTiles_8x16.png";
       
       if(TIMFrame.class.getResource("TIMFrame.class").toString().contains(".jar"))
       {
-         x1y1Str = "WidlerTiles_8x16.png";
-         x1y2Str = "WidlerTiles_16x16.png";
+         x1y1Str = "WidlerTiles_16x16.png";
+         x1y2Str = "WidlerTiles_8x16.png";
       }
-      x1y1Palette = new SCTilePalette(x1y1Str, 8, 16);
-      x1y2Palette = new SCTilePalette(x1y2Str, 16, 16);
+      x1y1Palette = new SCTilePalette(x1y1Str, 16, 16);
+      x1y2Palette = new SCTilePalette(x1y2Str, 8, 16);
       
       panelList = new Vector<TIMPanel>();
       
@@ -52,6 +54,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       addPanel(helpPanel);
       
       setVisible(true);
+      snapToPreferredSize();
       setVisiblePanel("SplashPanel");
    }
    
@@ -89,6 +92,14 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
             panel.setVisible(false);
       }
       repaint();
+   }
+   
+   private void snapToPreferredSize()
+   {
+      Insets insets = getInsets();
+      int newWidth = (TILES_WIDE * 8 * 2) + insets.left + insets.right;
+      int newHeight = (TILES_TALL * 16 * 2) + insets.top + insets.bottom;
+      setSize(newWidth, newHeight);
    }
    
    public void keyPressed(KeyEvent ke)
