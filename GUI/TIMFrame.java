@@ -20,7 +20,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    private AdventurePanel adventurePanel;
    private PreferencesPanel preferencesPanel;
    private LoadPanel loadPanel;
-   private SwapPanel newGamePanel;
+   private NewGamePanel newGamePanel;
    private SwapPanel characterCreationPanel;
    private SwapPanel advancementPanel;
    private SwapPanel shopPanel;
@@ -63,6 +63,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       addPanel(preferencesPanel);
       loadPanel = new LoadPanel(x1y2Palette, this);
       addPanel(loadPanel);
+      newGamePanel = new NewGamePanel(x1y2Palette, this);
+      addPanel(newGamePanel);
       
       setVisible(true);
       snapToPreferredSize();
