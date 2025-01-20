@@ -18,6 +18,18 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    private SplashPanel splashPanel;
    private HelpPanel helpPanel;
    private AdventurePanel adventurePanel;
+   private SwapPanel preferencesPanel;
+   private SwapPanel loadPanel;
+   private SwapPanel newGamePanel;
+   private SwapPanel characterCreationPanel;
+   private SwapPanel advancementPanel;
+   private SwapPanel shopPanel;
+   private SwapPanel managementPanel;
+   private SwapPanel questNegotiationPanel;
+   private SwapPanel questEndPanel;
+   private SwapPanel characterPanel;
+   private SwapPanel inventoryPanel;
+   private SwapPanel questInProgressPanel;
    
    public TIMFrame()
    {
