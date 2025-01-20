@@ -3,12 +3,12 @@ package TheInfernalManor.GUI;
 import StrictCurses.*;
 import java.awt.event.*;
 
-public class HelpPanel extends TIMPanel implements GUIConstants
+public class QuestInProgressPanel extends TIMPanel implements GUIConstants
 {
-   public HelpPanel(SCTilePalette tilePalette, TIMFrame pFrame)
+   public QuestInProgressPanel(SCTilePalette tilePalette, TIMFrame pFrame)
    {
       super(tilePalette, pFrame);
-      GUITools.drawBorderWithTitle(this, " Help ");
+      GUITools.drawBorderWithTitle(this, " Quest ");
    }
    
    @Override
