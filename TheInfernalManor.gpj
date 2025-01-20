@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !183;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!550;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!582;g
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011GUI%sSwapPanel.java
@@ -22,6 +22,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011GUI%sGUITools.java
 %\011TIMMain.java
 %\011images%sWidlerTiles_16x16.png
+%\011GUI%sPreferencesPanel.java
 %\011images%sWidlerTiles_8x16.png
 %\011GUI%sSplashPanel.java
 %\011GUI%sMapPanel.java
@@ -33,7 +34,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
 %\011GUI%sTIMPanel.java
-!550;f
+!582;f
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011GUI%sSwapPanel.java
@@ -41,6 +42,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011GUI%sGUITools.java
 %\011TIMMain.java
 %\011images%sWidlerTiles_16x16.png
+%\011GUI%sPreferencesPanel.java
 %\011images%sWidlerTiles_8x16.png
 %\011GUI%sSplashPanel.java
 %\011GUI%sMapPanel.java
