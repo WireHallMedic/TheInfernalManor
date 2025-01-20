@@ -92,6 +92,11 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       }
    }
    
+   public void returnToLastPanel()
+   {
+      setVisiblePanel(lastPanel.getPanelName());
+   }
+   
    public void setVisiblePanel(String panelName)
    {
       boolean foundPanel = false;

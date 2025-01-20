@@ -14,6 +14,6 @@ public class HelpPanel extends TIMPanel implements GUIConstants
    @Override
    public void keyPressed(KeyEvent ke)
    {
-      parentFrame.setVisiblePanel("SplashPanel");
+      parentFrame.returnToLastPanel();
    }
 }
