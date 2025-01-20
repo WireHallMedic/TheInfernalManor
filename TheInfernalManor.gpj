@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !183;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!582;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!607;g
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011GUI%sSwapPanel.java
@@ -30,11 +30,12 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011GUI%sTIMFrame.java
 %\011%uStrictCurses%sStrictCursesDemo.java
 %\011%uStrictCurses%sSCTileStamp.java
+%\011GUI%sLoadPanel.java
 %\011GUI%sAdventurePanel.java
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
 %\011GUI%sTIMPanel.java
-!582;f
+!607;f
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011GUI%sSwapPanel.java
@@ -50,6 +51,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011GUI%sTIMFrame.java
 %\011%uStrictCurses%sStrictCursesDemo.java
 %\011%uStrictCurses%sSCTileStamp.java
+%\011GUI%sLoadPanel.java
 %\011GUI%sAdventurePanel.java
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
