@@ -13,7 +13,7 @@ s#i0
 s#k0
 s#j0
 s#l0
-!471;g
+!501;g
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011%uStrictCurses%sSCPanel.java
@@ -26,10 +26,11 @@ s#l0
 %\011GUI%sTIMFrame.java
 %\011%uStrictCurses%sStrictCursesDemo.java
 %\011%uStrictCurses%sSCTileStamp.java
+%\011GUI%sAdventurePanel.java
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
 %\011GUI%sTIMPanel.java
-!471;f
+!501;f
 %\011%uStrictCurses%sSCTilePalette.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011%uStrictCurses%sSCPanel.java
@@ -42,6 +43,7 @@ s#l0
 %\011GUI%sTIMFrame.java
 %\011%uStrictCurses%sStrictCursesDemo.java
 %\011%uStrictCurses%sSCTileStamp.java
+%\011GUI%sAdventurePanel.java
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sHelpPanel.java
 %\011GUI%sTIMPanel.java
