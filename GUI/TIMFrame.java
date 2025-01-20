@@ -10,10 +10,10 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
 {
    private SCTilePalette x1y1Palette;
    private SCTilePalette x1y2Palette;
-   private Vector<TIMPanel> panelList;
+   private Vector<SwapPanel> panelList;
    private JPanel basePanel;
-   private TIMPanel curPanel;
-   private TIMPanel lastPanel;
+   private SwapPanel curPanel;
+   private SwapPanel lastPanel;
    
    private SplashPanel splashPanel;
    private HelpPanel helpPanel;
@@ -43,7 +43,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       x1y1Palette = new SCTilePalette(x1y1Str, 16, 16);
       x1y2Palette = new SCTilePalette(x1y2Str, 8, 16);
       
-      panelList = new Vector<TIMPanel>();
+      panelList = new Vector<SwapPanel>();
       
       addKeyListener(this);
       basePanel.addComponentListener(this);
@@ -61,12 +61,12 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       setVisiblePanel("SplashPanel");
    }
    
-   public void addPanel(TIMPanel newPanel)
+   public void addPanel(SwapPanel newPanel)
    {
       newPanel.setLocation(0, 0);
       newPanel.setSize(basePanel.getWidth(), basePanel.getHeight());
       newPanel.setVisible(false);
-      basePanel.add(newPanel);
+      basePanel.add((Component)newPanel);
       panelList.add(newPanel);
    }
    
@@ -76,7 +76,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    public void componentShown(ComponentEvent e){}
    public void componentResized(ComponentEvent e)
    {
-      for(TIMPanel panel : panelList)
+      for(SwapPanel panel : panelList)
       {
          panel.setSize(basePanel.getWidth(), basePanel.getHeight());
       }
@@ -84,7 +84,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    
    public void setVisiblePanel(String panelName)
    {
-      for(TIMPanel panel : panelList)
+      for(SwapPanel panel : panelList)
       {
          if(panel.getPanelName().equals(panelName))
          {
@@ -108,16 +108,16 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    public void keyPressed(KeyEvent ke)
    {
       if(curPanel != null)
-         curPanel.keyPressed(ke);
+         ((KeyListener)curPanel).keyPressed(ke);
    }
    public void keyTyped(KeyEvent ke)
    {
       if(curPanel != null)
-         curPanel.keyTyped(ke);
+         ((KeyListener)curPanel).keyTyped(ke);
    }
    public void keyReleased(KeyEvent ke)
    {
       if(curPanel != null)
-         curPanel.keyReleased(ke);
+         ((KeyListener)curPanel).keyReleased(ke);
    }
 }

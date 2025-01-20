@@ -3,7 +3,7 @@ package TheInfernalManor.GUI;
 import StrictCurses.*;
 import java.awt.event.*;
 
-public class TIMPanel extends SCPanel implements GUIConstants, KeyListener
+public class TIMPanel extends SCPanel implements GUIConstants, KeyListener, SwapPanel
 {
    protected TIMFrame parentFrame;
    
