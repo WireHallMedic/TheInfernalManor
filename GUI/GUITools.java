@@ -40,6 +40,19 @@ public class GUITools implements GUIConstants
       applyBorderTileArray(getBorderArray(panel), panel);
    }
    
+   // draw a border, with boxout containing title
+   public static void drawBorderWithTitle(SCPanel panel, String title)
+   {
+      int startX = ((panel.getTilesWide() - title.length()) / 2) - 1;
+      boolean[][] borderArr = getBorderArray(panel);
+      for(int x = 0; x < title.length() + 2; x++)
+         borderArr[startX + x][2] = true;
+      borderArr[startX][1] = true;
+      borderArr[startX + title.length() + 1][1] = true;
+      applyBorderTileArray(borderArr, panel);
+      panel.writeLine(startX + 1, 1, title);
+   }
+   
    
    // get layout for simple border of entire panel
    public static boolean[][] getBorderArray(SCPanel panel)

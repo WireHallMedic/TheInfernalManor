@@ -8,8 +8,7 @@ public class HelpPanel extends TIMPanel implements GUIConstants
    public HelpPanel(SCTilePalette tilePalette, TIMFrame pFrame)
    {
       super(tilePalette, pFrame);
-      GUITools.drawSimpleBorder(this);
-      writeLine(1, 1, "HelpPanel");
+      GUITools.drawBorderWithTitle(this, " Help ");
    }
    
    @Override

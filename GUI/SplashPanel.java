@@ -14,6 +14,6 @@ public class SplashPanel extends TIMPanel implements GUIConstants
    @Override
    public void keyPressed(KeyEvent ke)
    {
-      parentFrame.setVisiblePanel("AdventurePanel");
+      parentFrame.setVisiblePanel("HelpPanel");
    }
 }
