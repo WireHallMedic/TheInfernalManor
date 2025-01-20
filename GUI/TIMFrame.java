@@ -17,6 +17,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    
    private SplashPanel splashPanel;
    private HelpPanel helpPanel;
+   private AdventurePanel adventurePanel;
    
    public TIMFrame()
    {
@@ -52,6 +53,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       addPanel(splashPanel);
       helpPanel = new HelpPanel(x1y2Palette, this);
       addPanel(helpPanel);
+      adventurePanel = new AdventurePanel(x1y2Palette, x1y1Palette, this);
+      addPanel(adventurePanel);
       
       setVisible(true);
       snapToPreferredSize();
