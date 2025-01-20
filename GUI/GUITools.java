@@ -37,6 +37,13 @@ public class GUITools implements GUIConstants
    // draw a simple border
    public static void drawSimpleBorder(SCPanel panel)
    {
+      applyBorderTileArray(getBorderArray(panel), panel);
+   }
+   
+   
+   // get layout for simple border of entire panel
+   public static boolean[][] getBorderArray(SCPanel panel)
+   {
       int w = panel.getTilesWide();
       int h = panel.getTilesTall();
       boolean[][] borderArr = new boolean[w][h];
@@ -50,7 +57,7 @@ public class GUITools implements GUIConstants
          borderArr[0][y] = true;
          borderArr[w - 1][y] = true;
       }
-      applyBorderTileArray(borderArr, panel);
+      return borderArr;
    }
    
    
