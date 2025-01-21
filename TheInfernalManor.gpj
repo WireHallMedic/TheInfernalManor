@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!1757;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!1809;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sGUI%sGUIConstants.java
@@ -40,6 +40,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sEngine%sDirection.java
 %\011TheInfernalManor%sTIMMain.java
 %\011TheInfernalManor%sGUI%sPreferencesPanel.java
+%\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sGUI%sSplashPanel.java
 %\011TheInfernalManor%sGUI%sAdvancementPanel.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
@@ -54,7 +55,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
-!1757;f
+!1809;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sGUI%sGUIConstants.java
@@ -80,6 +81,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sEngine%sDirection.java
 %\011TheInfernalManor%sTIMMain.java
 %\011TheInfernalManor%sGUI%sPreferencesPanel.java
+%\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sGUI%sSplashPanel.java
 %\011TheInfernalManor%sGUI%sAdvancementPanel.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
