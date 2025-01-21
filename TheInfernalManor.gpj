@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !183;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!980;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!1003;g
 %\011%uStrictCurses%sSCTileStruct.java
 %\011%uStrictCurses%sSCPanel.java
 %\011TIMMain.java
@@ -47,7 +47,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sShopPanel.java
 %\011GUI%sTIMPanel.java
-!980;f
+%\011Actor%sActor.java
+!1003;f
 %\011%uStrictCurses%sSCTileStruct.java
 %\011%uStrictCurses%sSCPanel.java
 %\011TIMMain.java
@@ -80,5 +81,6 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uStrictCurses%sSCConstants.java
 %\011GUI%sShopPanel.java
 %\011GUI%sTIMPanel.java
+%\011Actor%sActor.java
 !35;m
 RunSelect	TheInfernalManor.TIMMain
