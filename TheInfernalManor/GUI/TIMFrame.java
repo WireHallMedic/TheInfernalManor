@@ -21,15 +21,16 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    private PreferencesPanel preferencesPanel;
    private LoadPanel loadPanel;
    private NewGamePanel newGamePanel;
-   private SwapPanel characterCreationPanel;
-   private SwapPanel advancementPanel;
-   private SwapPanel shopPanel;
-   private SwapPanel managementPanel;
-   private SwapPanel questNegotiationPanel;
-   private SwapPanel questEndPanel;
-   private SwapPanel characterPanel;
-   private SwapPanel inventoryPanel;
-   private SwapPanel questInProgressPanel;
+   private CharacterCreationPanel characterCreationPanel;
+   private AdvancementPanel advancementPanel;
+   private ShopPanel shopPanel;
+   private ManagementPanel managementPanel;
+   private QuestNegotiationPanel questNegotiationPanel;
+   private QuestEndPanel questEndPanel;
+   private CharacterPanel characterPanel;
+   private InventoryPanel inventoryPanel;
+   private QuestInProgressPanel questInProgressPanel;
+   private GameOverPanel gameOverPanel;
    
    private javax.swing.Timer timer;
    
@@ -67,6 +68,26 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       addPanel(loadPanel);
       newGamePanel = new NewGamePanel(x1y2Palette, this);
       addPanel(newGamePanel);
+      characterCreationPanel = new CharacterCreationPanel(x1y2Palette, this);
+      addPanel(characterCreationPanel);
+      advancementPanel = new AdvancementPanel(x1y2Palette, this);
+      addPanel(advancementPanel);
+      shopPanel = new ShopPanel(x1y2Palette, this);
+      addPanel(shopPanel);
+      managementPanel = new ManagementPanel(x1y2Palette, this);
+      addPanel(managementPanel);
+      questNegotiationPanel = new QuestNegotiationPanel(x1y2Palette, this);
+      addPanel(questNegotiationPanel);
+      questEndPanel = new QuestEndPanel(x1y2Palette, this);
+      addPanel(questEndPanel);
+      characterPanel = new CharacterPanel(x1y2Palette, this);
+      addPanel(characterPanel);
+      inventoryPanel = new InventoryPanel(x1y2Palette, this);
+      addPanel(inventoryPanel);
+      questInProgressPanel = new QuestInProgressPanel(x1y2Palette, this);
+      addPanel(questInProgressPanel);
+      gameOverPanel = new GameOverPanel(x1y2Palette, this);
+      addPanel(gameOverPanel);
       
       setVisible(true);
       snapToPreferredSize();

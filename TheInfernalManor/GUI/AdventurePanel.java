@@ -100,6 +100,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    {
       switch(ke.getKeyCode())
       {
+         // directions
          case KeyEvent.VK_UP :      
          case KeyEvent.VK_NUMPAD8 : directionPressed(Direction.NORTH); break;
          case KeyEvent.VK_NUMPAD9 : directionPressed(Direction.NORTHEAST); break;
@@ -114,6 +115,11 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_NUMPAD7 : directionPressed(Direction.NORTHWEST); break;
          case KeyEvent.VK_PERIOD :  
          case KeyEvent.VK_NUMPAD5 : directionPressed(Direction.ORIGIN); break;
+         
+         // change screen
+         case KeyEvent.VK_I :       parentFrame.setVisiblePanel("InventoryPanel"); break;
+         case KeyEvent.VK_C :       parentFrame.setVisiblePanel("CharacterPanel"); break;
+         case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
       }
    }
    public void keyTyped(KeyEvent ke){}
