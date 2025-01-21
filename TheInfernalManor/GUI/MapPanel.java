@@ -6,6 +6,7 @@ import TheInfernalManor.Engine.*;
 import StrictCurses.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class MapPanel extends SCPanel implements GUIConstants
 {
@@ -28,7 +29,12 @@ public class MapPanel extends SCPanel implements GUIConstants
          {
             setTile(x, y, map.getTile(x + xOffset, y + yOffset));
          }
-         setTile(player, player);
+         Vector<Actor> actorList = GameState.getActorList();
+         if(actorList != null)
+         {
+            for(int i = 0; i < actorList.size(); i++)
+               setTile(actorList.elementAt(i), player);
+         }
       }
       else
       {

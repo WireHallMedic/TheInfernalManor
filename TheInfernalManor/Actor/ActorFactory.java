@@ -10,4 +10,11 @@ public class ActorFactory
       a.setLocation(1, 1);
       return a;
    }
+   
+   public static Actor getTestEnemy(int x, int y)
+   {
+      Actor a = new Actor("Enemy", 'e');
+      a.setLocation(x, y);
+      return a;
+   }
 }
