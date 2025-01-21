@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
 import StrictCurses.*;
+import TheInfernalManor.Engine.*;
 
 public class TIMFrame extends JFrame implements SCConstants, ComponentListener, KeyListener, GUIConstants, ActionListener
 {
@@ -123,6 +124,14 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       {
          panel.setSize(basePanel.getWidth(), basePanel.getHeight());
       }
+   }
+   
+   public void returnToMainPanel()
+   {
+      if(GameState.getGameMode() == EngineConstants.ADVENTURE_MODE)
+         setVisiblePanel("AdventurePanel");
+      if(GameState.getGameMode() == EngineConstants.MANAGEMENT_MODE)
+         setVisiblePanel("ManagementPanel");
    }
    
    public void returnToLastPanel()

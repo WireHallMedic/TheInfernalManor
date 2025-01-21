@@ -14,6 +14,9 @@ public class HelpPanel extends TIMPanel implements GUIConstants
    @Override
    public void keyPressed(KeyEvent ke)
    {
-      parentFrame.returnToLastPanel();
+      if(ke.getKeyCode() == KeyEvent.VK_ESCAPE || ke.getKeyCode() == KeyEvent.VK_SPACE)
+      {
+         parentFrame.returnToMainPanel();
+      }
    }
 }

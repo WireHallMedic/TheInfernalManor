@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import java.awt.event.*;
+import TheInfernalManor.Engine.*;
 
 public class CharacterPanel extends TIMPanel implements GUIConstants
 {
@@ -14,6 +15,9 @@ public class CharacterPanel extends TIMPanel implements GUIConstants
    @Override
    public void keyPressed(KeyEvent ke)
    {
-      parentFrame.returnToLastPanel();
+      if(ke.getKeyCode() == KeyEvent.VK_ESCAPE || ke.getKeyCode() == KeyEvent.VK_SPACE)
+      {
+         parentFrame.returnToMainPanel();
+      }
    }
 }
