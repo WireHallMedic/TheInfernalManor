@@ -1,5 +1,7 @@
 package TheInfernalManor.Map;
 
+import java.awt.*;
+
 public class MapFactory
 {
    public static ZoneMap getTestMap1()
@@ -14,6 +16,9 @@ public class MapFactory
       map.setTile(w - 3, h - 3, new MapCell(MapCellBase.WALL));
       map.setTile(w - 3, 2, new MapCell(MapCellBase.WALL));
       map.setTile(2, h - 3, new MapCell(MapCellBase.WALL));
+      for(int x = 0; x < w; x++)
+      for(int y = 0; y < h; y++)
+         map.getTile(x, y).setFGColor(Color.CYAN.getRGB());
       return map;
    }
 }

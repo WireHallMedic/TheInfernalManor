@@ -21,17 +21,22 @@ public class MapPanel extends SCPanel implements GUIConstants
       Actor player = GameState.getPlayerCharacter();
       if(map != null && player != null)
       {
+         int xOffset = player.getXLocation() - (MAP_PANEL_SIZE / 2);
+         int yOffset = player.getYLocation() - (MAP_PANEL_SIZE / 2);
          for(int x = 0; x < MAP_PANEL_SIZE; x++)
          for(int y = 0; y < MAP_PANEL_SIZE; y++)
          {
-            setTile(x, y, map.getTile(x, y));
+            setTile(x, y, map.getTile(x + xOffset, y + yOffset));
          }
-         setTile(player);
+         setTile(player, player);
       }
       else
       {
          fillTile(0, 0, MAP_PANEL_SIZE, MAP_PANEL_SIZE, ' ', WHITE, BLACK);
-         writeLine(0, 0, "No map found.");
+         if(map == null)
+            writeLine(0, 0, "No map found.");
+         if(player == null)
+            writeLine(0, 1, "No player character found.");
       }
       super.paint(g);
    }
@@ -41,12 +46,12 @@ public class MapPanel extends SCPanel implements GUIConstants
       setTile(x, y, mapCell.getIconIndex(), mapCell.getFGColor(), mapCell.getBGColor());
    }
    
-   private void setTile(Actor a)
+   private void setTile(Actor curActor, Actor player)
    {
-      int x = a.getXLocation();
-      int y = a.getYLocation();
-      setTileIndex(x, y, a.getIconIndex());
-      setTileFG(x, y, a.getColor());
+      int x = (MAP_PANEL_SIZE / 2) + curActor.getXLocation() - player.getXLocation();
+      int y = (MAP_PANEL_SIZE / 2) + curActor.getYLocation() - player.getYLocation();
+      setTileIndex(x, y, curActor.getIconIndex());
+      setTileFG(x, y, curActor.getColor());
    }
    
    public boolean isInBounds(int x, int y)
