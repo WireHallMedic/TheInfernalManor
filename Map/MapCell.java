@@ -36,4 +36,9 @@ public class MapCell implements GUIConstants
       highPassable = highPass;
       transparent = trans;
    }
+   
+   public MapCell(MapCellBase base)
+   {
+      this(base.iconIndex, base.lowPassable, base.highPassable, base.transparent);
+   }
 }
