@@ -1,5 +1,9 @@
 package TheInfernalManor.GUI;
 
+import TheInfernalManor.Engine.*;
+import TheInfernalManor.GUI.*;
+import TheInfernalManor.Actor.*;
+import TheInfernalManor.Map.*;
 import StrictCurses.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -29,13 +33,6 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       addComponentListener(this);
       setMapPanel();
    }
-   
-   public void keyPressed(KeyEvent ke)
-   {
-      parentFrame.setVisiblePanel("SplashPanel");
-   }
-   public void keyTyped(KeyEvent ke){}
-   public void keyReleased(KeyEvent ke){}
    
    private void setBorder()
    {
@@ -91,4 +88,34 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       mapPanel.setLocation(xInset, yInset);
       mapPanel.setSize(width, height);
    }
+   
+   private void directionPressed(Direction dir)
+   {
+      int newX = GameState.getPlayerCharacter().getXLocation() + dir.x;
+      int newY = GameState.getPlayerCharacter().getYLocation() + dir.y;
+      GameState.getPlayerCharacter().setLocation(newX, newY);
+   }
+   
+   public void keyPressed(KeyEvent ke)
+   {
+      switch(ke.getKeyCode())
+      {
+         case KeyEvent.VK_UP :      
+         case KeyEvent.VK_NUMPAD8 : directionPressed(Direction.NORTH); break;
+         case KeyEvent.VK_NUMPAD9 : directionPressed(Direction.NORTHEAST); break;
+         case KeyEvent.VK_RIGHT :  
+         case KeyEvent.VK_NUMPAD6 : directionPressed(Direction.EAST); break;
+         case KeyEvent.VK_NUMPAD3 : directionPressed(Direction.SOUTHEAST); break;
+         case KeyEvent.VK_DOWN :  
+         case KeyEvent.VK_NUMPAD2 : directionPressed(Direction.SOUTH); break;
+         case KeyEvent.VK_NUMPAD1 : directionPressed(Direction.SOUTHWEST); break;
+         case KeyEvent.VK_LEFT :  
+         case KeyEvent.VK_NUMPAD4 : directionPressed(Direction.WEST); break;
+         case KeyEvent.VK_NUMPAD7 : directionPressed(Direction.NORTHWEST); break;
+         case KeyEvent.VK_PERIOD :  
+         case KeyEvent.VK_NUMPAD5 : directionPressed(Direction.ORIGIN); break;
+      }
+   }
+   public void keyTyped(KeyEvent ke){}
+   public void keyReleased(KeyEvent ke){}
 }
