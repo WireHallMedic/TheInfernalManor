@@ -13,8 +13,8 @@ s#i0
 s#k0
 s#j0
 s#l0
-!183;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!1573;g
+!200;u
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!1621;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sGUI%sGUIConstants.java
@@ -50,7 +50,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sZoneMap.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
-!1573;f
+%\011TheInfernalManor%sActor%sActorFactory.java
+!1621;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sGUI%sGUIConstants.java
@@ -86,9 +87,10 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sZoneMap.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
+%\011TheInfernalManor%sActor%sActorFactory.java
 !41;l
 %\011TheInfernalManor%sMap%sMapTest.java
 !70;t
-jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737466567468:P	
+jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737468436169:P	
 !35;m
 RunSelect	TheInfernalManor.TIMMain
