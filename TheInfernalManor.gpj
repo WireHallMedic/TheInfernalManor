@@ -88,5 +88,9 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011GUI%sShopPanel.java
 %\011GUI%sTIMPanel.java
 %\011Actor%sActor.java
+!41;l
+%\011TheInfernalManor%sMap%sMapTest.java
+!13;t
+jgrJUnit0xr	
 !35;m
 RunSelect	TheInfernalManor.TIMMain

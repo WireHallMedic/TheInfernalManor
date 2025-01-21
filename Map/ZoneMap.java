@@ -58,4 +58,15 @@ public class ZoneMap
    {
       return isInBounds(x, y) && transparentMap[x][y];
    }
+   
+   public void setTile(int x, int y, MapCell cell)
+   {
+      if(isInBounds(x, y))
+      {
+         tileMap[x][y] = cell;
+         lowPassMap[x][y] = cell.isLowPassable();
+         highPassMap[x][y] = cell.isHighPassable();
+         transparentMap[x][y] = cell.isTransparent();
+      }
+   }
 }
