@@ -14,11 +14,6 @@ public class MapTest
    @Before public void setUp() 
    {
       map = new ZoneMap(10, 10);
-      for(int x = 0; x < 10; x++)
-      for(int y = 0; y < 10; y++)
-      {
-         map.setTile(x, y, new MapCell(MapCellBase.WALL));
-      }
       for(int x = 1; x < 9; x++)
       for(int y = 1; y < 9; y++)
       {

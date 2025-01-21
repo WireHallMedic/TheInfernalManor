@@ -39,6 +39,9 @@ public class ZoneMap
       transparentMap = new boolean[w][h];
       tileMap = new MapCell[w][h];
       oobTile = new MapCell(MapCellBase.WALL);
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+         setTile(x, y, new MapCell(MapCellBase.WALL));
    }
    
    public boolean isInBounds(int x, int y)
