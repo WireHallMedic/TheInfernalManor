@@ -1,5 +1,6 @@
 package TheInfernalManor.GUI;
 
+import TheInfernalManor.Engine.*;
 import StrictCurses.*;
 import java.awt.event.*;
 
@@ -20,11 +21,14 @@ public class SplashPanel extends TIMPanel implements GUIConstants
    {
       switch(ke.getKeyCode())
       {
-         case KeyEvent.VK_H: parentFrame.setVisiblePanel("HelpPanel"); break;
-         case KeyEvent.VK_L: parentFrame.setVisiblePanel("LoadPanel"); break;
-         case KeyEvent.VK_P: parentFrame.setVisiblePanel("PreferencesPanel"); break;
-         case KeyEvent.VK_N: parentFrame.setVisiblePanel("NewGamePanel"); break;
-         case KeyEvent.VK_Q: System.exit(0);
+         case KeyEvent.VK_H:  parentFrame.setVisiblePanel("HelpPanel"); break;
+         case KeyEvent.VK_L:  parentFrame.setVisiblePanel("LoadPanel"); break;
+         case KeyEvent.VK_P:  parentFrame.setVisiblePanel("PreferencesPanel"); break;
+         case KeyEvent.VK_N:  parentFrame.setVisiblePanel("NewGamePanel"); break;
+         case KeyEvent.VK_T:  GameState.setTestValues();
+                              parentFrame.setVisiblePanel("AdventurePanel");
+                              break;
+         case KeyEvent.VK_Q:  System.exit(0);
       }
    }
 }
