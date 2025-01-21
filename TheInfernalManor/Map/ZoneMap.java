@@ -81,4 +81,11 @@ public class ZoneMap
          transparentMap[x][y] = cell.isTransparent();
       }
    }
+   
+   public MapCell getTile(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return tileMap[x][y];
+      return oobTile;
+   }
 }
