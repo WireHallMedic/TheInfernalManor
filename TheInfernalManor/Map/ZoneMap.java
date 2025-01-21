@@ -9,6 +9,7 @@ public class ZoneMap
 	private boolean[][] highPassMap;
 	private boolean[][] transparentMap;
 	private MapCell[][] tileMap;
+   private MapCell oobTile;
 
 
 	public int getWidth(){return width;}
@@ -21,6 +22,7 @@ public class ZoneMap
 
 
 	public void setName(String n){name = n;}
+   public void setOOBTile(MapCell o){oobTile = o;}
 
 
    public ZoneMap(int w, int h)
@@ -36,6 +38,7 @@ public class ZoneMap
       highPassMap = new boolean[w][h];
       transparentMap = new boolean[w][h];
       tileMap = new MapCell[w][h];
+      oobTile = new MapCell(MapCellBase.WALL);
    }
    
    public boolean isInBounds(int x, int y)
@@ -46,17 +49,23 @@ public class ZoneMap
    
    public boolean isLowPassable(int x, int y)
    {
-      return isInBounds(x, y) && lowPassMap[x][y];
+      if(isInBounds(x, y))
+         return tileMap[x][y].isLowPassable();
+      return oobTile.isLowPassable();
    }
    
    public boolean isHighPassable(int x, int y)
    {
-      return isInBounds(x, y) && highPassMap[x][y];
+      if(isInBounds(x, y))
+         return tileMap[x][y].isHighPassable();
+      return oobTile.isHighPassable();
    }
    
    public boolean isTransparent(int x, int y)
    {
-      return isInBounds(x, y) && transparentMap[x][y];
+      if(isInBounds(x, y))
+         return tileMap[x][y].isTransparent();
+      return oobTile.isTransparent();
    }
    
    public void setTile(int x, int y, MapCell cell)

@@ -28,9 +28,22 @@ public class MapTest
 
    
    // test boundaries
-   @Test public void testBoundaries()
+   @Test public void testLowPassable()
    {
-      Assert.assertTrue("Tile 1, 1, is passable.", map.isLowPassable(1, 1));
-      Assert.assertFalse("Tile -1, 1, is impassable without error.", map.isLowPassable(-1, 1));
+      Assert.assertTrue("Clear is passable.", map.isLowPassable(1, 1));
+      Assert.assertFalse("Wall is impassable.", map.isLowPassable(0, 1));
+      Assert.assertFalse("OOB (Wall) is impassable without error.", map.isLowPassable(-1, 1));
+   }
+   @Test public void testHighPassable()
+   {
+      Assert.assertTrue("Clear is passable.", map.isHighPassable(1, 1));
+      Assert.assertFalse("Wall is impassable.", map.isHighPassable(0, 1));
+      Assert.assertFalse("OOB (Wall) is impassable without error.", map.isHighPassable(-1, 1));
+   }
+   @Test public void testTransparent()
+   {
+      Assert.assertTrue("Clear is transparent.", map.isTransparent(1, 1));
+      Assert.assertFalse("Wall is not transparent.", map.isTransparent(0, 1));
+      Assert.assertFalse("OOB (Wall) is not transparent without error.", map.isTransparent(-1, 1));
    }
 }
