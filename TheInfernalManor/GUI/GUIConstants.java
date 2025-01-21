@@ -8,6 +8,8 @@ public interface GUIConstants
    public static final int TILES_TALL = 32;
    public static final int MAP_PANEL_SIZE = 25;
    
+   public static final int FRAME_RATE = 1000 / 24;
+   
    public static final int WHITE = Color.WHITE.getRGB();
    public static final int BLACK = Color.BLACK.getRGB();
 }

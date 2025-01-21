@@ -6,7 +6,7 @@ import java.util.*;
 import java.awt.event.*;
 import StrictCurses.*;
 
-public class TIMFrame extends JFrame implements SCConstants, ComponentListener, KeyListener, GUIConstants
+public class TIMFrame extends JFrame implements SCConstants, ComponentListener, KeyListener, GUIConstants, ActionListener
 {
    private SCTilePalette x1y1Palette;
    private SCTilePalette x1y2Palette;
@@ -30,6 +30,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    private SwapPanel characterPanel;
    private SwapPanel inventoryPanel;
    private SwapPanel questInProgressPanel;
+   
+   private javax.swing.Timer timer;
    
    public TIMFrame()
    {
@@ -69,6 +71,9 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       setVisible(true);
       snapToPreferredSize();
       setVisiblePanel("SplashPanel");
+      
+      timer = new javax.swing.Timer(1000 / GUIConstants.FRAME_RATE, this);
+      timer.start();
    }
    
    public void addPanel(SwapPanel newPanel)
@@ -78,6 +83,13 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       newPanel.setVisible(false);
       basePanel.add((Component)newPanel);
       panelList.add(newPanel);
+   }
+   
+   // kicked by timer
+   public void actionPerformed(ActionEvent ae)
+   {
+      if(curPanel != null)
+         ((JPanel)curPanel).repaint();
    }
    
    // listener for basePanel
