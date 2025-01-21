@@ -26,6 +26,7 @@ public class MapPanel extends SCPanel implements GUIConstants
          {
             setTile(x, y, map.getTile(x, y));
          }
+         setTile(player);
       }
       else
       {
@@ -38,5 +39,24 @@ public class MapPanel extends SCPanel implements GUIConstants
    private void setTile(int x, int y, MapCell mapCell)
    {
       setTile(x, y, mapCell.getIconIndex(), mapCell.getFGColor(), mapCell.getBGColor());
+   }
+   
+   private void setTile(Actor a)
+   {
+      int x = a.getXLocation();
+      int y = a.getYLocation();
+      setTileIndex(x, y, a.getIconIndex());
+      setTileFG(x, y, a.getColor());
+   }
+   
+   public boolean isInBounds(int x, int y)
+   {
+      return x >= 0 && x < MAP_PANEL_SIZE &&
+             y >= 0 && y < MAP_PANEL_SIZE;
+   }
+   
+   public boolean isInBounds(Actor a)
+   {
+      return isInBounds(a.getXLocation(), a.getYLocation());
    }
 }
