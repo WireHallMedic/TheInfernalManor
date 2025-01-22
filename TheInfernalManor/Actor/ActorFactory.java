@@ -9,7 +9,8 @@ public class ActorFactory
    {
       Actor a = new Actor("Player", '@');
       a.setAI(new PlayerAI(a));
-      a.getAI().setPlayerControlled(true);      a.setLocation(1, 1);
+      a.getAI().setPlayerControlled(true);
+      a.setLocation(1, 1);
       return a;
    }
    

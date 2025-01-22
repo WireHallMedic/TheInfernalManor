@@ -62,7 +62,7 @@ public class GameState implements EngineConstants, Runnable
       for(int i = 0; i < actorList.size(); i++)
       {
          if(actorList.elementAt(i).getXLocation() == x &&
-            actorList.elementAt(i).getXLocation() == y)
+            actorList.elementAt(i).getYLocation() == y)
          {
             return actorList.elementAt(i);
          }

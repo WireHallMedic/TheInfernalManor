@@ -1,5 +1,6 @@
 package TheInfernalManor.AI;
 
+import TheInfernalManor.GUI.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import java.util.*;
@@ -48,13 +49,13 @@ public class PlayerAI extends BaseAI
          // enemy
          if(GameState.isActorAt(x, y))
          {
-            System.out.println("Attacking not yet implemented.");
+            MessagePanel.addMessage("Attacking not yet implemented.");
             clearPlan();
          }
          // impassable tile
          else
          {
-            System.out.println("Cannot step there.");
+            MessagePanel.addMessage("Cannot step there.");
             clearPlan();
          }
       }

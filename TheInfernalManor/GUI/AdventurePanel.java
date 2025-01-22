@@ -6,6 +6,7 @@ import TheInfernalManor.Actor.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.AI.*;
 import StrictCurses.*;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -14,6 +15,10 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    private MapPanel mapPanel;
    private TIMPanel infoPanel;
    private TIMFrame parentFrame;
+   private static int MESSAGE_PANEL_HEIGHT = TILES_TALL - 3 - MAP_PANEL_SIZE;
+   private static int MESSAGE_PANEL_WIDTH = MAP_PANEL_SIZE * 2;
+   private static int MESSAGE_PANEL_X_ORIGIN = 1;
+   private static int MESSAGE_PANEL_Y_ORIGIN = MAP_PANEL_SIZE + 2;
    
    public String getPanelName(){return this.getClass().getSimpleName();}
    
@@ -76,6 +81,13 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       setMapPanel();
    }
    
+   @Override
+   public void paint(Graphics g)
+   {
+      setMessagePanel();
+      super.paint(g);
+   }
+   
    private void setMapPanel()
    {
       int displayWidth = infoPanel.getWidth() - (infoPanel.getImageXInset() * 2);
@@ -88,6 +100,22 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       int height = (int)(trueTileHeight * MAP_PANEL_SIZE);
       mapPanel.setLocation(xInset, yInset);
       mapPanel.setSize(width, height);
+   }
+   
+   private void setMessagePanel()
+   {
+      for(int i = 0; i < MESSAGE_PANEL_HEIGHT; i++)
+      {
+         String str = MessagePanel.getString(i);
+         int fg = MessagePanel.getColor(i);
+         for(int j = 0; j < MESSAGE_PANEL_WIDTH; j++)
+         {
+            if(j < str.length())
+               infoPanel.setTile(MESSAGE_PANEL_X_ORIGIN + j, MESSAGE_PANEL_Y_ORIGIN + i, str.charAt(j), fg, BLACK);
+            else
+               infoPanel.setTile(MESSAGE_PANEL_X_ORIGIN + j, MESSAGE_PANEL_Y_ORIGIN + i, ' ', WHITE, BLACK);
+         }
+      }
    }
    
    private void directionPressed(Direction dir)
