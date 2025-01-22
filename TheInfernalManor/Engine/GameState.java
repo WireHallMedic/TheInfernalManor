@@ -57,6 +57,24 @@ public class GameState implements EngineConstants, Runnable
       runF = false;
    }
    
+   public static Actor getActorAt(int x, int y)
+   {
+      for(int i = 0; i < actorList.size(); i++)
+      {
+         if(actorList.elementAt(i).getXLocation() == x &&
+            actorList.elementAt(i).getXLocation() == y)
+         {
+            return actorList.elementAt(i);
+         }
+      }
+      return null;
+   }
+   
+   public static boolean isActorAt(int x, int y)
+   {
+      return getActorAt(x, y) != null;
+   }
+   
    // adventure mode loop
    public void run()
    {

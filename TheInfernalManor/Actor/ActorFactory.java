@@ -1,14 +1,15 @@
 package TheInfernalManor.Actor;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.AI.*;
 
 public class ActorFactory
 {
    public static Actor getTestPlayer()
    {
       Actor a = new Actor("Player", '@');
-      a.getAI().setPlayerControlled(true);
-      a.setLocation(1, 1);
+      a.setAI(new PlayerAI(a));
+      a.getAI().setPlayerControlled(true);      a.setLocation(1, 1);
       return a;
    }
    

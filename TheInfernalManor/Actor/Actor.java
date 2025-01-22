@@ -59,7 +59,7 @@ public class Actor
    
    public boolean canStep(int x, int y, ZoneMap map)
    {
-      return map.getTile(x, y).isLowPassable();
+      return map.canStep(x, y, this) && !GameState.isActorAt(x, y);
    }
    
    public boolean canStep(Direction dir, ZoneMap map)

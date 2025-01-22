@@ -92,14 +92,8 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    
    private void directionPressed(Direction dir)
    {
-      Actor player = GameState.getPlayerCharacter();
-      int newX = player.getXLocation() + dir.x;
-      int newY = player.getYLocation() + dir.y;
-      if(player.canStep(newX, newY, GameState.getCurZone()))
-      {
-         ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
-         player.getAI().setPendingAction(ap);
-      }
+      ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
+      GameState.getPlayerCharacter().getAI().setPendingAction(ap);
    }
    
    public void keyPressed(KeyEvent ke)

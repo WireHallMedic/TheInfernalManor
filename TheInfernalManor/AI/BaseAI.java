@@ -53,6 +53,11 @@ public class BaseAI
       pendingAction.clear();
    }
    
+   public void clearPlan()
+   {
+      pendingAction.clear();
+   }
+   
    // override in child classes
    public void plan()
    {

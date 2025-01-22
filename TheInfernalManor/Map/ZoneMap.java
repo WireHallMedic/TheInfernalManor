@@ -1,5 +1,7 @@
 package TheInfernalManor.Map;
 
+import TheInfernalManor.Actor.*;
+
 public class ZoneMap
 {
 	private int width;
@@ -87,5 +89,10 @@ public class ZoneMap
       if(isInBounds(x, y))
          return tileMap[x][y];
       return oobTile;
+   }
+   
+   public boolean canStep(int x, int y, Actor a)
+   {
+      return getTile(x, y).isLowPassable();
    }
 }
