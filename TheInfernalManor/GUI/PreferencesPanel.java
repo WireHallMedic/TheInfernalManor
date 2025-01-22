@@ -16,7 +16,7 @@ public class PreferencesPanel extends TIMPanel implements GUIConstants
    {
       if(ke.getKeyCode() == KeyEvent.VK_ESCAPE || ke.getKeyCode() == KeyEvent.VK_SPACE)
       {
-         parentFrame.returnToLastPanel();
+         parentFrame.returnToMainPanel();
       }
    }
 }

@@ -34,7 +34,6 @@ public class GameState implements EngineConstants, Runnable
       setCurZone(MapFactory.getTestMap1());
       actorList.add(ActorFactory.getTestEnemy(5, 5));
       actorList.add(ActorFactory.getTestEnemy(7, 5));
-      gameMode = ADVENTURE_MODE;
       runF = true;
    }
    

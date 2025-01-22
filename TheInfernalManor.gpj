@@ -14,13 +14,12 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!2113;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!2110;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
-%\011TheInfernalManor%sGUI%sStoragePanel.java
 %\011TheInfernalManor%simages%sWidlerTiles_8x16.png
 %\011TheInfernalManor%sMap%sToggleTile.java
 %\011%uStrictCurses%sSCPanel.java
@@ -50,6 +49,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sSplashPanel.java
 %\011TheInfernalManor%sGUI%sAdvancementPanel.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
+%\011TheInfernalManor%sGUI%sBankPanel.java
 %\011TheInfernalManor%sMap%sMapCell.java
 %\011TheInfernalManor%sGUI%sQuestInProgressPanel.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
@@ -62,13 +62,12 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
-!2113;f
+!2110;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
-%\011TheInfernalManor%sGUI%sStoragePanel.java
 %\011TheInfernalManor%simages%sWidlerTiles_8x16.png
 %\011TheInfernalManor%sMap%sToggleTile.java
 %\011%uStrictCurses%sSCPanel.java
@@ -98,6 +97,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sSplashPanel.java
 %\011TheInfernalManor%sGUI%sAdvancementPanel.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
+%\011TheInfernalManor%sGUI%sBankPanel.java
 %\011TheInfernalManor%sMap%sMapCell.java
 %\011TheInfernalManor%sGUI%sQuestInProgressPanel.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
