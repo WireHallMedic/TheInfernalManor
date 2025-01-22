@@ -84,6 +84,13 @@ public class ZoneMap
       }
    }
    
+   public void updateMaps(int x, int y)
+   {
+      lowPassMap[x][y] = getTile(x, y).isLowPassable();
+      highPassMap[x][y] = getTile(x, y).isHighPassable();
+      transparentMap[x][y] = getTile(x, y).isTransparent();
+   }
+   
    public MapCell getTile(int x, int y)
    {
       if(isInBounds(x, y))
@@ -94,5 +101,15 @@ public class ZoneMap
    public boolean canStep(int x, int y, Actor a)
    {
       return getTile(x, y).isLowPassable();
+   }
+   
+   public void doToggle(int x, int y)
+   {
+      if(getTile(x, y) instanceof ToggleTile)
+      {
+         ToggleTile tt = (ToggleTile)getTile(x, y);
+         tt.toggle();
+         updateMaps(x, y);
+      }
    }
 }

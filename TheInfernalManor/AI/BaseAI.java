@@ -72,9 +72,9 @@ public class BaseAI
       for(ActionPlan plan : pendingAction)
       {
          if(plan.getActionType() == ActionType.DELAY || plan.getActionType() == ActionType.STEP)
-         {
             self.takeStep(plan.getDirection());
-         }
+         if(plan.getActionType() == ActionType.TOGGLE)
+            self.doToggle(plan.getDirection());
       }
       cleanUp();
    }

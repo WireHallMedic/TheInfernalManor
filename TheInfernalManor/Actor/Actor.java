@@ -86,11 +86,19 @@ public class Actor
    }
    
    
-   // execute action
+   // execute actions
    public void takeStep(Direction dir)
    {
       int xLoc = getXLocation() + dir.x;
       int yLoc = getYLocation() + dir.y;
       setLocation(xLoc, yLoc);
    }
+   
+   public void doToggle(Direction dir)
+   {
+      int xLoc = getXLocation() + dir.x;
+      int yLoc = getYLocation() + dir.y;
+      GameState.getCurZone().doToggle(xLoc, yLoc);
+   }
+   
 }

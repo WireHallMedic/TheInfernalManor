@@ -1,5 +1,6 @@
 package TheInfernalManor.AI;
 
+import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
@@ -51,6 +52,11 @@ public class PlayerAI extends BaseAI
          {
             MessagePanel.addMessage("Attacking not yet implemented.");
             clearPlan();
+         }
+         // toggle tile
+         else if(GameState.getCurZone().getTile(x, y) instanceof ToggleTile)
+         {
+            pendingAction.elementAt(0).setActionType(ActionType.TOGGLE);
          }
          // impassable tile
          else
