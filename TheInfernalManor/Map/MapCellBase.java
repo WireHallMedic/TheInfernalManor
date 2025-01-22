@@ -16,7 +16,9 @@ public enum MapCellBase
    DOOR_CLOSED       ('|', false, false, false),
    DOOR_OPEN         ('-', true, true, true),
    TOGGLE_UNFLIPPED  ('!', false, false, true),
-   TOGGLE_FLIPPED    (SCConstants.INVERTED_EXCLAMATION_TILE, false, false, true);;
+   TOGGLE_FLIPPED    (SCConstants.INVERTED_EXCLAMATION_TILE, false, false, true),
+   ENTRANCE          ('<', true, true, true),
+   EXIT              ('>', true, true, true);
    
    public int iconIndex;
    public boolean lowPassable;

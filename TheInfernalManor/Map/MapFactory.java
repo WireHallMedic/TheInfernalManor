@@ -19,6 +19,7 @@ public class MapFactory
       for(int x = 0; x < w; x++)
       for(int y = 0; y < h; y++)
          map.getTile(x, y).setFGColor(Color.CYAN.getRGB());
+      map.setTile(10, 5, MapCellFactory.getDoor());
       return map;
    }
 }
