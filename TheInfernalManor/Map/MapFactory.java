@@ -1,8 +1,9 @@
 package TheInfernalManor.Map;
 
 import java.awt.*;
+import TheInfernalManor.GUI.*;
 
-public class MapFactory
+public class MapFactory implements GUIConstants
 {
    public static ZoneMap getTestMap1()
    {
@@ -20,6 +21,14 @@ public class MapFactory
       for(int y = 0; y < h; y++)
          map.getTile(x, y).setFGColor(Color.CYAN.getRGB());
       map.setTile(10, 5, MapCellFactory.getDoor());
+      
+      MapCell a = new MapCell('*', false, true, true);
+      MapCell b = new MapCell('*', false, true, true);
+      a.setFGColor(BLUE);
+      b.setFGColor(RED);
+      ToggleTile fancyThing = new ToggleTile(a, b);
+      fancyThing.setOneUseOnly(true);
+      map.setTile(10, 7, fancyThing);
       return map;
    }
 }

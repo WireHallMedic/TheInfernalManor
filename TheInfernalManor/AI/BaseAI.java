@@ -73,7 +73,7 @@ public class BaseAI
       {
          if(plan.getActionType() == ActionType.DELAY || plan.getActionType() == ActionType.STEP)
             self.takeStep(plan.getDirection());
-         if(plan.getActionType() == ActionType.TOGGLE)
+         if(plan.getActionType() == ActionType.USE)
             self.doToggle(plan.getDirection());
       }
       cleanUp();

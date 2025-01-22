@@ -56,7 +56,7 @@ public class PlayerAI extends BaseAI
          // toggle tile
          else if(GameState.getCurZone().getTile(x, y) instanceof ToggleTile)
          {
-            pendingAction.elementAt(0).setActionType(ActionType.TOGGLE);
+            pendingAction.elementAt(0).setActionType(ActionType.USE);
          }
          // impassable tile
          else
