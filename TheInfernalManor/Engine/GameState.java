@@ -69,7 +69,6 @@ public class GameState implements EngineConstants, Runnable
             if(curActor.hasPlan())
             {
                curActor.act();
-               System.out.println(curActor.getName() + " taking turn");
                initiativeIndex++;
                if(initiativeIndex >= actorList.size())
                   initiativeIndex = 0;

@@ -86,4 +86,16 @@ public class GUITools implements GUIConstants
       c = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
       return c.getRGB();
    }
+   
+   public static int setSaturation(int originalColor, double newSat)
+   {
+      newSat = Math.min(1.0, Math.max(0.0, newSat));
+      Color c = new Color(originalColor);
+      int r = c.getRed();
+      int g = c.getGreen();
+      int b = c.getBlue();
+      float[] hsb = Color.RGBtoHSB(r, g, b, null);
+      c = Color.getHSBColor(hsb[0], (float)newSat, hsb[2]);
+      return c.getRGB();
+   }
 }

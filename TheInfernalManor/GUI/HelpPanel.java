@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import java.awt.event.*;
+import java.awt.*;
 
 public class HelpPanel extends TIMPanel implements GUIConstants
 {
