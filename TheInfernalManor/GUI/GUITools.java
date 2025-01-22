@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import java.awt.event.*;
+import java.awt.*;
 
 public class GUITools implements GUIConstants
 {
@@ -73,5 +74,16 @@ public class GUITools implements GUIConstants
       return borderArr;
    }
    
-   
+   public static int changeSaturation(int originalColor, double deltaSat)
+   {
+      Color c = new Color(originalColor);
+      int r = c.getRed();
+      int g = c.getGreen();
+      int b = c.getBlue();
+      float[] hsb = Color.RGBtoHSB(r, g, b, null);
+      hsb[1] = hsb[1] * (float)deltaSat;
+      hsb[1] = Math.min(1.0f, hsb[1]);
+      c = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+      return c.getRGB();
+   }
 }
