@@ -31,4 +31,12 @@ public class SplashPanel extends TIMPanel implements GUIConstants
          case KeyEvent.VK_Q:  System.exit(0);
       }
    }
+   
+   @Override
+   public void setVisible(boolean v)
+   {
+      if(v)
+         GameState.setGameMode(EngineConstants.PREGAME_MODE);
+      super.setVisible(v);
+   }
 }

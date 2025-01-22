@@ -88,6 +88,14 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       super.paint(g);
    }
    
+   @Override
+   public void setVisible(boolean v)
+   {
+      if(v)
+         GameState.setGameMode(EngineConstants.ADVENTURE_MODE);
+      super.setVisible(v);
+   }
+   
    private void setMapPanel()
    {
       int displayWidth = infoPanel.getWidth() - (infoPanel.getImageXInset() * 2);
