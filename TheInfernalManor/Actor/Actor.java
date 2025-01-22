@@ -1,6 +1,8 @@
 package TheInfernalManor.Actor;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Map.*;
+import TheInfernalManor.Engine.*;
 
 public class Actor
 {
@@ -48,5 +50,17 @@ public class Actor
    public int getYLocation()
    {
       return location[1];
+   }
+   
+   public boolean canStep(int x, int y, ZoneMap map)
+   {
+      return map.getTile(x, y).isLowPassable();
+   }
+   
+   public boolean canStep(Direction dir, ZoneMap map)
+   {
+      int x = getXLocation() + dir.x;
+      int y = getYLocation() + dir.y;
+      return canStep(x, y, map);
    }
 }
