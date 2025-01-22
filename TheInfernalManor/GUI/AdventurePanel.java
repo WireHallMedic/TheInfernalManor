@@ -97,7 +97,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       int newY = player.getYLocation() + dir.y;
       if(player.canStep(newX, newY, GameState.getCurZone()))
       {
-         ActionPlan ap = new ActionPlan(ActionType.STEP, dir);
+         ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
          player.getAI().setPendingAction(ap);
       }
    }

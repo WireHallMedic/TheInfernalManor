@@ -93,6 +93,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       setVisible(true);
       snapToPreferredSize();
       setVisiblePanel("SplashPanel");
+      GameState.setGameMode(EngineConstants.PREGAME_MODE);
       
       timer = new javax.swing.Timer(1000 / GUIConstants.FRAME_RATE, this);
       timer.start();
@@ -128,6 +129,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    
    public void returnToMainPanel()
    {
+      if(GameState.getGameMode() == EngineConstants.PREGAME_MODE)
+         setVisiblePanel("SplashPanel");
       if(GameState.getGameMode() == EngineConstants.ADVENTURE_MODE)
          setVisiblePanel("AdventurePanel");
       if(GameState.getGameMode() == EngineConstants.MANAGEMENT_MODE)

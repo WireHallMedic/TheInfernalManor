@@ -6,10 +6,10 @@ import java.util.*;
 
 public class BaseAI
 {
-	private Actor self;
-	private Vector<ActionPlan> pendingAction;
-	private Vector<ActionPlan> previousAction;
-   private boolean playerControlled;
+	protected Actor self;
+	protected Vector<ActionPlan> pendingAction;
+	protected Vector<ActionPlan> previousAction;
+   protected boolean playerControlled;
 
 
 	public Actor getSelf(){return self;}

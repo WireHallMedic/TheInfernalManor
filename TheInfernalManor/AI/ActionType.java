@@ -2,5 +2,5 @@ package TheInfernalManor.AI;
 
 public enum ActionType
 {
-   STEP, DELAY;
+   STEP, DELAY, CONTEXTUAL;
 }
