@@ -1,5 +1,6 @@
 package TheInfernalManor.Actor;
 
+import TheInfernalManor.AI.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.Engine.*;
@@ -10,16 +11,19 @@ public class Actor
 	private int iconIndex;
 	private int color;
 	private int[] location;
+   private BaseAI ai;
 
 
 	public String getName(){return name;}
 	public int getIconIndex(){return iconIndex;}
 	public int getColor(){return color;}
+   public BaseAI getAI(){return ai;}
 
 
 	public void setName(String n){name = n;}
 	public void setIconIndex(int i){iconIndex = i;}
 	public void setColor(int c){color = c;}
+   public void setAI(BaseAI newAI){ai = newAI;}
 
    public Actor(String n, int icon)
    {
@@ -28,6 +32,7 @@ public class Actor
       color = GUIConstants.WHITE;
       location = new int[2];
       setLocation(-1, -1);
+      ai = new BaseAI(this);
    }
    
    public void setLocation(int x, int y)
@@ -62,5 +67,30 @@ public class Actor
       int x = getXLocation() + dir.x;
       int y = getYLocation() + dir.y;
       return canStep(x, y, map);
+   }
+   
+   // AI methods
+   public boolean hasPlan()
+   {
+      return ai.hasPlan();
+   }
+   
+   public void plan()
+   {
+      ai.plan();
+   }
+   
+   public void act()
+   {
+      ai.act();
+   }
+   
+   
+   // execute action
+   public void takeStep(Direction dir)
+   {
+      int xLoc = getXLocation() + dir.x;
+      int yLoc = getYLocation() + dir.y;
+      setLocation(xLoc, yLoc);
    }
 }

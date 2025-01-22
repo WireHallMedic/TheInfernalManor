@@ -7,6 +7,7 @@ public class ActorFactory
    public static Actor getTestPlayer()
    {
       Actor a = new Actor("Player", '@');
+      a.getAI().setPlayerControlled(true);
       a.setLocation(1, 1);
       return a;
    }

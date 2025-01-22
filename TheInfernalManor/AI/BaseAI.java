@@ -68,17 +68,9 @@ public class BaseAI
       {
          if(plan.getActionType() == ActionType.DELAY || plan.getActionType() == ActionType.STEP)
          {
-            takeStep(plan.getDirection());
+            self.takeStep(plan.getDirection());
          }
       }
       cleanUp();
-   }
-   
-   // execute action
-   private void takeStep(Direction dir)
-   {
-      int xLoc = self.getXLocation() + dir.x;
-      int yLoc = self.getYLocation() + dir.y;
-      self.setLocation(xLoc, yLoc);
    }
 }

@@ -4,6 +4,7 @@ import TheInfernalManor.Engine.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Map.*;
+import TheInfernalManor.AI.*;
 import StrictCurses.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -91,9 +92,14 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    
    private void directionPressed(Direction dir)
    {
-      int newX = GameState.getPlayerCharacter().getXLocation() + dir.x;
-      int newY = GameState.getPlayerCharacter().getYLocation() + dir.y;
-      GameState.getPlayerCharacter().setLocation(newX, newY);
+      Actor player = GameState.getPlayerCharacter();
+      int newX = player.getXLocation() + dir.x;
+      int newY = player.getYLocation() + dir.y;
+      if(player.canStep(newX, newY, GameState.getCurZone()))
+      {
+         ActionPlan ap = new ActionPlan(ActionType.STEP, dir);
+         player.getAI().setPendingAction(ap);
+      }
    }
    
    public void keyPressed(KeyEvent ke)
