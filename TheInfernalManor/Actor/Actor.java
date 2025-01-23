@@ -78,6 +78,7 @@ public class Actor
       chargeLevel = FULLY_CHARGED;
       powerLevel = 1;
       basicAttack = new Attack("Strike");
+      fullHeal();
    }
    
    public void setLocation(int x, int y)
@@ -138,6 +139,16 @@ public class Actor
       }
    }
    
+   public boolean isDead()
+   {
+      return getCurHealth() <= 0;
+   }
+   
+   public void die()
+   {
+      ; // no death effects yet implemented
+   }
+   
    // initiative methods
    public boolean isCharged()
    {
@@ -191,7 +202,12 @@ public class Actor
    
    public void doAttack(Attack attack, int x, int y)
    {
-      
+      Actor defender = GameState.getActorAt(x, y);
+      if(defender != null)
+      {
+         Combat.resolveAttack(this, defender, attack);
+      }
+      discharge(attack.getSpeed());
    }
    
 }

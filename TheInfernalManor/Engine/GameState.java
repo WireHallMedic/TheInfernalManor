@@ -30,6 +30,7 @@ public class GameState implements EngineConstants, Runnable
    public static void setTestValues()
    {
       setPlayerCharacter(ActorFactory.getTestPlayer());
+      playerCharacter.setPowerLevel(10);
       actorList.add(playerCharacter);
       setCurZone(MapFactory.getTestMap1());
       actorList.add(ActorFactory.getTestEnemy(5, 5));
@@ -103,6 +104,7 @@ public class GameState implements EngineConstants, Runnable
                curActor.charge();
                incrementInitiative();
             }
+            cleanUp();
          }
          Thread.yield();
       }
@@ -113,5 +115,21 @@ public class GameState implements EngineConstants, Runnable
       initiativeIndex++;
       if(initiativeIndex >= actorList.size())
          initiativeIndex = 0;
+   }
+   
+   private void cleanUp()
+   {
+      for(int i = 0; i < actorList.size(); i++)
+      {
+         Actor a = actorList.elementAt(i);
+         if(a.isDead())
+         {
+            a.die();
+            actorList.removeElementAt(i);
+            i--;
+            if(i <= initiativeIndex)
+               initiativeIndex--;
+         }
+      }
    }
 }

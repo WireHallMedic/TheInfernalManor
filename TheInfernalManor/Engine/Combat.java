@@ -3,6 +3,7 @@ package TheInfernalManor.Engine;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Ability.*;
 import TheInfernalManor.Map.*;
+import TheInfernalManor.GUI.*;
 import java.util.*;
 
 public class Combat
@@ -29,6 +30,11 @@ public class Combat
       {
          int damage = damageRoll(attacker, defender, attack);
          defender.applyCombatDamage(damage);
+         if(attacker == GameState.getPlayerCharacter() || defender == GameState.getPlayerCharacter());
+         {
+            String str = String.format("%s strikes %s for %d damage", attacker.getName(), defender.getName(), damage);
+            MessagePanel.addMessage(str);
+         }
       }
    }
 }

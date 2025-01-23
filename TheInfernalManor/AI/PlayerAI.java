@@ -50,8 +50,8 @@ public class PlayerAI extends BaseAI
          // enemy
          if(GameState.isActorAt(x, y))
          {
-            MessagePanel.addMessage("Attacking not yet implemented.");
-            clearPlan();
+            pendingAction.elementAt(0).setActionType(ActionType.BASIC_ATTACK);
+            return;
          }
          // toggle tile
          else if(GameState.getCurZone().getTile(x, y) instanceof ToggleTile)
