@@ -83,19 +83,35 @@ public class GameState implements EngineConstants, Runnable
          if(runF)
          {
             curActor = actorList.elementAt(initiativeIndex);
-            if(curActor.hasPlan())
+            if(curActor.isCharged())
             {
-               curActor.act();
-               initiativeIndex++;
-               if(initiativeIndex >= actorList.size())
-                  initiativeIndex = 0;
+               // charged and has plan, do action
+               if(curActor.hasPlan())
+               {
+                  curActor.act();
+                  incrementInitiative();
+               }
+               // charged no plan, make plan
+               else
+               {
+                  curActor.plan();
+               }
             }
+            // not charged, charge
             else
             {
-               curActor.plan();
+               curActor.charge();
+               incrementInitiative();
             }
          }
          Thread.yield();
       }
+   }
+   
+   private void incrementInitiative()
+   {
+      initiativeIndex++;
+      if(initiativeIndex >= actorList.size())
+         initiativeIndex = 0;
    }
 }

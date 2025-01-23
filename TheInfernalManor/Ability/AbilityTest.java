@@ -37,6 +37,7 @@ public class AbilityTest {
       ActionSpeed as = ActionSpeed.slowest(ActionSpeed.INSTANT, ActionSpeed.FAST, ActionSpeed.NORMAL, ActionSpeed.SLOW);
       Assert.assertEquals("Static method slowest() finds slowest.", ActionSpeed.SLOW, as);
    }
+   
    @Test public void testActionSpeedsFastest()
    {
       ActionSpeed as = ActionSpeed.fastest(ActionSpeed.SLOW, ActionSpeed.NORMAL, ActionSpeed.FAST, ActionSpeed.INSTANT);

@@ -29,5 +29,13 @@ public class Ability
 	public void setAbilityType(boolean a){abilityType = a;}
 
    
-
+   public Ability(String n)
+   {
+      name = n;
+      energyCost = 0;
+      rechargeTime = 0;
+      chargeLevel = 0;
+      speed = ActionSpeed.NORMAL;
+      abilityType = PHYSICAL;
+   }
 }

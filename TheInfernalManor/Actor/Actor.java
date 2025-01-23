@@ -4,9 +4,12 @@ import TheInfernalManor.AI.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.Engine.*;
+import TheInfernalManor.Ability.*;
 
 public class Actor
 {
+   public static final int FULLY_CHARGED = 10;
+   
    private String name;
 	private int iconIndex;
 	private int color;
@@ -18,6 +21,9 @@ public class Actor
    private int curEnergy;
    private int maxBlock;
    private int curBlock;
+   private ActionSpeed moveSpeed;
+   private ActionSpeed interactSpeed;
+   private int chargeLevel;
 
 
 	public String getName(){return name;}
@@ -30,6 +36,9 @@ public class Actor
 	public int getCurEnergy(){return curEnergy;}
 	public int getMaxBlock(){return maxBlock;}
 	public int getCurBlock(){return curBlock;}
+   public ActionSpeed getMoveSpeed(){return moveSpeed;}
+   public ActionSpeed getInteractSpeed(){return interactSpeed;}
+   public int getChargeLevel(){return chargeLevel;}
 
 
 	public void setName(String n){name = n;}
@@ -42,6 +51,9 @@ public class Actor
 	public void setCurEnergy(int c){curEnergy = c;}
 	public void setMaxBlock(int m){maxBlock = m;}
 	public void setCurBlock(int c){curBlock = c;}
+   public void setMoveSpeed(ActionSpeed ms){moveSpeed = ms;}
+   public void setInteractSpeed(ActionSpeed is){interactSpeed = is;}
+   public void setChargeLevel(int cl){chargeLevel = cl;}
    
 
    public Actor(String n, int icon)
@@ -52,6 +64,12 @@ public class Actor
       location = new int[2];
       setLocation(-1, -1);
       ai = new BaseAI(this);
+      maxHealth = 10;
+      maxEnergy = 10;
+      maxBlock = 0;
+      moveSpeed = ActionSpeed.NORMAL;
+      interactSpeed = ActionSpeed.NORMAL;
+      chargeLevel = FULLY_CHARGED;
    }
    
    public void setLocation(int x, int y)
@@ -96,6 +114,23 @@ public class Actor
       curBlock = maxBlock;
    }
    
+   // initiative methods
+   public boolean isCharged()
+   {
+      return chargeLevel >= FULLY_CHARGED;
+   }
+   
+   public void charge()
+   {
+      if(chargeLevel < FULLY_CHARGED)
+         chargeLevel++;
+   }
+   
+   public void discharge(ActionSpeed speed)
+   {
+      chargeLevel -= speed.ticks;
+   }
+   
    // AI methods
    public boolean hasPlan()
    {
@@ -119,6 +154,7 @@ public class Actor
       int xLoc = getXLocation() + dir.x;
       int yLoc = getYLocation() + dir.y;
       setLocation(xLoc, yLoc);
+      discharge(getMoveSpeed());
    }
    
    public void doToggle(Direction dir)
@@ -126,6 +162,7 @@ public class Actor
       int xLoc = getXLocation() + dir.x;
       int yLoc = getYLocation() + dir.y;
       GameState.getCurZone().doToggle(xLoc, yLoc);
+      discharge(getInteractSpeed());
    }
    
 }
