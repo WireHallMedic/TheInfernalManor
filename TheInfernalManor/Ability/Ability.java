@@ -38,4 +38,9 @@ public class Ability
       speed = ActionSpeed.NORMAL;
       abilityType = PHYSICAL;
    }
+   
+   public Ability()
+   {
+      this("Unknown Ability");
+   }
 }

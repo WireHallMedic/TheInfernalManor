@@ -1,5 +1,7 @@
 package TheInfernalManor.Ability;
 
+import TheInfernalManor.Actor.*;
+import TheInfernalManor.Engine.*;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -42,5 +44,29 @@ public class AbilityTest {
    {
       ActionSpeed as = ActionSpeed.fastest(ActionSpeed.SLOW, ActionSpeed.NORMAL, ActionSpeed.FAST, ActionSpeed.INSTANT);
       Assert.assertEquals("Static method fastest() finds fastest.", ActionSpeed.INSTANT, as);
+   }
+   
+   @Test public void damageTest()
+   {
+      Actor actor = new Actor("", ' ');
+      actor.setPowerLevel(10);
+      Attack attack = new Attack();
+      int rolled8 = 0;
+      int rolled9 = 0;
+      int rolled10 = 0;
+      for(int i = 0; i < 100; i++)
+      {
+         int roll = Combat.damageRoll(actor, actor, attack);
+         if(roll == 8)
+            rolled8++;
+         if(roll == 9)
+            rolled9++;
+         if(roll == 10)
+            rolled10++;
+      }
+      Assert.assertEquals("All results in range", rolled8 + rolled9 + rolled10, 100);
+      Assert.assertTrue("Rolled 8 at least once", rolled8 > 0);
+      Assert.assertTrue("Rolled 9 at least once", rolled9 > 0);
+      Assert.assertTrue("Rolled 10 at least once", rolled10 > 0);
    }
 }
