@@ -25,6 +25,7 @@ public class Actor
    private ActionSpeed interactSpeed;
    private int chargeLevel;
    private int powerLevel;
+   private Attack basicAttack;
 
 
 	public String getName(){return name;}
@@ -41,6 +42,7 @@ public class Actor
    public ActionSpeed getInteractSpeed(){return interactSpeed;}
    public int getChargeLevel(){return chargeLevel;}
    public int getPowerLevel(){return powerLevel;}
+   public Attack getBasicAttack(){return basicAttack;}
 
 
 	public void setName(String n){name = n;}
@@ -57,6 +59,7 @@ public class Actor
    public void setInteractSpeed(ActionSpeed is){interactSpeed = is;}
    public void setChargeLevel(int cl){chargeLevel = cl;}
    public void setPowerLevel(int pl){powerLevel = pl;}
+   public void setBasicAttack(Attack atk){basicAttack = atk;}
    
 
    public Actor(String n, int icon)
@@ -74,6 +77,7 @@ public class Actor
       interactSpeed = ActionSpeed.NORMAL;
       chargeLevel = FULLY_CHARGED;
       powerLevel = 1;
+      basicAttack = new Attack("Strike");
    }
    
    public void setLocation(int x, int y)
@@ -116,6 +120,22 @@ public class Actor
       curHealth = maxHealth;
       curEnergy = maxEnergy;
       curBlock = maxBlock;
+   }
+   
+   public void applyCombatDamage(int damage)
+   {
+      // gets through block
+      if(damage >= getCurBlock())
+      {
+         damage = damage - getCurBlock();
+         setCurBlock(0);
+         setCurHealth(getCurHealth() - damage);
+      }
+      // does not get through block
+      else
+      {
+         setCurBlock(getCurBlock() - damage);
+      }
    }
    
    // initiative methods
@@ -167,6 +187,11 @@ public class Actor
       int yLoc = getYLocation() + dir.y;
       GameState.getCurZone().doToggle(xLoc, yLoc);
       discharge(getInteractSpeed());
+   }
+   
+   public void doAttack(Attack attack, int x, int y)
+   {
+      
    }
    
 }

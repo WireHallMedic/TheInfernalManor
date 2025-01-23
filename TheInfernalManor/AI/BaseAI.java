@@ -71,12 +71,21 @@ public class BaseAI
    {
       for(ActionPlan plan : pendingAction)
       {
+         int x = self.getXLocation();
+         int y = self.getYLocation();
+         if(plan.getDirection() != null)
+         {
+            x += plan.getDirection().x;
+            y += plan.getDirection().y;
+         }
          if(plan.getActionType() == ActionType.DELAY)
             self.takeStep(Direction.ORIGIN);
          if(plan.getActionType() == ActionType.STEP)
             self.takeStep(plan.getDirection());
          if(plan.getActionType() == ActionType.USE)
             self.doToggle(plan.getDirection());
+         if(plan.getActionType() == ActionType.BASIC_ATTACK)
+            self.doAttack(self.getBasicAttack(), x, y);
       }
       cleanUp();
    }

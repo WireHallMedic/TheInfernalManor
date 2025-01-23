@@ -46,7 +46,7 @@ public class AbilityTest {
       Assert.assertEquals("Static method fastest() finds fastest.", ActionSpeed.INSTANT, as);
    }
    
-   @Test public void damageTest()
+   @Test public void damageRangeTest()
    {
       Actor actor = new Actor("", ' ');
       actor.setPowerLevel(10);
@@ -68,5 +68,21 @@ public class AbilityTest {
       Assert.assertTrue("Rolled 8 at least once", rolled8 > 0);
       Assert.assertTrue("Rolled 9 at least once", rolled9 > 0);
       Assert.assertTrue("Rolled 10 at least once", rolled10 > 0);
+   }
+   
+   @Test public void applyDamageTest()
+   {
+      Actor attacker = new Actor("", ' ');
+      Actor defender = new Actor("", ' ');
+      defender.setMaxBlock(1);
+      defender.fullHeal();
+      Assert.assertEquals("Defender at full block", defender.getCurBlock(), 1);
+      Assert.assertEquals("Defender at full health", defender.getCurHealth(), 10);
+      Combat.resolveAttack(attacker, defender, attacker.getBasicAttack());
+      Assert.assertNotEquals("Defender not at full block", defender.getCurBlock(), 1);
+      Assert.assertEquals("Defender at full health", defender.getCurHealth(), 10);
+      Combat.resolveAttack(attacker, defender, attacker.getBasicAttack());
+      Assert.assertNotEquals("Defender not at full block", defender.getCurBlock(), 1);
+      Assert.assertNotEquals("Defender not at full health", defender.getCurHealth(), 10);
    }
 }

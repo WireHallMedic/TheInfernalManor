@@ -22,4 +22,13 @@ public class Combat
          damage = Math.max(1, damage);
       return damage;
    }
+   
+   public static void resolveAttack(Actor attacker, Actor defender, Attack attack)
+   {
+      if(attackRoll(attacker, defender, attack))
+      {
+         int damage = damageRoll(attacker, defender, attack);
+         defender.applyCombatDamage(damage);
+      }
+   }
 }
