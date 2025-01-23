@@ -8,9 +8,9 @@ import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import java.util.*;
 
-public class WanderAI
+public class WanderAI extends BaseAI
 {
- private double wanderChance;
+   private double wanderChance;
 
 
 	public double getWanderChance(){return wanderChance;}
@@ -32,7 +32,20 @@ public class WanderAI
    
    public void plan()
    {
-      if(!playerControlled)
+      if(RNG.nextDouble() <= wanderChance)
+      {
+         Vector<Direction> dirList = new Vector<Direction>();
+         for(Direction dir : Direction.values())
+            if(self.canStep(dir, GameState.getCurZone()))
+               dirList.add(dir);
+         if(dirList.size() > 0)
+         {
+            setPendingAction(new ActionPlan(ActionType.STEP, dirList.elementAt(RNG.nextInt(dirList.size()))));
+         }
+         else
+            setPendingAction(new ActionPlan(ActionType.DELAY, Direction.ORIGIN));
+      }
+      else
       {
          setPendingAction(new ActionPlan(ActionType.DELAY, Direction.ORIGIN));
       }

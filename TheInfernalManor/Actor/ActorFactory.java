@@ -20,7 +20,8 @@ public class ActorFactory
    
    public static Actor getTestEnemy(int x, int y)
    {
-      Actor a = new Actor("Enemy", 'e');
+      Actor a = new Actor("Wandering Enemy", 'e');
+      a.setAI(new WanderAI(a, .5));
       a.setLocation(x, y);
       return a;
    }
