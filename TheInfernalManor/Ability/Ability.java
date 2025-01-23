@@ -5,12 +5,12 @@ public class Ability
    public static final boolean PHYSICAL = true;
    public static final boolean MAGICAL = false;
    
-	private String name;
-	private int energyCost;
-	private int rechargeTime;
-	private int chargeLevel;
-	private ActionSpeed speed;
-	private boolean abilityType;
+	protected String name;
+	protected int energyCost;
+	protected int rechargeTime;
+	protected int chargeLevel;
+	protected ActionSpeed speed;
+	protected boolean abilityType;
 
 
 	public String getName(){return name;}

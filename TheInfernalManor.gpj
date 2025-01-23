@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!2328;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!2372;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -42,6 +42,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sGUITools.java
 %\011TheInfernalManor%sGUI%sTIMPanel.java
 %\011TheInfernalManor%sMap%sZoneMap.java
+%\011TheInfernalManor%sAbility%sAttack.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
 %\011TheInfernalManor%sMap%sToggleTile.java
@@ -67,7 +68,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!2328;f
+!2372;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -95,6 +96,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sGUITools.java
 %\011TheInfernalManor%sGUI%sTIMPanel.java
 %\011TheInfernalManor%sMap%sZoneMap.java
+%\011TheInfernalManor%sAbility%sAttack.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
 %\011TheInfernalManor%sMap%sToggleTile.java
@@ -123,7 +125,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 !90;l
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java
-!70;t
-jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737468436169:P	
+!234;t
+jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737665655286:P	%\011TheInfernalManor%sAbility%sAbilityTest.java	1737665655286:P%\011Ability.java	%\011TheInfernalManor%sAbility%sAbility.java	1737665655286:P%\011AbilityTest.java	
 !35;m
 RunSelect	TheInfernalManor.TIMMain

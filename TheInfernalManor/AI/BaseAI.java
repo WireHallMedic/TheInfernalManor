@@ -63,7 +63,7 @@ public class BaseAI
    {
       if(!playerControlled)
       {
-         setPendingAction(new ActionPlan(ActionType.DELAY, Direction.ORIGIN));
+         setPendingAction(new ActionPlan(ActionType.DELAY));
       }
    }
    
@@ -71,7 +71,9 @@ public class BaseAI
    {
       for(ActionPlan plan : pendingAction)
       {
-         if(plan.getActionType() == ActionType.DELAY || plan.getActionType() == ActionType.STEP)
+         if(plan.getActionType() == ActionType.DELAY)
+            self.takeStep(Direction.ORIGIN);
+         if(plan.getActionType() == ActionType.STEP)
             self.takeStep(plan.getDirection());
          if(plan.getActionType() == ActionType.USE)
             self.doToggle(plan.getDirection());

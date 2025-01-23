@@ -22,4 +22,9 @@ public class ActionPlan
       actionType = at;
       direction = dir;
    }
+   
+   public ActionPlan(ActionType at)
+   {
+      this(at, Direction.ORIGIN);
+   }
 }

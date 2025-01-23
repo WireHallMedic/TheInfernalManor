@@ -24,6 +24,7 @@ public class Actor
    private ActionSpeed moveSpeed;
    private ActionSpeed interactSpeed;
    private int chargeLevel;
+   private int powerLevel;
 
 
 	public String getName(){return name;}
@@ -39,6 +40,7 @@ public class Actor
    public ActionSpeed getMoveSpeed(){return moveSpeed;}
    public ActionSpeed getInteractSpeed(){return interactSpeed;}
    public int getChargeLevel(){return chargeLevel;}
+   public int getPowerLevel(){return powerLevel;}
 
 
 	public void setName(String n){name = n;}
@@ -54,6 +56,7 @@ public class Actor
    public void setMoveSpeed(ActionSpeed ms){moveSpeed = ms;}
    public void setInteractSpeed(ActionSpeed is){interactSpeed = is;}
    public void setChargeLevel(int cl){chargeLevel = cl;}
+   public void setPowerLevel(int pl){powerLevel = pl;}
    
 
    public Actor(String n, int icon)
@@ -70,6 +73,7 @@ public class Actor
       moveSpeed = ActionSpeed.NORMAL;
       interactSpeed = ActionSpeed.NORMAL;
       chargeLevel = FULLY_CHARGED;
+      powerLevel = 1;
    }
    
    public void setLocation(int x, int y)
@@ -148,7 +152,7 @@ public class Actor
    }
    
    
-   // execute actions
+   // execute actions or delay
    public void takeStep(Direction dir)
    {
       int xLoc = getXLocation() + dir.x;
