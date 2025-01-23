@@ -1,3 +1,8 @@
+/*
+Really this should be called MessagePanelManager, as the message panel is just part of the infoPanel
+section of AdventurePanel, but I'm going to type it a lot so we'll just call it a panel.
+*/
+
 package TheInfernalManor.GUI;
 
 import java.util.*;

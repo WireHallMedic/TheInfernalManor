@@ -13,7 +13,7 @@ import javax.swing.*;
 public class AdventurePanel extends JPanel implements GUIConstants, ComponentListener, SwapPanel, KeyListener
 {
    private MapPanel mapPanel;
-   private TIMPanel infoPanel;
+   private InfoPanel infoPanel;
    private TIMFrame parentFrame;
    private static int MESSAGE_PANEL_HEIGHT = TILES_TALL - 3 - MAP_PANEL_SIZE;
    private static int MESSAGE_PANEL_WIDTH = MAP_PANEL_SIZE * 2;
@@ -27,7 +27,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       super();
       setLayout(null);
       parentFrame = pFrame;
-      infoPanel = new TIMPanel(x1y2TilePalette, pFrame);
+      infoPanel = new InfoPanel(x1y2TilePalette, pFrame);
       mapPanel = new MapPanel(x1y1TilePalette);
       mapPanel.setVisible(true);
       add(mapPanel);
@@ -84,20 +84,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    @Override
    public void paint(Graphics g)
    {
-      Actor player = GameState.getPlayerCharacter();
-      infoPanel.writeLine((MAP_PANEL_SIZE * 2) + 3, 3, "Health");
-      int[] healthBar = GUITools.getBar(player.getCurHealth(), player.getMaxHealth(), 8);
-      for(int i = 0; i < healthBar.length; i++)
-      {
-         infoPanel.setTileIndex((MAP_PANEL_SIZE * 2) + 10 + i, 3, healthBar[i]);
-      }
-      for(int i = 0; i < healthBar.length + 2; i++)
-      {
-         int c = WHITE;
-         if(i % 2 == 1)
-            c = GREEN;
-         infoPanel.setTileBG((MAP_PANEL_SIZE * 2) + 9 + i, 4, c);
-      }
+      infoPanel.set();
       setMessagePanel();
       super.paint(g);
    }
