@@ -4,8 +4,15 @@ import StrictCurses.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class GUITools implements GUIConstants
+public class GUITools implements GUIConstants, SCConstants
 {
+   private static final int[] BAR_ARRAY = {
+      ' ', BLOCK_ONE_EIGHTH_TILE, BLOCK_TWO_EIGHTHS_TILE,
+      BLOCK_THREE_EIGHTHS_TILE, BLOCK_FOUR_EIGHTHS_TILE,
+      BLOCK_FIVE_EIGHTHS_TILE, BLOCK_SIX_EIGHTHS_TILE,
+      BLOCK_SEVEN_EIGHTHS_TILE, FULL_BLOCK_TILE
+   };
+   
    // selects the tiles to draw a border, then applies them to the panel
    public static void applyBorderTileArray(boolean[][] borderArr, SCPanel panel)
    {
@@ -97,5 +104,28 @@ public class GUITools implements GUIConstants
       float[] hsb = Color.RGBtoHSB(r, g, b, null);
       c = Color.getHSBColor(hsb[0], (float)newSat, hsb[2]);
       return c.getRGB();
+   }
+   
+   // returns an array of tileIconIndexes to represent a bar, like health or energy
+   public static int[] getBar(int cur, int max, int barLength)
+   {
+      int[] indexArr = new int[barLength];
+      // */1028 to avoid floating point arithmetic
+      int transitionPoint = (((cur * 1028) / max) * barLength * 8) / 1028;
+      for(int i = 0; i < barLength; i++)
+      {
+         if(transitionPoint >= 8)
+            indexArr[i] = BAR_ARRAY[8];
+         else if(transitionPoint <= 0)
+            indexArr[i] = BAR_ARRAY[0];
+         else
+            indexArr[i] = BAR_ARRAY[transitionPoint];;
+         transitionPoint -= 8;
+      }
+      // always show at least one segment if cur is above zero
+      if(indexArr[0] == ' ' && cur > 0)
+         indexArr[0] = BLOCK_ONE_EIGHTH_TILE;
+      
+      return indexArr;
    }
 }

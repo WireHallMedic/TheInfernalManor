@@ -84,6 +84,20 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    @Override
    public void paint(Graphics g)
    {
+      Actor player = GameState.getPlayerCharacter();
+      infoPanel.writeLine((MAP_PANEL_SIZE * 2) + 3, 3, "Health");
+      int[] healthBar = GUITools.getBar(player.getCurHealth(), player.getMaxHealth(), 8);
+      for(int i = 0; i < healthBar.length; i++)
+      {
+         infoPanel.setTileIndex((MAP_PANEL_SIZE * 2) + 10 + i, 3, healthBar[i]);
+      }
+      for(int i = 0; i < healthBar.length + 2; i++)
+      {
+         int c = WHITE;
+         if(i % 2 == 1)
+            c = GREEN;
+         infoPanel.setTileBG((MAP_PANEL_SIZE * 2) + 9 + i, 4, c);
+      }
       setMessagePanel();
       super.paint(g);
    }
@@ -157,6 +171,13 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_I :       parentFrame.setVisiblePanel("InventoryPanel"); break;
          case KeyEvent.VK_C :       parentFrame.setVisiblePanel("CharacterPanel"); break;
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
+         
+         // testing
+         case KeyEvent.VK_BACK_QUOTE : GameState.getPlayerCharacter().setCurHealth(GameState.getPlayerCharacter().getCurHealth() - 1); 
+                                       int cur = GameState.getPlayerCharacter().getCurHealth();
+                                       int max = GameState.getPlayerCharacter().getMaxHealth();
+                                       MessagePanel.addMessage("Health = " + cur + "/" + max);
+                                       break;
       }
    }
    public void keyTyped(KeyEvent ke){}

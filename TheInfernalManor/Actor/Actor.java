@@ -12,18 +12,37 @@ public class Actor
 	private int color;
 	private int[] location;
    private BaseAI ai;
+   private int maxHealth;
+   private int curHealth;
+   private int maxEnergy;
+   private int curEnergy;
+   private int maxBlock;
+   private int curBlock;
 
 
 	public String getName(){return name;}
 	public int getIconIndex(){return iconIndex;}
 	public int getColor(){return color;}
    public BaseAI getAI(){return ai;}
+   public int getMaxHealth(){return maxHealth;}
+	public int getCurHealth(){return curHealth;}
+	public int getMaxEnergy(){return maxEnergy;}
+	public int getCurEnergy(){return curEnergy;}
+	public int getMaxBlock(){return maxBlock;}
+	public int getCurBlock(){return curBlock;}
 
 
 	public void setName(String n){name = n;}
 	public void setIconIndex(int i){iconIndex = i;}
 	public void setColor(int c){color = c;}
    public void setAI(BaseAI newAI){ai = newAI;}
+	public void setMaxHealth(int m){maxHealth = m;}
+	public void setCurHealth(int c){curHealth = c;}
+	public void setMaxEnergy(int m){maxEnergy = m;}
+	public void setCurEnergy(int c){curEnergy = c;}
+	public void setMaxBlock(int m){maxBlock = m;}
+	public void setCurBlock(int c){curBlock = c;}
+   
 
    public Actor(String n, int icon)
    {
@@ -67,6 +86,14 @@ public class Actor
       int x = getXLocation() + dir.x;
       int y = getYLocation() + dir.y;
       return canStep(x, y, map);
+   }
+   
+   // resource methods
+   public void fullHeal()
+   {
+      curHealth = maxHealth;
+      curEnergy = maxEnergy;
+      curBlock = maxBlock;
    }
    
    // AI methods
