@@ -18,8 +18,11 @@ public class InfoPanel extends TIMPanel implements GUIConstants
    
    public void set()
    {
-      // draw block info
       Actor player = GameState.getPlayerCharacter();
+      // draw name
+      writeLine(X_ORIGIN, Y_ORIGIN, player.getName());
+      
+      // draw block info
       writeLine(X_ORIGIN, Y_ORIGIN + 1, "Block  [        ]");
       fillTileFG(X_ORIGIN, Y_ORIGIN + 1, 17, 1, WHITE);
       fillTileBG(X_ORIGIN + 8, Y_ORIGIN + 1, 8, 1, RED);
