@@ -29,7 +29,8 @@ public class Actor extends ForegroundObject
    private Attack basicAttack;
    private Weapon naturalWeapon;
    private Weapon mainHand;
-   private Armor armor;
+   private Armor naturalArmor;
+   private Armor equippedArmor;
 
 
 	public String getName(){return name;}
@@ -49,7 +50,8 @@ public class Actor extends ForegroundObject
    public Attack getBasicAttack(){return basicAttack;}
    public Weapon getNaturalWeapon(){return naturalWeapon;}
    public Weapon getMainHand(){return mainHand;}
-   public Armor getArmor(){return armor;}
+   public Armor getNaturalArmor(){return naturalArmor;}
+   public Armor getEquippedArmor(){return equippedArmor;}
 
 
 	public void setName(String n){name = n;}
@@ -69,7 +71,8 @@ public class Actor extends ForegroundObject
    public void setBasicAttack(Attack atk){basicAttack = atk;}
    public void setNaturalWeapon(Weapon nw){naturalWeapon = nw;}
    public void setMainHand(Weapon mh){mainHand = mh;}
-   public void setArmor(Armor a){armor = a;}
+   public void setEquippedArmor(Armor a){equippedArmor = a;}
+   public void setNaturalArmor(Armor a){naturalArmor = a;}
    
 
    public Actor(String n, int icon)
@@ -88,8 +91,10 @@ public class Actor extends ForegroundObject
       basicAttack = new Attack("Strike");
       Weapon w = new Weapon("Fist");
       naturalWeapon = w;
+      Armor a = new Armor("None");
+      naturalArmor = a;
       mainHand = null;
-      armor = null;
+      equippedArmor = null;
       fullHeal();
    }
    
@@ -145,7 +150,7 @@ public class Actor extends ForegroundObject
          setCurBlock(0);
          
          // apply armor
-         if(getArmor() != null && damage > 0)
+         if(getEquippedArmor() != null && damage > 0)
          {
             if(damageType == Ability.PHYSICAL)
                damage -= armor.getPhysicalArmor();
