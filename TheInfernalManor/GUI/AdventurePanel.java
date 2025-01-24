@@ -133,6 +133,14 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       GameState.getPlayerCharacter().getAI().setPendingAction(ap);
    }
    
+   private boolean playerStandingOnItem()
+   {
+      ZoneMap map = GameState.getCurZone();
+      int x = GameState.getPlayerCharacter().getXLocation();
+      int y = GameState.getPlayerCharacter().getYLocation();
+      return map.isItemAt(x, y);
+   }
+   
    public void keyPressed(KeyEvent ke)
    {
       switch(ke.getKeyCode())
@@ -154,8 +162,15 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_NUMPAD5 : directionPressed(Direction.ORIGIN); break;
          
          // specific actions
-         case KeyEvent.VK_G :       GameState.getPlayerCharacter().getAI().setPendingAction(
-                                       new ActionPlan(ActionType.PICK_UP, Direction.ORIGIN));
+         case KeyEvent.VK_G :       if(playerStandingOnItem())
+                                    {
+                                       GameState.getPlayerCharacter().getAI().setPendingAction(
+                                          new ActionPlan(ActionType.PICK_UP, Direction.ORIGIN));
+                                    }
+                                    else
+                                    {
+                                       MessagePanel.addMessage("Nothing to pick up here.");
+                                    }
                                     break;
          
          // change screen

@@ -278,8 +278,8 @@ public class Actor extends ForegroundObject
       if(item != null)
       {
          getInventory().add(item);
+         discharge(getInteractSpeed());
       }
-      discharge(getInteractSpeed());
    }
    
 }
