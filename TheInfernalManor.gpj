@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!2585;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!2667;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -39,6 +39,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sWeapon.java
 %\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
+%\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sItem%sArmor.java
 %\011TheInfernalManor%sGUI%sQuestInProgressPanel.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
@@ -58,6 +59,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sForegroundObject.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
+%\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sAI%sBaseAI.java
 %\011TheInfernalManor%sMap%sMapCellBase.java
 %\011TheInfernalManor%sAI%sWanderAI.java
@@ -73,7 +75,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!2585;f
+!2667;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -98,6 +100,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sWeapon.java
 %\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
+%\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sItem%sArmor.java
 %\011TheInfernalManor%sGUI%sQuestInProgressPanel.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
@@ -117,6 +120,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sForegroundObject.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
+%\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sAI%sBaseAI.java
 %\011TheInfernalManor%sMap%sMapCellBase.java
 %\011TheInfernalManor%sAI%sWanderAI.java
@@ -136,7 +140,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java
 %\011TheInfernalManor%sItem%sItemTest.java
-!234;t
-jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737731168767:P	%\011TheInfernalManor%sAbility%sAbilityTest.java	1737731168767:P%\011Ability.java	%\011TheInfernalManor%sAbility%sAbility.java	1737731168767:P%\011AbilityTest.java	
+!380;t
+jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737731168767:P	%\011TheInfernalManor%sAbility%sAbilityTest.java	1737731168767:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1737734518694:P%\011ItemTest.java	%\011TheInfernalManor%sAbility%sAbility.java	1737731168767:P%\011AbilityTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1737734518694:P%\011Item.java	
 !35;m
 RunSelect	TheInfernalManor.TIMMain
