@@ -29,13 +29,4 @@ public class Item extends ForegroundObject implements GUIConstants
    {
       super(name, icon, color);
    }
-   
-   public void add(Item that)
-   {
-      this.physicalDamage += that.physicalDamage;
-      this.magicalDamage += that.magicalDamage;
-      this.physicalArmor += that.physicalArmor;
-      this.magicalArmor += that.magicalArmor;
-      this.block += that.block;
-   }
 }
