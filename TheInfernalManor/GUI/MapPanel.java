@@ -28,6 +28,8 @@ public class MapPanel extends SCPanel implements GUIConstants
          for(int y = 0; y < MAP_PANEL_SIZE; y++)
          {
             setTile(x, y, map.getTile(x + xOffset, y + yOffset));
+            if(map.isItemAt(x + xOffset, y + yOffset))
+               setTile(x, y, map.getItemAt(x + xOffset, y + yOffset));
          }
          Vector<Actor> actorList = GameState.getActorList();
          if(actorList != null)

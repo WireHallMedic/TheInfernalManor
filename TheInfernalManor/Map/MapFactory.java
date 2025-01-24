@@ -2,6 +2,7 @@ package TheInfernalManor.Map;
 
 import java.awt.*;
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Item.*;
 
 public class MapFactory implements GUIConstants
 {
@@ -29,6 +30,7 @@ public class MapFactory implements GUIConstants
       ToggleTile fancyThing = new ToggleTile(a, b);
       fancyThing.setOneUseOnly(true);
       map.setTile(10, 7, fancyThing);
+      map.setItemAt(1, 2, new Armor("Filthy Rags"));
       return map;
    }
 }
