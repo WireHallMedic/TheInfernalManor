@@ -21,6 +21,5 @@ public class Weapon extends Item implements GUIConstants
    {
       super(n, WEAPON_ICON, WHITE);
       size = MEDIUM;
-      setPhysicalDamage(2);
    }
 }

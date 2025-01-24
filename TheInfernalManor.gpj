@@ -132,10 +132,11 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!90;l
+!133;l
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java
+%\011TheInfernalManor%sItem%sItemTest.java
 !234;t
-jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737729236973:P	%\011TheInfernalManor%sAbility%sAbilityTest.java	1737729236973:P%\011Ability.java	%\011TheInfernalManor%sAbility%sAbility.java	1737729236973:P%\011AbilityTest.java	
+jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1737731168767:P	%\011TheInfernalManor%sAbility%sAbilityTest.java	1737731168767:P%\011Ability.java	%\011TheInfernalManor%sAbility%sAbility.java	1737731168767:P%\011AbilityTest.java	
 !35;m
 RunSelect	TheInfernalManor.TIMMain

@@ -18,7 +18,7 @@ public class Ability
 	public int getRechargeTime(){return rechargeTime;}
 	public int getChargeLevel(){return chargeLevel;}
 	public ActionSpeed getSpeed(){return speed;}
-	public boolean isAbilityType(){return abilityType;}
+	public boolean getAbilityType(){return abilityType;}
 
 
 	public void setName(String n){name = n;}

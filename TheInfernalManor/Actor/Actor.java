@@ -3,6 +3,7 @@ package TheInfernalManor.Actor;
 import TheInfernalManor.AI.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
+import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
 
@@ -26,6 +27,9 @@ public class Actor extends ForegroundObject
    private int chargeLevel;
    private int powerLevel;
    private Attack basicAttack;
+   private Weapon naturalWeapon;
+   private Weapon mainHand;
+   private Armor armor;
 
 
 	public String getName(){return name;}
@@ -43,6 +47,9 @@ public class Actor extends ForegroundObject
    public int getChargeLevel(){return chargeLevel;}
    public int getPowerLevel(){return powerLevel;}
    public Attack getBasicAttack(){return basicAttack;}
+   public Weapon getNaturalWeapon(){return naturalWeapon;}
+   public Weapon getMainHand(){return mainHand;}
+   public Armor getArmor(){return armor;}
 
 
 	public void setName(String n){name = n;}
@@ -60,6 +67,9 @@ public class Actor extends ForegroundObject
    public void setChargeLevel(int cl){chargeLevel = cl;}
    public void setPowerLevel(int pl){powerLevel = pl;}
    public void setBasicAttack(Attack atk){basicAttack = atk;}
+   public void setNaturalWeapon(Weapon nw){naturalWeapon = nw;}
+   public void setMainHand(Weapon mh){mainHand = mh;}
+   public void setArmor(Armor a){armor = a;}
    
 
    public Actor(String n, int icon)
@@ -76,6 +86,10 @@ public class Actor extends ForegroundObject
       chargeLevel = FULLY_CHARGED;
       powerLevel = 1;
       basicAttack = new Attack("Strike");
+      Weapon w = new Weapon("Fist");
+      naturalWeapon = w;
+      mainHand = null;
+      armor = null;
       fullHeal();
    }
    
@@ -145,6 +159,14 @@ public class Actor extends ForegroundObject
    public void die()
    {
       ; // no death effects yet implemented
+   }
+   
+   // item methods
+   public Weapon getWeapon()
+   {
+      if(mainHand == null)
+         return naturalWeapon;
+      return mainHand;
    }
    
    // initiative methods

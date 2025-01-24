@@ -21,6 +21,6 @@ public class Armor extends Item implements GUIConstants
    public Armor(String n)
    {
       super(n, WEAPON_ICON, WHITE);
-      weight = LIGHT;
+      weight = CLOTH;
    }
 }
