@@ -143,6 +143,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    
    public void keyPressed(KeyEvent ke)
    {
+      Actor player = GameState.getPlayerCharacter();
       switch(ke.getKeyCode())
       {
          // directions
@@ -164,8 +165,10 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          // specific actions
          case KeyEvent.VK_G :       if(playerStandingOnItem())
                                     {
-                                       GameState.getPlayerCharacter().getAI().setPendingAction(
-                                          new ActionPlan(ActionType.PICK_UP, Direction.ORIGIN));
+                                       if(player.getInventory().hasRoom())
+                                          player.getAI().setPendingAction(new ActionPlan(ActionType.PICK_UP, Direction.ORIGIN));
+                                       else
+                                          MessagePanel.addMessage("Your inventory is full.");
                                     }
                                     else
                                     {
@@ -180,9 +183,9 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : GameState.getPlayerCharacter().setCurHealth(GameState.getPlayerCharacter().getCurHealth() - 1); 
-                                       int cur = GameState.getPlayerCharacter().getCurHealth();
-                                       int max = GameState.getPlayerCharacter().getMaxHealth();
+         case KeyEvent.VK_BACK_QUOTE : player.setCurHealth(player.getCurHealth() - 1); 
+                                       int cur = player.getCurHealth();
+                                       int max = player.getMaxHealth();
                                        MessagePanel.addMessage("Health = " + cur + "/" + max);
                                        break;
       }

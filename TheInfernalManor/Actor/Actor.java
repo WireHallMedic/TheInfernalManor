@@ -280,6 +280,10 @@ public class Actor extends ForegroundObject
          getInventory().add(item);
          discharge(getInteractSpeed());
       }
+      if(this == GameState.getPlayerCharacter())
+      {
+         MessagePanel.addMessage("You picked up a(n) " + item.getName());
+      }
    }
    
 }
