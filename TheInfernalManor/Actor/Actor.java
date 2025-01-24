@@ -1,5 +1,6 @@
 package TheInfernalManor.Actor;
 
+import java.util.*;
 import TheInfernalManor.AI.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
@@ -30,6 +31,8 @@ public class Actor extends ForegroundObject
    private Weapon naturalWeapon;
    private Weapon mainHand;
    private Armor armor;
+   private OffHand offHand;
+   private Vector<Relic> relicList;
 
 
 	public String getName(){return name;}
@@ -50,6 +53,8 @@ public class Actor extends ForegroundObject
    public Weapon getNaturalWeapon(){return naturalWeapon;}
    public Weapon getMainHand(){return mainHand;}
    public Armor getArmor(){return armor;}
+   public OffHand getOffHand(){return offHand;}
+   public Vector<Relic> getRelicList(){return relicList;}
 
 
 	public void setName(String n){name = n;}
@@ -70,6 +75,8 @@ public class Actor extends ForegroundObject
    public void setNaturalWeapon(Weapon nw){naturalWeapon = nw;}
    public void setMainHand(Weapon mh){mainHand = mh;}
    public void setArmor(Armor a){armor = a;}
+   public void setOffHand(OffHand oh){offHand = oh;}
+   public void setRelicList(Vector<Relic> list){relicList = list;}
    
 
    public Actor(String n, int icon)
@@ -89,6 +96,8 @@ public class Actor extends ForegroundObject
       Weapon w = new Weapon("Fist");
       armor = null;
       mainHand = null;
+      offHand = null;
+      relicList = new Vector<Relic>();
       fullHeal();
    }
    
