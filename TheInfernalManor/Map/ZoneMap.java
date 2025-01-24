@@ -1,5 +1,6 @@
 package TheInfernalManor.Map;
 
+import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
 
 public class ZoneMap
@@ -11,6 +12,7 @@ public class ZoneMap
 	private boolean[][] highPassMap;
 	private boolean[][] transparentMap;
 	private MapCell[][] tileMap;
+   private Item[][] itemMap;
    private MapCell oobTile;
 
 
@@ -20,6 +22,7 @@ public class ZoneMap
 	public boolean[][] getLowPassMap(){return lowPassMap;}
 	public boolean[][] getHighPassMap(){return highPassMap;}
 	public boolean[][] getTransparentMap(){return transparentMap;}
+   public Item[][] getItemMap(){return itemMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
 
 
@@ -40,10 +43,14 @@ public class ZoneMap
       highPassMap = new boolean[w][h];
       transparentMap = new boolean[w][h];
       tileMap = new MapCell[w][h];
+      itemMap = new Item[w][h];
       oobTile = new MapCell(MapCellBase.WALL);
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
+      {
          setTile(x, y, new MapCell(MapCellBase.WALL));
+         itemMap[x][y] = null;
+      }
    }
    
    public boolean isInBounds(int x, int y)
@@ -71,6 +78,24 @@ public class ZoneMap
       if(isInBounds(x, y))
          return tileMap[x][y].isTransparent();
       return oobTile.isTransparent();
+   }
+   
+   public boolean isItemAt(int x, int y)
+   {
+      return getItemAt(x, y) != null;
+   }
+   
+   public Item getItemAt(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return itemMap[x][y];
+      return null;
+   }
+   
+   public void setItemAt(int x, int y, Item item)
+   {
+      if(isInBounds(x, y))
+         itemMap[x][y] = item;
    }
    
    public void setTile(int x, int y, MapCell cell)

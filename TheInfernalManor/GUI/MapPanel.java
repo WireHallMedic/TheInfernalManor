@@ -56,8 +56,13 @@ public class MapPanel extends SCPanel implements GUIConstants
    {
       int x = (MAP_PANEL_SIZE / 2) + curActor.getXLocation() - player.getXLocation();
       int y = (MAP_PANEL_SIZE / 2) + curActor.getYLocation() - player.getYLocation();
-      setTileIndex(x, y, curActor.getIconIndex());
-      setTileFG(x, y, curActor.getColor());
+      setTile(x, y, curActor);
+   }
+   
+   private void setTile(int x, int y, ForegroundObject obj)
+   {
+      setTileIndex(x, y, obj.getIconIndex());
+      setTileFG(x, y, obj.getColor());
    }
    
    public boolean isInBounds(int x, int y)
