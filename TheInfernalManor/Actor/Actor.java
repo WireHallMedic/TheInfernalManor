@@ -6,7 +6,7 @@ import TheInfernalManor.Map.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
 
-public class Actor
+public class Actor extends ForegroundObject
 {
    public static final int FULLY_CHARGED = 10;
    
@@ -64,9 +64,7 @@ public class Actor
 
    public Actor(String n, int icon)
    {
-      name = n;
-      iconIndex = icon;
-      color = GUIConstants.WHITE;
+      super(n, icon, GUIConstants.WHITE);
       location = new int[2];
       setLocation(-1, -1);
       ai = new BaseAI(this);
