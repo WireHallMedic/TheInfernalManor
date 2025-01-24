@@ -2,6 +2,7 @@ package TheInfernalManor.Actor;
 
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.AI.*;
+import TheInfernalManor.Item.*;
 
 public class ActorFactory
 {
@@ -14,6 +15,9 @@ public class ActorFactory
       a.setMaxEnergy(10);
       a.fullHeal();
       a.setLocation(1, 1);
+      a.getInventory().add(new Weapon("Sword"));
+      a.getInventory().add(new Armor("Armor"));
+      a.getInventory().add(new OffHand("Shield"));
       return a;
    }
    
