@@ -38,6 +38,7 @@ public class Actor extends ForegroundObject
    private Armor armor;
    private OffHand offHand;
    private Vector<Relic> relicList;
+   private Inventory inventory;
 
 
 	public String getName(){return name;}
@@ -64,6 +65,7 @@ public class Actor extends ForegroundObject
 	public int getMagicalDamage(){return magicalDamage;}
 	public int getPhysicalArmor(){return physicalArmor;}
 	public int getMagicalArmor(){return magicalArmor;}
+   public Inventory getInventory(){return inventory;}
 
 
 	public void setName(String n){name = n;}
@@ -85,6 +87,7 @@ public class Actor extends ForegroundObject
    public void setArmor(Armor a){armor = a; calcItemStats();}
    public void setOffHand(OffHand oh){offHand = oh; calcItemStats();}
    public void setRelicList(Vector<Relic> list){relicList = list; calcItemStats();}
+   public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
    
 
    public Actor(String n, int icon)
@@ -106,6 +109,7 @@ public class Actor extends ForegroundObject
       mainHand = null;
       offHand = null;
       relicList = new Vector<Relic>();
+      inventory = new Inventory(this);
       calcItemStats();
       fullHeal();
    }

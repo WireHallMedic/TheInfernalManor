@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class InventoryPanel extends TIMPanel implements GUIConstants
 {
@@ -9,6 +10,11 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    {
       super(tilePalette, pFrame);
       GUITools.drawBorderWithTitle(this, " Inventory ");
+   }
+   
+   private void set()
+   {
+      Vector<Item> itemList = GameState.getPlayerCharacter().getInventory();
    }
    
    @Override
