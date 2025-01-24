@@ -11,6 +11,7 @@ import TheInfernalManor.Ability.*;
 public class Actor extends ForegroundObject
 {
    public static final int FULLY_CHARGED = 10;
+   public static final int MAX_RELICS = 3;
    
    private String name;
 	private int iconIndex;
@@ -23,6 +24,10 @@ public class Actor extends ForegroundObject
    private int curEnergy;
    private int maxBlock;
    private int curBlock;
+   private int physicalDamage;
+   private int magicalDamage;
+   private int physicalArmor;
+   private int magicalArmor;
    private ActionSpeed moveSpeed;
    private ActionSpeed interactSpeed;
    private int chargeLevel;
@@ -72,11 +77,11 @@ public class Actor extends ForegroundObject
    public void setChargeLevel(int cl){chargeLevel = cl;}
    public void setPowerLevel(int pl){powerLevel = pl;}
    public void setBasicAttack(Attack atk){basicAttack = atk;}
-   public void setNaturalWeapon(Weapon nw){naturalWeapon = nw;}
-   public void setMainHand(Weapon mh){mainHand = mh;}
-   public void setArmor(Armor a){armor = a;}
-   public void setOffHand(OffHand oh){offHand = oh;}
-   public void setRelicList(Vector<Relic> list){relicList = list;}
+   public void setNaturalWeapon(Weapon nw){naturalWeapon = nw; calcItemStats();}
+   public void setMainHand(Weapon mh){mainHand = mh; calcItemStats();}
+   public void setArmor(Armor a){armor = a; calcItemStats();}
+   public void setOffHand(OffHand oh){offHand = oh; calcItemStats();}
+   public void setRelicList(Vector<Relic> list){relicList = list; calcItemStats();}
    
 
    public Actor(String n, int icon)
@@ -87,17 +92,18 @@ public class Actor extends ForegroundObject
       ai = new BaseAI(this);
       maxHealth = 10;
       maxEnergy = 10;
-      maxBlock = 0;
       moveSpeed = ActionSpeed.NORMAL;
       interactSpeed = ActionSpeed.NORMAL;
       chargeLevel = FULLY_CHARGED;
       powerLevel = 1;
       basicAttack = new Attack("Strike");
       Weapon w = new Weapon("Fist");
+      naturalWeapon = w;
       armor = null;
       mainHand = null;
       offHand = null;
       relicList = new Vector<Relic>();
+      calcItemStats();
       fullHeal();
    }
    
@@ -188,6 +194,21 @@ public class Actor extends ForegroundObject
       if(mainHand == null)
          return naturalWeapon;
       return mainHand;
+   }
+   
+   public void calcItemStats()
+   {
+      Item sum = new Item("", ' ', 0);
+      sum.add(getWeapon());
+      if(armor != null) sum.add(armor);
+      if(offHand != null) sum.add(offHand);
+      for(Item relic : relicList)
+         sum.add(relic);
+      physicalDamage = sum.getPhysicalDamage();
+      magicalDamage = sum.getMagicalDamage();
+      physicalArmor = sum.getPhysicalArmor();
+      magicalArmor = sum.getMagicalArmor();
+      maxBlock = sum.getBlock();
    }
    
    // initiative methods
