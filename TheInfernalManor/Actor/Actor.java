@@ -135,13 +135,26 @@ public class Actor extends ForegroundObject
       curBlock = maxBlock;
    }
    
-   public void applyCombatDamage(int damage)
+   public void applyCombatDamage(int damage, boolean damageType)
    {
       // gets through block
       if(damage >= getCurBlock())
       {
+         // reduce by block and set block to zero
          damage = damage - getCurBlock();
          setCurBlock(0);
+         
+         // apply armor
+         if(getArmor() != null && damage > 0)
+         {
+            if(damageType == Ability.PHYSICAL)
+               damage -= armor.getPhysicalArmor();
+            else
+               damage -= armor.getMagicalArmor();
+            damage = Math.max(damage, 1);
+         }
+         
+         // take damage
          setCurHealth(getCurHealth() - damage);
       }
       // does not get through block

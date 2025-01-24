@@ -34,7 +34,7 @@ public class Combat
       if(attackRoll(attacker, defender, attack))
       {
          int damage = damageRoll(attacker, defender, attack);
-         defender.applyCombatDamage(damage);
+         defender.applyCombatDamage(damage, attack.getAbilityType());
          if(attacker == GameState.getPlayerCharacter() || defender == GameState.getPlayerCharacter());
          {
             String str = String.format("%s strikes %s for %d damage", attacker.getName(), defender.getName(), damage);
