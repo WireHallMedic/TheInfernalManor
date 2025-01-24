@@ -1,5 +1,6 @@
 package TheInfernalManor.Ability;
 
+import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import org.junit.Assert;
@@ -74,7 +75,9 @@ public class AbilityTest {
    {
       Actor attacker = new Actor("", ' ');
       Actor defender = new Actor("", ' ');
-      defender.setMaxBlock(1);
+      Armor shield = new Armor("");
+      shield.setBlock(1);
+      defender.setArmor(shield);
       defender.fullHeal();
       Assert.assertEquals("Defender at full block", defender.getCurBlock(), 1);
       Assert.assertEquals("Defender at full health", defender.getCurHealth(), 10);

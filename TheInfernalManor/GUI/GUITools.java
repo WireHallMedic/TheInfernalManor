@@ -110,6 +110,9 @@ public class GUITools implements GUIConstants, SCConstants
    public static int[] getBar(int cur, int max, int barLength)
    {
       int[] indexArr = new int[barLength];
+      // DIV0 safety
+      if(max == 0)
+         max = 1;
       // */1028 to avoid floating point arithmetic
       int transitionPoint = (((cur * 1028) / max) * barLength * 8) / 1028;
       for(int i = 0; i < barLength; i++)

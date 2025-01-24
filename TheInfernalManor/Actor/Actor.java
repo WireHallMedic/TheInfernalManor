@@ -60,6 +60,10 @@ public class Actor extends ForegroundObject
    public Armor getArmor(){return armor;}
    public OffHand getOffHand(){return offHand;}
    public Vector<Relic> getRelicList(){return relicList;}
+   public int getPhysicalDamage(){return physicalDamage;}
+	public int getMagicalDamage(){return magicalDamage;}
+	public int getPhysicalArmor(){return physicalArmor;}
+	public int getMagicalArmor(){return magicalArmor;}
 
 
 	public void setName(String n){name = n;}
@@ -70,7 +74,6 @@ public class Actor extends ForegroundObject
 	public void setCurHealth(int c){curHealth = c;}
 	public void setMaxEnergy(int m){maxEnergy = m;}
 	public void setCurEnergy(int c){curEnergy = c;}
-	public void setMaxBlock(int m){maxBlock = m;}
 	public void setCurBlock(int c){curBlock = c;}
    public void setMoveSpeed(ActionSpeed ms){moveSpeed = ms;}
    public void setInteractSpeed(ActionSpeed is){interactSpeed = is;}
@@ -162,9 +165,9 @@ public class Actor extends ForegroundObject
          if(getArmor() != null && damage > 0)
          {
             if(damageType == Ability.PHYSICAL)
-               damage -= armor.getPhysicalArmor();
+               damage -= getPhysicalArmor();
             else
-               damage -= armor.getMagicalArmor();
+               damage -= getMagicalArmor();
             damage = Math.max(damage, 1);
          }
          

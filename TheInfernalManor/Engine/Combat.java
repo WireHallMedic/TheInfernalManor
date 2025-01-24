@@ -17,9 +17,9 @@ public class Combat
    {
       int damageCalc = attacker.getPowerLevel() + attack.getBaseDamage();
       if(attack.getAbilityType() == Ability.PHYSICAL)
-         damageCalc += attacker.getWeapon().getPhysicalDamage();
+         damageCalc += attacker.getPhysicalDamage();
       else
-         damageCalc += attacker.getWeapon().getMagicalDamage();
+         damageCalc += attacker.getMagicalDamage();
       double maxDamage = damageCalc * attack.getPower();
       double damageRoll = RNG.nextDouble() * .25;
       damageRoll = maxDamage - (maxDamage * damageRoll);
