@@ -10,6 +10,15 @@ public interface GUIConstants
    
    public static final int FRAME_RATE = 1000 / 24;
    
+   public static final int WEAPON_ICON = '}';
+   public static final int ARMOR_ICON = ']';
+   public static final int OFFHAND_ICON = ')';
+   public static final int CONSUMABLE_ICON = '+';
+   public static final int RELIC_ICON = '*';
+   public static final int LEGENDARY_WEAPON_ICON = '{';
+   public static final int LEGENDARY_ARMOR_ICON = '[';
+   public static final int LEGENDARY_OFFHAND_ICON = '(';
+   
    public static final int WHITE = Color.WHITE.getRGB();
    public static final int BLACK = Color.BLACK.getRGB();
    public static final int RED = -39322;
