@@ -13,9 +13,6 @@ public class Actor extends ForegroundObject
    public static final int FULLY_CHARGED = 10;
    public static final int MAX_RELICS = 3;
    
-   private String name;
-	private int iconIndex;
-	private int color;
 	private int[] location;
    private BaseAI ai;
    private int maxHealth;
@@ -41,9 +38,6 @@ public class Actor extends ForegroundObject
    private Inventory inventory;
 
 
-	public String getName(){return name;}
-	public int getIconIndex(){return iconIndex;}
-	public int getColor(){return color;}
    public BaseAI getAI(){return ai;}
    public int getMaxHealth(){return maxHealth;}
 	public int getCurHealth(){return curHealth;}
@@ -68,9 +62,6 @@ public class Actor extends ForegroundObject
    public Inventory getInventory(){return inventory;}
 
 
-	public void setName(String n){name = n;}
-	public void setIconIndex(int i){iconIndex = i;}
-	public void setColor(int c){color = c;}
    public void setAI(BaseAI newAI){ai = newAI;}
 	public void setMaxHealth(int m){maxHealth = m;}
 	public void setCurHealth(int c){curHealth = c;}

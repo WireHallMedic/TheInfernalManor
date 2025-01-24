@@ -19,6 +19,9 @@ public class InfoPanel extends TIMPanel implements GUIConstants
    public void set()
    {
       Actor player = GameState.getPlayerCharacter();
+      if(player == null)
+         return;
+         
       // draw name
       writeLine(X_ORIGIN, Y_ORIGIN, player.getName());
       

@@ -26,6 +26,6 @@ public class ForegroundObject implements GUIConstants
    {
       name = n;
       iconIndex = icon;
-      c = color;
+      color = c;
    }
 }
