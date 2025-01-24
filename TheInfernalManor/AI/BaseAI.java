@@ -86,6 +86,8 @@ public class BaseAI
             self.doToggle(plan.getDirection());
          if(plan.getActionType() == ActionType.BASIC_ATTACK)
             self.doAttack(self.getBasicAttack(), x, y);
+         if(plan.getActionType() == ActionType.PICK_UP)
+            self.pickUp();
       }
       cleanUp();
    }

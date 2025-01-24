@@ -153,6 +153,11 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_PERIOD :  
          case KeyEvent.VK_NUMPAD5 : directionPressed(Direction.ORIGIN); break;
          
+         // specific actions
+         case KeyEvent.VK_G :       GameState.getPlayerCharacter().getAI().setPendingAction(
+                                       new ActionPlan(ActionType.PICK_UP, Direction.ORIGIN));
+                                    break;
+         
          // change screen
          case KeyEvent.VK_P :       parentFrame.setVisiblePanel("PreferencesPanel"); break;
          case KeyEvent.VK_I :       parentFrame.setVisiblePanel("InventoryPanel"); break;

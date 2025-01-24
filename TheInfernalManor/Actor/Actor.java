@@ -270,4 +270,16 @@ public class Actor extends ForegroundObject
       discharge(attack.getSpeed());
    }
    
+   public void pickUp()
+   {
+      ZoneMap map = GameState.getCurZone();
+      Item item = map.getItemAt(getXLocation(), getYLocation());
+      map.setItemAt(getXLocation(), getYLocation(), null);
+      if(item != null)
+      {
+         getInventory().add(item);
+      }
+      discharge(getInteractSpeed());
+   }
+   
 }
