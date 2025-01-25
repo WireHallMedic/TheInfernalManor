@@ -12,6 +12,9 @@ import java.awt.*;
 public class InventoryPanel extends TIMPanel implements GUIConstants
 {
    private int curIndex;
+   private static final int SIDE_WIDTH = (TILES_WIDE - 3) / 2;
+   private static final int LEFT_PANEL_X_ORIGIN = 1;
+   private static final int RIGHT_PANEL_X_ORIGIN = 3 + SIDE_WIDTH;
    
    public InventoryPanel(SCTilePalette tilePalette, TIMFrame pFrame)
    {
