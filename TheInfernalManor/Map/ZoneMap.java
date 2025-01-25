@@ -1,5 +1,6 @@
 package TheInfernalManor.Map;
 
+import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
 
@@ -13,6 +14,7 @@ public class ZoneMap
 	private boolean[][] transparentMap;
 	private MapCell[][] tileMap;
    private Item[][] itemMap;
+   private ForegroundObject[][] decorationMap;
    private MapCell oobTile;
 
 
@@ -23,6 +25,7 @@ public class ZoneMap
 	public boolean[][] getHighPassMap(){return highPassMap;}
 	public boolean[][] getTransparentMap(){return transparentMap;}
    public Item[][] getItemMap(){return itemMap;}
+   public ForegroundObject[][] getDecorationMap(){return decorationMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
 
 
@@ -44,12 +47,14 @@ public class ZoneMap
       transparentMap = new boolean[w][h];
       tileMap = new MapCell[w][h];
       itemMap = new Item[w][h];
+      decorationMap = new ForegroundObject[w][h];
       oobTile = new MapCell(MapCellBase.WALL);
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
       {
          setTile(x, y, new MapCell(MapCellBase.WALL));
          itemMap[x][y] = null;
+         decorationMap[x][y] = null;
       }
    }
    
@@ -78,6 +83,13 @@ public class ZoneMap
       if(isInBounds(x, y))
          return tileMap[x][y].isTransparent();
       return oobTile.isTransparent();
+   }
+   
+   public ForegroundObject getDecoration(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return decorationMap[x][y];
+      return null;
    }
    
    public boolean isItemAt(int x, int y)
