@@ -92,6 +92,12 @@ public class ZoneMap
       return null;
    }
    
+   public void setDecoration(int x, int y, ForegroundObject fo)
+   {
+      if(isInBounds(x, y))
+         decorationMap[x][y] = fo;
+   }
+   
    public boolean isItemAt(int x, int y)
    {
       return getItemAt(x, y) != null;

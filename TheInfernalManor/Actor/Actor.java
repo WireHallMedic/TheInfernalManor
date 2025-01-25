@@ -183,6 +183,9 @@ public class Actor extends ForegroundObject
       {
          setCurBlock(getCurBlock() - damage);
       }
+      
+      if(isDead())
+         die();
    }
    
    public boolean isDead()
@@ -192,7 +195,12 @@ public class Actor extends ForegroundObject
    
    public void die()
    {
-      ; // no death effects yet implemented
+      GameState.getCurZone().setDecoration(getXLocation(), getYLocation(), getCorpse());
+   }
+   
+   public ForegroundObject getCorpse()
+   {
+      return new ForegroundObject(getName() + " Corpse", '%', RED);
    }
    
    public void startTurn()

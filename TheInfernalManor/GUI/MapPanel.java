@@ -27,13 +27,22 @@ public class MapPanel extends SCPanel implements GUIConstants
          for(int x = 0; x < MAP_PANEL_SIZE; x++)
          for(int y = 0; y < MAP_PANEL_SIZE; y++)
          {
+            // mapCell
             setTile(x, y, map.getTile(x + xOffset, y + yOffset));
+            
+            // decoration
+            ForegroundObject fo = map.getDecoration(x + xOffset, y + yOffset);
+            if(fo != null)
+               setTile(x, y, fo);
+               
+            // item
             if(map.isItemAt(x + xOffset, y + yOffset))
                setTile(x, y, map.getItemAt(x + xOffset, y + yOffset));
          }
          Vector<Actor> actorList = GameState.getActorList();
          if(actorList != null)
          {
+            // actor
             for(int i = 0; i < actorList.size(); i++)
                setTile(actorList.elementAt(i), player);
          }
