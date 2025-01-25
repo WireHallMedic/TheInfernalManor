@@ -12,6 +12,7 @@ public class Actor extends ForegroundObject
 {
    public static final int FULLY_CHARGED = 10;
    public static final int MAX_RELICS = 3;
+   public static final int TICKS_TO_RECOVER_BLOCK = 10;
    
 	private int[] location;
    private BaseAI ai;
@@ -21,6 +22,7 @@ public class Actor extends ForegroundObject
    private int curEnergy;
    private int maxBlock;
    private int curBlock;
+   private int ticksSinceHit;
    private int physicalDamage;
    private int magicalDamage;
    private int physicalArmor;
@@ -45,6 +47,7 @@ public class Actor extends ForegroundObject
 	public int getCurEnergy(){return curEnergy;}
 	public int getMaxBlock(){return maxBlock;}
 	public int getCurBlock(){return curBlock;}
+   public int getTicksSinceHit(){return ticksSinceHit;}
    public ActionSpeed getMoveSpeed(){return moveSpeed;}
    public ActionSpeed getInteractSpeed(){return interactSpeed;}
    public int getChargeLevel(){return chargeLevel;}
@@ -68,6 +71,7 @@ public class Actor extends ForegroundObject
 	public void setMaxEnergy(int m){maxEnergy = m;}
 	public void setCurEnergy(int c){curEnergy = c;}
 	public void setCurBlock(int c){curBlock = c;}
+   public void setTicksSineHit(int tsh){ticksSinceHit = tsh;}
    public void setMoveSpeed(ActionSpeed ms){moveSpeed = ms;}
    public void setInteractSpeed(ActionSpeed is){interactSpeed = is;}
    public void setChargeLevel(int cl){chargeLevel = cl;}
@@ -145,10 +149,15 @@ public class Actor extends ForegroundObject
       curHealth = maxHealth;
       curEnergy = maxEnergy;
       curBlock = maxBlock;
+      ticksSinceHit = TICKS_TO_RECOVER_BLOCK;
    }
    
    public void applyCombatDamage(int damage, boolean damageType)
    {
+      // getting hit resets block clock
+      if(damage > 0)
+         ticksSinceHit = 0;
+         
       // gets through block
       if(damage >= getCurBlock())
       {
@@ -186,6 +195,16 @@ public class Actor extends ForegroundObject
       ; // no death effects yet implemented
    }
    
+   public void startTurn()
+   {
+      
+   }
+   
+   public void endTurn()
+   {
+   
+   }
+   
    // item methods
    public Weapon getWeapon()
    {
@@ -207,6 +226,10 @@ public class Actor extends ForegroundObject
       physicalArmor = sum.getPhysicalArmor();
       magicalArmor = sum.getMagicalArmor();
       maxBlock = sum.getBlock();
+      if(maxBlock < curBlock)
+         maxBlock = curBlock;
+      if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
+         curBlock = maxBlock;
    }
    
    // initiative methods
@@ -219,6 +242,10 @@ public class Actor extends ForegroundObject
    {
       if(chargeLevel < FULLY_CHARGED)
          chargeLevel++;
+      if(ticksSinceHit < TICKS_TO_RECOVER_BLOCK)
+         ticksSinceHit++;
+      if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
+         curBlock = getMaxBlock();
    }
    
    public void discharge(ActionSpeed speed)

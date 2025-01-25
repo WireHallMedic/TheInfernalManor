@@ -3,6 +3,7 @@ package TheInfernalManor.GUI;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Actor.*;
+import TheInfernalManor.Ability.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.AI.*;
 import StrictCurses.*;
@@ -183,10 +184,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : player.setCurHealth(player.getCurHealth() - 1); 
-                                       int cur = player.getCurHealth();
-                                       int max = player.getMaxHealth();
-                                       MessagePanel.addMessage("Health = " + cur + "/" + max);
+         case KeyEvent.VK_BACK_QUOTE : player.applyCombatDamage(1, Ability.PHYSICAL);
                                        break;
       }
    }
