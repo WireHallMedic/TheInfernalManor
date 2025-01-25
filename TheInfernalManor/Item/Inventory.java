@@ -35,6 +35,16 @@ public class Inventory
       return itemList.size() < MAXIMUM_SIZE;
    }
    
+   public Item getItemAt(int index)
+   {
+      return itemList.elementAt(index);
+   }
+   
+   public void removeItemAt(int index)
+   {
+      itemList.removeElementAt(index);
+   }
+   
    
 
 }

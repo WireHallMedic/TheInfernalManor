@@ -3,6 +3,8 @@ package TheInfernalManor.Map;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
+import WidlerSuite.SpiralSearch;
+import WidlerSuite.Coord;
 
 public class ZoneMap
 {
@@ -154,5 +156,49 @@ public class ZoneMap
          tt.toggle();
          updateMaps(x, y);
       }
+   }
+   
+   // drops an item as close to the target location as possible
+   // returns false if not possible
+   public boolean dropItem(Item item, int x, int y)
+   {
+      Coord c = getItemDropLoc(x, y);
+      if(c == null)
+         return false;
+      itemMap[c.x][c.y] = item;
+      return true;
+   }
+   
+   // does a floodfill to find the nearest place to drop an item
+   private Coord getItemDropLoc(int startX, int startY)
+   {
+      int serachSize = 6;
+      int xCorner = startX - serachSize;
+      int yCorner = startY - serachSize;
+      SpiralSearch search = getLowPassSearch(startX, startY, serachSize);
+      Coord target = null;
+      while(target == null)
+      {
+         target = search.getNext();
+         if(target == null)
+            break;
+         target.x += xCorner;
+         target.y += yCorner;
+         if(getItemAt(target.x, target.y) != null)
+            target = null;
+      }
+      return target;
+  }
+   
+   private SpiralSearch getLowPassSearch(int startX, int startY, int radius)
+   {
+      int diameter = (radius * 2) + 1;
+      boolean[][] passMap = new boolean[diameter][diameter];
+      int xCorner = startX - radius;
+      int yCorner = startY - radius;
+      for(int x = 0; x < diameter; x++)
+      for(int y = 0; y < diameter; y++)
+         passMap[x][y] = isLowPassable(xCorner + x, yCorner + y);
+      return new SpiralSearch(passMap, radius, radius);
    }
 }

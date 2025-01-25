@@ -88,6 +88,8 @@ public class BaseAI
             self.doAttack(self.getBasicAttack(), x, y);
          if(plan.getActionType() == ActionType.PICK_UP)
             self.pickUp();
+         if(plan.getActionType() == ActionType.DROP)
+            self.dropFromInventory(plan.getIndex());
       }
       cleanUp();
    }

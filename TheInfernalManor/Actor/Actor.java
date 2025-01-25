@@ -321,4 +321,18 @@ public class Actor extends ForegroundObject
       }
    }
    
+   public void dropFromInventory(int itemIndex)
+   {
+      ZoneMap map = GameState.getCurZone();
+      if(map.dropItem(inventory.getItemAt(itemIndex), getXLocation(), getYLocation()))
+      {
+         inventory.removeItemAt(itemIndex);
+         discharge(getInteractSpeed());
+      }
+      else
+      {
+         MessagePanel.addMessage("No room to drop that here.");
+      }
+   }
+   
 }

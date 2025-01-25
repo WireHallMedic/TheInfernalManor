@@ -1,6 +1,8 @@
 package TheInfernalManor.GUI;
 
+import TheInfernalManor.AI.*;
 import TheInfernalManor.Item.*;
+import TheInfernalManor.Ability.*;
 import TheInfernalManor.Engine.*;
 import StrictCurses.*;
 import java.awt.event.*;
@@ -28,7 +30,7 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       bindCurIndex();
       Vector<Item> itemList = getPlayerItemList();
       
-      for(int i = 0; i < itemList.size(); i++)
+      for(int i = 0; i < TILES_TALL - 6; i++)
       {
          if(i < itemList.size())
          {
@@ -58,8 +60,21 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    {
       
       if(GameState.getPlayerCharacter() != null)
+      {
+         bindCurIndex();
          set();
+      }
       super.paint(g);
+   }
+   
+   @Override
+   public void setVisible(boolean v)
+   {
+      if(v && GameState.getPlayerCharacter() != null && getPlayerItemList().size() > 0)
+         curIndex = 0;
+      else
+         curIndex = -1;
+      super.setVisible(v);
    }
    
    @Override
@@ -75,6 +90,14 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
          case KeyEvent.VK_NUMPAD8 : decrementIndex(); break;
          case KeyEvent.VK_DOWN :  
          case KeyEvent.VK_NUMPAD2 : incrementIndex(); break;
+         
+         case KeyEvent.VK_D :       if(curIndex > -1)
+                                    {
+                                       ActionPlan ap = new ActionPlan(ActionType.DROP, curIndex);
+                                       GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+                                       parentFrame.returnToMainPanel();
+                                    }
+                                    break;
       }
    }
    
