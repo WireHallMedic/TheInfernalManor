@@ -16,10 +16,17 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    private MapPanel mapPanel;
    private InfoPanel infoPanel;
    private TIMFrame parentFrame;
+   private int mode;
+   private int targetX;
+   private int targetY;
    private static int MESSAGE_PANEL_HEIGHT = TILES_TALL - 3 - MAP_PANEL_SIZE;
    private static int MESSAGE_PANEL_WIDTH = MAP_PANEL_SIZE * 2;
    private static int MESSAGE_PANEL_X_ORIGIN = 1;
    private static int MESSAGE_PANEL_Y_ORIGIN = MAP_PANEL_SIZE + 2;
+   private static int NORMAL_MODE = 0;
+   private static int ADJACENT_TARGET_MODE = 1;
+   private static int RANGED_TARGET_MODE = 2;
+   private static int LOOK_MODE = 3;
    
    public String getPanelName(){return this.getClass().getSimpleName();}
    
@@ -28,6 +35,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       super();
       setLayout(null);
       parentFrame = pFrame;
+      mode = NORMAL_MODE;
       infoPanel = new InfoPanel(x1y2TilePalette, pFrame);
       mapPanel = new MapPanel(x1y1TilePalette);
       mapPanel.setVisible(true);
@@ -175,6 +183,9 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     {
                                        MessagePanel.addMessage("Nothing to pick up here.");
                                     }
+                                    break;
+         case KeyEvent.VK_ESCAPE :  if(mode != NORMAL_MODE)
+                                       mode = NORMAL_MODE;
                                     break;
          
          // change screen
