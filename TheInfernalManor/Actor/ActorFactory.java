@@ -18,9 +18,9 @@ public class ActorFactory
       OffHand shield = new OffHand("Shield");
       shield.setBlock(5);
       a.setOffHand(shield);
-      a.getInventory().add(new Weapon("Sword"));
-      a.getInventory().add(new Armor("Armor"));
-      a.getInventory().add(new OffHand("Shield"));
+//       a.getInventory().add(new Weapon("Sword"));
+//       a.getInventory().add(new Armor("Armor"));
+//       a.getInventory().add(new OffHand("Shield"));
       return a;
    }
    
