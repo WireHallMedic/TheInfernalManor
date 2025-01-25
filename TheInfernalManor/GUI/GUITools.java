@@ -131,4 +131,23 @@ public class GUITools implements GUIConstants, SCConstants
       
       return indexArr;
    }
+   
+   public static int[] getGradient(int original)
+   {
+      Color c = new Color(original);
+      int red = c.getRed();
+      int green = c.getGreen();
+      int blue = c.getBlue();
+      int[] results = new int[10];
+      for(int i = 0; i < 10; i++)
+      {
+         double multiplier = (.05 * i) + .55;
+         int r = Math.min(255, Math.max(0, (int)(red * multiplier)));
+         int g = Math.min(255, Math.max(0, (int)(green * multiplier)));
+         int b = Math.min(255, Math.max(0, (int)(blue * multiplier)));
+         Color c2 = new Color(r, g, b);
+         results[i] = c2.getRGB();
+      }
+      return results;
+   }
 }

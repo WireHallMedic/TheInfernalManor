@@ -42,4 +42,9 @@ public interface GUIConstants
       RED, DARK_RED, ORANGE, YELLOW, GREEN, DARK_GREEN, BLUE, DARK_BLUE, PURPLE, PINK,
       DARK_PINK, BROWN, DARK_BROWN, WHITE, LIGHT_GREY, GREY, DARK_GREY, BLACK
       };
+   
+   public static final int[] DARK_GREEN_GRADIENT = GUITools.getGradient(DARK_GREEN);
+   public static final int[] DARK_BLUE_GRADIENT = GUITools.getGradient(DARK_BLUE);
+   public static final int[] DARK_BROWN_GRADIENT = GUITools.getGradient(DARK_BROWN);
+   public static final int[] DARK_GREY_GRADIENT = GUITools.getGradient(DARK_GREY);
 }
