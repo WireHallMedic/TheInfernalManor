@@ -103,6 +103,15 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 5, "Armor:     " + armor, SIDE_WIDTH - 2);
       for(int i = 0; i < relic.length; i++)
          overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 6 + i, "Relic " + (i + 1) +":   " + relic[i], SIDE_WIDTH - 2);
+      // set color of selections
+      for(int i = 0; i < 3 + Actor.MAX_RELICS; i++)
+      {
+         Vector<int[]> noneSearch = findText(RIGHT_PANEL_X_ORIGIN + 13, 3 + i, SIDE_WIDTH - 13, 1, "None");
+         if(noneSearch.size() > 0)
+            fillTileFG(RIGHT_PANEL_X_ORIGIN + 13, 3 + i, SIDE_WIDTH - 13, 1, GREY);
+         else
+            fillTileFG(RIGHT_PANEL_X_ORIGIN + 13, 3 + i, SIDE_WIDTH - 13, 1, WHITE);
+      }
       
       // current selection
       if(curIndex != -1 && curIndex < itemList.size() && onLeft)
