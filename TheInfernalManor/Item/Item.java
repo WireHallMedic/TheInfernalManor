@@ -88,7 +88,7 @@ public class Item extends ForegroundObject implements GUIConstants
       if(this.block != 0 ||  that.block != 0)
       {
          val = this.block - that.block;
-         str = String.format("Block            %s (%s)", GUITools.getSignedString(block), GUITools.getSignedString(val));
+         str = String.format("Block           %s (%s)", GUITools.getSignedString(block), GUITools.getSignedString(val));
          strList.add(str);
       }
       return strList;

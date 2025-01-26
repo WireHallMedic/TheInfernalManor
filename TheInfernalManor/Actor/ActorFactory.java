@@ -26,6 +26,9 @@ public class ActorFactory
       a.getInventory().add(new Relic("Relic 2"));
       a.getInventory().add(new Relic("Relic 3"));
       a.getInventory().add(new Relic("Relic 4"));
+      a.getInventory().add(OffHandFactory.getShield());
+      a.getInventory().add(OffHandFactory.getOrb());
+      a.getInventory().add(OffHandFactory.getTome());
       a.fullHeal();
       return a;
    }

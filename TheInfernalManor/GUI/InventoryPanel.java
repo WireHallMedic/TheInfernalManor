@@ -112,12 +112,25 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             strList = ((Armor)curItem).getComparisonSummary(player.getArmor());
          }
          overwriteLine(RIGHT_PANEL_X_ORIGIN, 12, curItem.getName(), SIDE_WIDTH);
+         int comparisonStart = RIGHT_PANEL_X_ORIGIN + 19;
          for(int i = 0; i < MAX_SUMMARY_LINES; i++)
          {
             if(i < strList.size())
                overwriteLine(RIGHT_PANEL_X_ORIGIN, 13 + i, strList.elementAt(i), SIDE_WIDTH);
             else
                overwriteLine(RIGHT_PANEL_X_ORIGIN, 13 + i, "", SIDE_WIDTH);
+            // color-code comparisons
+            Vector<int[]> compLoc = findText(RIGHT_PANEL_X_ORIGIN, 13 + i, SIDE_WIDTH, 1, "(+");
+            if(compLoc.size() > 0)
+               fillTileFG(compLoc.elementAt(0)[0], 13 + i, TILES_WIDE - 1 - compLoc.elementAt(0)[0], 1, GREEN);
+            else
+            {
+               compLoc = findText(RIGHT_PANEL_X_ORIGIN, 13 + i, SIDE_WIDTH, 1, "(-");
+               if(compLoc.size() > 0)
+                  fillTileFG(compLoc.elementAt(0)[0], 13 + i, TILES_WIDE - 1 - compLoc.elementAt(0)[0], 1, RED);
+               else
+                  fillTileFG(RIGHT_PANEL_X_ORIGIN, 13 + i, SIDE_WIDTH, 1, WHITE);
+            }
          }
       }
       
