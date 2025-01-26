@@ -221,6 +221,11 @@ public class Actor extends ForegroundObject
       return mainHand;
    }
    
+   public void addRelic(Relic r)
+   {
+      relicList.add(r);
+   }
+   
    public void calcItemStats()
    {
       Item sum = new Item("", ' ', 0);
@@ -278,7 +283,7 @@ public class Actor extends ForegroundObject
    }
    
    
-   // execute actions or delay
+   // execute actions
    public void takeStep(Direction dir)
    {
       int xLoc = getXLocation() + dir.x;
@@ -334,5 +339,72 @@ public class Actor extends ForegroundObject
          MessagePanel.addMessage("No room to drop that here.");
       }
    }
+   
+   public void equipFromInventory(int itemIndex)
+   {
+      Item item = inventory.getItemAt(itemIndex);
+      if(item instanceof Weapon)
+      {
+         if(getMainHand() != null)
+            unequipItem(Inventory.MAIN_HAND_SLOT, true);
+         setMainHand((Weapon)item);
+      }
+      if(item instanceof OffHand)
+      {
+         if(getOffHand() != null)
+            unequipItem(Inventory.OFF_HAND_SLOT, true);
+         setOffHand((OffHand)item);
+      }
+      if(item instanceof Armor)
+      {
+         if(getArmor() != null)
+            unequipItem(Inventory.ARMOR_SLOT, true);
+         setArmor((Armor)item);
+      }
+      if(item instanceof Relic)
+      {
+         if(getRelicList().size() == MAX_RELICS)
+            unequipItem(Inventory.RELIC_SLOT + MAX_RELICS - 1, true);
+         addRelic((Relic)item);
+      }
+      discharge(getInteractSpeed());
+   }
+   
+   public void unequipItem(int slot, boolean swapping)
+   {
+      boolean dropF = false;
+      if(!swapping && !inventory.hasRoom())
+      {
+         dropF = true;
+      }
+      
+      Item item = null;
+      if(slot == Inventory.MAIN_HAND_SLOT)
+      {
+         item = getMainHand();
+         setMainHand(null);
+      }
+      if(slot == Inventory.OFF_HAND_SLOT)
+      {
+         item = getOffHand();
+         setOffHand(null);
+      }
+      if(slot == Inventory.ARMOR_SLOT)
+      {
+         item = getArmor();
+         setArmor(null);
+      }
+      if(slot >= Inventory.RELIC_SLOT)
+      {
+         item = relicList.elementAt(slot - Inventory.RELIC_SLOT);
+         relicList.removeElementAt(slot - Inventory.RELIC_SLOT);
+      }
+      if(dropF)
+         GameState.getCurZone().dropItem(item, getXLocation(), getYLocation());
+      else
+         inventory.add(item);
+      discharge(getInteractSpeed());
+   }
+   public void unequipItem(int itemIndex){unequipItem(itemIndex, false);}
    
 }

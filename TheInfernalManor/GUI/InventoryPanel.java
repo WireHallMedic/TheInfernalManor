@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import TheInfernalManor.AI.*;
 import TheInfernalManor.Item.*;
+import TheInfernalManor.Actor.*;
 import TheInfernalManor.Ability.*;
 import TheInfernalManor.Engine.*;
 import StrictCurses.*;
@@ -32,30 +33,57 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    {
       bindCurIndex();
       Vector<Item> itemList = getPlayerItemList();
+      Actor player = GameState.getPlayerCharacter();
       
+      // list items
       for(int i = 0; i < TILES_TALL - 6; i++)
       {
          if(i < itemList.size())
          {
-            setTileIndex(4, 3 + i, itemList.elementAt(i).getIconIndex());
-            setTileFG(4, 3 + i, itemList.elementAt(i).getColor());
-            overwriteLine(6, 3 + i, itemList.elementAt(i).getName(), getTilesWide() - 7);
+            setTileIndex(LEFT_PANEL_X_ORIGIN + 2, 3 + i, itemList.elementAt(i).getIconIndex());
+            setTileFG(LEFT_PANEL_X_ORIGIN + 2, 3 + i, itemList.elementAt(i).getColor());
+            overwriteLine(LEFT_PANEL_X_ORIGIN + 4, 3 + i, itemList.elementAt(i).getName(), SIDE_WIDTH - (LEFT_PANEL_X_ORIGIN + 5));
          }
          else
          {
-            fillTileIndex(1, 3 + i, getTilesWide() - 2, 1, ' ');
+            fillTileIndex(1, 3 + i, SIDE_WIDTH, 1, ' ');
          }
       }
-      overwriteLine(1, getTilesTall() - 2, "[D]rop, [R]emove equipped, [ENTER] to use/equip", getTilesWide() - 2);
+      overwriteLine(1, getTilesTall() - 2, "[D]rop, [R]emove equipped, [ENTER] to use/equip", SIDE_WIDTH);
       
       // cursor
       for(int i = 0; i < getTilesTall() - 5; i++)
       {
          if(i == curIndex)
-            setTileIndex(2, 3 + i, '>');
+            setTileIndex(LEFT_PANEL_X_ORIGIN, 3 + i, '>');
          else
-            setTileIndex(2, 3 + i, ' ');
+            setTileIndex(LEFT_PANEL_X_ORIGIN, 3 + i, ' ');
       }
+      
+      // equipped
+      String mainHand = "None";
+      String offHand = "None";
+      String armor = "None";
+      String[] relic = new String[Actor.MAX_RELICS];
+      if(player.getMainHand() != null)
+         mainHand = player.getMainHand().getName();
+      if(player.getOffHand() != null)
+         offHand = player.getOffHand().getName();
+      if(player.getArmor() != null)
+         armor = player.getArmor().getName();
+      for(int i = 0; i < Actor.MAX_RELICS; i++)
+      {
+         if(i >= player.getRelicList().size())
+            relic[i] = "None";
+         else
+            relic[i] = player.getRelicList().elementAt(i).getName();
+      }
+      overwriteLine(RIGHT_PANEL_X_ORIGIN, 3, "Main Hand: " + mainHand, SIDE_WIDTH);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN, 4, "Off Hand:  " + mainHand, SIDE_WIDTH);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN, 5, "Armor:     " + mainHand, SIDE_WIDTH);
+      for(int i = 0; i < relic.length; i++)
+         overwriteLine(RIGHT_PANEL_X_ORIGIN, 6 + i, "Relic " + (i + 1) +":   " + mainHand, SIDE_WIDTH);
+      
    }
    
    @Override
