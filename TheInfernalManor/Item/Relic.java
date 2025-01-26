@@ -19,8 +19,23 @@ public class Relic extends Item implements GUIConstants
       }
    }
    
+	private Restriction restriction;
+
+
+	public Restriction getRestriction(){return restriction;}
+
+
+	public void setRestriction(Restriction r){restriction = r;}
+
+   
    public Relic(String n)
    {
       super(n, RELIC_ICON, WHITE);
+      restriction = null;
+   }
+   
+   public boolean conflictsWith(Relic that)
+   {
+      return this.restriction != null && this.restriction == that.restriction;
    }
 }
