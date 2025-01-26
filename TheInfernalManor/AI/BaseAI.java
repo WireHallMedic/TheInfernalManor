@@ -79,17 +79,45 @@ public class BaseAI
             y += plan.getDirection().y;
          }
          if(plan.getActionType() == ActionType.DELAY)
+         {
             self.takeStep(Direction.ORIGIN);
+            self.discharge(self.getMoveSpeed());
+         }
          if(plan.getActionType() == ActionType.STEP)
+         {
             self.takeStep(plan.getDirection());
+            self.discharge(self.getMoveSpeed());
+         }
          if(plan.getActionType() == ActionType.USE)
+         {
             self.doToggle(plan.getDirection());
+            self.discharge(self.getInteractSpeed());
+         }
          if(plan.getActionType() == ActionType.BASIC_ATTACK)
+         {
             self.doAttack(self.getBasicAttack(), x, y);
+            self.discharge(self.getBasicAttack().getSpeed());
+         }
          if(plan.getActionType() == ActionType.PICK_UP)
+         {
             self.pickUp();
+            self.discharge(self.getInteractSpeed());
+         }
          if(plan.getActionType() == ActionType.DROP)
+         {
             self.dropFromInventory(plan.getIndex());
+            self.discharge(self.getInteractSpeed());
+         }
+         if(plan.getActionType() == ActionType.EQUIP)
+         {
+            self.equipFromInventory(plan.getIndex());
+            self.discharge(self.getInteractSpeed());
+         }
+         if(plan.getActionType() == ActionType.REMOVE)
+         {
+            //self.dropFromInventory(plan.getIndex());
+            self.discharge(self.getInteractSpeed());
+         }
       }
       cleanUp();
    }

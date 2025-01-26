@@ -224,6 +224,7 @@ public class Actor extends ForegroundObject
    public void addRelic(Relic r)
    {
       relicList.add(r);
+      calcItemStats();
    }
    
    public void calcItemStats()
@@ -289,7 +290,6 @@ public class Actor extends ForegroundObject
       int xLoc = getXLocation() + dir.x;
       int yLoc = getYLocation() + dir.y;
       setLocation(xLoc, yLoc);
-      discharge(getMoveSpeed());
    }
    
    public void doToggle(Direction dir)
@@ -297,7 +297,6 @@ public class Actor extends ForegroundObject
       int xLoc = getXLocation() + dir.x;
       int yLoc = getYLocation() + dir.y;
       GameState.getCurZone().doToggle(xLoc, yLoc);
-      discharge(getInteractSpeed());
    }
    
    public void doAttack(Attack attack, int x, int y)
@@ -307,7 +306,6 @@ public class Actor extends ForegroundObject
       {
          Combat.resolveAttack(this, defender, attack);
       }
-      discharge(attack.getSpeed());
    }
    
    public void pickUp()
@@ -318,7 +316,6 @@ public class Actor extends ForegroundObject
       if(item != null)
       {
          getInventory().add(item);
-         discharge(getInteractSpeed());
       }
       if(this == GameState.getPlayerCharacter())
       {
@@ -332,7 +329,6 @@ public class Actor extends ForegroundObject
       if(map.dropItem(inventory.getItemAt(itemIndex), getXLocation(), getYLocation()))
       {
          inventory.removeItemAt(itemIndex);
-         discharge(getInteractSpeed());
       }
       else
       {
@@ -343,6 +339,7 @@ public class Actor extends ForegroundObject
    public void equipFromInventory(int itemIndex)
    {
       Item item = inventory.getItemAt(itemIndex);
+      inventory.removeItemAt(itemIndex);
       if(item instanceof Weapon)
       {
          if(getMainHand() != null)
@@ -367,17 +364,10 @@ public class Actor extends ForegroundObject
             unequipItem(Inventory.RELIC_SLOT + MAX_RELICS - 1, true);
          addRelic((Relic)item);
       }
-      discharge(getInteractSpeed());
    }
    
    public void unequipItem(int slot, boolean swapping)
    {
-      boolean dropF = false;
-      if(!swapping && !inventory.hasRoom())
-      {
-         dropF = true;
-      }
-      
       Item item = null;
       if(slot == Inventory.MAIN_HAND_SLOT)
       {
@@ -399,11 +389,11 @@ public class Actor extends ForegroundObject
          item = relicList.elementAt(slot - Inventory.RELIC_SLOT);
          relicList.removeElementAt(slot - Inventory.RELIC_SLOT);
       }
-      if(dropF)
+      if(!inventory.hasRoom())
          GameState.getCurZone().dropItem(item, getXLocation(), getYLocation());
       else
          inventory.add(item);
-      discharge(getInteractSpeed());
+      calcItemStats();
    }
    public void unequipItem(int itemIndex){unequipItem(itemIndex, false);}
    

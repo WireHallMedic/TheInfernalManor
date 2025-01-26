@@ -79,10 +79,10 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             relic[i] = player.getRelicList().elementAt(i).getName();
       }
       overwriteLine(RIGHT_PANEL_X_ORIGIN, 3, "Main Hand: " + mainHand, SIDE_WIDTH);
-      overwriteLine(RIGHT_PANEL_X_ORIGIN, 4, "Off Hand:  " + mainHand, SIDE_WIDTH);
-      overwriteLine(RIGHT_PANEL_X_ORIGIN, 5, "Armor:     " + mainHand, SIDE_WIDTH);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN, 4, "Off Hand:  " + offHand, SIDE_WIDTH);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN, 5, "Armor:     " + armor, SIDE_WIDTH);
       for(int i = 0; i < relic.length; i++)
-         overwriteLine(RIGHT_PANEL_X_ORIGIN, 6 + i, "Relic " + (i + 1) +":   " + mainHand, SIDE_WIDTH);
+         overwriteLine(RIGHT_PANEL_X_ORIGIN, 6 + i, "Relic " + (i + 1) +":   " + relic[i], SIDE_WIDTH);
       
    }
    
@@ -125,6 +125,13 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
          case KeyEvent.VK_D :       if(curIndex > -1)
                                     {
                                        ActionPlan ap = new ActionPlan(ActionType.DROP, curIndex);
+                                       GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+                                       parentFrame.returnToMainPanel();
+                                    }
+                                    break;
+         case KeyEvent.VK_ENTER :   if(curIndex > -1)
+                                    {
+                                       ActionPlan ap = new ActionPlan(ActionType.EQUIP, curIndex);
                                        GameState.getPlayerCharacter().getAI().setPendingAction(ap);
                                        parentFrame.returnToMainPanel();
                                     }
