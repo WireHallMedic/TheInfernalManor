@@ -227,6 +227,13 @@ public class Actor extends ForegroundObject
       calcItemStats();
    }
    
+   public Relic getRelic(int index)
+   {
+      if(index >= relicList.size())
+         return null;
+      return relicList.elementAt(index);
+   }
+   
    public void calcItemStats()
    {
       Item sum = new Item("", ' ', 0);

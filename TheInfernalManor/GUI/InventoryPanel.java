@@ -18,15 +18,18 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    public static final int MAX_SUMMARY_LINES = 8;
    public static final int STANDARD_MODE = 0;
    public static final int UNEQUIP_MODE = 1;
+   public static final int EQUIPPED_SLOTS = 3 + Actor.MAX_RELICS;
    
    private int curIndex;
    private int mode;
+   private boolean onLeft;
    
    public InventoryPanel(SCTilePalette tilePalette, TIMFrame pFrame)
    {
       super(tilePalette, pFrame);
       GUITools.drawBorderWithTitle(this, " Inventory ");
       curIndex = -1;
+      onLeft = true;
       mode = STANDARD_MODE;
    }
    
@@ -60,13 +63,21 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       else if(mode == UNEQUIP_MODE)
          overwriteLine(1, getTilesTall() - 2, "Remove [M]ain Hand, [O]ff Hand, [A]rmor, or Relic[1, 2, 3]? [ESCAPE] to cancel", TILES_WIDE - 2);
       
-      // cursor
+      // left cursor
       for(int i = 0; i < getTilesTall() - 5; i++)
       {
-         if(i == curIndex)
+         if(i == curIndex && onLeft)
             setTileIndex(LEFT_PANEL_X_ORIGIN, 3 + i, '>');
          else
             setTileIndex(LEFT_PANEL_X_ORIGIN, 3 + i, ' ');
+      }
+      // right cursor
+      for(int i = 0; i < EQUIPPED_SLOTS; i++)
+      {
+         if(i == curIndex && !onLeft)
+            setTileIndex(RIGHT_PANEL_X_ORIGIN, 3 + i, '>');
+         else
+            setTileIndex(RIGHT_PANEL_X_ORIGIN, 3 + i, ' ');
       }
       
       // equipped
@@ -87,14 +98,14 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
          else
             relic[i] = player.getRelicList().elementAt(i).getName();
       }
-      overwriteLine(RIGHT_PANEL_X_ORIGIN, 3, "Main Hand: " + mainHand, SIDE_WIDTH);
-      overwriteLine(RIGHT_PANEL_X_ORIGIN, 4, "Off Hand:  " + offHand, SIDE_WIDTH);
-      overwriteLine(RIGHT_PANEL_X_ORIGIN, 5, "Armor:     " + armor, SIDE_WIDTH);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 3, "Main Hand: " + mainHand, SIDE_WIDTH - 2);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 4, "Off Hand:  " + offHand, SIDE_WIDTH - 2);
+      overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 5, "Armor:     " + armor, SIDE_WIDTH - 2);
       for(int i = 0; i < relic.length; i++)
-         overwriteLine(RIGHT_PANEL_X_ORIGIN, 6 + i, "Relic " + (i + 1) +":   " + relic[i], SIDE_WIDTH);
+         overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 6 + i, "Relic " + (i + 1) +":   " + relic[i], SIDE_WIDTH - 2);
       
       // current selection
-      if(curIndex != -1 && curIndex < itemList.size())
+      if(curIndex != -1 && curIndex < itemList.size() && onLeft)
       {
          Item curItem = itemList.elementAt(curIndex);
          Vector<String> strList = curItem.getSummary();
@@ -133,7 +144,49 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             }
          }
       }
+      // right summary
+      else if(!onLeft)
+      {
+         Item item = getSelectedEquipped();
+         Vector<String> summaryList = new Vector<String>();
+         if(item != null)
+         {
+            if(item instanceof Weapon)
+               summaryList = ((Weapon)item).getSummary();
+            else if(item instanceof OffHand)
+               summaryList = ((OffHand)item).getSummary();
+            else if(item instanceof Armor)
+               summaryList = ((Armor)item).getSummary();
+            else
+               summaryList = item.getSummary();
+            overwriteLine(RIGHT_PANEL_X_ORIGIN, 12, item.getName(), SIDE_WIDTH);
+         }
+         else // no item
+            overwriteLine(RIGHT_PANEL_X_ORIGIN, 12, "", SIDE_WIDTH);
+         for(int i = 0; i < MAX_SUMMARY_LINES + 1; i++)
+         {
+            if(i < summaryList.size())
+               overwriteLine(RIGHT_PANEL_X_ORIGIN, 13 + i, summaryList.elementAt(i), SIDE_WIDTH);
+            else
+               overwriteLine(RIGHT_PANEL_X_ORIGIN, 13 + i, "", SIDE_WIDTH);
+         }
+      }
       
+   }
+   
+   private Item getSelectedEquipped()
+   {
+      Item item = null;
+      Actor player = GameState.getPlayerCharacter();
+      if(curIndex == Inventory.MAIN_HAND_SLOT)
+         item = player.getMainHand();
+      if(curIndex == Inventory.OFF_HAND_SLOT)
+         item = player.getOffHand();
+      if(curIndex == Inventory.ARMOR_SLOT)
+         item = player.getArmor();
+      if(curIndex >= Inventory.RELIC_SLOT)
+         item = player.getRelic(curIndex - Inventory.RELIC_SLOT);
+      return item;
    }
    
    @Override
@@ -151,18 +204,58 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    @Override
    public void setVisible(boolean v)
    {
-      if(v && GameState.getPlayerCharacter() != null && getPlayerItemList().size() > 0)
+      if(v && GameState.getPlayerCharacter() != null)
+      {
          curIndex = 0;
+         if(getPlayerItemList().size() > 0)
+            onLeft = true;
+         else
+            onLeft = false;
+      }
       else
          curIndex = -1;
+      
       mode = STANDARD_MODE;
       super.setVisible(v);
+   }
+   
+   private void switchSides()
+   {
+      if(!onLeft && getPlayerItemList().size() == 0)
+         return;
+      onLeft = !onLeft;
+      curIndex = 0;
    }
    
    @Override
    public void keyPressed(KeyEvent ke)
    {  
       ActionPlan ap = null;
+      
+      // change sides unless unequipping
+      if(mode == STANDARD_MODE)
+      {
+         switch(ke.getKeyCode())
+         {
+            case KeyEvent.VK_RIGHT :      
+            case KeyEvent.VK_NUMPAD6 :
+            case KeyEvent.VK_LEFT :  
+            case KeyEvent.VK_NUMPAD4 : switchSides(); break;
+         }
+      }
+      
+      // change curIndex, unless both on left and unequipping
+      if(mode == STANDARD_MODE || !onLeft)
+      {
+         switch(ke.getKeyCode())
+         {
+            case KeyEvent.VK_UP :      
+            case KeyEvent.VK_NUMPAD8 : decrementIndex(); break;
+            case KeyEvent.VK_DOWN :  
+            case KeyEvent.VK_NUMPAD2 : incrementIndex(); break;
+         }
+      }
+      
       if(mode == STANDARD_MODE)
       {
          switch(ke.getKeyCode())
@@ -171,10 +264,6 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             case KeyEvent.VK_I :
             case KeyEvent.VK_SPACE :   parentFrame.returnToMainPanel();
                                        break;
-            case KeyEvent.VK_UP :      
-            case KeyEvent.VK_NUMPAD8 : decrementIndex(); break;
-            case KeyEvent.VK_DOWN :  
-            case KeyEvent.VK_NUMPAD2 : incrementIndex(); break;
             
             case KeyEvent.VK_D :       if(curIndex > -1)
                                        {
@@ -190,14 +279,22 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
                                           parentFrame.returnToMainPanel();
                                        }
                                        break;
-            case KeyEvent.VK_R :       mode = UNEQUIP_MODE; break;
+            case KeyEvent.VK_R :       mode = UNEQUIP_MODE;
+                                       switchSides();
+                                       break;
          }
       }
       else if(mode == UNEQUIP_MODE)
       {
          switch(ke.getKeyCode())
          {
-            case KeyEvent.VK_ESCAPE :  mode = STANDARD_MODE; break;
+            case KeyEvent.VK_ESCAPE :  mode = STANDARD_MODE;
+                                       switchSides();
+                                       break;
+            case KeyEvent.VK_ENTER :   ap = new ActionPlan(ActionType.REMOVE, curIndex);
+                                       GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+                                       parentFrame.returnToMainPanel();
+                                       break;
             case KeyEvent.VK_M :       ap = new ActionPlan(ActionType.REMOVE, Inventory.MAIN_HAND_SLOT);
                                        GameState.getPlayerCharacter().getAI().setPendingAction(ap);
                                        parentFrame.returnToMainPanel();
@@ -210,17 +307,22 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
                                        GameState.getPlayerCharacter().getAI().setPendingAction(ap);
                                        parentFrame.returnToMainPanel();
                                        break;
-         }
-         if(ke.getKeyCode() >= KeyEvent.VK_1 &&
-            ke.getKeyCode() <= KeyEvent.VK_9)
-         {
-            int relicVal = ke.getKeyCode() - KeyEvent.VK_1;
-            if(relicVal < Actor.MAX_RELICS)
-            {
-               ap = new ActionPlan(ActionType.REMOVE, Inventory.RELIC_SLOT + relicVal);
-               GameState.getPlayerCharacter().getAI().setPendingAction(ap);
-               parentFrame.returnToMainPanel();
-            }
+            case KeyEvent.VK_1 :       
+            case KeyEvent.VK_2 :       
+            case KeyEvent.VK_3 :       
+            case KeyEvent.VK_4 :       
+            case KeyEvent.VK_5 :       
+            case KeyEvent.VK_6 :       
+            case KeyEvent.VK_7 :       
+            case KeyEvent.VK_8 :       
+            case KeyEvent.VK_9 :       int relicVal = ke.getKeyCode() - KeyEvent.VK_1;
+                                       if(relicVal < Actor.MAX_RELICS)
+                                       {
+                                          ap = new ActionPlan(ActionType.REMOVE, Inventory.RELIC_SLOT + relicVal);
+                                          GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+                                          parentFrame.returnToMainPanel();
+                                       }
+                                       break;
          }
       }
    }
@@ -228,12 +330,21 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    public void incrementIndex()
    {
       Vector<Item> itemList = getPlayerItemList();
-      if(itemList.size() == 0)
-         curIndex = -1;
-      else
+      if(onLeft)
+      {
+         if(itemList.size() == 0)
+            curIndex = -1;
+         else
+         {
+            curIndex++;
+            if(curIndex == itemList.size())
+               curIndex = 0;
+         }
+      }
+      else // on right
       {
          curIndex++;
-         if(curIndex == itemList.size())
+         if(curIndex == EQUIPPED_SLOTS)
             curIndex = 0;
       }
    }
@@ -241,13 +352,22 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    public void decrementIndex()
    {
       Vector<Item> itemList = getPlayerItemList();
-      if(itemList.size() == 0)
-         curIndex = -1;
-      else
+      if(onLeft)
+      {
+         if(itemList.size() == 0)
+            curIndex = -1;
+         else
+         {
+            curIndex--;
+            if(curIndex == -1)
+               curIndex = itemList.size() - 1;
+         }
+      }
+      else // on right
       {
          curIndex--;
          if(curIndex == -1)
-            curIndex = itemList.size() - 1;
+            curIndex = EQUIPPED_SLOTS - 1;
       }
    }
    
