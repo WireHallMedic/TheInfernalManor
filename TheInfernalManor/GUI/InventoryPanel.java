@@ -93,10 +93,10 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
          armor = player.getArmor().getName();
       for(int i = 0; i < Actor.MAX_RELICS; i++)
       {
-         if(i >= player.getRelicList().size())
+         if(player.getRelic(i) == null)
             relic[i] = "None";
          else
-            relic[i] = player.getRelicList().elementAt(i).getName();
+            relic[i] = player.getRelic(i).getName();
       }
       overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 3, "Main Hand: " + mainHand, SIDE_WIDTH - 2);
       overwriteLine(RIGHT_PANEL_X_ORIGIN + 2, 4, "Off Hand:  " + offHand, SIDE_WIDTH - 2);
@@ -121,6 +121,18 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
          if(curItem instanceof Armor && player.getArmor() != null)
          {
             strList = ((Armor)curItem).getComparisonSummary(player.getArmor());
+         }
+         // only conflicting relics show comparison
+         if(curItem instanceof Relic)
+         {
+            Relic r = (Relic)curItem;
+            for(int i = 0; i < Actor.MAX_RELICS; i++)
+            {
+               if(r.conflictsWith(player.getRelic(i)))
+               {
+                  strList = r.getComparisonSummary(player.getRelic(i));
+               }
+            }
          }
          overwriteLine(RIGHT_PANEL_X_ORIGIN, 12, curItem.getName(), SIDE_WIDTH);
          int comparisonStart = RIGHT_PANEL_X_ORIGIN + 19;
