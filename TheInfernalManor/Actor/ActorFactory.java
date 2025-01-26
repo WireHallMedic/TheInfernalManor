@@ -25,9 +25,12 @@ public class ActorFactory
       a.getInventory().add(OffHandFactory.getShield());
       a.getInventory().add(OffHandFactory.getOrb());
       a.getInventory().add(OffHandFactory.getTome());
-      a.getInventory().add(RelicFactory.getHelm());
       Relic r = RelicFactory.getHelm();
       r.setName("Circlet");
+      r.setMagicalDamage(2);
+      a.getInventory().add(r);
+      r = RelicFactory.getHelm();
+      r.setPhysicalArmor(2);
       a.getInventory().add(r);
       a.getInventory().add(RelicFactory.getBoots());
       a.getInventory().add(RelicFactory.getAmulet());

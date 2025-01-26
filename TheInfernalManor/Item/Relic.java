@@ -37,6 +37,8 @@ public class Relic extends Item implements GUIConstants
    
    public boolean conflictsWith(Relic that)
    {
+      if(that == null)
+         return false;
       return this.restriction != null && this.restriction == that.restriction;
    }
    
@@ -46,7 +48,7 @@ public class Relic extends Item implements GUIConstants
       Vector<String> strList = super.getSummary();
       if(restriction != null)
       {
-         String slotStr = "Weight          " + restriction.string;
+         String slotStr = String.format("%s Slot ", restriction.string);
          strList.insertElementAt(slotStr, 0);
       }
       return strList;

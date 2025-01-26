@@ -367,8 +367,15 @@ public class Actor extends ForegroundObject
       }
       if(item instanceof Relic)
       {
+         Relic relic = (Relic)item;
+         // unequip conflicting relics
+         for(int i = 0; i < MAX_RELICS; i++)
+            if(relic.conflictsWith(getRelic(i)))
+               unequipItem(Inventory.RELIC_SLOT + i, true);
+         // unequip last relic if no room
          if(getRelicList().size() == MAX_RELICS)
             unequipItem(Inventory.RELIC_SLOT + MAX_RELICS - 1, true);
+         // equip relic
          addRelic((Relic)item);
       }
    }
