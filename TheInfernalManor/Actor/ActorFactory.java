@@ -22,13 +22,15 @@ public class ActorFactory
       a.getInventory().add(ArmorFactory.getLeatherArmor());
       a.getInventory().add(ArmorFactory.getChainMail());
       a.getInventory().add(ArmorFactory.getPlateMail());
-      a.getInventory().add(new Relic("Relic 1"));
-      a.getInventory().add(new Relic("Relic 2"));
-      a.getInventory().add(new Relic("Relic 3"));
-      a.getInventory().add(new Relic("Relic 4"));
       a.getInventory().add(OffHandFactory.getShield());
       a.getInventory().add(OffHandFactory.getOrb());
       a.getInventory().add(OffHandFactory.getTome());
+      a.getInventory().add(RelicFactory.getHelm());
+      Relic r = RelicFactory.getHelm();
+      r.setName("Circlet");
+      a.getInventory().add(r);
+      a.getInventory().add(RelicFactory.getBoots());
+      a.getInventory().add(RelicFactory.getAmulet());
       a.fullHeal();
       return a;
    }
