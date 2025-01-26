@@ -55,4 +55,42 @@ public class Item extends ForegroundObject implements GUIConstants
          strList.add("Block           " + GUITools.getSignedString(block));
       return strList;
    }
+   
+   public Vector<String> getComparisonSummary(Item that)
+   {
+      Vector<String> strList = new Vector<String>();
+      String str = "";
+      int val = 0;
+      if(this.physicalDamage != 0 ||  that.physicalDamage != 0)
+      {
+         val = this.physicalDamage - that.physicalDamage;
+         str = String.format("Physical Damage %s (%s)", GUITools.getSignedString(physicalDamage), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.magicalDamage != 0 ||  that.magicalDamage != 0)
+      {
+         val = this.magicalDamage - that.magicalDamage;
+         str = String.format("Magical Damage  %s (%s)", GUITools.getSignedString(magicalDamage), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.physicalArmor != 0 ||  that.physicalArmor != 0)
+      {
+         val = this.physicalArmor - that.physicalArmor;
+         str = String.format("Physical Armor  %s (%s)", GUITools.getSignedString(physicalArmor), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.magicalArmor != 0 ||  that.magicalArmor != 0)
+      {
+         val = this.magicalArmor - that.magicalArmor;
+         str = String.format("Magical Armor   %s (%s)", GUITools.getSignedString(magicalArmor), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.block != 0 ||  that.block != 0)
+      {
+         val = this.block - that.block;
+         str = String.format("Block            %s (%s)", GUITools.getSignedString(block), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      return strList;
+   }
 }

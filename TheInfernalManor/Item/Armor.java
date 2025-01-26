@@ -25,19 +25,32 @@ public class Armor extends Item implements GUIConstants
       weight = CLOTH;
    }
    
+   public String getWeightString()
+   {
+      switch(weight)
+      {
+         case CLOTH :   return "Cloth";
+         case LIGHT :   return "Light";
+         case MEDIUM :  return "Medium";
+         case HEAVY :   return "Heavy";
+      }
+      return "Unknown Weight";
+   }
+   
    @Override
    public Vector<String> getSummary()
    {
       Vector<String> strList = super.getSummary();
-      String weightStr = "Weight          ";
-      switch(weight)
-      {
-         case CLOTH :   weightStr += "Cloth"; break;
-         case LIGHT :   weightStr += "Light"; break;
-         case MEDIUM :  weightStr += "Medium"; break;
-         case HEAVY :   weightStr += "Heavy"; break;
-      }
+      String weightStr = "Weight          " + getWeightString();
       strList.insertElementAt(weightStr, 0);
+      return strList;
+   }
+   
+   public Vector<String> getComparisonSummary(Armor that)
+   {
+      Vector<String> strList = super.getComparisonSummary(that);
+      String sizeStr = String.format("Weight          %s (%s)", getWeightString(), that.getWeightString());;
+      strList.insertElementAt(sizeStr, 0);
       return strList;
    }
    

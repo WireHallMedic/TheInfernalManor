@@ -24,17 +24,30 @@ public class Weapon extends Item implements GUIConstants
       size = MEDIUM;
    }
    
+   public String getSizeString()
+   {
+      switch(size)
+      {
+         case LIGHT :   return "Light";
+         case MEDIUM :  return "Medium";
+         case HEAVY :   return "Heavy";
+      }
+      return "Unknown Size";
+   }
+   
    @Override
    public Vector<String> getSummary()
    {
       Vector<String> strList = super.getSummary();
-      String sizeStr = "Weapon Type     ";
-      switch(size)
-      {
-         case LIGHT :   sizeStr += "Light"; break;
-         case MEDIUM :  sizeStr += "Medium"; break;
-         case HEAVY :   sizeStr += "Heavy"; break;
-      }
+      String sizeStr = "Weapon Type     " + getSizeString();
+      strList.insertElementAt(sizeStr, 0);
+      return strList;
+   }
+   
+   public Vector<String> getComparisonSummary(Weapon that)
+   {
+      Vector<String> strList = super.getComparisonSummary(that);
+      String sizeStr = String.format("Weapon Type     %s (%s)", getSizeString(), that.getSizeString());;
       strList.insertElementAt(sizeStr, 0);
       return strList;
    }
