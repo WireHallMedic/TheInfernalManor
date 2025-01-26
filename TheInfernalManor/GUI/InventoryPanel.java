@@ -98,6 +98,19 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       {
          Item curItem = itemList.elementAt(curIndex);
          Vector<String> strList = curItem.getSummary();
+         // comparison summaries
+         if(curItem instanceof Weapon && player.getMainHand() != null)
+         {
+            strList = ((Weapon)curItem).getComparisonSummary(player.getMainHand());
+         }
+         if(curItem instanceof OffHand && player.getOffHand() != null)
+         {
+            strList = ((OffHand)curItem).getComparisonSummary(player.getOffHand());
+         }
+         if(curItem instanceof Armor && player.getArmor() != null)
+         {
+            strList = ((Armor)curItem).getComparisonSummary(player.getArmor());
+         }
          overwriteLine(RIGHT_PANEL_X_ORIGIN, 12, curItem.getName(), SIDE_WIDTH);
          for(int i = 0; i < MAX_SUMMARY_LINES; i++)
          {

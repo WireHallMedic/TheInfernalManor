@@ -157,7 +157,9 @@ public class GUITools implements GUIConstants, SCConstants
          return "" + val;
       else if(val > 0)
          return "+" + val;
-      else // val == 0
-         return String.valueOf(SCConstants.PLUS_MINUS_TILE) + "0";
+      // val == 0
+      char[] charArr = "x0".toCharArray();
+      charArr[0] = (char)SCConstants.PLUS_MINUS_TILE;
+      return new String(charArr);
    }
 }
