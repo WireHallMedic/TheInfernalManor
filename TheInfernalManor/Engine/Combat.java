@@ -37,8 +37,9 @@ public class Combat
          defender.applyCombatDamage(damage, attack.getAbilityType());
          if(attacker == GameState.getPlayerCharacter() || defender == GameState.getPlayerCharacter());
          {
-            String str = String.format("%s strikes %s for %d damage", attacker.getName(), defender.getName(), damage);
-            MessagePanel.addMessage(str);
+            MessagePanel.addMessage(String.format("%s strikes %s for %d damage", attacker.getName(), defender.getName(), damage));
+            if(defender.isDead())
+               MessagePanel.addMessage(String.format("%s dies", defender.getName()));
          }
       }
    }
