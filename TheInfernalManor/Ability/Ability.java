@@ -1,10 +1,7 @@
 package TheInfernalManor.Ability;
 
-public class Ability
-{
-   public static final boolean PHYSICAL = true;
-   public static final boolean MAGICAL = false;
-   
+public class Ability implements AbilityConstants
+{   
 	protected String name;
 	protected int energyCost;
 	protected int rechargeTime;
