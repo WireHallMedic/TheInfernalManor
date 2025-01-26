@@ -151,5 +151,13 @@ public class GUITools implements GUIConstants, SCConstants
       return results;
    }
    
-
+   public static String getSignedString(int val)
+   {
+      if(val < 0)
+         return "" + val;
+      else if(val > 0)
+         return "+" + val;
+      else // val == 0
+         return String.valueOf(SCConstants.PLUS_MINUS_TILE) + "0";
+   }
 }

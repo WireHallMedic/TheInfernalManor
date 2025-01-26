@@ -15,6 +15,7 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
    private static final int SIDE_WIDTH = (TILES_WIDE - 3) / 2;
    private static final int LEFT_PANEL_X_ORIGIN = 1;
    private static final int RIGHT_PANEL_X_ORIGIN = 3 + SIDE_WIDTH;
+   public static final int MAX_SUMMARY_LINES = 8;
    public static final int STANDARD_MODE = 0;
    public static final int UNEQUIP_MODE = 1;
    
@@ -91,6 +92,21 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       overwriteLine(RIGHT_PANEL_X_ORIGIN, 5, "Armor:     " + armor, SIDE_WIDTH);
       for(int i = 0; i < relic.length; i++)
          overwriteLine(RIGHT_PANEL_X_ORIGIN, 6 + i, "Relic " + (i + 1) +":   " + relic[i], SIDE_WIDTH);
+      
+      // current selection
+      if(curIndex != -1 && curIndex < itemList.size())
+      {
+         Item curItem = itemList.elementAt(curIndex);
+         Vector<String> strList = curItem.getSummary();
+         overwriteLine(RIGHT_PANEL_X_ORIGIN, 12, curItem.getName(), SIDE_WIDTH);
+         for(int i = 0; i < MAX_SUMMARY_LINES; i++)
+         {
+            if(i < strList.size())
+               overwriteLine(RIGHT_PANEL_X_ORIGIN, 13 + i, strList.elementAt(i), SIDE_WIDTH);
+            else
+               overwriteLine(RIGHT_PANEL_X_ORIGIN, 13 + i, "", SIDE_WIDTH);
+         }
+      }
       
    }
    

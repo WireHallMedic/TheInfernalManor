@@ -1,6 +1,7 @@
 package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
+import java.util.*;
 
 public class Weapon extends Item implements GUIConstants
 {
@@ -21,5 +22,20 @@ public class Weapon extends Item implements GUIConstants
    {
       super(n, WEAPON_ICON, WHITE);
       size = MEDIUM;
+   }
+   
+   @Override
+   public Vector<String> getSummary()
+   {
+      Vector<String> strList = super.getSummary();
+      String sizeStr = "Weapon Type     ";
+      switch(size)
+      {
+         case LIGHT :   sizeStr += "Light"; break;
+         case MEDIUM :  sizeStr += "Medium"; break;
+         case HEAVY :   sizeStr += "Heavy"; break;
+      }
+      strList.insertElementAt(sizeStr, 0);
+      return strList;
    }
 }
