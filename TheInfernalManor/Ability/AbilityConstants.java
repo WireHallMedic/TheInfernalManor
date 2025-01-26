@@ -4,6 +4,7 @@ public interface AbilityConstants
 {
    public static final boolean PHYSICAL = true;
    public static final boolean MAGICAL = false;
+   public static final int USE_WEAPON_RANGE = -1;
    
    public enum EffectShape
    {

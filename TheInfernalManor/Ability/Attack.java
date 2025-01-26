@@ -16,6 +16,7 @@ public class Attack extends Ability
       super(n);
       power = 1.0;
       baseDamage = 0;
+      setRange(USE_WEAPON_RANGE);
    }
    
    public Attack()
