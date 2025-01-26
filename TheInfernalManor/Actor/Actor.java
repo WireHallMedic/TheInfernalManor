@@ -241,7 +241,7 @@ public class Actor extends ForegroundObject
       magicalArmor = sum.getMagicalArmor();
       maxBlock = sum.getBlock();
       if(maxBlock < curBlock)
-         maxBlock = curBlock;
+         curBlock = maxBlock;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
          curBlock = maxBlock;
    }

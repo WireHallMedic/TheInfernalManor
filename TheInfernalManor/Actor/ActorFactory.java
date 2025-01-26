@@ -15,18 +15,16 @@ public class ActorFactory
       a.setMaxEnergy(10);
       a.fullHeal();
       a.setLocation(1, 1);
-      OffHand shield = new OffHand("Shield");
+      OffHand shield = new OffHand("Small Shield");
       shield.setBlock(5);
       a.setOffHand(shield);
       a.getInventory().add(new Weapon("Sword"));
+      a.getInventory().add(new Weapon("Spear"));
       a.getInventory().add(new Armor("Armor"));
-      a.getInventory().add(new OffHand("Shield"));
-      a.getInventory().add(new OffHand("Shield"));
-      a.getInventory().add(new OffHand("Shield"));
-      a.getInventory().add(new OffHand("Shield"));
-      a.getInventory().add(new OffHand("Shield"));
-      a.getInventory().add(new OffHand("Shield"));
-      a.getInventory().add(new OffHand("Shield"));
+      a.getInventory().add(new Relic("Relic 1"));
+      a.getInventory().add(new Relic("Relic 2"));
+      a.getInventory().add(new Relic("Relic 3"));
+      a.getInventory().add(new Relic("Relic 4"));
       return a;
    }
    

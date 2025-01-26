@@ -115,7 +115,7 @@ public class BaseAI
          }
          if(plan.getActionType() == ActionType.REMOVE)
          {
-            //self.dropFromInventory(plan.getIndex());
+            self.unequipItem(plan.getIndex());
             self.discharge(self.getInteractSpeed());
          }
       }

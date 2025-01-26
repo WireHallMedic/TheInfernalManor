@@ -42,17 +42,17 @@ public class ItemTest {
       defender.setArmor(a);
       defender.fullHeal();
       defender.applyCombatDamage(5, Ability.PHYSICAL);
-      Assert.assertEquals("Armor is not applied before block", defender.getCurBlock(), 5);
+      Assert.assertEquals("Armor is not applied before block", 5, defender.getCurBlock());
       
       a.setBlock(0);
       defender.setArmor(a);
       defender.fullHeal();
       defender.applyCombatDamage(3, Ability.PHYSICAL);
-      Assert.assertEquals("Armor does not reduce unblocked damage below 1", defender.getCurHealth(), 9);
+      Assert.assertEquals("Armor does not reduce unblocked damage below 1", 9, defender.getCurHealth());
       
       defender.fullHeal();
       defender.applyCombatDamage(7, Ability.PHYSICAL);
-      Assert.assertEquals("Armor applies full defense if damage > armor", defender.getCurHealth(), 8);
+      Assert.assertEquals("Armor applies full defense if damage > armor", 8, defender.getCurHealth());
       
       defender.fullHeal();
       defender.applyCombatDamage(5, Ability.MAGICAL);
