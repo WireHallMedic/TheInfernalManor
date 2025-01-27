@@ -20,7 +20,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    private int targetX;
    private int targetY;
    private static int MESSAGE_PANEL_HEIGHT = TILES_TALL - 3 - MAP_PANEL_SIZE;
-   private static int MESSAGE_PANEL_WIDTH = MAP_PANEL_SIZE * 2;
+   private static int MESSAGE_PANEL_WIDTH = TILES_WIDE - 2;
    private static int MESSAGE_PANEL_X_ORIGIN = 1;
    private static int MESSAGE_PANEL_Y_ORIGIN = MAP_PANEL_SIZE + 2;
    private static int NORMAL_MODE = 0;
@@ -54,21 +54,28 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       int w = infoPanel.getTilesWide();
       int h = infoPanel.getTilesTall();
       boolean[][] borderArr = new boolean[w][h];
-      for(int x = 0; x < w; x++)
-      {
-         borderArr[x][0] = true;
-         borderArr[x][h - 1] = true;
-         borderArr[x][MAP_PANEL_SIZE + 1] = true;
-      }
-      for(int y = 0; y < h; y++)
-      {
-         borderArr[0][y] = true;
-         borderArr[w - 1][y] = true;
-      }
-      for(int y = 1; y < h; y++)
-      {
-         borderArr[(MAP_PANEL_SIZE * 2) + 1][y] = true;
-      }
+      // full border
+      GUITools.setBorderBox(0, 0, w, h, borderArr);
+      // mapPanel border
+      GUITools.setBorderBox(0, 0, (MAP_PANEL_SIZE * 2) + 2, MAP_PANEL_SIZE + 2, borderArr);
+      // messagePanel border
+      GUITools.setBorderBox(MESSAGE_PANEL_X_ORIGIN - 1, MESSAGE_PANEL_Y_ORIGIN - 1, 
+         MESSAGE_PANEL_WIDTH + 2, MESSAGE_PANEL_HEIGHT + 2, borderArr);
+//       for(int x = 0; x < w; x++)
+//       {
+//          borderArr[x][0] = true;
+//          borderArr[x][h - 1] = true;
+//          borderArr[x][MAP_PANEL_SIZE + 1] = true;
+//       }
+//       for(int y = 0; y < h; y++)
+//       {
+//          borderArr[0][y] = true;
+//          borderArr[w - 1][y] = true;
+//       }
+//       for(int y = 1; y < h; y++)
+//       {
+//          borderArr[(MAP_PANEL_SIZE * 2) + 1][y] = true;
+//       }
       GUITools.applyBorderTileArray(borderArr, infoPanel);
    }
    

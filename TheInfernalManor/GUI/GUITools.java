@@ -68,16 +68,6 @@ public class GUITools implements GUIConstants, SCConstants
       int w = panel.getTilesWide();
       int h = panel.getTilesTall();
       boolean[][] borderArr = new boolean[w][h];
-//       for(int x = 0; x < w; x++)
-//       {
-//          borderArr[x][0] = true;
-//          borderArr[x][h - 1] = true;
-//       }
-//       for(int y = 0; y < h; y++)
-//       {
-//          borderArr[0][y] = true;
-//          borderArr[w - 1][y] = true;
-//       }
       setBorderBox(0, 0, w, h, borderArr);
       return borderArr;
    }
@@ -85,15 +75,15 @@ public class GUITools implements GUIConstants, SCConstants
    // set box of border tiles
    public static void setBorderBox(int xOrigin, int yOrigin, int w, int h, boolean[][] borderArr)
    {
-      for(int x = xOrigin; x < w; x++)
+      for(int x = 0; x < w; x++)
       {
-         borderArr[x][yOrigin] = true;
-         borderArr[x][h - 1] = true;
+         borderArr[xOrigin + x][yOrigin] = true;
+         borderArr[xOrigin + x][yOrigin + h - 1] = true;
       }
-      for(int y = yOrigin; y < h; y++)
+      for(int y = 0; y < h; y++)
       {
-         borderArr[xOrigin][y] = true;
-         borderArr[w - 1][y] = true;
+         borderArr[xOrigin][yOrigin + y] = true;
+         borderArr[xOrigin + w - 1][yOrigin + y] = true;
       }
    }
    
