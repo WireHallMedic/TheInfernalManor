@@ -334,8 +334,17 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
                                           parentFrame.returnToMainPanel();
                                        }
                                        break;
-            case KeyEvent.VK_R :       mode = UNEQUIP_MODE;
-                                       switchSides();
+            case KeyEvent.VK_R :       if(onLeft)
+                                       {
+                                          mode = UNEQUIP_MODE;
+                                          switchSides();
+                                       }
+                                       else
+                                       {
+                                          ap = new ActionPlan(ActionType.REMOVE, curIndex);
+                                          GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+                                          parentFrame.returnToMainPanel();
+                                       }
                                        break;
          }
       }
