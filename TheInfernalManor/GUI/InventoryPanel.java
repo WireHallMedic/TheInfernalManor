@@ -130,12 +130,6 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             {
                oldWeapon = new Weapon(player.getMainHand());
                somethingToCompare = true;
-               // unequipping weapon and offhand
-//                if(newWeapon.getSize() == Weapon.HEAVY && player.getOffHand() != null)
-//                {
-//                   oldWeapon.add(player.getOffHand());
-//                }
-//                strList = newWeapon.getComparisonSummary(oldWeapon);
             }
             // unequipping off hand
             if(newWeapon.getSize() == Weapon.HEAVY && player.getOffHand() != null)
@@ -146,9 +140,26 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             if(somethingToCompare)
                strList = newWeapon.getComparisonSummary(oldWeapon);
          }
-         if(curItem instanceof OffHand && player.getOffHand() != null)
+         if(curItem instanceof OffHand)
          {
-            strList = ((OffHand)curItem).getComparisonSummary(player.getOffHand());
+            OffHand newOH = (OffHand)curItem;
+            OffHand oldOH = new OffHand("");
+            boolean somethingToCompare = false;
+            
+            // unequipping off hand
+            if(player.getOffHand() != null)
+            {
+               oldOH = new OffHand(player.getOffHand());
+               somethingToCompare = true;
+            }
+            // unequipping main hand
+            if(player.getMainHand() != null && player.getMainHand().getSize() == Weapon.HEAVY)
+            {
+               oldOH.add(player.getMainHand());
+               somethingToCompare = true;
+            }
+            if(somethingToCompare)
+               strList = newOH.getComparisonSummary(oldOH);
          }
          if(curItem instanceof Armor && player.getArmor() != null)
          {
