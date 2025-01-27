@@ -58,15 +58,12 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       {
          borderArr[x][0] = true;
          borderArr[x][h - 1] = true;
+         borderArr[x][MAP_PANEL_SIZE + 1] = true;
       }
       for(int y = 0; y < h; y++)
       {
          borderArr[0][y] = true;
          borderArr[w - 1][y] = true;
-      }
-      for(int x = 1; x < (MAP_PANEL_SIZE * 2) + 1; x++)
-      {
-         borderArr[x][MAP_PANEL_SIZE + 1] = true;
       }
       for(int y = 1; y < h; y++)
       {

@@ -68,17 +68,33 @@ public class GUITools implements GUIConstants, SCConstants
       int w = panel.getTilesWide();
       int h = panel.getTilesTall();
       boolean[][] borderArr = new boolean[w][h];
-      for(int x = 0; x < w; x++)
+//       for(int x = 0; x < w; x++)
+//       {
+//          borderArr[x][0] = true;
+//          borderArr[x][h - 1] = true;
+//       }
+//       for(int y = 0; y < h; y++)
+//       {
+//          borderArr[0][y] = true;
+//          borderArr[w - 1][y] = true;
+//       }
+      setBorderBox(0, 0, w, h, borderArr);
+      return borderArr;
+   }
+   
+   // set box of border tiles
+   public static void setBorderBox(int xOrigin, int yOrigin, int w, int h, boolean[][] borderArr)
+   {
+      for(int x = xOrigin; x < w; x++)
       {
-         borderArr[x][0] = true;
+         borderArr[x][yOrigin] = true;
          borderArr[x][h - 1] = true;
       }
-      for(int y = 0; y < h; y++)
+      for(int y = yOrigin; y < h; y++)
       {
-         borderArr[0][y] = true;
+         borderArr[xOrigin][y] = true;
          borderArr[w - 1][y] = true;
       }
-      return borderArr;
    }
    
    public static int changeSaturation(int originalColor, double deltaSat)
