@@ -28,6 +28,13 @@ public class Weapon extends Item implements GUIConstants
       range = 1;
    }
    
+   public Weapon(Weapon that)
+   {
+      super(that);
+      this.size = that.size;
+      this.range = that.range;
+   }
+   
    public String getSizeString()
    {
       switch(size)

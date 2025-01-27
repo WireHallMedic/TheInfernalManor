@@ -35,6 +35,12 @@ public class Relic extends Item implements GUIConstants
       restriction = null;
    }
    
+   public Relic(Relic that)
+   {
+      super(that);
+      this.restriction = that.restriction;
+   }
+   
    public boolean conflictsWith(Relic that)
    {
       if(that == null)

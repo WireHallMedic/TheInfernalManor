@@ -8,4 +8,9 @@ public class OffHand extends Item implements GUIConstants
    {
       super(n, OFFHAND_ICON, WHITE);
    }
+   
+   public OffHand(OffHand that)
+   {
+      super(that);
+   }
 }

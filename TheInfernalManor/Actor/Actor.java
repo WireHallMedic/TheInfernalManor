@@ -351,13 +351,22 @@ public class Actor extends ForegroundObject
       {
          if(getMainHand() != null)
             unequipItem(Inventory.MAIN_HAND_SLOT, true);
-         setMainHand((Weapon)item);
+         Weapon wpn = (Weapon)item;
+         setMainHand(wpn);
+         // equipping heavy weapon unequips offhand
+         if(wpn.getSize() == Weapon.HEAVY)
+            if(getOffHand() != null)
+               unequipItem(Inventory.OFF_HAND_SLOT, false);
       }
       if(item instanceof OffHand)
       {
          if(getOffHand() != null)
             unequipItem(Inventory.OFF_HAND_SLOT, true);
          setOffHand((OffHand)item);
+         // equipping offhand unequips heavy weapon
+         if(getMainHand() != null)
+            if(getMainHand().getSize() == Weapon.HEAVY)
+               unequipItem(Inventory.MAIN_HAND_SLOT, false);
       }
       if(item instanceof Armor)
       {

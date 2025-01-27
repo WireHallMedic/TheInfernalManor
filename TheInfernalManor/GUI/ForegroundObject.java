@@ -28,4 +28,11 @@ public class ForegroundObject implements GUIConstants
       iconIndex = icon;
       color = c;
    }
+   
+   public ForegroundObject(ForegroundObject that)
+   {
+      this.name = that.name;
+      this.iconIndex = that.iconIndex;
+      this.color = that.color;
+   }
 }

@@ -31,6 +31,12 @@ public class Item extends ForegroundObject implements GUIConstants
       super(name, icon, color);
    }
    
+   public Item(Item that)
+   {
+      super(that);
+      this.add(that);
+   }
+   
    public void add(Item that)
    {
       this.physicalDamage += that.physicalDamage;

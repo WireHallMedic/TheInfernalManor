@@ -25,6 +25,12 @@ public class Armor extends Item implements GUIConstants
       weight = CLOTH;
    }
    
+   public Armor(Armor that)
+   {
+      super(that);
+      this.weight = that.weight;
+   }
+   
    public String getWeightString()
    {
       switch(weight)

@@ -119,9 +119,32 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
          Item curItem = itemList.elementAt(curIndex);
          Vector<String> strList = curItem.getSummary();
          // comparison summaries
-         if(curItem instanceof Weapon && player.getMainHand() != null)
+         if(curItem instanceof Weapon)
          {
-            strList = ((Weapon)curItem).getComparisonSummary(player.getMainHand());
+            Weapon newWeapon = (Weapon)curItem;
+            Weapon oldWeapon = new Weapon("");
+            boolean somethingToCompare = false;
+            
+            // unequipping main hand
+            if(player.getMainHand() != null)
+            {
+               oldWeapon = new Weapon(player.getMainHand());
+               somethingToCompare = true;
+               // unequipping weapon and offhand
+//                if(newWeapon.getSize() == Weapon.HEAVY && player.getOffHand() != null)
+//                {
+//                   oldWeapon.add(player.getOffHand());
+//                }
+//                strList = newWeapon.getComparisonSummary(oldWeapon);
+            }
+            // unequipping off hand
+            if(newWeapon.getSize() == Weapon.HEAVY && player.getOffHand() != null)
+            {
+               oldWeapon.add(player.getOffHand());
+               somethingToCompare = true;
+            }
+            if(somethingToCompare)
+               strList = newWeapon.getComparisonSummary(oldWeapon);
          }
          if(curItem instanceof OffHand && player.getOffHand() != null)
          {
