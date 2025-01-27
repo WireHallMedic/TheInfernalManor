@@ -1,11 +1,11 @@
 package TheInfernalManor.GUI;
 
-import TheInfernalManor.Engine.*;
+import TheInfernalManor.AI.*;
+import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Actor.*;
+import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
-import TheInfernalManor.Map.*;
-import TheInfernalManor.AI.*;
 import StrictCurses.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,22 +13,33 @@ import javax.swing.*;
 
 public class AdventurePanel extends JPanel implements GUIConstants, ComponentListener, SwapPanel, KeyListener
 {
+   public static final int MESSAGE_PANEL_HEIGHT = TILES_TALL - 3 - MAP_PANEL_SIZE;
+   public static final int MESSAGE_PANEL_WIDTH = TILES_WIDE - 2;
+   public static final int MESSAGE_PANEL_X_ORIGIN = 1;
+   public static final int MESSAGE_PANEL_Y_ORIGIN = MAP_PANEL_SIZE + 2;
+   public static final int CHARACTER_SUMMARY_PANEL_WIDTH = (TILES_WIDE - 4 - (MAP_PANEL_SIZE * 2)) / 2;
+   public static final int CHARACTER_SUMMARY_PANEL_X_ORIGIN = 1;
+   public static final int ENVIRONMENT_PANEL_WIDTH = CHARACTER_SUMMARY_PANEL_WIDTH;
+   public static final int ENVIRONMENT_PANEL_X_ORIGIN = TILES_WIDE - 1 - CHARACTER_SUMMARY_PANEL_WIDTH;
+   public static final int MAP_PANEL_X_ORIGIN = CHARACTER_SUMMARY_PANEL_WIDTH + 2;
+   public static final int NORMAL_MODE = 0;
+   public static final int ADJACENT_TARGET_MODE = 1;
+   public static final int RANGED_TARGET_MODE = 2;
+   public static final int LOOK_MODE = 3;
+   
    private MapPanel mapPanel;
    private InfoPanel infoPanel;
    private TIMFrame parentFrame;
-   private int mode;
-   private int targetX;
-   private int targetY;
-   private static int MESSAGE_PANEL_HEIGHT = TILES_TALL - 3 - MAP_PANEL_SIZE;
-   private static int MESSAGE_PANEL_WIDTH = TILES_WIDE - 2;
-   private static int MESSAGE_PANEL_X_ORIGIN = 1;
-   private static int MESSAGE_PANEL_Y_ORIGIN = MAP_PANEL_SIZE + 2;
-   private static int NORMAL_MODE = 0;
-   private static int ADJACENT_TARGET_MODE = 1;
-   private static int RANGED_TARGET_MODE = 2;
-   private static int LOOK_MODE = 3;
+   private static int mode;
+   private static int targetX;
+   private static int targetY;
    
    public String getPanelName(){return this.getClass().getSimpleName();}
+   public static void setMode(int newMode){mode = newMode;}
+   
+   public static int getMode(){return mode;}
+   public static int getTargetX(){return targetX;}
+   public static int getTargetY(){return targetY;}
    
    public AdventurePanel(SCTilePalette x1y2TilePalette, SCTilePalette x1y1TilePalette, TIMFrame pFrame)
    {
@@ -57,25 +68,10 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       // full border
       GUITools.setBorderBox(0, 0, w, h, borderArr);
       // mapPanel border
-      GUITools.setBorderBox(0, 0, (MAP_PANEL_SIZE * 2) + 2, MAP_PANEL_SIZE + 2, borderArr);
+      GUITools.setBorderBox(MAP_PANEL_X_ORIGIN - 1, 0, (MAP_PANEL_SIZE * 2) + 2, MAP_PANEL_SIZE + 2, borderArr);
       // messagePanel border
       GUITools.setBorderBox(MESSAGE_PANEL_X_ORIGIN - 1, MESSAGE_PANEL_Y_ORIGIN - 1, 
          MESSAGE_PANEL_WIDTH + 2, MESSAGE_PANEL_HEIGHT + 2, borderArr);
-//       for(int x = 0; x < w; x++)
-//       {
-//          borderArr[x][0] = true;
-//          borderArr[x][h - 1] = true;
-//          borderArr[x][MAP_PANEL_SIZE + 1] = true;
-//       }
-//       for(int y = 0; y < h; y++)
-//       {
-//          borderArr[0][y] = true;
-//          borderArr[w - 1][y] = true;
-//       }
-//       for(int y = 1; y < h; y++)
-//       {
-//          borderArr[(MAP_PANEL_SIZE * 2) + 1][y] = true;
-//       }
       GUITools.applyBorderTileArray(borderArr, infoPanel);
    }
    
@@ -116,7 +112,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       int displayHeight = infoPanel.getHeight() - (infoPanel.getImageYInset() * 2);
       double trueTileWidth = (double)displayWidth / infoPanel.getTilesWide();
       double trueTileHeight = (double)displayHeight / infoPanel.getTilesTall();
-      int xInset = (int)(infoPanel.getImageXInset() + trueTileWidth);
+      int xInset = (int)(infoPanel.getImageXInset() + (trueTileWidth * MAP_PANEL_X_ORIGIN));
       int yInset = (int)(infoPanel.getImageYInset() + trueTileHeight);
       int width = (int)(trueTileWidth * MAP_PANEL_SIZE * 2);
       int height = (int)(trueTileHeight * MAP_PANEL_SIZE);
@@ -142,8 +138,16 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    
    private void directionPressed(Direction dir)
    {
-      ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
-      GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+      if(mode == NORMAL_MODE)
+      {
+         ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
+         GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+      }
+      else
+      {
+         targetX += dir.x;
+         targetY += dir.y;
+      }
    }
    
    private boolean playerStandingOnItem()
@@ -152,6 +156,13 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       int x = GameState.getPlayerCharacter().getXLocation();
       int y = GameState.getPlayerCharacter().getYLocation();
       return map.isItemAt(x, y);
+   }
+   
+   public void activateLookMode()
+   {
+      mode = LOOK_MODE;
+      targetX = GameState.getPlayerCharacter().getXLocation();
+      targetY = GameState.getPlayerCharacter().getYLocation();
    }
    
    public void keyPressed(KeyEvent ke)
@@ -190,6 +201,9 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     break;
          case KeyEvent.VK_ESCAPE :  if(mode != NORMAL_MODE)
                                        mode = NORMAL_MODE;
+                                    break;
+         case KeyEvent.VK_L :       if(mode == NORMAL_MODE)
+                                       activateLookMode();
                                     break;
          
          // change screen

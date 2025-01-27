@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class MapPanel extends SCPanel implements GUIConstants
+public class MapPanel extends SCPanel implements GUIConstants, SCConstants
 {
    public MapPanel(SCTilePalette tilePalette)
    {
@@ -45,6 +45,16 @@ public class MapPanel extends SCPanel implements GUIConstants
             // actor
             for(int i = 0; i < actorList.size(); i++)
                setTile(actorList.elementAt(i), player);
+         }
+         if(AdventurePanel.getMode() == AdventurePanel.LOOK_MODE)
+         {
+            int x = AdventurePanel.getTargetX();
+            int y = AdventurePanel.getTargetY();
+            setTileIndex(x - xOffset, y - yOffset, RETICLE_TILE);
+         }
+         if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE)
+         {
+         
          }
       }
       else
