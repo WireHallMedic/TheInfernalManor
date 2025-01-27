@@ -154,7 +154,7 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
             // color-code comparisons
             Vector<int[]> compLoc = findText(RIGHT_PANEL_X_ORIGIN, 13 + i, SIDE_WIDTH, 1, "(+");
             if(compLoc.size() > 0)
-               fillTileFG(compLoc.elementAt(0)[0], 13 + i, TILES_WIDE - 1 - compLoc.elementAt(0)[0], 1, GREEN);
+               fillTileFG(compLoc.elementAt(0)[0], 13 + i, TILES_WIDE - 1 - compLoc.elementAt(0)[0], 1, BLUE);
             else
             {
                compLoc = findText(RIGHT_PANEL_X_ORIGIN, 13 + i, SIDE_WIDTH, 1, "(-");
