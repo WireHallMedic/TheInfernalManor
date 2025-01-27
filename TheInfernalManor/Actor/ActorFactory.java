@@ -16,8 +16,9 @@ public class ActorFactory
       a.setLocation(1, 1);
       a.getInventory().add(WeaponFactory.getDagger());
       a.getInventory().add(WeaponFactory.getSword());
-      a.getInventory().add(WeaponFactory.getSword());
       a.getInventory().add(WeaponFactory.getGreatsword());
+      a.getInventory().add(WeaponFactory.getSling());
+      a.getInventory().add(WeaponFactory.getBow());
       a.getInventory().add(ArmorFactory.getRobes());
       a.getInventory().add(ArmorFactory.getLeatherArmor());
       a.getInventory().add(ArmorFactory.getChainMail());

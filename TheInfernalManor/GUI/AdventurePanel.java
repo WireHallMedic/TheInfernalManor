@@ -33,6 +33,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    private static int mode;
    private static int targetX;
    private static int targetY;
+   private static Ability pendingAbility;
    
    public String getPanelName(){return this.getClass().getSimpleName();}
    public static void setMode(int newMode){mode = newMode;}
@@ -40,6 +41,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    public static int getMode(){return mode;}
    public static int getTargetX(){return targetX;}
    public static int getTargetY(){return targetY;}
+   public static Ability getPendingAbility(){return pendingAbility;}
    
    public AdventurePanel(SCTilePalette x1y2TilePalette, SCTilePalette x1y1TilePalette, TIMFrame pFrame)
    {
@@ -47,6 +49,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       setLayout(null);
       parentFrame = pFrame;
       mode = NORMAL_MODE;
+      pendingAbility = null;
       infoPanel = new InfoPanel(x1y2TilePalette, pFrame);
       mapPanel = new MapPanel(x1y1TilePalette);
       mapPanel.setVisible(true);

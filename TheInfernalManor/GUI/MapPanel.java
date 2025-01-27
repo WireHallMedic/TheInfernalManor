@@ -54,9 +54,11 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             int y = AdventurePanel.getTargetY();
             setTileBG(x - xOffset, y - yOffset, SELECTED_COLOR);
          }
-         if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE)
+         if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE && AnimationManager.getMediumBlink())
          {
-         
+            int x = AdventurePanel.getTargetX();
+            int y = AdventurePanel.getTargetY();
+            setTileBG(x - xOffset, y - yOffset, SELECTED_COLOR);         
          }
       }
       else

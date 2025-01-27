@@ -28,4 +28,24 @@ public class WeaponFactory implements GUIConstants
       return w;
    }
    
+   public static Weapon getSling()
+   {
+      Weapon w = new Weapon("Sling");
+      w.setSize(Weapon.MEDIUM);
+      w.setPhysicalDamage(3);
+      w.setRange(5);
+      return w;
+   }
+   
+   public static Weapon getBow()
+   {
+      Weapon w = new Weapon("Bow");
+      w.setSize(Weapon.HEAVY);
+      w.setPhysicalDamage(6);
+      w.setRange(10);
+      return w;
+   }
+   
+   
+   
 }

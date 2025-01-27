@@ -10,18 +10,22 @@ public class Weapon extends Item implements GUIConstants
    public static final int HEAVY = 2;
    
 	private int size;
+   private int range;
 
 
 	public int getSize(){return size;}
+   public int getRange(){return range;}
 
 
 	public void setSize(int s){size = s;}
+   public void setRange(int r){range = r;}
 
    
    public Weapon(String n)
    {
       super(n, WEAPON_ICON, WHITE);
       size = MEDIUM;
+      range = 1;
    }
    
    public String getSizeString()
@@ -39,16 +43,18 @@ public class Weapon extends Item implements GUIConstants
    public Vector<String> getSummary()
    {
       Vector<String> strList = super.getSummary();
-      String sizeStr = "Weapon Type     " + getSizeString();
-      strList.insertElementAt(sizeStr, 0);
+      strList.insertElementAt("Weapon Type     " + getSizeString(), 0);
+      strList.insertElementAt("Range           " + getRange(), 1);
       return strList;
    }
    
    public Vector<String> getComparisonSummary(Weapon that)
    {
       Vector<String> strList = super.getComparisonSummary(that);
-      String sizeStr = String.format("Weapon Type     %s (%s)", getSizeString(), that.getSizeString());;
-      strList.insertElementAt(sizeStr, 0);
+      String str = String.format("Weapon Type     %s (%s)", getSizeString(), that.getSizeString());
+      strList.insertElementAt(str, 0);
+      str = String.format("Range           %s (%s)", getRange(), GUITools.getSignedString(this.getRange() - that.getRange()));
+      strList.insertElementAt(str, 1);
       return strList;
    }
 }
