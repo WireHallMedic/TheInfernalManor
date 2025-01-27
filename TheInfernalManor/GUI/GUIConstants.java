@@ -8,7 +8,8 @@ public interface GUIConstants
    public static final int TILES_TALL = 32;
    public static final int MAP_PANEL_SIZE = 25;
    
-   public static final int FRAME_RATE = 1000 / 24;
+   public static final int TICKS_PER_SECOND = 24;
+   public static final int FRAME_RATE = 1000 / TICKS_PER_SECOND;
    
    public static final int WEAPON_ICON = '}';
    public static final int ARMOR_ICON = ']';
@@ -37,6 +38,8 @@ public interface GUIConstants
    public static final int LIGHT_GREY = -4144960;
    public static final int GREY = -8355712;
    public static final int DARK_GREY = -12566464;
+   
+   public static final int SELECTED_COLOR = YELLOW;
    
    public static final int[] COLOR_ARRAY = {
       RED, DARK_RED, ORANGE, YELLOW, GREEN, DARK_GREEN, BLUE, DARK_BLUE, PURPLE, PINK,

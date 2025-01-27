@@ -33,6 +33,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    private QuestInProgressPanel questInProgressPanel;
    private BankPanel bankPanel;
    private GameOverPanel gameOverPanel;
+   private AnimationManager animationManager;
    
    private javax.swing.Timer timer;
    
@@ -93,6 +94,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       bankPanel = new BankPanel(x1y2Palette, this);
       addPanel(bankPanel);
       
+      animationManager = new AnimationManager();
+      
       setVisible(true);
       snapToPreferredSize();
       setVisiblePanel("SplashPanel");
@@ -114,6 +117,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    // kicked by timer
    public void actionPerformed(ActionEvent ae)
    {
+      animationManager.kick();
       if(curPanel != null)
          ((JPanel)curPanel).repaint();
    }
