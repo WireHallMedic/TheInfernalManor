@@ -78,6 +78,12 @@ public class BaseAI
             x += plan.getDirection().x;
             y += plan.getDirection().y;
          }
+         if(plan.hasXYTarget())
+         {
+            x = plan.getTargetX();
+            y = plan.getTargetY();
+         }
+         
          if(plan.getActionType() == ActionType.DELAY)
          {
             self.takeStep(Direction.ORIGIN);

@@ -97,7 +97,7 @@ public class Actor extends ForegroundObject
       interactSpeed = ActionSpeed.NORMAL;
       chargeLevel = FULLY_CHARGED;
       powerLevel = 1;
-      basicAttack = new Attack("Strike");
+      basicAttack = AttackFactory.getBasicAttack();
       Weapon w = new Weapon("Fist");
       naturalWeapon = w;
       armor = null;

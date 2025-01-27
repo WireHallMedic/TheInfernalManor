@@ -4,6 +4,7 @@ import TheInfernalManor.Map.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import StrictCurses.*;
+import WidlerSuite.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -58,7 +59,10 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
          {
             int x = AdventurePanel.getTargetX();
             int y = AdventurePanel.getTargetY();
-            setTileBG(x - xOffset, y - yOffset, SELECTED_COLOR);         
+            int reticleColor = SELECTED_COLOR;
+            if(WSTools.getAngbandMetric(player.getXLocation(), player.getYLocation(), x, y) > AdventurePanel.getPendingRange())
+               reticleColor = RED;
+            setTileBG(x - xOffset, y - yOffset, reticleColor);         
          }
       }
       else

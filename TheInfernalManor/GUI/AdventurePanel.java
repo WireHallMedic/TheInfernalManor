@@ -10,6 +10,7 @@ import StrictCurses.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import WidlerSuite.*;
 
 public class AdventurePanel extends JPanel implements GUIConstants, ComponentListener, SwapPanel, KeyListener
 {
@@ -63,6 +64,25 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       setMapPanel();
    }
    
+   private void centerTarget()
+   {
+      if(GameState.getPlayerCharacter() != null)
+      {
+         targetX = GameState.getPlayerCharacter().getXLocation();
+         targetY = GameState.getPlayerCharacter().getYLocation();
+      }
+   }
+   
+   public static int getPendingRange()
+   {
+      if(pendingAbility == null)
+         return -1;
+      int range = pendingAbility.getRange();
+      if(range == AbilityConstants.USE_WEAPON_RANGE)
+         range = GameState.getPlayerCharacter().getWeapon().getRange();
+      return range;
+   }
+   
    private void setBorder()
    {
       int w = infoPanel.getTilesWide();
@@ -105,7 +125,10 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    public void setVisible(boolean v)
    {
       if(v)
+      {
          GameState.setGameMode(EngineConstants.ADVENTURE_MODE);
+         centerTarget();
+      }
       super.setVisible(v);
    }
    
@@ -161,13 +184,6 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       return map.isItemAt(x, y);
    }
    
-   public void activateLookMode()
-   {
-      mode = LOOK_MODE;
-      targetX = GameState.getPlayerCharacter().getXLocation();
-      targetY = GameState.getPlayerCharacter().getYLocation();
-   }
-   
    public void keyPressed(KeyEvent ke)
    {
       Actor player = GameState.getPlayerCharacter();
@@ -204,9 +220,43 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     break;
          case KeyEvent.VK_ESCAPE :  if(mode != NORMAL_MODE)
                                        mode = NORMAL_MODE;
+                                    pendingAbility = null;
+                                    centerTarget();
                                     break;
          case KeyEvent.VK_L :       if(mode == NORMAL_MODE)
-                                       activateLookMode();
+                                    {
+                                       mode = LOOK_MODE;
+                                       centerTarget();
+                                    }
+                                    if(mode == LOOK_MODE)
+                                       mode = NORMAL_MODE;
+                                    break;
+         case KeyEvent.VK_A :       if(mode == NORMAL_MODE)
+                                    {
+                                       pendingAbility = player.getBasicAttack();
+                                       if(getPendingRange() == 1)
+                                       {
+                                          mode = ADJACENT_TARGET_MODE;
+                                       }
+                                       else if(getPendingRange() > 1)
+                                       {
+                                          mode = RANGED_TARGET_MODE;
+                                       }
+                                       centerTarget();
+                                    }
+                                    break;
+         case KeyEvent.VK_ENTER :   if(mode == RANGED_TARGET_MODE)
+                                    {
+                                       if(WSTools.getAngbandMetric(player.getXLocation(), player.getYLocation(),
+                                                                   targetX, targetY) <= getPendingRange())
+                                       {
+                                          ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
+                                          ap.setTargetX(targetX);
+                                          ap.setTargetY(targetY);
+                                          player.getAI().setPendingAction(ap);
+                                          mode = NORMAL_MODE;
+                                       }
+                                    }
                                     break;
          
          // change screen
