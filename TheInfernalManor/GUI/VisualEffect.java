@@ -15,7 +15,6 @@ public class VisualEffect implements GUIConstants
 
 
 	public int getTicksPerFrame(){return ticksPerFrame;}
-	public int getCurIndex(){return curIndex;}
 	public int[] getIconList(){return iconList;}
 	public int[] getFGList(){return fgList;}
 	public int[] getBGList(){return bgList;}
@@ -24,7 +23,6 @@ public class VisualEffect implements GUIConstants
 
 
 	public void setTicksPerFrame(int t){ticksPerFrame = t;}
-	public void setCurIndex(int c){curIndex = c;}
 	public void setIconList(int[] i){iconList = i;}
 	public void setFGList(int[] f){fgList = f;}
 	public void setBGList(int[] b){bgList = b;}

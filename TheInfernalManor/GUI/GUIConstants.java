@@ -39,6 +39,10 @@ public interface GUIConstants
    public static final int GREY = -8355712;
    public static final int DARK_GREY = -12566464;
    
+   public static final int BRIGHT_RED = Color.RED.getRGB();
+   public static final int BRIGHT_YELLOW = Color.YELLOW.getRGB();
+   public static final int BRIGHT_ORANGE = Color.ORANGE.getRGB();
+   
    public static final int SELECTED_COLOR = YELLOW;
    
    public static final int[] COLOR_ARRAY = {

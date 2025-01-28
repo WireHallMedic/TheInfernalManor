@@ -266,7 +266,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : player.applyCombatDamage(1, Ability.PHYSICAL);
+         case KeyEvent.VK_BACK_QUOTE : VisualEffectFactory.registerExplosion(player.getXLocation(), player.getYLocation(), 1);
                                        break;
       }
    }

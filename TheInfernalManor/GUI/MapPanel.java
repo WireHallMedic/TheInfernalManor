@@ -70,18 +70,16 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
          for(int j = 0; j < 2; j++)
          {
             if(j == 1)
-            {
                veList = AnimationManager.getNonlockList();
-               for(int i = 0; i < veList.size(); i++)
-               {
-                  VisualEffect ve = veList.elementAt(i);
-                  if(ve.hasIconList())
-                     setTileIndex(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getIcon());
-                  if(ve.hasFGList())
-                     setTileFG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getFG());
-                  if(ve.hasBGList())
-                     setTileBG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getBG());
-               }
+            for(int i = 0; i < veList.size(); i++)
+            {
+               VisualEffect ve = veList.elementAt(i);
+               if(ve.hasIconList())
+                  setTileIndex(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getIcon());
+               if(ve.hasFGList())
+                  setTileFG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getFG());
+               if(ve.hasBGList())
+                  setTileBG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getBG());
             }
          }
       }
