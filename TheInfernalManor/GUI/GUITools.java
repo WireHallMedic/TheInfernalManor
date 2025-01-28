@@ -138,6 +138,7 @@ public class GUITools implements GUIConstants, SCConstants
       return indexArr;
    }
    
+   // returns a gradient from 45% darker to original
    public static int[] getGradient(int original)
    {
       Color c = new Color(original);
@@ -155,6 +156,24 @@ public class GUITools implements GUIConstants, SCConstants
          results[i] = c2.getRGB();
       }
       return results;
+   }
+   
+   public static int[] getGradient(int start, int end, int length)
+   {
+      Color cStart = new Color(start);
+      Color cEnd = new Color(end);
+      int[] gradient = new int[length];
+      double deltaRed = (double)(cEnd.getRed() - cStart.getRed()) / length;
+      double deltaGreen = (double)(cEnd.getGreen() - cStart.getGreen()) / length;
+      double deltaBlue = (double)(cEnd.getBlue() - cStart.getBlue()) / length;
+      for(int i = 0; i < length; i++)
+      {
+         Color c = new Color(cStart.getRed() + (int)(deltaRed * i),
+                             cStart.getGreen() + (int)(deltaGreen * i),
+                             cStart.getBlue() + (int)(deltaBlue * i));
+         gradient[i] = c.getRGB();
+      }
+      return gradient;
    }
    
    public static String getSignedString(int val)
