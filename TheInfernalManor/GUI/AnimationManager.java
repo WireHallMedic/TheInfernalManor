@@ -14,12 +14,14 @@ public class AnimationManager implements GUIConstants
    private static boolean slowBlink;
 	private static boolean mediumBlink;
 	private static boolean fastBlink;
+   private static Vector<VisualEffect> veList = new Vector<VisualEffect>();;
    private int tickIndex;
 
 
 	public static boolean getSlowBlink(){return slowBlink;}
 	public static boolean getMediumBlink(){return mediumBlink;}
 	public static boolean getFastBlink(){return fastBlink;}
+   public static Vector<VisualEffect> getVEList(){return veList;}
    
    
    public AnimationManager()
@@ -44,5 +46,25 @@ public class AnimationManager implements GUIConstants
       
       if(tickIndex % 6 == 0)
          fastBlink = !fastBlink;
+      
+      for(int i = 0; i < veList.size(); i++)
+      {
+         veList.elementAt(i).increment();
+         if(veList.elementAt(i).isExpired())
+         {
+            veList.removeElementAt(i);
+            i--;
+         }
+      }
+   }
+   
+   public static void add(VisualEffect ve)
+   {
+      veList.add(ve);
+   }
+   
+   public static boolean hasBlockingVisualEffect()
+   {
+      return veList.size() > 0;
    }
 }

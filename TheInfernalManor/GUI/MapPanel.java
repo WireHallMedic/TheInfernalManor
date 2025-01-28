@@ -64,6 +64,19 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
                reticleColor = RED;
             setTileBG(x - xOffset, y - yOffset, reticleColor);         
          }
+         
+         // visual effects
+         Vector<VisualEffect> veList = AnimationManager.getVEList();
+         for(int i = 0; i < veList.size(); i++)
+         {
+            VisualEffect ve = veList.elementAt(i);
+            if(ve.hasIconList())
+               setTileIndex(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getIcon());
+            if(ve.hasFGList())
+               setTileFG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getFG());
+            if(ve.hasBGList())
+               setTileBG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getBG());
+         }
       }
       else
       {

@@ -2,6 +2,7 @@ package TheInfernalManor.Engine;
 
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Map.*;
+import TheInfernalManor.GUI.*;
 import java.util.*;
 
 public class GameState implements EngineConstants, Runnable
@@ -30,7 +31,6 @@ public class GameState implements EngineConstants, Runnable
    public static void setTestValues()
    {
       setPlayerCharacter(ActorFactory.getTestPlayer());
-      playerCharacter.setPowerLevel(10);
       actorList.add(playerCharacter);
       setCurZone(MapFactory.getTestMap1());
       actorList.add(ActorFactory.getTestEnemy(5, 5));
@@ -81,7 +81,7 @@ public class GameState implements EngineConstants, Runnable
       Actor curActor;
       while(true)
       {
-         if(runF)
+         if(runF && !AnimationManager.hasBlockingVisualEffect())
          {
             curActor = actorList.elementAt(initiativeIndex);
             if(curActor.isCharged())

@@ -42,6 +42,15 @@ public class Combat
                str += String.format(" %s is slain!", defender.getName());
             MessagePanel.addMessage(str);
          }
+         // hit flash
+         if(!defender.isDead())
+         {
+            VisualEffect hitEffect = new VisualEffect(null, GUITools.getGradient(GUIConstants.RED, defender.getColor(), 12), null);
+            hitEffect.setTicksPerFrame(1);
+            hitEffect.setXLocation(defender.getXLocation());
+            hitEffect.setYLocation(defender.getYLocation());
+            AnimationManager.add(hitEffect);
+         }
       }
    }
 }
