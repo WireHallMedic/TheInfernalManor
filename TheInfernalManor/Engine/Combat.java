@@ -45,10 +45,8 @@ public class Combat
          // hit flash
          if(!defender.isDead())
          {
-            VisualEffect hitEffect = new VisualEffect(null, GUITools.getGradient(GUIConstants.RED, defender.getColor(), 12), null);
+            ActorVisualEffect hitEffect = new ActorVisualEffect(defender, null, GUITools.getGradient(GUIConstants.RED, defender.getColor(), 12));
             hitEffect.setTicksPerFrame(1);
-            hitEffect.setXLocation(defender.getXLocation());
-            hitEffect.setYLocation(defender.getYLocation());
             AnimationManager.add(hitEffect);
          }
       }

@@ -38,6 +38,7 @@ public class Actor extends ForegroundObject
    private OffHand offHand;
    private Vector<Relic> relicList;
    private Inventory inventory;
+   private ActorVisualEffect visualEffect;
 
 
    public BaseAI getAI(){return ai;}
@@ -83,6 +84,7 @@ public class Actor extends ForegroundObject
    public void setOffHand(OffHand oh){offHand = oh; calcItemStats();}
    public void setRelicList(Vector<Relic> list){relicList = list; calcItemStats();}
    public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
+   public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
    
 
    public Actor(String n, int icon)
@@ -105,8 +107,25 @@ public class Actor extends ForegroundObject
       offHand = null;
       relicList = new Vector<Relic>();
       inventory = new Inventory(this);
+      visualEffect = null;
       calcItemStats();
       fullHeal();
+   }
+   
+   @Override
+   public int getColor()
+   {
+      if(visualEffect != null && visualEffect.hasFGList())
+         return visualEffect.getFG();
+      return super.getColor();
+   }
+   
+   @Override
+   public int getIconIndex()
+   {
+      if(visualEffect != null && visualEffect.hasIconList())
+         return visualEffect.getIcon();
+      return super.getIconIndex();
    }
    
    public void setLocation(int x, int y)

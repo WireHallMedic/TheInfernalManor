@@ -14,14 +14,18 @@ public class AnimationManager implements GUIConstants
    private static boolean slowBlink;
 	private static boolean mediumBlink;
 	private static boolean fastBlink;
-   private static Vector<VisualEffect> veList = new Vector<VisualEffect>();;
+   private static Vector<VisualEffect> lockList = new Vector<VisualEffect>();
+   private static Vector<VisualEffect> nonlockList = new Vector<VisualEffect>();
+   private static Vector<VisualEffect> actorVEList = new Vector<VisualEffect>();
    private int tickIndex;
 
 
 	public static boolean getSlowBlink(){return slowBlink;}
 	public static boolean getMediumBlink(){return mediumBlink;}
 	public static boolean getFastBlink(){return fastBlink;}
-   public static Vector<VisualEffect> getVEList(){return veList;}
+   public static Vector<VisualEffect> getLockList(){return lockList;}
+   public static Vector<VisualEffect> getNonlockList(){return nonlockList;}
+   public static Vector<VisualEffect> getActorVEList(){return actorVEList;}
    
    
    public AnimationManager()
@@ -46,25 +50,41 @@ public class AnimationManager implements GUIConstants
       
       if(tickIndex % 6 == 0)
          fastBlink = !fastBlink;
-      
-      for(int i = 0; i < veList.size(); i++)
+         
+      for(int j = 0; j < 3; j++)
       {
-         veList.elementAt(i).increment();
-         if(veList.elementAt(i).isExpired())
+         Vector<VisualEffect> veList = lockList;
+         if(j == 1)
+            veList = nonlockList;
+         if(j == 2)
+            veList = actorVEList;
+         for(int i = 0; i < veList.size(); i++)
          {
-            veList.removeElementAt(i);
-            i--;
+            veList.elementAt(i).increment();
+            if(veList.elementAt(i).isExpired())
+            {
+               veList.removeElementAt(i);
+               i--;
+            }
          }
       }
    }
    
    public static void add(VisualEffect ve)
    {
-      veList.add(ve);
+      if(ve instanceof ActorVisualEffect)
+         actorVEList.add(ve);
+      else
+         nonlockList.add(ve);
+   }
+   
+   public static void addLocking(VisualEffect ve)
+   {
+      lockList.add(ve);
    }
    
    public static boolean hasBlockingVisualEffect()
    {
-      return veList.size() > 0;
+      return lockList.size() > 0;
    }
 }
