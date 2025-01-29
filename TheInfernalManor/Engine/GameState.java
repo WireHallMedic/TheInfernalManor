@@ -86,10 +86,12 @@ public class GameState implements EngineConstants, Runnable
             curActor = actorList.elementAt(initiativeIndex);
             if(curActor.isCharged())
             {
+               curActor.startTurn();
                // charged and has plan, do action
                if(curActor.hasPlan())
                {
                   curActor.act();
+                  curActor.endTurn();
                   incrementInitiative();
                }
                // charged no plan, make plan

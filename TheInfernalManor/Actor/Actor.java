@@ -39,6 +39,8 @@ public class Actor extends ForegroundObject
    private Vector<Relic> relicList;
    private Inventory inventory;
    private ActorVisualEffect visualEffect;
+   private Vector<StatusEffect> seList;
+   private boolean inTurn;
 
 
    public BaseAI getAI(){return ai;}
@@ -64,6 +66,8 @@ public class Actor extends ForegroundObject
 	public int getPhysicalArmor(){return physicalArmor;}
 	public int getMagicalArmor(){return magicalArmor;}
    public Inventory getInventory(){return inventory;}
+   public Vector<StatusEffect> getSEList(){return seList;}
+   public boolean isInTurn(){return inTurn;}
 
 
    public void setAI(BaseAI newAI){ai = newAI;}
@@ -85,6 +89,7 @@ public class Actor extends ForegroundObject
    public void setRelicList(Vector<Relic> list){relicList = list; calcItemStats();}
    public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
    public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
+   public void setSEList(Vector<StatusEffect> newList){seList = newList;}
    
 
    public Actor(String n, int icon)
@@ -108,6 +113,8 @@ public class Actor extends ForegroundObject
       relicList = new Vector<Relic>();
       inventory = new Inventory(this);
       visualEffect = null;
+      seList = new Vector<StatusEffect>();
+      inTurn = false;
       calcItemStats();
       fullHeal();
    }
@@ -160,6 +167,12 @@ public class Actor extends ForegroundObject
       int x = getXLocation() + dir.x;
       int y = getYLocation() + dir.y;
       return canStep(x, y, map);
+   }
+   
+   // status effect methods
+   public void add(StatusEffect se)
+   {
+      seList.add(se);
    }
    
    // resource methods
@@ -224,12 +237,15 @@ public class Actor extends ForegroundObject
    
    public void startTurn()
    {
-      
+      if(!inTurn)
+      {
+         inTurn = true;
+      }
    }
    
    public void endTurn()
    {
-   
+      inTurn = false;
    }
    
    // item methods
@@ -280,12 +296,27 @@ public class Actor extends ForegroundObject
    
    public void charge()
    {
+      // charge initiative
       if(chargeLevel < FULLY_CHARGED)
          chargeLevel++;
+         
+      // manage block
       if(ticksSinceHit < TICKS_TO_RECOVER_BLOCK)
          ticksSinceHit++;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
          curBlock = getMaxBlock();
+      
+      // manage status effects
+      for(int i = 0; i < seList.size(); i++)
+      {
+         StatusEffect se = seList.elementAt(i);
+         se.increment();
+         if(se.isExpired())
+         {
+            seList.removeElementAt(i);
+            i--;
+         }
+      }
    }
    
    public void discharge(ActionSpeed speed)

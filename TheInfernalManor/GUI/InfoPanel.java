@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import java.util.*;
 import StrictCurses.*;
+import TheInfernalManor.Ability.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Map.*;
@@ -55,6 +56,23 @@ public class InfoPanel extends TIMPanel implements GUIConstants
       bar = GUITools.getBar(player.getCurEnergy(), player.getMaxEnergy(), 8);
       for(int i = 0; i < bar.length; i++)
          setTileIndex(CHARACTER_SUMMARY_PANEL_X_ORIGIN + 8 + i, Y_ORIGIN + 3, bar[i]);
+      
+      // draw status effect info
+      Vector<StatusEffect> seList = player.getSEList();
+      for(int i = 0; i < SIDE_PANEL_WIDTH; i++)
+      {
+         if(i < seList.size())
+         {
+            StatusEffect se = seList.elementAt(i);
+            setTileIndex(CHARACTER_SUMMARY_PANEL_X_ORIGIN + i, Y_ORIGIN + 4, se.getIconIndex());
+            setTileFG(CHARACTER_SUMMARY_PANEL_X_ORIGIN + i, Y_ORIGIN + 4, se.getColor());
+         }
+         else
+         {
+            setTileIndex(CHARACTER_SUMMARY_PANEL_X_ORIGIN + i, Y_ORIGIN + 4, ' ');
+            setTileFG(CHARACTER_SUMMARY_PANEL_X_ORIGIN + i, Y_ORIGIN + 4, WHITE);
+         }
+      }
     }
     
     private void setEnvironmentPanel()

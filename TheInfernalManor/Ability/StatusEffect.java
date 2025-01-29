@@ -18,18 +18,28 @@ public class StatusEffect implements GUIConstants, AbilityConstants
 	public String getName(){return name;}
 
 
-	public void setRemainingDuration(int r){remainingDuration = r; setStartingDuration(r);}
-	public void setStartingDuration(int s){startingDuration = s;}
+	public void setRemainingDuration(int r){remainingDuration = r;}
+	public void setStartingDuration(int s){startingDuration = s; setRemainingDuration(s);}
 	public void setIconIndex(int i){iconIndex = i;}
 	public void setColor(int c){color = c;}
 	public void setName(String n){name = n;}
 
    public StatusEffect()
    {
-      setRemainingDuration(MEDIUM_DURATION);
+      setStartingDuration(MEDIUM_DURATION);
       setIconIndex('?');
       setColor(WHITE);
       setName("Unknown status effect");
+   }
+   
+   public void increment()
+   {
+      remainingDuration--;
+   }
+   
+   public boolean isExpired()
+   {
+      return remainingDuration <= 0;
    }
 
 }
