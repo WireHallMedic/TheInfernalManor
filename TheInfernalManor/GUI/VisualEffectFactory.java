@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import WidlerSuite.*;
+import TheInfernalManor.Engine.*;
 
 public class VisualEffectFactory implements GUIConstants, SCConstants
 {
@@ -45,5 +46,36 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
          if(WSTools.getAngbandMetric(x, y, xOrigin, yOrigin) <= radius)
             registerExplosion(x, y);
       }
+   }
+   
+   public static void registerLightning(int xOrigin, int yOrigin, Direction dirToSource)
+   {
+      int[] colorArr = GUITools.getGradient(WHITE, BRIGHT_YELLOW, 12);
+      int indexVal = -1;
+      switch(dirToSource)
+      {
+         case Direction.NORTH :
+         case Direction.SOUTH :     indexVal = '|'; break;
+         case Direction.EAST :
+         case Direction.WEST :      indexVal = '-'; break;
+         case Direction.NORTHEAST :
+         case Direction.SOUTHWEST : indexVal = '/'; break;
+         case Direction.SOUTHEAST :
+         case Direction.NORTHWEST : indexVal = '\\'; break;
+         case Direction.ORIGIN :    indexVal = SCConstants.BOLT_TILE; break;
+      }
+      VisualEffect ve = new VisualEffect(getArrayOfInt(indexVal, 12), colorArr, null);
+      ve.setTicksPerFrame(1);
+      ve.setXLocation(xOrigin);
+      ve.setYLocation(yOrigin);
+      AnimationManager.addLocking(ve);
+   }
+   
+   private static int[] getArrayOfInt(int val, int len)
+   {
+      int[] result = new int[len];
+      for(int i = 0; i < len; i++)
+         result[i] = val;
+      return result;
    }
 }
