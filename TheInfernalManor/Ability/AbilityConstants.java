@@ -6,6 +6,10 @@ public interface AbilityConstants
    public static final boolean MAGICAL = false;
    public static final int USE_WEAPON_RANGE = -1;
    
+   public static final int SHORT_DURATION = 10;
+   public static final int MEDIUM_DURATION = 20;
+   public static final int LONG_DURATION = 40;
+   
    public enum EffectShape
    {
       POINT,   // affects single tile
