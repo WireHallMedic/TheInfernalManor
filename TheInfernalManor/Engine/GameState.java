@@ -1,6 +1,7 @@
 package TheInfernalManor.Engine;
 
 import TheInfernalManor.Actor.*;
+import TheInfernalManor.Ability.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
 import WidlerSuite.Coord;
@@ -77,6 +78,23 @@ public class GameState implements EngineConstants, Runnable
       return getActorAt(x, y) != null;
    }
    public static boolean isActorAt(Coord c){return isActorAt(c.x, c.y);}
+   
+   public static void resolveAttack(Actor attacker, Attack attack, int targetX, int targetY)
+   {
+      Vector<Coord> targetList = new Vector<Coord>();
+      if(attack.getShape() == AbilityConstants.EffectShape.POINT)
+         targetList.add(new Coord(targetX, targetY));
+      for(int i = 0; i < targetList.size(); i++)
+      {
+         Actor defender = GameState.getActorAt(targetList.elementAt(i));
+         if(defender != null)
+         {
+            Combat.resolveAttack(attacker, defender, attack);
+         }
+      }
+   }
+   public static void resolveAttack(Actor attacker, Attack attack, Coord c){resolveAttack(attacker, attack, c.x, c.y);}
+   
    
    // adventure mode loop
    public void run()

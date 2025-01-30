@@ -358,11 +358,7 @@ public class Actor extends ForegroundObject
    
    public void doAttack(Attack attack, int x, int y)
    {
-      Actor defender = GameState.getActorAt(x, y);
-      if(defender != null)
-      {
-         Combat.resolveAttack(this, defender, attack);
-      }
+      GameState.resolveAttack(this, attack, x, y);
    }
    
    public void pickUp()

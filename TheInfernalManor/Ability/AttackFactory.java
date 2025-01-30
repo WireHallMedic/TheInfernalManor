@@ -16,6 +16,7 @@ public class AttackFactory implements AbilityConstants
       a.setShape(Ability.EffectShape.POINT);
       return a;
    }
+   
    public static Attack getBeamAttack()
    {
       Attack a = new Attack("Beam");
