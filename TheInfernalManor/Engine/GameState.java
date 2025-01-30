@@ -82,14 +82,31 @@ public class GameState implements EngineConstants, Runnable
    public static void resolveAttack(Actor attacker, Attack attack, int targetX, int targetY)
    {
       Vector<Coord> targetList = new Vector<Coord>();
+      Coord origin = new Coord(attacker.getXLocation(), attacker.getYLocation());
+      int range = attack.getRange();
+      if(range == AbilityConstants.USE_WEAPON_RANGE)
+         range = attacker.getWeapon().getRange();
       if(attack.getShape() == AbilityConstants.EffectShape.POINT)
          targetList.add(new Coord(targetX, targetY));
+      if(attack.getShape() == AbilityConstants.EffectShape.BEAM)
+      {
+         Coord target = new Coord(targetX, targetY);
+         targetList = EngineTools.getLineTargets(origin, target, range);
+      }
       for(int i = 0; i < targetList.size(); i++)
       {
          Actor defender = GameState.getActorAt(targetList.elementAt(i));
          if(defender != null)
          {
             Combat.resolveAttack(attacker, defender, attack);
+         }
+         if(attack.getShape() == AbilityConstants.EffectShape.BEAM)
+         {
+            Coord t = targetList.elementAt(i);
+            Coord o = origin;
+            if(i > 0)
+               o = targetList.elementAt(i - 1);
+            VisualEffectFactory.registerLightning(t, Direction.getDirectionTo(t, o));
          }
       }
    }

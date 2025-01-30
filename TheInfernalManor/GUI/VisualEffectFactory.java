@@ -37,6 +37,7 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
       ve.setYLocation(yOrigin);
       AnimationManager.addLocking(ve);
    }
+   public static void registerExplosion(Coord c){registerExplosion(c.x, c.y);}
    
    public static void registerExplosion(int xOrigin, int yOrigin, int radius)
    {
@@ -47,6 +48,8 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
             registerExplosion(x, y);
       }
    }
+   public static void registerExplosion(Coord c, int radius){registerExplosion(c.x, c.y, radius);}
+   
    
    public static void registerLightning(int xOrigin, int yOrigin, Direction dirToSource)
    {
@@ -70,6 +73,7 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
       ve.setYLocation(yOrigin);
       AnimationManager.addLocking(ve);
    }
+   public static void registerLightning(Coord c, Direction dirToSource){registerLightning(c.x, c.y, dirToSource);}
    
    private static int[] getArrayOfInt(int val, int len)
    {

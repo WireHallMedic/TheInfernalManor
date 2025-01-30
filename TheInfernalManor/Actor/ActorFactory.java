@@ -3,6 +3,7 @@ package TheInfernalManor.Actor;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.AI.*;
 import TheInfernalManor.Item.*;
+import TheInfernalManor.Ability.*;
 
 public class ActorFactory
 {
@@ -36,6 +37,8 @@ public class ActorFactory
       a.getInventory().add(RelicFactory.getBoots());
       a.getInventory().add(RelicFactory.getAmulet());
       a.fullHeal();
+      
+      a.setBasicAttack(AttackFactory.getBeamAttack());
       return a;
    }
    

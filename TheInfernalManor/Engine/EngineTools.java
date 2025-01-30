@@ -24,4 +24,5 @@ public class EngineTools implements EngineConstants
       }
       return actualLine;
    }
+   public static Vector<Coord> getLineTargets(Coord origin, Coord target, int maxLen){return getLineTargets(origin.x, origin.y, target.x, target.y, maxLen);}
 }
