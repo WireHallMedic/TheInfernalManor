@@ -65,6 +65,7 @@ public class ZoneMap
       return x >= 0 && x < width &&
          y >= 0 && y < height;
    }
+   public boolean isInBounds(Coord c){return isInBounds(c.x, c.y);}
    
    public boolean isLowPassable(int x, int y)
    {
@@ -72,6 +73,7 @@ public class ZoneMap
          return tileMap[x][y].isLowPassable();
       return oobTile.isLowPassable();
    }
+   public boolean isLowPassable(Coord c){return isLowPassable(c.x, c.y);}
    
    public boolean isHighPassable(int x, int y)
    {
@@ -79,6 +81,7 @@ public class ZoneMap
          return tileMap[x][y].isHighPassable();
       return oobTile.isHighPassable();
    }
+   public boolean isHighPassable(Coord c){return isHighPassable(c.x, c.y);}
    
    public boolean isTransparent(int x, int y)
    {
@@ -86,6 +89,7 @@ public class ZoneMap
          return tileMap[x][y].isTransparent();
       return oobTile.isTransparent();
    }
+   public boolean isTransparent(Coord c){return isTransparent(c.x, c.y);}
    
    public ForegroundObject getDecoration(int x, int y)
    {
@@ -93,6 +97,7 @@ public class ZoneMap
          return decorationMap[x][y];
       return null;
    }
+   public ForegroundObject getDecoration(Coord c){return getDecoration(c.x, c.y);}
    
    public void setDecoration(int x, int y, ForegroundObject fo)
    {
@@ -104,6 +109,7 @@ public class ZoneMap
    {
       return getItemAt(x, y) != null;
    }
+   public boolean isItemAt(Coord c){return isItemAt(c.x, c.y);}
    
    public Item getItemAt(int x, int y)
    {
@@ -111,6 +117,7 @@ public class ZoneMap
          return itemMap[x][y];
       return null;
    }
+   public Item getItemAt(Coord c){return getItemAt(c.x, c.y);}
    
    public void setItemAt(int x, int y, Item item)
    {
@@ -142,11 +149,13 @@ public class ZoneMap
          return tileMap[x][y];
       return oobTile;
    }
+   public MapCell getTile(Coord c){return getTile(c.x, c.y);}
    
    public boolean canStep(int x, int y, Actor a)
    {
       return getTile(x, y).isLowPassable();
    }
+   public boolean canStep(Coord c, Actor a){return canStep(c.x, c.y, a);}
    
    public void doToggle(int x, int y)
    {
