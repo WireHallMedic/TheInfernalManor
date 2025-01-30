@@ -3,6 +3,7 @@ package TheInfernalManor.Engine;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
+import WidlerSuite.Coord;
 import java.util.*;
 
 public class GameState implements EngineConstants, Runnable
@@ -69,11 +70,13 @@ public class GameState implements EngineConstants, Runnable
       }
       return null;
    }
+   public static Actor getActorAt(Coord c){return getActorAt(c.x, c.y);}
    
    public static boolean isActorAt(int x, int y)
    {
       return getActorAt(x, y) != null;
    }
+   public static boolean isActorAt(Coord c){return isActorAt(c.x, c.y);}
    
    // adventure mode loop
    public void run()

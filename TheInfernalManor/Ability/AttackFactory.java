@@ -16,4 +16,18 @@ public class AttackFactory implements AbilityConstants
       a.setShape(Ability.EffectShape.POINT);
       return a;
    }
+   public static Attack getBeamAttack()
+   {
+      Attack a = new Attack("Beam");
+      
+      a.setPower(1.0);
+      a.setBaseDamage(0);
+      a.setRange(10);
+      a.setEnergyCost(0);
+      a.setRechargeTime(0);
+      a.setSpeed(ActionSpeed.NORMAL);
+      a.setAbilityType(Ability.MAGICAL);
+      a.setShape(Ability.EffectShape.BEAM);
+      return a;
+   }
 }
