@@ -50,13 +50,13 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
          }
          
          // targeting reticle
-         if(AdventurePanel.getMode() == AdventurePanel.LOOK_MODE && AnimationManager.getMediumBlink())
+         if(AdventurePanel.getMode() == AdventurePanel.LOOK_MODE)
          {
             int x = AdventurePanel.getTargetX();
             int y = AdventurePanel.getTargetY();
             setTileBG(x - xOffset, y - yOffset, SELECTED_COLOR);
          }
-         if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE && AnimationManager.getMediumBlink())
+         if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE)
          {
             int x = AdventurePanel.getTargetX();
             int y = AdventurePanel.getTargetY();

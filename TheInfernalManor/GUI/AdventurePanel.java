@@ -223,13 +223,13 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     pendingAbility = null;
                                     centerTarget();
                                     break;
-         case KeyEvent.VK_L :       if(mode == NORMAL_MODE)
+         case KeyEvent.VK_L :       if(mode == LOOK_MODE)
+                                       mode = NORMAL_MODE;
+                                       if(mode == NORMAL_MODE)
                                     {
                                        mode = LOOK_MODE;
                                        centerTarget();
                                     }
-                                    if(mode == LOOK_MODE)
-                                       mode = NORMAL_MODE;
                                     break;
          case KeyEvent.VK_A :       if(mode == NORMAL_MODE)
                                     {
