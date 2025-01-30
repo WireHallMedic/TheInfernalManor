@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import TheInfernalManor.Map.*;
 import TheInfernalManor.Actor.*;
+import TheInfernalManor.Ability.*;
 import TheInfernalManor.Engine.*;
 import StrictCurses.*;
 import WidlerSuite.*;
@@ -62,7 +63,23 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             int reticleColor = SELECTED_COLOR;
             if(WSTools.getAngbandMetric(player.getXLocation(), player.getYLocation(), x, y) > AdventurePanel.getPendingRange())
                reticleColor = RED;
-            setTileBG(x - xOffset, y - yOffset, reticleColor);         
+            setTileBG(x - xOffset, y - yOffset, reticleColor);   
+            Ability pendingAbility = AdventurePanel.getPendingAbility();
+            int range = pendingAbility.getRange();
+            if(range == AbilityConstants.USE_WEAPON_RANGE)
+               range = player.getWeapon().getRange();
+            if(pendingAbility.getShape() == AbilityConstants.EffectShape.BEAM)
+            {
+               Coord origin = new Coord(player.getXLocation(), player.getYLocation());
+               Vector<Coord> beamShape = StraightLine.findLine(origin, new Coord(x, y), StraightLine.REMOVE_ORIGIN);
+               reticleColor = SELECTED_COLOR;
+               for(Coord c : beamShape)
+               {
+                  setTileBG(c.x - xOffset, c.y - yOffset, reticleColor);
+                  if(!map.isHighPassable(c.x, c.y) ||  WSTools.getAngbandMetric(origin, c) > range)
+                     reticleColor = RED;
+               }
+            }
          }
          
          // visual effects
