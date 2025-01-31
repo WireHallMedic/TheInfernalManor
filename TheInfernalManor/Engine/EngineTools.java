@@ -59,7 +59,13 @@ public class EngineTools implements EngineConstants
          for(int x = 0; x < diameter; x++)
          for(int y = 0; y < diameter; y++)
          {
+            // add matching locations
             if(metricArray[x][y] == i)
+            {
+               cList.add(new Coord(x - center, y - center));
+            }
+            // also add interior corner locations
+            else if(metricArray[x][y] == i - 1 && countNeighbors(metricArray, x, y, i) == 2)
             {
                cList.add(new Coord(x - center, y - center));
             }
@@ -85,4 +91,19 @@ public class EngineTools implements EngineConstants
       return val;
    }
    public static Coord[] getShellList(int x, int y, int radius){return getShellList(new Coord(x, y), radius);}
+   
+   
+   private static int countNeighbors(int[][] angbandMap, int x, int y, int searchInt)
+   {
+      int count = 0;
+      if(x - 1 > 0 && angbandMap[x - 1][y] == searchInt)
+         count++;
+      if(x + 1 < angbandMap.length && angbandMap[x + 1][y] == searchInt)
+         count++;
+      if(y - 1 > 0 && angbandMap[x][y - 1] == searchInt)
+         count++;
+      if(y + 1 < angbandMap[0].length && angbandMap[x][y + 1] == searchInt)
+         count++;
+      return count;
+   }
 }

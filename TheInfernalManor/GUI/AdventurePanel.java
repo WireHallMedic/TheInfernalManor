@@ -266,7 +266,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : Coord[] list = EngineTools.getShellList(player.getXLocation(), player.getYLocation(), 3);
+         case KeyEvent.VK_BACK_QUOTE : Coord[] list = EngineTools.getShellList(player.getXLocation(), player.getYLocation(), 5);
                                        for(int i = 0; i < list.length; i++)
                                        {
                                           VisualEffectFactory.registerExplosion(list[i]);
