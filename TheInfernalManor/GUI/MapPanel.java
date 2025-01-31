@@ -49,13 +49,7 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
                setTile(actorList.elementAt(i), player);
          }
          
-         // targeting reticle
-         if(AdventurePanel.getMode() == AdventurePanel.LOOK_MODE)
-         {
-            int x = AdventurePanel.getTargetX();
-            int y = AdventurePanel.getTargetY();
-            setTileBG(x - xOffset, y - yOffset, SELECTED_COLOR);
-         }
+         // pending ability shape
          if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE)
          {
             int x = AdventurePanel.getTargetX();
@@ -71,15 +65,25 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             if(pendingAbility.getShape() == AbilityConstants.EffectShape.BEAM)
             {
                Coord origin = new Coord(player.getXLocation(), player.getYLocation());
-               Vector<Coord> beamShape = StraightLine.findLine(origin, new Coord(x, y), StraightLine.REMOVE_ORIGIN);
+               Coord target = new Coord(AdventurePanel.getTargetX(), AdventurePanel.getTargetY());
+               int len = pendingAbility.getRange();
+               if(len == Ability.USE_WEAPON_RANGE)
+                  len = player.getWeapon().getRange();
+               Vector<Coord> beamShape = EngineTools.getLineTargets(origin, target, len);
                reticleColor = SELECTED_COLOR;
                for(Coord c : beamShape)
                {
                   setTileBG(c.x - xOffset, c.y - yOffset, reticleColor);
-                  if(!map.isHighPassable(c.x, c.y) ||  WSTools.getAngbandMetric(origin, c) > range)
-                     reticleColor = RED;
                }
             }
+         }
+         
+         // targeting reticle
+         if(AdventurePanel.getMode() == AdventurePanel.LOOK_MODE || AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE)
+         {
+            int x = AdventurePanel.getTargetX();
+            int y = AdventurePanel.getTargetY();
+            setTileBG(x - xOffset, y - yOffset, RETICLE_COLOR);
          }
          
          // visual effects

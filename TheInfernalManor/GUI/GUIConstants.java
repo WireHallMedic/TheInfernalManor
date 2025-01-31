@@ -44,6 +44,7 @@ public interface GUIConstants
    public static final int BRIGHT_ORANGE = Color.ORANGE.getRGB();
    
    public static final int SELECTED_COLOR = YELLOW;
+   public static final int RETICLE_COLOR = BLUE;
    
    public static final int[] COLOR_ARRAY = {
       RED, DARK_RED, ORANGE, YELLOW, GREEN, DARK_GREEN, BLUE, DARK_BLUE, PURPLE, PINK,

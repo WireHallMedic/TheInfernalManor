@@ -11,8 +11,13 @@ public class EngineTools implements EngineConstants
    public static Vector<Coord> getLineTargets(int xOrigin, int yOrigin, int xTarget, int yTarget, int maxLen)
    {
       Coord origin = new Coord(xOrigin, yOrigin);
-      Vector<Coord> line = StraightLine.findLine(origin, new Coord(xTarget, yTarget), 
-                                                 StraightLine.REMOVE_ORIGIN);
+      Coord target = new Coord(xTarget, yTarget);
+      target.subtract(origin);
+      Vect vect = new Vect(target);
+      vect.magnitude = maxLen;
+      target = new Coord(vect);
+      target.add(origin);
+      Vector<Coord> line = StraightLine.findLine(origin, target, StraightLine.REMOVE_ORIGIN);
       Vector<Coord> actualLine = new Vector<Coord>();
       for(int i = 0; i < line.size(); i++)
       {
