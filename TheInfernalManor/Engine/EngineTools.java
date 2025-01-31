@@ -34,6 +34,21 @@ public class EngineTools implements EngineConstants
    public static Vector<Coord> getLineTargets(Coord origin, Coord target, int maxLen){return getLineTargets(origin.x, origin.y, target.x, target.y, maxLen);}
 
 
+   // return a shell of passed radius, centered on origin
+   public static Vector<Coord> getShellList(Coord origin, int radius)
+   {
+      Vector<Coord> val = new Vector<Coord>();
+      for(int i = 0; i < SHELL_LIST[radius].length; i++)
+      {
+         Coord c = new Coord(SHELL_LIST[radius][i]);
+         c.add(origin);
+         val.add(c);
+      }
+      return val;
+   }
+   public static Vector<Coord> getShellList(int x, int y, int radius){return getShellList(new Coord(x, y), radius);}
+   
+   
    // a shell is all the Coords of a specific Angband metric, relative to zero. filling in the corners if AM > 1 to make sure
    // we don't miss any tiles.
    private static Coord[][] generateShellList()
@@ -76,21 +91,6 @@ public class EngineTools implements EngineConstants
       }
       return shellList;
    }
-   
-   
-   // return a shell of passed radius, centered on origin
-   public static Coord[] getShellList(Coord origin, int radius)
-   {
-      Coord[] val = new Coord[SHELL_LIST[radius].length];
-      for(int i = 0; i < val.length; i++)
-      {
-         Coord c = new Coord(SHELL_LIST[radius][i]);
-         c.add(origin);
-         val[i] = c;
-      }
-      return val;
-   }
-   public static Coord[] getShellList(int x, int y, int radius){return getShellList(new Coord(x, y), radius);}
    
    
    private static int countNeighbors(int[][] angbandMap, int x, int y, int searchInt)
