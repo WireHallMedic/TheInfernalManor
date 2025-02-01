@@ -8,6 +8,35 @@ import TheInfernalManor.Actor.*;
 public class EngineTools implements EngineConstants
 {
    private static final Coord[][] SHELL_LIST = generateShellList();
+   public static final int UNCHECKED = 0;
+   public static final int CHECKED_TRUE = 1;
+   public static final int CHECKED_FALSE = 2;
+   
+   public static Vector<Coord> getPointTarget(int xOrigin, int yOrigin, int xTarget, int yTarget, int maxLen)
+   {
+      Coord origin = new Coord(xOrigin, yOrigin);
+      Coord target = new Coord(xTarget, yTarget);
+      target.subtract(origin);
+      Vect vect = new Vect(target);
+      vect.magnitude = maxLen;
+      target = new Coord(vect);
+      target.add(origin);
+      Vector<Coord> line = StraightLine.findLine(origin, target, StraightLine.REMOVE_ORIGIN);
+      Vector<Coord> targetList = new Vector<Coord>();
+      for(int i = 0; i < line.size(); i++)
+      {
+         Coord c = line.elementAt(i);
+         if(!GameState.getCurZone().isHighPassable(c) ||
+            GameState.isActorAt(c))
+         {
+            targetList.add(c);
+            return targetList;
+         }
+      }
+      targetList.add(target);
+      return targetList;
+   }
+   public static Vector<Coord> getPointTarget(Coord origin, Coord target, int maxLen){return getPointTarget(origin.x, origin.y, target.x, target.y, maxLen);}
    
    // return the tiles that will be affected
    public static Vector<Coord> getLineTargets(int xOrigin, int yOrigin, int xTarget, int yTarget, int maxLen)
@@ -64,12 +93,6 @@ public class EngineTools implements EngineConstants
       boolean[][] passMap = new boolean[diameter][diameter];
       
       Vector<Coord> shellList = getShellList(shellOrigin, radius);
-//       for(Coord c: shellList)
-//       {
-//          passMap[c.x][c.y] = true;
-//       }
-      
-      
       Vector<Coord> lineList;
       for(Coord endPoint : shellList)
       {
