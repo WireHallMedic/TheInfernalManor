@@ -234,6 +234,13 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_A :       if(mode == NORMAL_MODE)
                                     {
                                        pendingAbility = player.getBasicAttack();
+                                       if(getPendingRange() == 0)
+                                       {
+                                          ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
+                                          ap.setTargetX(player.getXLocation());
+                                          ap.setTargetY(player.getYLocation());
+                                          player.getAI().setPendingAction(ap);
+                                       }
                                        if(getPendingRange() == 1)
                                        {
                                           mode = ADJACENT_TARGET_MODE;

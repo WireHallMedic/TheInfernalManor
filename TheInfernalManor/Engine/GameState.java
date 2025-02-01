@@ -103,6 +103,11 @@ public class GameState implements EngineConstants, Runnable
          Coord target = new Coord(targetX, targetY);
          targetList = EngineTools.getConeTargets(origin, target, range, attack.getRadius());
       }
+      if(attack.getShape() == AbilityConstants.EffectShape.AURA)
+      {
+         Coord target = new Coord(targetX, targetY);
+         targetList = EngineTools.getAuraTargets(origin, attack.getRadius());
+      }
       for(int i = 0; i < targetList.size(); i++)
       {
          // resolve attack
@@ -121,6 +126,7 @@ public class GameState implements EngineConstants, Runnable
             VisualEffectFactory.registerLightning(t, Direction.getDirectionTo(t, o));
          }
          if(attack.getShape() == AbilityConstants.EffectShape.CONE ||
+            attack.getShape() == AbilityConstants.EffectShape.AURA ||
             attack.getShape() == AbilityConstants.EffectShape.BLAST)
          {
             for(Coord c : targetList)

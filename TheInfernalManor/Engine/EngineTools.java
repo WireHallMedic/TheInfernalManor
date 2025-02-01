@@ -170,6 +170,22 @@ public class EngineTools implements EngineConstants
    public static Vector<Coord> getBlastTargets(Coord origin, Coord target, int maxLen, int radius){return getBlastTargets(origin.x, origin.y, target.x, target.y, maxLen, radius);}
    
    
+   public static Vector<Coord> getAuraTargets(Coord origin, int radius)
+   {
+      Vector<Coord> targetList = getBlastTargets(origin, origin, 0, radius);
+      for(int i = 0; i < targetList.size(); i++)
+      {
+         if(targetList.elementAt(i).equals(origin))
+         {
+            targetList.removeElementAt(i);
+            i--;
+         }
+      }
+      return targetList;
+   }
+   public static Vector<Coord> getAuraTargets(int xOrigin, int yOrigin, int radius){return getAuraTargets(new Coord(xOrigin, yOrigin), radius);}
+   
+   
    // a shell is all the Coords of a specific Angband metric, relative to zero. filling in the corners if AM > 1 to make sure
    // we don't miss any tiles.
    private static Coord[][] generateShellList()

@@ -64,7 +64,7 @@ public class AttackFactory implements AbilityConstants
       return a;
    }
    
-   public static Attack getBlastAttack()
+   public static Attack getBlast()
    {
       Attack a = new Attack("Blast");
       
@@ -77,6 +77,22 @@ public class AttackFactory implements AbilityConstants
       a.setAbilityType(Ability.MAGICAL);
       a.setShape(Ability.EffectShape.BLAST);
       a.setRadius(1);
+      return a;
+   }
+   
+   public static Attack getAuraBlast()
+   {
+      Attack a = new Attack("Aura Blast");
+      
+      a.setPower(1.0);
+      a.setBaseDamage(0);
+      a.setRange(0);
+      a.setEnergyCost(0);
+      a.setRechargeTime(0);
+      a.setSpeed(ActionSpeed.NORMAL);
+      a.setAbilityType(Ability.MAGICAL);
+      a.setShape(Ability.EffectShape.AURA);
+      a.setRadius(2);
       return a;
    }
 }
