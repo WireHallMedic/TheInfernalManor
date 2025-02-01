@@ -50,13 +50,12 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
          }
          
          // pending ability shape
+         boolean reticleInShape = true;
          if(AdventurePanel.getMode() == AdventurePanel.RANGED_TARGET_MODE)
          {
             int x = AdventurePanel.getTargetX();
             int y = AdventurePanel.getTargetY();
             int reticleColor = SELECTED_COLOR;
-            if(WSTools.getAngbandMetric(player.getXLocation(), player.getYLocation(), x, y) > AdventurePanel.getPendingRange())
-               reticleColor = RED;
             setTileBG(x - xOffset, y - yOffset, reticleColor);   
             Ability pendingAbility = AdventurePanel.getPendingAbility();
             int range = pendingAbility.getRange();
@@ -80,10 +79,13 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
                case AbilityConstants.EffectShape.LARGE_CONE :
                   shape = EngineTools.getConeTargets(origin, target, len, 2); break;
             }
-            reticleColor = SELECTED_COLOR;
+            reticleInShape = false;
+            Coord reticleLoc = new Coord(x, y);
             for(Coord c : shape)
             {
                setTileBG(c.x - xOffset, c.y - yOffset, reticleColor);
+               if(c.equals(reticleLoc))
+                  reticleInShape = true;
             }
          }
          
@@ -92,7 +94,10 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
          {
             int x = AdventurePanel.getTargetX();
             int y = AdventurePanel.getTargetY();
-            setTileBG(x - xOffset, y - yOffset, RETICLE_COLOR);
+            if(reticleInShape)
+               setTileBG(x - xOffset, y - yOffset, RETICLE_COLOR);
+            else
+               setTileBG(x - xOffset, y - yOffset, RED);
          }
          
          // visual effects
