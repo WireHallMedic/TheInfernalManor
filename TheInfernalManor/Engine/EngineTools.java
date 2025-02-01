@@ -90,25 +90,27 @@ public class EngineTools implements EngineConstants
       v.magnitude = length - radius;
       shellOrigin = new Coord(v);
       shellOrigin.add(midpoint);
-      boolean[][] passMap = new boolean[diameter][diameter];
+      int[][] passMap = new int[diameter][diameter];
       
       Vector<Coord> shellList = getShellList(shellOrigin, radius);
       Vector<Coord> lineList;
       for(Coord endPoint : shellList)
       {
          lineList = StraightLine.findLine(midpoint, endPoint, StraightLine.REMOVE_ORIGIN);
+         int checkVal = CHECKED_TRUE;
          for(Coord tile : lineList)
          {
-            passMap[tile.x][tile.y] = true;
+            if(passMap[tile.x][tile.y] == UNCHECKED)
+               passMap[tile.x][tile.y] = checkVal;
             if(!GameState.getCurZone().isHighPassable(tile.x + origin.x - midpoint.x, tile.y + origin.y - midpoint.y))
-               break;
+               checkVal = CHECKED_FALSE;
          }
       }
       Vector<Coord> targetList = new Vector<Coord>();
       for(int x = 0; x < diameter; x++)
       for(int y = 0; y < diameter; y++)
       {
-         if(passMap[x][y])
+         if(passMap[x][y] == CHECKED_TRUE)
             targetList.add(new Coord(x + origin.x - midpoint.x, y + origin.y - midpoint.y));
       }
       return targetList;
