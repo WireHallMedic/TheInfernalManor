@@ -112,6 +112,63 @@ public class EngineTools implements EngineConstants
       return targetList;
    }
    
+   // blasts originate one tile short of impacting a wall, or on an actor, or at max distance.
+   private static Coord getBlastOriginTile(int xOrigin, int yOrigin, int xTarget, int yTarget, int maxLen)
+   {
+      Coord origin = new Coord(xOrigin, yOrigin);
+      Coord target = new Coord(xTarget, yTarget);
+      Vector<Coord> line = StraightLine.findLine(origin, target);
+      Vector<Coord> targetList = new Vector<Coord>();
+      for(int i = 1; i < line.size(); i++)
+      {
+         Coord c = line.elementAt(i);
+         if(!GameState.getCurZone().isHighPassable(c))
+            return line.elementAt(i - 1);
+         if(GameState.isActorAt(c) || 
+            WSTools.getAngbandMetric(origin, c) >= maxLen)
+            return c;
+      }
+      return target;
+   }
+   public static Coord getBlastOriginTile(Coord origin, Coord target, int maxLen){return getBlastOriginTile(origin.x, origin.y, target.x, target.y, maxLen);}
+   
+   
+   public static Vector<Coord> getBlastTargets(int xOrigin, int yOrigin, int xTarget, int yTarget, int maxLen, int radius)
+   {
+      Coord trueTarget = getBlastOriginTile(xOrigin, yOrigin, xTarget, yTarget, maxLen);
+      
+      int diameter = (radius * 2) + 1;
+      Coord midpoint = new Coord(diameter / 2, diameter / 2);
+      Coord shellOrigin = new Coord(midpoint);
+      int[][] passMap = new int[diameter][diameter];
+      
+      Vector<Coord> shellList = getShellList(shellOrigin, radius);
+      Vector<Coord> lineList;
+      for(Coord endPoint : shellList)
+      {
+         lineList = StraightLine.findLine(midpoint, endPoint, StraightLine.REMOVE_ORIGIN);
+         int checkVal = CHECKED_TRUE;
+         for(Coord tile : lineList)
+         {
+            if(passMap[tile.x][tile.y] == UNCHECKED)
+               passMap[tile.x][tile.y] = checkVal;
+            if(!GameState.getCurZone().isHighPassable(tile.x + trueTarget.x - midpoint.x, tile.y + trueTarget.y - midpoint.y))
+               checkVal = CHECKED_FALSE;
+         }
+      }
+      Vector<Coord> targetList = new Vector<Coord>();
+      targetList.add(trueTarget);
+      for(int x = 0; x < diameter; x++)
+      for(int y = 0; y < diameter; y++)
+      {
+         if(passMap[x][y] == CHECKED_TRUE)
+            targetList.add(new Coord(x + trueTarget.x - midpoint.x, y + trueTarget.y - midpoint.y));
+      }
+      
+      return targetList;
+   }
+   public static Vector<Coord> getBlastTargets(Coord origin, Coord target, int maxLen, int radius){return getBlastTargets(origin.x, origin.y, target.x, target.y, maxLen, radius);}
+   
    
    // a shell is all the Coords of a specific Angband metric, relative to zero. filling in the corners if AM > 1 to make sure
    // we don't miss any tiles.

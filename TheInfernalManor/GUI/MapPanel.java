@@ -78,6 +78,8 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
                   shape = EngineTools.getConeTargets(origin, target, len, 1); break;
                case AbilityConstants.EffectShape.LARGE_CONE :
                   shape = EngineTools.getConeTargets(origin, target, len, 2); break;
+               case AbilityConstants.EffectShape.BLAST :
+                  shape = EngineTools.getBlastTargets(origin, target, len, 3); break;
             }
             reticleInShape = false;
             Coord reticleLoc = new Coord(x, y);

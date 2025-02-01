@@ -61,4 +61,19 @@ public class AttackFactory implements AbilityConstants
       a.setShape(Ability.EffectShape.LARGE_CONE);
       return a;
    }
+   
+   public static Attack getBlastAttack()
+   {
+      Attack a = new Attack("Blast");
+      
+      a.setPower(1.0);
+      a.setBaseDamage(0);
+      a.setRange(9);
+      a.setEnergyCost(0);
+      a.setRechargeTime(0);
+      a.setSpeed(ActionSpeed.NORMAL);
+      a.setAbilityType(Ability.MAGICAL);
+      a.setShape(Ability.EffectShape.BLAST);
+      return a;
+   }
 }

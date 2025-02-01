@@ -93,6 +93,11 @@ public class GameState implements EngineConstants, Runnable
          Coord target = new Coord(targetX, targetY);
          targetList = EngineTools.getLineTargets(origin, target, range);
       }
+      if(attack.getShape() == AbilityConstants.EffectShape.BLAST)
+      {
+         Coord target = new Coord(targetX, targetY);
+         targetList = EngineTools.getBlastTargets(origin, target, range, 3);
+      }
       if(attack.getShape() == AbilityConstants.EffectShape.CONE)
       {
          Coord target = new Coord(targetX, targetY);
@@ -121,7 +126,8 @@ public class GameState implements EngineConstants, Runnable
             VisualEffectFactory.registerLightning(t, Direction.getDirectionTo(t, o));
          }
          if(attack.getShape() == AbilityConstants.EffectShape.CONE ||
-            attack.getShape() == AbilityConstants.EffectShape.LARGE_CONE)
+            attack.getShape() == AbilityConstants.EffectShape.LARGE_CONE ||
+            attack.getShape() == AbilityConstants.EffectShape.BLAST)
          {
             for(Coord c : targetList)
                VisualEffectFactory.registerExplosion(c);
