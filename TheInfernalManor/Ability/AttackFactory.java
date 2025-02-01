@@ -44,6 +44,7 @@ public class AttackFactory implements AbilityConstants
       a.setSpeed(ActionSpeed.NORMAL);
       a.setAbilityType(Ability.MAGICAL);
       a.setShape(Ability.EffectShape.CONE);
+      a.setRadius(1);
       return a;
    }
    
@@ -58,7 +59,8 @@ public class AttackFactory implements AbilityConstants
       a.setRechargeTime(0);
       a.setSpeed(ActionSpeed.NORMAL);
       a.setAbilityType(Ability.MAGICAL);
-      a.setShape(Ability.EffectShape.LARGE_CONE);
+      a.setShape(Ability.EffectShape.CONE);
+      a.setRadius(2);
       return a;
    }
    
@@ -74,6 +76,7 @@ public class AttackFactory implements AbilityConstants
       a.setSpeed(ActionSpeed.NORMAL);
       a.setAbilityType(Ability.MAGICAL);
       a.setShape(Ability.EffectShape.BLAST);
+      a.setRadius(1);
       return a;
    }
 }

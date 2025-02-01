@@ -10,6 +10,7 @@ public class Ability implements AbilityConstants
 	protected boolean abilityType;
    protected EffectShape shape;
    protected int range;
+   protected int radius;
 
 
 	public String getName(){return name;}
@@ -20,6 +21,7 @@ public class Ability implements AbilityConstants
 	public boolean getAbilityType(){return abilityType;}
    public EffectShape getShape(){return shape;}
    public int getRange(){return range;}
+   public int getRadius(){return radius;}
 
 
 	public void setName(String n){name = n;}
@@ -30,6 +32,7 @@ public class Ability implements AbilityConstants
 	public void setAbilityType(boolean a){abilityType = a;}
    public void setShape(EffectShape s){shape = s;}
    public void setRange(int r){range = r;}
+   public void setRadius(int r){radius = r;}
 
    
    public Ability(String n)
@@ -42,6 +45,7 @@ public class Ability implements AbilityConstants
       abilityType = PHYSICAL;
       shape = EffectShape.POINT;
       range = 0;
+      radius = 0;
    }
    
    public Ability()

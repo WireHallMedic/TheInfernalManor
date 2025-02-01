@@ -15,8 +15,7 @@ public interface AbilityConstants
       POINT,      // affects single tile
       BEAM,       // affects all tiles in a line
       BLAST,      // affects all tiles in radius of point
-      CONE,       // cone that bulges to radius-1 blast
-      LARGE_CONE, // cone that bulges to radius-2 blast
+      CONE,       // cone that bulges to radius
       AURA;       // affects all tiles in radius of point, excluding point
    }
 }
