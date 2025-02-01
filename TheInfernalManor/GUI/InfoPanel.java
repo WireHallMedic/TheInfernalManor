@@ -12,6 +12,7 @@ public class InfoPanel extends TIMPanel implements GUIConstants
    public static final int CHARACTER_SUMMARY_PANEL_X_ORIGIN = AdventurePanel.CHARACTER_SUMMARY_PANEL_X_ORIGIN;
    public static final int ENVIRONMENT_PANEL_X_ORIGIN = AdventurePanel.ENVIRONMENT_PANEL_X_ORIGIN;
    public static final int SIDE_PANEL_WIDTH = AdventurePanel.ENVIRONMENT_PANEL_WIDTH;
+   public static final int SIDE_PANEL_HEIGHT = AdventurePanel.MESSAGE_PANEL_Y_ORIGIN - 2;
    public static final int Y_ORIGIN = 1;
    
    public InfoPanel(SCTilePalette x1y2TilePalette, TIMFrame pFrame)
@@ -86,5 +87,45 @@ public class InfoPanel extends TIMPanel implements GUIConstants
          case AdventurePanel.LOOK_MODE:            str = "Look Mode"; break;
       }
       overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN, str, SIDE_PANEL_WIDTH);
+      Vector<Actor> aList = GameState.getActorList();
+      int writeLine = 2;
+      for(Actor a : aList)
+      {
+         if(a != GameState.getPlayerCharacter())
+            writeLine += showActorSummary(writeLine, a);
+      }
+      // clear remaining rows
+      for(int i = writeLine; i < Y_ORIGIN + SIDE_PANEL_HEIGHT; i++)
+      {
+         fillTile(ENVIRONMENT_PANEL_X_ORIGIN, i, SIDE_PANEL_WIDTH, 1, ' ', WHITE, BLACK);
+      }
+    }
+    
+    // returns number of rows taken to write the summary
+    private int showActorSummary(int startRow, Actor a)
+    {
+      // icon and name
+      setTileIndex(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + startRow, a.getIconIndex());
+      setTileFG(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + startRow, a.getColor());
+      overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN + 1, Y_ORIGIN + startRow, " " + a.getName(), SIDE_PANEL_WIDTH - 2);
+      
+      // draw block info
+      int firstWidth = "  [        ]".length();
+      writeLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + startRow + 1, "  [        ]");
+      fillTileFG(ENVIRONMENT_PANEL_X_ORIGIN + 3, Y_ORIGIN + startRow + 1, 8, 1, WHITE);
+      fillTileBG(ENVIRONMENT_PANEL_X_ORIGIN + 3, Y_ORIGIN + startRow + 1, 8, 1, RED);
+      int[] bar = GUITools.getBar(a.getCurBlock(), a.getMaxBlock(), 8);
+      for(int i = 0; i < bar.length; i++)
+         setTileIndex(ENVIRONMENT_PANEL_X_ORIGIN + 3 + i, Y_ORIGIN + startRow + 1, bar[i]);
+      
+      // draw health info
+      writeLine(ENVIRONMENT_PANEL_X_ORIGIN + firstWidth, Y_ORIGIN + startRow + 1, "[        ]");
+      fillTileFG(ENVIRONMENT_PANEL_X_ORIGIN + firstWidth + 1, Y_ORIGIN + startRow + 1, 8, 1, YELLOW);
+      fillTileBG(ENVIRONMENT_PANEL_X_ORIGIN + firstWidth + 1, Y_ORIGIN + startRow + 1, 8, 1, RED);
+      bar = GUITools.getBar(a.getCurHealth(), a.getMaxHealth(), 8);
+      for(int i = 0; i < bar.length; i++)
+         setTileIndex(ENVIRONMENT_PANEL_X_ORIGIN + firstWidth + 1 + i, Y_ORIGIN + startRow + 1, bar[i]);
+      
+      return 2;
     }
 }

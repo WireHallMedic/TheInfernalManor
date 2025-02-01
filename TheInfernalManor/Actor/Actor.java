@@ -119,6 +119,7 @@ public class Actor extends ForegroundObject
       fullHeal();
    }
    
+   
    @Override
    public int getColor()
    {

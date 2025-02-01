@@ -2,6 +2,7 @@ package TheInfernalManor.Engine;
 
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Ability.*;
+import TheInfernalManor.Item.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
 import WidlerSuite.Coord;
@@ -36,7 +37,9 @@ public class GameState implements EngineConstants, Runnable
       actorList.add(playerCharacter);
       setCurZone(MapFactory.getTestMap1());
       actorList.add(ActorFactory.getTestEnemy(5, 5));
-      actorList.add(ActorFactory.getTestEnemy(7, 5));
+      Actor b = ActorFactory.getTestEnemy(7, 5);
+      b.setOffHand(OffHandFactory.getShield());
+      actorList.add(b);
       runF = true;
    }
    
