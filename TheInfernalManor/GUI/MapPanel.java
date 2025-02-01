@@ -62,16 +62,27 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             int range = pendingAbility.getRange();
             if(range == AbilityConstants.USE_WEAPON_RANGE)
                range = player.getWeapon().getRange();
-            if(pendingAbility.getShape() == AbilityConstants.EffectShape.BEAM)
+            if(pendingAbility.getShape() == AbilityConstants.EffectShape.BEAM ||
+               pendingAbility.getShape() == AbilityConstants.EffectShape.CONE ||
+               pendingAbility.getShape() == AbilityConstants.EffectShape.LARGE_CONE)
             {
                Coord origin = new Coord(player.getXLocation(), player.getYLocation());
                Coord target = new Coord(AdventurePanel.getTargetX(), AdventurePanel.getTargetY());
                int len = pendingAbility.getRange();
                if(len == Ability.USE_WEAPON_RANGE)
                   len = player.getWeapon().getRange();
-               Vector<Coord> beamShape = EngineTools.getLineTargets(origin, target, len);
+               Vector<Coord> shape = new Vector<Coord>();
+               switch(pendingAbility.getShape())
+               {
+                  case AbilityConstants.EffectShape.BEAM :
+                     shape = EngineTools.getLineTargets(origin, target, len); break;
+                  case AbilityConstants.EffectShape.CONE :
+                     shape = EngineTools.getConeTargets(origin, target, len, 1); break;
+                  case AbilityConstants.EffectShape.LARGE_CONE :
+                     shape = EngineTools.getConeTargets(origin, target, len, 2); break;
+               }
                reticleColor = SELECTED_COLOR;
-               for(Coord c : beamShape)
+               for(Coord c : shape)
                {
                   setTileBG(c.x - xOffset, c.y - yOffset, reticleColor);
                }

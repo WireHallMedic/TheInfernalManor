@@ -93,13 +93,25 @@ public class GameState implements EngineConstants, Runnable
          Coord target = new Coord(targetX, targetY);
          targetList = EngineTools.getLineTargets(origin, target, range);
       }
+      if(attack.getShape() == AbilityConstants.EffectShape.CONE)
+      {
+         Coord target = new Coord(targetX, targetY);
+         targetList = EngineTools.getConeTargets(origin, target, range, 1);
+      }
+      if(attack.getShape() == AbilityConstants.EffectShape.LARGE_CONE)
+      {
+         Coord target = new Coord(targetX, targetY);
+         targetList = EngineTools.getConeTargets(origin, target, range, 2);
+      }
       for(int i = 0; i < targetList.size(); i++)
       {
+         // resolve attack
          Actor defender = GameState.getActorAt(targetList.elementAt(i));
          if(defender != null)
          {
             Combat.resolveAttack(attacker, defender, attack);
          }
+         // visual effects
          if(attack.getShape() == AbilityConstants.EffectShape.BEAM)
          {
             Coord t = targetList.elementAt(i);
@@ -107,6 +119,12 @@ public class GameState implements EngineConstants, Runnable
             if(i > 0)
                o = targetList.elementAt(i - 1);
             VisualEffectFactory.registerLightning(t, Direction.getDirectionTo(t, o));
+         }
+         if(attack.getShape() == AbilityConstants.EffectShape.CONE ||
+            attack.getShape() == AbilityConstants.EffectShape.LARGE_CONE)
+         {
+            for(Coord c : targetList)
+               VisualEffectFactory.registerExplosion(c);
          }
       }
    }

@@ -38,7 +38,7 @@ public class ActorFactory
       a.getInventory().add(RelicFactory.getAmulet());
       a.fullHeal();
       
-      a.setBasicAttack(AttackFactory.getBeamAttack());
+      a.setBasicAttack(AttackFactory.getConeAttack());
       return a;
    }
    

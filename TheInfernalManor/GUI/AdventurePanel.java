@@ -247,15 +247,11 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     break;
          case KeyEvent.VK_ENTER :   if(mode == RANGED_TARGET_MODE)
                                     {
-                                       if(WSTools.getAngbandMetric(player.getXLocation(), player.getYLocation(),
-                                                                   targetX, targetY) <= getPendingRange())
-                                       {
-                                          ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
-                                          ap.setTargetX(targetX);
-                                          ap.setTargetY(targetY);
-                                          player.getAI().setPendingAction(ap);
-                                          mode = NORMAL_MODE;
-                                       }
+                                       ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
+                                       ap.setTargetX(targetX);
+                                       ap.setTargetY(targetY);
+                                       player.getAI().setPendingAction(ap);
+                                       mode = NORMAL_MODE;
                                     }
                                     break;
          
@@ -266,12 +262,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : Coord[] list = EngineTools.getShellList(player.getXLocation(), player.getYLocation(), 5);
-                                       for(int i = 0; i < list.length; i++)
-                                       {
-                                          VisualEffectFactory.registerExplosion(list[i]);
-                                       }
-                                       break;
+         case KeyEvent.VK_BACK_QUOTE : ;
       }
    }
    public void keyTyped(KeyEvent ke){}

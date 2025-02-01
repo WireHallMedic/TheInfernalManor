@@ -49,6 +49,49 @@ public class EngineTools implements EngineConstants
    public static Vector<Coord> getShellList(int x, int y, int radius){return getShellList(new Coord(x, y), radius);}
    
    
+   public static Vector<Coord> getConeTargets(Coord origin, Coord target, int length, int radius)
+   {
+      if(target.equals(origin))
+         return new Vector<Coord>();
+      int diameter = (length * 2) + 1;
+      Coord midpoint = new Coord(diameter / 2, diameter / 2);
+      Coord shellOrigin = new Coord(target);
+      shellOrigin.subtract(origin);
+      Vect v = new Vect(shellOrigin);
+      v.magnitude = length - radius;
+      shellOrigin = new Coord(v);
+      shellOrigin.add(midpoint);
+      boolean[][] passMap = new boolean[diameter][diameter];
+      
+      Vector<Coord> shellList = getShellList(shellOrigin, radius);
+//       for(Coord c: shellList)
+//       {
+//          passMap[c.x][c.y] = true;
+//       }
+      
+      
+      Vector<Coord> lineList;
+      for(Coord endPoint : shellList)
+      {
+         lineList = StraightLine.findLine(midpoint, endPoint, StraightLine.REMOVE_ORIGIN);
+         for(Coord tile : lineList)
+         {
+            passMap[tile.x][tile.y] = true;
+            if(!GameState.getCurZone().isHighPassable(tile.x + origin.x - midpoint.x, tile.y + origin.y - midpoint.y))
+               break;
+         }
+      }
+      Vector<Coord> targetList = new Vector<Coord>();
+      for(int x = 0; x < diameter; x++)
+      for(int y = 0; y < diameter; y++)
+      {
+         if(passMap[x][y])
+            targetList.add(new Coord(x + origin.x - midpoint.x, y + origin.y - midpoint.y));
+      }
+      return targetList;
+   }
+   
+   
    // a shell is all the Coords of a specific Angband metric, relative to zero. filling in the corners if AM > 1 to make sure
    // we don't miss any tiles.
    private static Coord[][] generateShellList()

@@ -12,9 +12,11 @@ public interface AbilityConstants
    
    public enum EffectShape
    {
-      POINT,   // affects single tile
-      BEAM,    // affects all tiles in a line
-      BLAST,   // affects all tiles in radius of point
-      AURA;    // affects all tiles in radius of point, excluding point
+      POINT,      // affects single tile
+      BEAM,       // affects all tiles in a line
+      BLAST,      // affects all tiles in radius of point
+      CONE,       // cone that bulges to radius-1 blast
+      LARGE_CONE, // cone that bulges to radius-2 blast
+      AURA;       // affects all tiles in radius of point, excluding point
    }
 }
