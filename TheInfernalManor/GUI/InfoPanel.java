@@ -85,6 +85,12 @@ public class InfoPanel extends TIMPanel implements GUIConstants
          if(ability != null)
             str = ability.getName();
          overwriteLine(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 5 + i, String.format("[%d]: %s", keyVal, str), SIDE_PANEL_WIDTH);
+         if(player.canUseAbility(i))
+            fillTileFG(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 5 + i, SIDE_PANEL_WIDTH, 1, WHITE);
+         else
+         {
+            fillTileFG(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 5 + i, SIDE_PANEL_WIDTH, 1,  GREY);
+         }
       }
     }
     
