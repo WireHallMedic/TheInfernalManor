@@ -188,8 +188,9 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    {
       if(mode == NORMAL_MODE)
       {
-         ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
-         GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+   //       ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
+//          GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+         setPlan(ActionType.CONTEXTUAL, dir, 0);
       }
       else
       {
@@ -205,8 +206,11 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    private void setPlan(ActionType actionType, Direction dir, int index)
    {
       ActionPlan ap = new ActionPlan(actionType, dir);
-      ap.setTargetX(targetX);
-      ap.setTargetY(targetY);
+      if(dir == null)
+      {
+         ap.setTargetX(targetX);
+         ap.setTargetY(targetY);
+      }
       GameState.getPlayerCharacter().getAI().setPendingAction(ap);
       mode = NORMAL_MODE;
    }
