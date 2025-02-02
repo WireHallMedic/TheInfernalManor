@@ -197,13 +197,18 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          targetY += dir.y;
          if(mode == ADJACENT_TARGET_MODE)
          {
-            ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
-            ap.setTargetX(targetX);
-            ap.setTargetY(targetY);
-            GameState.getPlayerCharacter().getAI().setPendingAction(ap);
-            mode = NORMAL_MODE;
+            setPlan(ActionType.BASIC_ATTACK, null, 0);
          }
       }
+   }
+   
+   private void setPlan(ActionType actionType, Direction dir, int index)
+   {
+      ActionPlan ap = new ActionPlan(actionType, dir);
+      ap.setTargetX(targetX);
+      ap.setTargetY(targetY);
+      GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+      mode = NORMAL_MODE;
    }
    
    private boolean playerStandingOnItem()
