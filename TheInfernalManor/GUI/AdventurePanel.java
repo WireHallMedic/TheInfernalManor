@@ -188,8 +188,6 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    {
       if(mode == NORMAL_MODE)
       {
-   //       ActionPlan ap = new ActionPlan(ActionType.CONTEXTUAL, dir);
-//          GameState.getPlayerCharacter().getAI().setPendingAction(ap);
          setPlan(ActionType.CONTEXTUAL, dir, 0);
       }
       else
@@ -273,32 +271,12 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_A :       if(mode == NORMAL_MODE)
                                     {
                                        selectAbilityToUse(player.getBasicAttack());
-                                      //  pendingAbility = player.getBasicAttack();
-//                                        if(getPendingRange() == 0)
-//                                        {
-//                                           ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
-//                                           ap.setTargetX(player.getXLocation());
-//                                           ap.setTargetY(player.getYLocation());
-//                                           player.getAI().setPendingAction(ap);
-//                                        }
-//                                        if(getPendingRange() == 1)
-//                                        {
-//                                           mode = ADJACENT_TARGET_MODE;
-//                                        }
-//                                        else if(getPendingRange() > 1)
-//                                        {
-//                                           mode = RANGED_TARGET_MODE;
-//                                        }
                                        centerTarget();
                                     }
                                     break;
          case KeyEvent.VK_ENTER :   if(mode == RANGED_TARGET_MODE)
                                     {
-                                       ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
-                                       ap.setTargetX(targetX);
-                                       ap.setTargetY(targetY);
-                                       player.getAI().setPendingAction(ap);
-                                       mode = NORMAL_MODE;
+                                       setPlan(ActionType.BASIC_ATTACK, null, 0);
                                     }
                                     break;
          
