@@ -95,7 +95,7 @@ public class InfoPanel extends TIMPanel implements GUIConstants
             writeLine += showActorSummary(writeLine, a);
       }
       // clear remaining rows
-      for(int i = writeLine; i < Y_ORIGIN + SIDE_PANEL_HEIGHT; i++)
+      for(int i = writeLine + 1; i < Y_ORIGIN + SIDE_PANEL_HEIGHT; i++)
       {
          fillTile(ENVIRONMENT_PANEL_X_ORIGIN, i, SIDE_PANEL_WIDTH, 1, ' ', WHITE, BLACK);
       }

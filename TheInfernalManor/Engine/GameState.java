@@ -6,6 +6,7 @@ import TheInfernalManor.Item.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
 import WidlerSuite.Coord;
+import WidlerSuite.ShadowFoVRect;
 import java.util.*;
 
 public class GameState implements EngineConstants, Runnable
@@ -16,6 +17,7 @@ public class GameState implements EngineConstants, Runnable
    private static int gameMode = PREGAME_MODE;
    private static boolean runF;
    private static int initiativeIndex;
+   private static ShadowFoVRect fov;
 
 
 	public static Actor getPlayerCharacter(){return playerCharacter;}
@@ -23,6 +25,7 @@ public class GameState implements EngineConstants, Runnable
    public static Vector<Actor> getActorList(){return actorList;}
    public static int getGameMode(){return gameMode;}
    public static boolean getRunFlag(){return runF;}
+   public static ShadowFoVRect getFoV(){return fov;}
 
 
 	public static void setPlayerCharacter(Actor p){playerCharacter = p;}
@@ -37,6 +40,7 @@ public class GameState implements EngineConstants, Runnable
       actorList.add(playerCharacter);
       setCurZone(MapFactory.getTestMap1());
       actorList.add(ActorFactory.getTestEnemy(5, 5));
+      actorList.add(ActorFactory.getTestEnemy(9, 5));
       Actor b = ActorFactory.getTestEnemy(7, 5);
       b.setOffHand(OffHandFactory.getShield());
       actorList.add(b);
@@ -199,4 +203,6 @@ public class GameState implements EngineConstants, Runnable
          }
       }
    }
+   
+   
 }

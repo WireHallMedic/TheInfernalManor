@@ -83,6 +83,28 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       return range;
    }
    
+   public void selectAbilityToUse(Ability a)
+   {
+      pendingAbility = a;
+      Actor player = GameState.getPlayerCharacter();
+      if(getPendingRange() == 0)
+      {
+         ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
+         ap.setTargetX(player.getXLocation());
+         ap.setTargetY(player.getYLocation());
+         player.getAI().setPendingAction(ap);
+      }
+      if(getPendingRange() == 1)
+      {
+         mode = ADJACENT_TARGET_MODE;
+      }
+      else if(getPendingRange() > 1)
+      {
+         mode = RANGED_TARGET_MODE;
+      }
+      centerTarget();
+   }
+   
    private void setBorder()
    {
       int w = infoPanel.getTilesWide();
@@ -173,6 +195,14 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       {
          targetX += dir.x;
          targetY += dir.y;
+         if(mode == ADJACENT_TARGET_MODE)
+         {
+            ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
+            ap.setTargetX(targetX);
+            ap.setTargetY(targetY);
+            GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+            mode = NORMAL_MODE;
+         }
       }
    }
    
@@ -233,22 +263,23 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     break;
          case KeyEvent.VK_A :       if(mode == NORMAL_MODE)
                                     {
-                                       pendingAbility = player.getBasicAttack();
-                                       if(getPendingRange() == 0)
-                                       {
-                                          ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
-                                          ap.setTargetX(player.getXLocation());
-                                          ap.setTargetY(player.getYLocation());
-                                          player.getAI().setPendingAction(ap);
-                                       }
-                                       if(getPendingRange() == 1)
-                                       {
-                                          mode = ADJACENT_TARGET_MODE;
-                                       }
-                                       else if(getPendingRange() > 1)
-                                       {
-                                          mode = RANGED_TARGET_MODE;
-                                       }
+                                       selectAbilityToUse(player.getBasicAttack());
+                                      //  pendingAbility = player.getBasicAttack();
+//                                        if(getPendingRange() == 0)
+//                                        {
+//                                           ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
+//                                           ap.setTargetX(player.getXLocation());
+//                                           ap.setTargetY(player.getYLocation());
+//                                           player.getAI().setPendingAction(ap);
+//                                        }
+//                                        if(getPendingRange() == 1)
+//                                        {
+//                                           mode = ADJACENT_TARGET_MODE;
+//                                        }
+//                                        else if(getPendingRange() > 1)
+//                                        {
+//                                           mode = RANGED_TARGET_MODE;
+//                                        }
                                        centerTarget();
                                     }
                                     break;
