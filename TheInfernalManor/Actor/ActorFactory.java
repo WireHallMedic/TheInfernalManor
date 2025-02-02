@@ -15,32 +15,16 @@ public class ActorFactory
       a.setMaxHealth(64);
       a.setMaxEnergy(10);
       a.setLocation(1, 1);
-      a.getInventory().add(WeaponFactory.getDagger());
-      a.getInventory().add(WeaponFactory.getSword());
-      a.getInventory().add(WeaponFactory.getGreatsword());
-      a.getInventory().add(WeaponFactory.getSling());
-      a.getInventory().add(WeaponFactory.getBow());
-      a.getInventory().add(ArmorFactory.getRobes());
-      a.getInventory().add(ArmorFactory.getLeatherArmor());
-      a.getInventory().add(ArmorFactory.getChainMail());
-      a.getInventory().add(ArmorFactory.getPlateMail());
-      a.getInventory().add(OffHandFactory.getShield());
-      a.getInventory().add(OffHandFactory.getOrb());
-      a.getInventory().add(OffHandFactory.getTome());
-      Relic r = RelicFactory.getHelm();
-      r.setName("Circlet");
-      r.setMagicalDamage(2);
-      a.getInventory().add(r);
-      r = RelicFactory.getHelm();
-      r.setPhysicalArmor(2);
-      a.getInventory().add(r);
-      a.getInventory().add(RelicFactory.getBoots());
-      a.getInventory().add(RelicFactory.getAmulet());
-      a.fullHeal();
+      
+      a.setMainHand(WeaponFactory.getSword());
+      a.setOffHand(OffHandFactory.getShield());
+      a.setArmor(ArmorFactory.getChainMail());
       
       a.addAbility(AttackFactory.getAuraBlast());
       a.addAbility(AttackFactory.getBlast());
       a.addAbility(AttackFactory.getConeAttack());
+      
+      a.fullHeal();
       return a;
    }
    

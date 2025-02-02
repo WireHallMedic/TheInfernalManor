@@ -52,4 +52,25 @@ public class Ability implements AbilityConstants
    {
       this("Unknown Ability");
    }
+   
+   public boolean isCharged()
+   {
+      return chargeLevel >= rechargeTime;
+   }
+   
+   public void charge()
+   {
+      if(!isCharged())
+         chargeLevel++;
+   }
+   
+   public void fullyCharge()
+   {
+      chargeLevel = rechargeTime;
+   }
+   
+   public void discharge()
+   {
+      chargeLevel = 0;
+   }
 }

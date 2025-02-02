@@ -181,6 +181,15 @@ public class Actor extends ForegroundObject
       return abilityList.elementAt(index);
    }
    
+   public boolean canUseAbility(int index)
+   {
+      if(index >= abilityList.size() ||
+         !abilityList.elementAt(index).isCharged() ||
+         abilityList.elementAt(index).getEnergyCost() > getCurEnergy())
+         return false;
+      return true;
+   }
+   
    public void addAbility(Ability a)
    {
       if(abilityList.size() < AbilityConstants.MAXIMUM_ABILITIES)
@@ -200,6 +209,8 @@ public class Actor extends ForegroundObject
       curEnergy = maxEnergy;
       curBlock = maxBlock;
       ticksSinceHit = TICKS_TO_RECOVER_BLOCK;
+      for(int i = 0; i < abilityList.size(); i++)
+         abilityList.elementAt(i).fullyCharge();
    }
    
    public void applyCombatDamage(int damage, boolean damageType)
@@ -314,17 +325,17 @@ public class Actor extends ForegroundObject
    
    public void charge()
    {
-      // charge initiative
+      // increment initiative
       if(chargeLevel < FULLY_CHARGED)
          chargeLevel++;
          
-      // manage block
+      // increment block
       if(ticksSinceHit < TICKS_TO_RECOVER_BLOCK)
          ticksSinceHit++;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
          curBlock = getMaxBlock();
       
-      // manage status effects
+      // increment status effects
       for(int i = 0; i < seList.size(); i++)
       {
          StatusEffect se = seList.elementAt(i);
@@ -335,6 +346,10 @@ public class Actor extends ForegroundObject
             i--;
          }
       }
+      
+      // increment ability charges
+      for(int i = 0; i < abilityList.size(); i++)
+         abilityList.elementAt(i).charge();
    }
    
    public void discharge(ActionSpeed speed)
@@ -377,6 +392,11 @@ public class Actor extends ForegroundObject
    public void doAttack(Attack attack, int x, int y)
    {
       GameState.resolveAttack(this, attack, x, y);
+      if(attack != basicAttack)
+      {
+         curEnergy -= attack.getEnergyCost();
+         attack.discharge();
+      }
    }
    
    public void pickUp()

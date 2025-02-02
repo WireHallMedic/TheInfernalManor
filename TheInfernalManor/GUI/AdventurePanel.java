@@ -105,8 +105,21 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    // set up to get more info if necessary
    public void selectAbilityToUse(Ability a)
    {
-      pendingAbility = a;
       Actor player = GameState.getPlayerCharacter();
+      if(a != player.getBasicAttack())
+      {
+         if(!a.isCharged())
+         {
+            MessagePanel.addMessage(a.getName() + " is not yet charged.");
+            return;
+         }
+         else if(a.getEnergyCost() > player.getCurEnergy())
+         {
+            MessagePanel.addMessage("You do not have enough energy for " + a.getName() + ".");
+            return;
+         }
+      }
+      pendingAbility = a;
       if(getPendingRange() == 0)
       {
          setPlan(getPendingType(), null, getPendingIndex());
