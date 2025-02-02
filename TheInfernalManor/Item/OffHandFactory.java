@@ -21,7 +21,7 @@ public class OffHandFactory implements GUIConstants
    public static OffHand getTome()
    {
       OffHand oh = new OffHand("Tome");
-      oh.setBlock(3);
+      oh.setEnergyRecharge(2);
       oh.setMagicalArmor(3);
       return oh;
    }

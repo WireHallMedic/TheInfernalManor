@@ -187,4 +187,14 @@ public class GUITools implements GUIConstants, SCConstants
       charArr[0] = (char)SCConstants.PLUS_MINUS_TILE;
       return new String(charArr);
    }
+   
+   public static String getSignedString(double val)
+   {
+      char[] valArr = String.format("+%.2f", val).toCharArray();
+      if(val < 0)
+         valArr[0] = '-';
+      else if(val == 0)
+         valArr[0] = (char)SCConstants.PLUS_MINUS_TILE;
+      return new String(valArr);
+   }
 }

@@ -20,6 +20,8 @@ public class Actor extends ForegroundObject
    private int curHealth;
    private int maxEnergy;
    private int curEnergy;
+   private int energyRecharge;
+   private double partialEnergy;
    private int maxBlock;
    private int curBlock;
    private int ticksSinceHit;
@@ -49,6 +51,7 @@ public class Actor extends ForegroundObject
 	public int getCurHealth(){return curHealth;}
 	public int getMaxEnergy(){return maxEnergy;}
 	public int getCurEnergy(){return curEnergy;}
+	public int getEnergyRecharge(){return energyRecharge;}
 	public int getMaxBlock(){return maxBlock;}
 	public int getCurBlock(){return curBlock;}
    public int getTicksSinceHit(){return ticksSinceHit;}
@@ -311,6 +314,7 @@ public class Actor extends ForegroundObject
       physicalArmor = sum.getPhysicalArmor();
       magicalArmor = sum.getMagicalArmor();
       maxBlock = sum.getBlock();
+      energyRecharge = sum.getEnergyRecharge() + 2;
       if(maxBlock < curBlock)
          curBlock = maxBlock;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
@@ -328,6 +332,16 @@ public class Actor extends ForegroundObject
       // increment initiative
       if(chargeLevel < FULLY_CHARGED)
          chargeLevel++;
+      
+      // increment energy
+      partialEnergy += .25 * energyRecharge;
+      if(partialEnergy > 1.0)
+      {
+         int intComponent = (int)partialEnergy;
+         curEnergy += intComponent;
+         partialEnergy -= (double)intComponent;
+         curEnergy = Math.min(maxEnergy, curEnergy);
+      }
          
       // increment block
       if(ticksSinceHit < TICKS_TO_RECOVER_BLOCK)

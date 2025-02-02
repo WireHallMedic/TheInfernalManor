@@ -24,6 +24,8 @@ public class ActorFactory
       a.addAbility(AttackFactory.getBlast());
       a.addAbility(AttackFactory.getConeAttack());
       
+      a.getInventory().add(OffHandFactory.getTome());
+      
       a.fullHeal();
       return a;
    }

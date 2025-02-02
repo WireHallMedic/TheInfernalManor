@@ -10,6 +10,7 @@ public class Item extends ForegroundObject implements GUIConstants
 	private int physicalArmor;
 	private int magicalArmor;
 	private int block;
+   private int energyRecharge;   // each point of this is worth .25 energy per tick
 
 
 	public int getPhysicalDamage(){return physicalDamage;}
@@ -17,6 +18,7 @@ public class Item extends ForegroundObject implements GUIConstants
 	public int getPhysicalArmor(){return physicalArmor;}
 	public int getMagicalArmor(){return magicalArmor;}
 	public int getBlock(){return block;}
+   public int getEnergyRecharge(){return energyRecharge;}
 
 
 	public void setPhysicalDamage(int p){physicalDamage = p;}
@@ -24,6 +26,7 @@ public class Item extends ForegroundObject implements GUIConstants
 	public void setPhysicalArmor(int p){physicalArmor = p;}
 	public void setMagicalArmor(int m){magicalArmor = m;}
 	public void setBlock(int b){block = b;}
+   public void setEnergyRecharge(int er){energyRecharge = er;}
 
    
    public Item(String name, int icon, int color)
@@ -44,6 +47,7 @@ public class Item extends ForegroundObject implements GUIConstants
       this.physicalArmor += that.physicalArmor;
       this.magicalArmor += that.magicalArmor;
       this.block += that.block;
+      this.energyRecharge += that.energyRecharge;
    }
    
    public Vector<String> getSummary()
@@ -59,6 +63,8 @@ public class Item extends ForegroundObject implements GUIConstants
          strList.add("Magical Armor   " + GUITools.getSignedString(magicalArmor));
       if(block != 0)
          strList.add("Block           " + GUITools.getSignedString(block));
+      if(block != 0)
+         strList.add("Energy Recharge " + GUITools.getSignedString(energyRecharge));
       return strList;
    }
    
@@ -95,6 +101,12 @@ public class Item extends ForegroundObject implements GUIConstants
       {
          val = this.block - that.block;
          str = String.format("Block           %s (%s)", GUITools.getSignedString(block), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.energyRecharge != 0.0 ||  that.energyRecharge != 0.0)
+      {
+         val = this.energyRecharge - that.energyRecharge;
+         str = String.format("Magical Damage  %s (%s)", GUITools.getSignedString(energyRecharge), GUITools.getSignedString(val));
          strList.add(str);
       }
       return strList;
