@@ -29,22 +29,50 @@ public class GameState implements EngineConstants, Runnable
 
 
 	public static void setPlayerCharacter(Actor p){playerCharacter = p;}
-	public static void setCurZone(ZoneMap c){curZone = c;}
    public static void setActorList(Vector<Actor> al){actorList = al;}
    public static void setGameMode(int m){gameMode = m;}
    public static void setRunFlag(boolean rf){runF = rf;}
 
    public static void setTestValues()
    {
+      fov = null;
       setPlayerCharacter(ActorFactory.getTestPlayer());
       actorList.add(playerCharacter);
-      setCurZone(MapFactory.getTestMap1());
       actorList.add(ActorFactory.getTestEnemy(5, 5));
       actorList.add(ActorFactory.getTestEnemy(9, 5));
       Actor b = ActorFactory.getTestEnemy(7, 5);
       b.setOffHand(OffHandFactory.getShield());
       actorList.add(b);
+      setCurZone(MapFactory.getTestMap1());
       runF = true;
+   }
+   
+   
+	public static void setCurZone(ZoneMap c)
+   {
+      curZone = c;
+      fov = new ShadowFoVRect(curZone.getTransparentMap());
+      calcFoV();
+   }
+   
+   public static void calcFoV()
+   {
+      if(playerCharacter != null && fov != null)
+      {
+         fov.calcFoV(playerCharacter.getXLocation(), playerCharacter.getYLocation(), 10);
+      }
+   }
+   
+   public static boolean playerCanSee(int x, int y)
+   {
+      if(fov != null)
+         return fov.isVisible(x, y);
+      return false;
+   }
+   
+   public static boolean playerCanSee(Actor a)
+   {
+      return playerCanSee(a.getXLocation(), a.getYLocation());
    }
    
    public GameState()
@@ -162,6 +190,7 @@ public class GameState implements EngineConstants, Runnable
                   curActor.act();
                   curActor.endTurn();
                   incrementInitiative();
+                  calcFoV();
                }
                // charged no plan, make plan
                else

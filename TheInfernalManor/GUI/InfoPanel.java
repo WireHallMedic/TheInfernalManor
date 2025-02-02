@@ -103,8 +103,9 @@ public class InfoPanel extends TIMPanel implements GUIConstants
       int writeLine = 2;
       for(Actor a : aList)
       {
-         if(a != GameState.getPlayerCharacter())
-            writeLine += showActorSummary(writeLine, a);
+         if(GameState.playerCanSee(a))
+            if(a != GameState.getPlayerCharacter())
+               writeLine += showActorSummary(writeLine, a);
       }
       // clear remaining rows
       for(int i = writeLine + 1; i < Y_ORIGIN + SIDE_PANEL_HEIGHT; i++)
