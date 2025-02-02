@@ -1,5 +1,6 @@
 package TheInfernalManor.AI;
 
+import TheInfernalManor.Ability.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import java.util.*;
@@ -103,6 +104,16 @@ public class BaseAI
          {
             self.doAttack(self.getBasicAttack(), x, y);
             self.discharge(self.getBasicAttack().getSpeed());
+         }
+         if(plan.getActionType() == ActionType.ABILITY)
+         {
+            Ability ability = self.getAbility(plan.getIndex());
+            if(ability instanceof Attack)
+            {
+               Attack attack = (Attack)ability;
+               self.doAttack(attack, x, y);
+               self.discharge(attack.getSpeed());
+            }
          }
          if(plan.getActionType() == ActionType.PICK_UP)
          {

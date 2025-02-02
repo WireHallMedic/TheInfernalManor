@@ -7,6 +7,7 @@ import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
 import StrictCurses.*;
+import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -83,16 +84,32 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
       return range;
    }
    
+   public static ActionType getPendingType()
+   {
+      if(pendingAbility == null)
+         return null;
+      if(pendingAbility == GameState.getPlayerCharacter().getBasicAttack())
+         return ActionType.BASIC_ATTACK;
+      return ActionType.ABILITY;
+   }
+   
+   public static int getPendingIndex()
+   {
+      Vector<Ability> abilityList = GameState.getPlayerCharacter().getAbilityList();
+      for(int i = 0; i < abilityList.size(); i++)
+         if(abilityList.elementAt(i) == pendingAbility)
+            return i;
+      return 0;
+   }
+   
+   // set up to get more info if necessary
    public void selectAbilityToUse(Ability a)
    {
       pendingAbility = a;
       Actor player = GameState.getPlayerCharacter();
       if(getPendingRange() == 0)
       {
-         ActionPlan ap = new ActionPlan(ActionType.BASIC_ATTACK, null);
-         ap.setTargetX(player.getXLocation());
-         ap.setTargetY(player.getYLocation());
-         player.getAI().setPendingAction(ap);
+         setPlan(getPendingType(), null, getPendingIndex());
       }
       if(getPendingRange() == 1)
       {
@@ -103,6 +120,21 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          mode = RANGED_TARGET_MODE;
       }
       centerTarget();
+   }
+   
+   // tell player to do the ability
+   private void setPlan(ActionType actionType, Direction dir, int index)
+   {
+      ActionPlan ap = new ActionPlan(actionType, dir);
+      if(dir == null)
+      {
+         ap.setTargetX(targetX);
+         ap.setTargetY(targetY);
+      }
+      if(actionType == ActionType.ABILITY)
+         ap.setIndex(getPendingIndex());
+      GameState.getPlayerCharacter().getAI().setPendingAction(ap);
+      mode = NORMAL_MODE;
    }
    
    private void setBorder()
@@ -196,21 +228,9 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          targetY += dir.y;
          if(mode == ADJACENT_TARGET_MODE)
          {
-            setPlan(ActionType.BASIC_ATTACK, null, 0);
+            setPlan(getPendingType(), null, getPendingIndex());
          }
       }
-   }
-   
-   private void setPlan(ActionType actionType, Direction dir, int index)
-   {
-      ActionPlan ap = new ActionPlan(actionType, dir);
-      if(dir == null)
-      {
-         ap.setTargetX(targetX);
-         ap.setTargetY(targetY);
-      }
-      GameState.getPlayerCharacter().getAI().setPendingAction(ap);
-      mode = NORMAL_MODE;
    }
    
    private boolean playerStandingOnItem()
@@ -276,7 +296,29 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                     break;
          case KeyEvent.VK_ENTER :   if(mode == RANGED_TARGET_MODE)
                                     {
-                                       setPlan(ActionType.BASIC_ATTACK, null, 0);
+                                       setPlan(getPendingType(), null, getPendingIndex());
+                                    }
+                                    break;
+         case KeyEvent.VK_1 :       
+         case KeyEvent.VK_2 :       
+         case KeyEvent.VK_3 :       
+         case KeyEvent.VK_4 :       
+         case KeyEvent.VK_5 :       
+         case KeyEvent.VK_6 :       
+         case KeyEvent.VK_7 :       
+         case KeyEvent.VK_8 :       
+         case KeyEvent.VK_9 :       
+         case KeyEvent.VK_0 :       if(mode == NORMAL_MODE)
+                                    {
+                                       int index = ke.getKeyCode() - KeyEvent.VK_1;
+                                       if(index == -1)
+                                          index = 10;
+                                       Ability a = player.getAbility(index);
+                                       if(a != null)
+                                       {
+                                          selectAbilityToUse(a);
+                                          centerTarget();
+                                       }
                                     }
                                     break;
          
