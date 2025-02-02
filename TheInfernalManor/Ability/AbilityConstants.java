@@ -10,6 +10,8 @@ public interface AbilityConstants
    public static final int MEDIUM_DURATION = 20;
    public static final int LONG_DURATION = 40;
    
+   public static final int MAXIMUM_ABILITIES = 10;
+   
    public enum EffectShape
    {
       POINT,      // affects single tile

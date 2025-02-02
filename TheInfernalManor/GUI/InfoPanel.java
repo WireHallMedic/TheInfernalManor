@@ -74,6 +74,18 @@ public class InfoPanel extends TIMPanel implements GUIConstants
             setTileFG(CHARACTER_SUMMARY_PANEL_X_ORIGIN + i, Y_ORIGIN + 4, WHITE);
          }
       }
+      // abilities
+      for(int i = 0; i < 10; i++)
+      {
+         int keyVal = i + 1;
+         if(keyVal == 10)
+            keyVal = 0;
+         String str = "<No Ability>";
+         Ability ability = player.getAbility(i);
+         if(ability != null)
+            str = ability.getName();
+         overwriteLine(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 5 + i, String.format("[%d]: %s", keyVal, str), SIDE_PANEL_WIDTH);
+      }
     }
     
     private void setEnvironmentPanel()

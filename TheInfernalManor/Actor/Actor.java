@@ -32,6 +32,7 @@ public class Actor extends ForegroundObject
    private int chargeLevel;
    private int powerLevel;
    private Attack basicAttack;
+   private Vector<Ability> abilityList;
    private Weapon naturalWeapon;
    private Weapon mainHand;
    private Armor armor;
@@ -56,6 +57,7 @@ public class Actor extends ForegroundObject
    public int getChargeLevel(){return chargeLevel;}
    public int getPowerLevel(){return powerLevel;}
    public Attack getBasicAttack(){return basicAttack;}
+   public Vector<Ability> getAbilityList(){return abilityList;}
    public Weapon getNaturalWeapon(){return naturalWeapon;}
    public Weapon getMainHand(){return mainHand;}
    public Armor getArmor(){return armor;}
@@ -82,6 +84,7 @@ public class Actor extends ForegroundObject
    public void setChargeLevel(int cl){chargeLevel = cl;}
    public void setPowerLevel(int pl){powerLevel = pl;}
    public void setBasicAttack(Attack atk){basicAttack = atk;}
+   public void setAbilityList(Vector<Ability> al){abilityList = al;}
    public void setNaturalWeapon(Weapon nw){naturalWeapon = nw; calcItemStats();}
    public void setMainHand(Weapon mh){mainHand = mh; calcItemStats();}
    public void setArmor(Armor a){armor = a; calcItemStats();}
@@ -105,6 +108,7 @@ public class Actor extends ForegroundObject
       chargeLevel = FULLY_CHARGED;
       powerLevel = 1;
       basicAttack = AttackFactory.getBasicAttack();
+      abilityList = new Vector<Ability>();
       Weapon w = new Weapon("Fist");
       naturalWeapon = w;
       armor = null;
@@ -168,6 +172,19 @@ public class Actor extends ForegroundObject
       int x = getXLocation() + dir.x;
       int y = getYLocation() + dir.y;
       return canStep(x, y, map);
+   }
+   
+   public Ability getAbility(int index)
+   {
+      if(index >= abilityList.size())
+         return null;
+      return abilityList.elementAt(index);
+   }
+   
+   public void addAbility(Ability a)
+   {
+      if(abilityList.size() < AbilityConstants.MAXIMUM_ABILITIES)
+         abilityList.add(a);
    }
    
    // status effect methods
