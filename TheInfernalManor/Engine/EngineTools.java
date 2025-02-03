@@ -243,4 +243,40 @@ public class EngineTools implements EngineConstants
          count++;
       return count;
    }
+   
+   
+   public static Rollable roll(Rollable[] items)
+   {
+      int maxWeight = 0;
+      for(Rollable item : items)
+         maxWeight += item.getWeight();
+      int roll = RNG.nextInt(maxWeight);
+      for(Rollable item : items)
+      {
+         if(roll < item.getWeight())
+            return item;
+         roll -= item.getWeight();
+      }
+      return null;
+   }
+   
+   
+   public static Rollable roll(Rollable[] items, int level)
+   {
+      return roll(filterRollable(items, level));
+   }
+   
+   
+   public static Rollable[] filterRollable(Rollable[] original, int level)
+   {
+      Vector<Rollable> newList = new Vector<Rollable>();
+      for(Rollable item : original)
+      {
+         if(item.getMinLevel() <= level &&
+            item.getMaxLevel() >= level &&
+            item.getWeight() > 0)
+            newList.add(item);
+      }
+      return newList.toArray(new Rollable[newList.size()]);
+   }
 }
