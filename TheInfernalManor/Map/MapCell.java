@@ -48,6 +48,19 @@ public class MapCell implements GUIConstants
       this(base.iconIndex, base.lowPassable, base.highPassable, base.transparent);
    }
    
+   public MapCell(MapCell that)
+   {
+      this.iconIndex = that.iconIndex;
+      this.fgColor = that.fgColor;
+      this.bgColor = that.bgColor;
+      this.lowPassable = that.lowPassable;
+      this.highPassable = that.highPassable;
+      this.transparent = that.transparent;
+      this.brokenForm = null;
+      if(that.brokenForm != null)
+         this.brokenForm = new MapCell(that.brokenForm);
+   }
+   
    
    public boolean isBreakable()
    {

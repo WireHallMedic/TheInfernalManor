@@ -89,7 +89,8 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             Coord reticleLoc = new Coord(x, y);
             for(Coord c : shape)
             {
-               setTileBG(c.x - xOffset, c.y - yOffset, reticleColor);
+               if(GameState.playerCanSee(c))
+                  setTileBG(c.x - xOffset, c.y - yOffset, reticleColor);
                if(c.equals(reticleLoc))
                   reticleInShape = true;
             }
@@ -100,7 +101,7 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
          {
             int x = AdventurePanel.getTargetX();
             int y = AdventurePanel.getTargetY();
-            if(reticleInShape)
+            if(reticleInShape && GameState.playerCanSee(x, y))
                setTileBG(x - xOffset, y - yOffset, RETICLE_COLOR);
             else
                setTileBG(x - xOffset, y - yOffset, RED);

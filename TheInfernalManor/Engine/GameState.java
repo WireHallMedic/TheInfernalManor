@@ -69,6 +69,7 @@ public class GameState implements EngineConstants, Runnable
          return fov.isVisible(x, y);
       return false;
    }
+   public static boolean playerCanSee(Coord c){return playerCanSee(c.x, c.y);}
    
    public static boolean playerCanSee(Actor a)
    {
