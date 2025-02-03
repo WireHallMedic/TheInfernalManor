@@ -4,12 +4,12 @@ import TheInfernalManor.Engine.*;
 
 public enum ItemQuality implements Rollable
 {
-   LOW         (0, 30, 30),
-   NORMAL      (0, 30, 30),
-   HIGH        (3, 30, 15),
-   MAGICAL     (6, 30, 10),
-   RARE        (9, 30, 5),
-   LEGENDARY   (12, 30, 2);
+   LOW         (0, 30, 100),
+   NORMAL      (0, 30, 100),
+   HIGH        (3, 30, 75),
+   MAGICAL     (6, 30, 50),
+   RARE        (9, 30, 25),
+   LEGENDARY   (12, 30, 10);
    
    private int minLevel;
    private int maxLevel;
