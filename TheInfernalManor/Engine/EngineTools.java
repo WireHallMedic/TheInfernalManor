@@ -21,7 +21,7 @@ public class EngineTools implements EngineConstants
       for(int i = 0; i < line.size(); i++)
       {
          Coord c = line.elementAt(i);
-         if(!GameState.getCurZone().isHighPassable(c) ||
+         if(!GameState.getCurZone().isPermeable(c) ||
             GameState.isActorAt(c) || 
             WSTools.getAngbandMetric(origin, c) >= maxLen)
          {
@@ -51,7 +51,7 @@ public class EngineTools implements EngineConstants
          Coord c = line.elementAt(i);
          actualLine.add(c);
          if(WSTools.getAngbandMetric(origin, c) > maxLen ||
-            !GameState.getCurZone().isHighPassable(c))
+            !GameState.getCurZone().isPermeable(c))
             break;
       }
       return actualLine;
@@ -98,7 +98,7 @@ public class EngineTools implements EngineConstants
          {
             if(passMap[tile.x][tile.y] == UNCHECKED)
                passMap[tile.x][tile.y] = checkVal;
-            if(!GameState.getCurZone().isHighPassable(tile.x + origin.x - midpoint.x, tile.y + origin.y - midpoint.y))
+            if(!GameState.getCurZone().isPermeable(tile.x + origin.x - midpoint.x, tile.y + origin.y - midpoint.y))
                checkVal = CHECKED_FALSE;
          }
       }
@@ -122,7 +122,7 @@ public class EngineTools implements EngineConstants
       for(int i = 1; i < line.size(); i++)
       {
          Coord c = line.elementAt(i);
-         if(!GameState.getCurZone().isHighPassable(c))
+         if(!GameState.getCurZone().isPermeable(c))
             return line.elementAt(i - 1);
          if(GameState.isActorAt(c) || 
             WSTools.getAngbandMetric(origin, c) >= maxLen)
@@ -152,7 +152,7 @@ public class EngineTools implements EngineConstants
          {
             if(passMap[tile.x][tile.y] == UNCHECKED)
                passMap[tile.x][tile.y] = checkVal;
-            if(!GameState.getCurZone().isHighPassable(tile.x + trueTarget.x - midpoint.x, tile.y + trueTarget.y - midpoint.y))
+            if(!GameState.getCurZone().isPermeable(tile.x + trueTarget.x - midpoint.x, tile.y + trueTarget.y - midpoint.y))
                checkVal = CHECKED_FALSE;
          }
       }

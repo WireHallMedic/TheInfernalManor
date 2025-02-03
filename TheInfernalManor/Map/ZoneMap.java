@@ -91,6 +91,14 @@ public class ZoneMap
    }
    public boolean isTransparent(Coord c){return isTransparent(c.x, c.y);}
    
+   public boolean isPermeable(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return tileMap[x][y].isPermeable();
+      return oobTile.isPermeable();
+   }
+   public boolean isPermeable(Coord c){return isPermeable(c.x, c.y);}
+   
    public ForegroundObject getDecoration(int x, int y)
    {
       if(isInBounds(x, y))
@@ -130,9 +138,7 @@ public class ZoneMap
       if(isInBounds(x, y))
       {
          tileMap[x][y] = cell;
-         lowPassMap[x][y] = cell.isLowPassable();
-         highPassMap[x][y] = cell.isHighPassable();
-         transparentMap[x][y] = cell.isTransparent();
+         updateMaps(x, y);
       }
    }
    
@@ -166,6 +172,13 @@ public class ZoneMap
          updateMaps(x, y);
       }
    }
+   
+   public void breakTile(int x, int y)
+   {
+      if(getTile(x, y).isBreakable())
+         setTile(x, y, getTile(x, y).getBrokenForm());
+   }
+   public void breakTile(Coord c){breakTile(c.x, c.y);}
    
    // drops an item as close to the target location as possible
    // returns false if not possible

@@ -151,6 +151,11 @@ public class GameState implements EngineConstants, Runnable
          {
             Combat.resolveAttack(attacker, defender, attack);
          }
+         // break stuff
+         if(curZone.getTile(targetList.elementAt(i)).isBreakable())
+         {
+            curZone.breakTile(targetList.elementAt(i));
+         }
          // visual effects
          if(attack.getShape() == AbilityConstants.EffectShape.BEAM)
          {

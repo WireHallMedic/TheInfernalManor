@@ -19,14 +19,7 @@ public class MapFactory implements GUIConstants
       map.setTile(w - 3, 2, MapCellFactory.getMapCell(MapCellBase.WALL, LIGHT_GREY, DARK_GREY));
       map.setTile(2, h - 3, MapCellFactory.getMapCell(MapCellBase.WALL, LIGHT_GREY, DARK_GREY));
       map.setTile(10, 5, MapCellFactory.getDoor());
-      
-      MapCell a = new MapCell('*', false, true, true);
-      MapCell b = new MapCell('*', false, true, true);
-      a.setFGColor(BLUE);
-      b.setFGColor(RED);
-      ToggleTile fancyThing = new ToggleTile(a, b);
-      fancyThing.setOneUseOnly(true);
-      map.setTile(10, 7, fancyThing);
+      map.setTile(10, 7, MapCellFactory.getChest());
       map.setItemAt(1, 2, new Armor("Filthy Rags"));
       return map;
    }
