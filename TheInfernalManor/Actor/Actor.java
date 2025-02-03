@@ -149,6 +149,8 @@ public class Actor extends ForegroundObject
    
    public void setLocation(int x, int y)
    {
+      if(GameState.getCurZone() != null)
+         VisualEffectFactory.registerMovementEcho(this);
       location[0] = x;
       location[1] = y;
    }

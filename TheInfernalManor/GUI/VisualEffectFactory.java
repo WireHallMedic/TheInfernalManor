@@ -2,10 +2,35 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import WidlerSuite.*;
+import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 
 public class VisualEffectFactory implements GUIConstants, SCConstants
 {
+   
+   public static void registerMovementEcho(Actor a)
+   {
+      int len = 18;
+      int xOrigin = a.getXLocation();
+      int yOrigin = a.getYLocation();
+      int[] fgArr = new int[len];
+      int[] iconArr = new int[len];
+      int startColor = a.getColor();
+      int endColor = GameState.getCurZone().getTile(xOrigin, yOrigin).getBGColor();
+      int[] colorGradient = GUITools.getGradient(startColor, endColor, len);
+      for(int i = 0; i < len; i++)
+      {
+         iconArr[i] = a.getIconIndex();
+         fgArr[i] = colorGradient[i];
+      }
+      VisualEffect ve = new VisualEffect(iconArr, fgArr, null);
+      ve.setTicksPerFrame(1);
+      ve.setXLocation(xOrigin);
+      ve.setYLocation(yOrigin);
+      AnimationManager.addGroundEffect(ve);
+   }
+
+
    public static void registerExplosion(int xOrigin, int yOrigin)
    {
       int len = 12;

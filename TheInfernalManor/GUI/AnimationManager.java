@@ -17,6 +17,7 @@ public class AnimationManager implements GUIConstants
    private static Vector<VisualEffect> lockList = new Vector<VisualEffect>();
    private static Vector<VisualEffect> nonlockList = new Vector<VisualEffect>();
    private static Vector<VisualEffect> actorVEList = new Vector<VisualEffect>();
+   private static Vector<VisualEffect> groundEffectList = new Vector<VisualEffect>();
    private int tickIndex;
 
 
@@ -26,6 +27,7 @@ public class AnimationManager implements GUIConstants
    public static Vector<VisualEffect> getLockList(){return lockList;}
    public static Vector<VisualEffect> getNonlockList(){return nonlockList;}
    public static Vector<VisualEffect> getActorVEList(){return actorVEList;}
+   public static Vector<VisualEffect> getGroundEffectList(){return groundEffectList;}
    
    
    public AnimationManager()
@@ -51,13 +53,15 @@ public class AnimationManager implements GUIConstants
       if(tickIndex % 6 == 0)
          fastBlink = !fastBlink;
          
-      for(int j = 0; j < 3; j++)
+      for(int j = 0; j < 4; j++)
       {
          Vector<VisualEffect> veList = lockList;
          if(j == 1)
             veList = nonlockList;
          if(j == 2)
             veList = actorVEList;
+         if(j == 3)
+            veList = groundEffectList;
          for(int i = 0; i < veList.size(); i++)
          {
             veList.elementAt(i).increment();
@@ -81,6 +85,11 @@ public class AnimationManager implements GUIConstants
    public static void addLocking(VisualEffect ve)
    {
       lockList.add(ve);
+   }
+   
+   public static void addGroundEffect(VisualEffect ve)
+   {
+      groundEffectList.add(ve);
    }
    
    public static boolean hasBlockingVisualEffect()

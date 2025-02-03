@@ -46,6 +46,21 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             else
                setTile(x, y, ' ', WHITE, BLACK);
          }
+         
+         // ground effects go under actors
+         Vector<VisualEffect> geList = AnimationManager.getGroundEffectList();
+         for(int i = 0; i < geList.size(); i++)
+         {
+            VisualEffect ve = geList.elementAt(i);
+            if(ve.hasIconList())
+               setTileIndex(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getIcon());
+            if(ve.hasFGList())
+               setTileFG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getFG());
+            if(ve.hasBGList())
+                  setTileBG(ve.getXLocation() - xOffset, ve.getYLocation() - yOffset, ve.getBG());
+         }
+         
+         // actors
          Vector<Actor> actorList = GameState.getActorList();
          if(actorList != null)
          {
