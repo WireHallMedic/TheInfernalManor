@@ -25,6 +25,18 @@ public class ActorFactory
       a.addAbility(AttackFactory.getConeAttack());
       
       a.getInventory().add(OffHandFactory.getTome());
+      Item i = WeaponFactory.getSword();
+      i.adjustForQuality(ItemQuality.LOW);
+      a.getInventory().add(i);
+      i = WeaponFactory.getSword();
+      i.adjustForQuality(ItemQuality.HIGH);
+      a.getInventory().add(i);
+      i = WeaponFactory.getBow();
+      i.adjustForQuality(ItemQuality.LOW);
+      a.getInventory().add(i);
+      i = WeaponFactory.getBow();
+      i.adjustForQuality(ItemQuality.HIGH);
+      a.getInventory().add(i);
       
       a.fullHeal();
       return a;

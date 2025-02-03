@@ -47,6 +47,24 @@ public class Weapon extends Item implements GUIConstants
    }
    
    @Override
+   public void adjustForQuality(ItemQuality quality)
+   {
+      super.adjustForQuality(quality);
+      if(range > 2)
+      {
+         switch(quality)
+         {
+            case LOW :        range = Math.max(3, range - 1); break;
+            case NORMAL :     break;
+            case HIGH :       range += 1; break;
+            case MAGICAL :    range += 1; break;
+            case RARE :       range += 2; break;
+            case LEGENDARY :  range += 3; break;
+         }
+      }
+   }
+   
+   @Override
    public Vector<String> getSummary()
    {
       Vector<String> strList = super.getSummary();

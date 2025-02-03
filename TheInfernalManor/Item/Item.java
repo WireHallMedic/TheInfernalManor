@@ -111,4 +111,53 @@ public class Item extends ForegroundObject implements GUIConstants
       }
       return strList;
    }
+   
+   
+   public void adjustForQuality(ItemQuality quality)
+   {
+      double qualityMod = 1.0;
+      switch(quality)
+      {
+         case LOW :        qualityMod = .75;
+                           setName("Low-Quality " + getName());
+                           break;
+         case NORMAL :     return;
+         case HIGH :       qualityMod = 1.25;
+                           setName("High-Quality " + getName());
+                           break;
+         case MAGICAL :    qualityMod = 1.5; break;
+         case RARE :       qualityMod = 1.75; break;
+         case LEGENDARY :  qualityMod = 2.0; break;
+      }
+      physicalDamage = getAdjusted(physicalDamage, qualityMod);
+      magicalDamage = getAdjusted(magicalDamage, qualityMod);
+      physicalArmor = getAdjusted(physicalArmor, qualityMod);
+      magicalArmor = getAdjusted(magicalArmor, qualityMod);
+      block = getAdjusted(block, qualityMod);
+      energyRecharge = getAdjusted(energyRecharge, qualityMod);
+   }
+   
+   private int getAdjusted(int base, double mod)
+   {
+      if(base < 1)
+         return base;
+      int newVal = 0;
+      // adj up
+      if(mod > 1.0)
+      {
+         newVal = (int)(base * mod);
+         if(newVal == base)
+            newVal = base + 1;
+      }
+      // adj down
+      else if(mod < 1.0)
+      {
+         newVal = (int)(base * mod);
+         if(newVal == base)
+            newVal = base - 1;
+         if(newVal < 1)
+            newVal = 1;
+      }
+      return newVal;
+   }
 }
