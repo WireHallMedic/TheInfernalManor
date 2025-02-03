@@ -41,6 +41,7 @@ public class Actor extends ForegroundObject
    private OffHand offHand;
    private Vector<Relic> relicList;
    private Inventory inventory;
+   private Gold gold;
    private ActorVisualEffect visualEffect;
    private Vector<StatusEffect> seList;
    private boolean inTurn;
@@ -66,6 +67,7 @@ public class Actor extends ForegroundObject
    public Armor getArmor(){return armor;}
    public OffHand getOffHand(){return offHand;}
    public Vector<Relic> getRelicList(){return relicList;}
+   public Gold getGold(){return gold;}
    public int getPhysicalDamage(){return physicalDamage;}
 	public int getMagicalDamage(){return magicalDamage;}
 	public int getPhysicalArmor(){return physicalArmor;}
@@ -93,6 +95,7 @@ public class Actor extends ForegroundObject
    public void setArmor(Armor a){armor = a; calcItemStats();}
    public void setOffHand(OffHand oh){offHand = oh; calcItemStats();}
    public void setRelicList(Vector<Relic> list){relicList = list; calcItemStats();}
+   public void setGold(Gold g){gold = g;}
    public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
    public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
    public void setSEList(Vector<StatusEffect> newList){seList = newList;}
@@ -118,6 +121,7 @@ public class Actor extends ForegroundObject
       mainHand = null;
       offHand = null;
       relicList = new Vector<Relic>();
+      gold = new Gold(0);
       inventory = new Inventory(this);
       visualEffect = null;
       seList = new Vector<StatusEffect>();
@@ -420,7 +424,12 @@ public class Actor extends ForegroundObject
       map.setItemAt(getXLocation(), getYLocation(), null);
       if(item != null)
       {
-         getInventory().add(item);
+         if(item instanceof Gold)
+         {
+            gold.add((Gold)item);
+         }
+         else
+            getInventory().add(item);
       }
       if(this == GameState.getPlayerCharacter())
       {

@@ -44,6 +44,9 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       Vector<Item> itemList = getPlayerItemList();
       Actor player = GameState.getPlayerCharacter();
       
+      // gold
+      overwriteLine(LEFT_PANEL_X_ORIGIN, 1, "  Gold: " + player.getGold().getValue(), SIDE_WIDTH - 6);
+      
       // list items
       for(int i = 0; i < TILES_TALL - 6; i++)
       {

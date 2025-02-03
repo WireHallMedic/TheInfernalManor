@@ -2,7 +2,7 @@ package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
 
-public class Gold extends ForegroundObject
+public class Gold extends Item
 {
 	private int value;
 
