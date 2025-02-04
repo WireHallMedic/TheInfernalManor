@@ -59,7 +59,7 @@ public class GameState implements EngineConstants, Runnable
    {
       if(playerCharacter != null && fov != null)
       {
-         fov.calcFoV(playerCharacter.getXLocation(), playerCharacter.getYLocation(), 10);
+         fov.calcFoV(playerCharacter.getXLocation(), playerCharacter.getYLocation(), playerCharacter.getVision());
       }
    }
    

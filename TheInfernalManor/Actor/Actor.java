@@ -29,6 +29,8 @@ public class Actor extends ForegroundObject
    private int magicalDamage;
    private int physicalArmor;
    private int magicalArmor;
+   private int baseVision;
+   private int vision;
    private ActionSpeed moveSpeed;
    private ActionSpeed interactSpeed;
    private int chargeLevel;
@@ -75,6 +77,8 @@ public class Actor extends ForegroundObject
    public Inventory getInventory(){return inventory;}
    public Vector<StatusEffect> getSEList(){return seList;}
    public boolean isInTurn(){return inTurn;}
+   public int getBaseVision(){return baseVision;}
+   public int getVision(){return vision;}
 
 
    public void setAI(BaseAI newAI){ai = newAI;}
@@ -99,6 +103,7 @@ public class Actor extends ForegroundObject
    public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
    public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
    public void setSEList(Vector<StatusEffect> newList){seList = newList;}
+   public void setBaseVision(int v){baseVision = v;}
    
 
    public Actor(String n, int icon)
@@ -109,6 +114,7 @@ public class Actor extends ForegroundObject
       ai = new BaseAI(this);
       maxHealth = 10;
       maxEnergy = 10;
+      baseVision = 10;
       moveSpeed = ActionSpeed.NORMAL;
       interactSpeed = ActionSpeed.NORMAL;
       chargeLevel = FULLY_CHARGED;
@@ -325,6 +331,7 @@ public class Actor extends ForegroundObject
          curBlock = maxBlock;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
          curBlock = maxBlock;
+      vision = baseVision;
    }
    
    // initiative methods
@@ -391,6 +398,11 @@ public class Actor extends ForegroundObject
    public void act()
    {
       ai.act();
+   }
+   
+   public boolean isEnemy(Actor that)
+   {
+      return ai.getTeam().isEnemy(that.getAI().getTeam());
    }
    
    

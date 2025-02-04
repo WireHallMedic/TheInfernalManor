@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4093;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4130;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -76,6 +76,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uWidlerSuite%sVect.java
 %\011TheInfernalManor%sGUI%sActorVisualEffect.java
 %\011TheInfernalManor%sAI%sZombieAI.java
+%\011TheInfernalManor%sAI%sTeam.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
@@ -109,7 +110,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!4093;f
+!4130;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -171,6 +172,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uWidlerSuite%sVect.java
 %\011TheInfernalManor%sGUI%sActorVisualEffect.java
 %\011TheInfernalManor%sAI%sZombieAI.java
+%\011TheInfernalManor%sAI%sTeam.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java

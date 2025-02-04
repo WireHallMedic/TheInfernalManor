@@ -13,6 +13,7 @@ public class PlayerAI extends BaseAI
    {
       super(s);
       setPlayerControlled(true);
+      setTeam(Team.HERO);
    }
    
    @Override
