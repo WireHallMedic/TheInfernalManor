@@ -120,7 +120,10 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       if(curIndex != -1 && curIndex < itemList.size() && onLeft)
       {
          Item curItem = itemList.elementAt(curIndex);
-         Vector<String> strList = curItem.getSummary();
+         Vector<String> strList = new Vector<String>();
+         strList.add(curItem.getDescription());
+         if(curItem instanceof EquippableItem)
+            strList = ((EquippableItem)curItem).getSummary();
          // comparison summaries
          if(curItem instanceof Weapon)
          {
@@ -205,7 +208,7 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       // right summary
       else if(!onLeft)
       {
-         Item item = getSelectedEquipped();
+         EquippableItem item = getSelectedEquipped();
          Vector<String> summaryList = new Vector<String>();
          if(item != null)
          {
@@ -232,9 +235,9 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
       
    }
    
-   private Item getSelectedEquipped()
+   private EquippableItem getSelectedEquipped()
    {
-      Item item = null;
+      EquippableItem item = null;
       Actor player = GameState.getPlayerCharacter();
       if(curIndex == Inventory.MAIN_HAND_SLOT)
          item = player.getMainHand();

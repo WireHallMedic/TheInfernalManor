@@ -3,7 +3,7 @@ package TheInfernalManor.Item;
 import TheInfernalManor.GUI.*;
 import java.util.*;
 
-public class Armor extends Item implements GUIConstants
+public class Armor extends EquippableItem implements GUIConstants
 {
    public static final int CLOTH = 0;
    public static final int LIGHT = 1;

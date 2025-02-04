@@ -309,11 +309,11 @@ public class Actor extends ForegroundObject
    
    public void calcItemStats()
    {
-      Item sum = new Item("", ' ', 0);
+      EquippableItem sum = new EquippableItem("", ' ', 0);
       sum.add(getWeapon());
       if(armor != null) sum.add(armor);
       if(offHand != null) sum.add(offHand);
-      for(Item relic : relicList)
+      for(Relic relic : relicList)
          sum.add(relic);
       physicalDamage = sum.getPhysicalDamage();
       magicalDamage = sum.getMagicalDamage();

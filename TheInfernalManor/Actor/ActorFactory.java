@@ -25,7 +25,7 @@ public class ActorFactory
       a.addAbility(AttackFactory.getConeAttack());
       
       a.getInventory().add(OffHandFactory.getTome());
-      Item i = WeaponFactory.getSword();
+      EquippableItem i = WeaponFactory.getSword();
       i.adjustForQuality(ItemQuality.LOW);
       a.getInventory().add(i);
       i = WeaponFactory.getSword();

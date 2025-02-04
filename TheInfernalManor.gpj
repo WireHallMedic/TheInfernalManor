@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4003;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4052;g
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -31,8 +31,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uWidlerSuite%sAStarNode.java
 %\011TheInfernalManor%sGUI%sInventoryPanel.java
 %\011%uStrictCurses%sSCTileStamp.java
-%\011TheInfernalManor%sItem%sItem.java
 %\011TheInfernalManor%sGUI%sVisualEffectFactory.java
+%\011TheInfernalManor%sItem%sItem.java
 %\011TheInfernalManor%sGUI%sHelpPanel.java
 %\011TheInfernalManor%sMap%sMapFactory.java
 %\011TheInfernalManor%sAbility%sAttackFactory.java
@@ -48,6 +48,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sWeapon.java
 %\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sItem%sItemQuality.java
+%\011TheInfernalManor%sItem%sEquippableItem.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
 %\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sItem%sArmor.java
@@ -107,7 +108,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!4003;f
+!4052;f
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -124,8 +125,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uWidlerSuite%sAStarNode.java
 %\011TheInfernalManor%sGUI%sInventoryPanel.java
 %\011%uStrictCurses%sSCTileStamp.java
-%\011TheInfernalManor%sItem%sItem.java
 %\011TheInfernalManor%sGUI%sVisualEffectFactory.java
+%\011TheInfernalManor%sItem%sItem.java
 %\011TheInfernalManor%sGUI%sHelpPanel.java
 %\011TheInfernalManor%sMap%sMapFactory.java
 %\011TheInfernalManor%sAbility%sAttackFactory.java
@@ -141,6 +142,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sWeapon.java
 %\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sItem%sItemQuality.java
+%\011TheInfernalManor%sItem%sEquippableItem.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
 %\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sItem%sArmor.java
@@ -205,7 +207,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java
 %\011TheInfernalManor%sItem%sItemTest.java
-!558;t
-jgrJUnit0xr	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1738594236951:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sMapTest.java	1738592291287:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1738594236951:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1738592291287:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1738592291287:P%\011ItemTest.java	%\011TheInfernalManor%sAbility%sAbility.java	1738592291287:P%\011AbilityTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1738592291287:P%\011Item.java	
+!485;t
+jgrJUnit0xr	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1738594236951:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sMapTest.java	1738592291287:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1738594236951:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1738592291287:P%\011Ability.java	%\011TheInfernalManor%sAbility%sAbility.java	1738592291287:P%\011AbilityTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1738592291287:P%\011Item.java	
 !35;m
 RunSelect	TheInfernalManor.TIMMain

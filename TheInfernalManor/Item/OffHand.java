@@ -2,7 +2,7 @@ package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
 
-public class OffHand extends Item implements GUIConstants
+public class OffHand extends EquippableItem implements GUIConstants
 {
    public OffHand(String n)
    {

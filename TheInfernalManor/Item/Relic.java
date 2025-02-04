@@ -3,7 +3,7 @@ package TheInfernalManor.Item;
 import TheInfernalManor.GUI.*;
 import java.util.*;
 
-public class Relic extends Item implements GUIConstants
+public class Relic extends EquippableItem implements GUIConstants
 {
    public enum Restriction
    {
