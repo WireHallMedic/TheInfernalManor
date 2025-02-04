@@ -35,4 +35,20 @@ public enum Direction
       return null;
    }
    public static Direction getDirectionTo(Coord origin, Coord target){return getDirectionTo(origin.x, origin.y, target.x, target.y);}
+
+   public Direction clockwise()
+   {
+      int i = ordinal() + 1;
+      if(i == Direction.values().length)
+         i = 1;
+      return Direction.values()[i];
+   }
+   
+   public Direction counterClockwise()
+   {
+      int i = ordinal() - 1;
+      if(i == 0)
+         i = Direction.values().length - 1;
+      return Direction.values()[i];
+   }
 }

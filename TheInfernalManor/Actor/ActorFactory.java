@@ -50,4 +50,13 @@ public class ActorFactory
       a.fullHeal();
       return a;
    }
+   
+   public static Actor getTestZombie(int x, int y)
+   {
+      Actor a = new Actor("Zombie", 'z');
+      a.setAI(new ZombieAI(a));
+      a.setLocation(x, y);
+      a.fullHeal();
+      return a;
+   }
 }

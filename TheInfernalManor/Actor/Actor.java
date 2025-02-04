@@ -7,6 +7,7 @@ import TheInfernalManor.Map.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
+import WidlerSuite.Coord;
 
 public class Actor extends ForegroundObject
 {
@@ -285,6 +286,8 @@ public class Actor extends ForegroundObject
       {
          inTurn = true;
       }
+      if(!ai.isPlayerControlled())
+         GameState.calcEnemyFoV(this);
    }
    
    public void endTurn()
@@ -404,6 +407,16 @@ public class Actor extends ForegroundObject
    {
       return ai.getTeam().isEnemy(that.getAI().getTeam());
    }
+   
+   
+   public boolean canSee(int x, int y)
+   {
+      if(ai.isPlayerControlled())
+         return GameState.playerCanSee(x, y);
+      return GameState.getEnemyFoV().isVisible(x, y);
+   }
+   public boolean canSee(Coord c){return canSee(c.x, c.y);}
+   public boolean canSee(Actor a){return canSee(a.getXLocation(), a.getYLocation());}
    
    
    // execute actions

@@ -4,6 +4,7 @@ import TheInfernalManor.Ability.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 import java.util.*;
+import WidlerSuite.*;
 
 public class BaseAI
 {
@@ -70,6 +71,29 @@ public class BaseAI
       {
          setPendingAction(new ActionPlan(ActionType.DELAY));
       }
+   }
+   
+   public Actor getClosestVisibleEnemy()
+   {
+      Actor prospect = null;
+      int dist = 100;
+      Vector<Actor> characterList = GameState.getActorList();
+      for(int i = 0; i < characterList.size(); i++)
+      {
+         Actor a = characterList.elementAt(i);
+         if(self.isEnemy(a) &&
+            self.canSee(a))
+         {
+            int d = WSTools.getAngbandMetric(self.getXLocation(), self.getYLocation(),
+                                             a.getXLocation(), a.getYLocation());
+            if(d < dist)
+            {
+               dist = d;
+               prospect = a;
+            }
+         }
+      }
+      return prospect;
    }
    
    public void act()

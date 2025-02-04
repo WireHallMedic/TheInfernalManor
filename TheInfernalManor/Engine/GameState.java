@@ -18,6 +18,7 @@ public class GameState implements EngineConstants, Runnable
    private static boolean runF;
    private static int initiativeIndex;
    private static ShadowFoVRect fov;
+   private static ShadowFoVRect enemyFoV;
 
 
 	public static Actor getPlayerCharacter(){return playerCharacter;}
@@ -26,6 +27,7 @@ public class GameState implements EngineConstants, Runnable
    public static int getGameMode(){return gameMode;}
    public static boolean getRunFlag(){return runF;}
    public static ShadowFoVRect getFoV(){return fov;}
+   public static ShadowFoVRect getEnemyFoV(){return enemyFoV;}
 
 
 	public static void setPlayerCharacter(Actor p){playerCharacter = p;}
@@ -40,7 +42,7 @@ public class GameState implements EngineConstants, Runnable
       actorList.add(playerCharacter);
       actorList.add(ActorFactory.getTestEnemy(5, 5));
       actorList.add(ActorFactory.getTestEnemy(9, 5));
-      Actor b = ActorFactory.getTestEnemy(7, 5);
+      Actor b = ActorFactory.getTestZombie(7, 5);
       b.setOffHand(OffHandFactory.getShield());
       actorList.add(b);
       setCurZone(MapFactory.getTestMap1());
@@ -52,6 +54,7 @@ public class GameState implements EngineConstants, Runnable
    {
       curZone = c;
       fov = new ShadowFoVRect(curZone.getTransparentMap());
+      enemyFoV = new ShadowFoVRect(curZone.getTransparentMap());
       calcFoV();
    }
    
@@ -61,6 +64,11 @@ public class GameState implements EngineConstants, Runnable
       {
          fov.calcFoV(playerCharacter.getXLocation(), playerCharacter.getYLocation(), playerCharacter.getVision());
       }
+   }
+   
+   public static void calcEnemyFoV(Actor a)
+   {
+      enemyFoV.calcFoV(a.getXLocation(), a.getYLocation(), a.getVision());
    }
    
    public static boolean playerCanSee(int x, int y)
