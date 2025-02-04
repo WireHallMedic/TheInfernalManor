@@ -12,8 +12,8 @@ public class ActorFactory
       Actor a = new Actor("Player", '@');
       a.setAI(new PlayerAI(a));
       a.getAI().setPlayerControlled(true);
-      a.setMaxHealth(64);
-      a.setMaxEnergy(10);
+      a.getBaseStats().setMaxHealth(64);
+      a.getBaseStats().setMaxEnergy(10);
       a.setLocation(1, 1);
       
       a.setMainHand(WeaponFactory.getSword());

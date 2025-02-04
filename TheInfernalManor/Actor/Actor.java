@@ -30,7 +30,6 @@ public class Actor extends ForegroundObject
    private int magicalDamage;
    private int physicalArmor;
    private int magicalArmor;
-   private int baseVision;
    private int vision;
    private ActionSpeed moveSpeed;
    private ActionSpeed interactSpeed;
@@ -47,6 +46,7 @@ public class Actor extends ForegroundObject
    private Gold gold;
    private ActorVisualEffect visualEffect;
    private Vector<StatusEffect> seList;
+   private EquippableItem baseStats;
    private boolean inTurn;
 
 
@@ -78,14 +78,12 @@ public class Actor extends ForegroundObject
    public Inventory getInventory(){return inventory;}
    public Vector<StatusEffect> getSEList(){return seList;}
    public boolean isInTurn(){return inTurn;}
-   public int getBaseVision(){return baseVision;}
    public int getVision(){return vision;}
+   public EquippableItem getBaseStats(){return baseStats;}
 
 
    public void setAI(BaseAI newAI){ai = newAI;}
-	public void setMaxHealth(int m){maxHealth = m;}
 	public void setCurHealth(int c){curHealth = c;}
-	public void setMaxEnergy(int m){maxEnergy = m;}
 	public void setCurEnergy(int c){curEnergy = c;}
 	public void setCurBlock(int c){curBlock = c;}
    public void setTicksSineHit(int tsh){ticksSinceHit = tsh;}
@@ -104,7 +102,7 @@ public class Actor extends ForegroundObject
    public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
    public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
    public void setSEList(Vector<StatusEffect> newList){seList = newList;}
-   public void setBaseVision(int v){baseVision = v;}
+   public void setBaseStats(EquippableItem bs){baseStats = bs;}
    
 
    public Actor(String n, int icon)
@@ -113,9 +111,12 @@ public class Actor extends ForegroundObject
       location = new int[2];
       setLocation(-1, -1);
       ai = new BaseAI(this);
+      baseStats = new EquippableItem("Base Stats", 0, 0);
+      baseStats.setMaxHealth(10);
+      baseStats.setMaxEnergy(10);
+      baseStats.setVision(10);
       maxHealth = 10;
       maxEnergy = 10;
-      baseVision = 10;
       moveSpeed = ActionSpeed.NORMAL;
       interactSpeed = ActionSpeed.NORMAL;
       chargeLevel = FULLY_CHARGED;
@@ -318,7 +319,7 @@ public class Actor extends ForegroundObject
    
    public void calcItemStats()
    {
-      EquippableItem sum = new EquippableItem("", ' ', 0);
+      EquippableItem sum = new EquippableItem(baseStats);
       sum.add(getWeapon());
       if(armor != null) sum.add(armor);
       if(offHand != null) sum.add(offHand);
@@ -329,12 +330,14 @@ public class Actor extends ForegroundObject
       physicalArmor = sum.getPhysicalArmor();
       magicalArmor = sum.getMagicalArmor();
       maxBlock = sum.getBlock();
+      maxHealth = sum.getMaxHealth();
+      maxEnergy = sum.getMaxEnergy();
+      vision = sum.getVision();
       energyRecharge = sum.getEnergyRecharge() + 2;
       if(maxBlock < curBlock)
          curBlock = maxBlock;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
          curBlock = maxBlock;
-      vision = baseVision;
    }
    
    // initiative methods

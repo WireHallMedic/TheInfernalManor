@@ -11,6 +11,9 @@ public class EquippableItem extends Item implements GUIConstants
 	private int magicalArmor;
 	private int block;
    private int energyRecharge;   // each point of this is worth .25 energy per tick
+   private int maxHealth;
+   private int maxEnergy;
+   private int vision;
 
 
 	public int getPhysicalDamage(){return physicalDamage;}
@@ -19,6 +22,9 @@ public class EquippableItem extends Item implements GUIConstants
 	public int getMagicalArmor(){return magicalArmor;}
 	public int getBlock(){return block;}
    public int getEnergyRecharge(){return energyRecharge;}
+   public int getMaxHealth(){return maxHealth;}
+   public int getMaxEnergy(){return maxEnergy;}
+   public int getVision(){return vision;}
 
 
 	public void setPhysicalDamage(int p){physicalDamage = p;}
@@ -27,6 +33,9 @@ public class EquippableItem extends Item implements GUIConstants
 	public void setMagicalArmor(int m){magicalArmor = m;}
 	public void setBlock(int b){block = b;}
    public void setEnergyRecharge(int er){energyRecharge = er;}
+   public void setMaxHealth(int mh){maxHealth = mh;}
+   public void setMaxEnergy(int me){maxEnergy = me;}
+   public void setVision(int v){vision = v;}
 
    
    public EquippableItem(String name, int icon, int color)
@@ -48,6 +57,9 @@ public class EquippableItem extends Item implements GUIConstants
       this.magicalArmor += that.magicalArmor;
       this.block += that.block;
       this.energyRecharge += that.energyRecharge;
+      this.maxHealth += that.maxHealth;
+      this.maxEnergy += that.maxEnergy;
+      this.vision += that.vision;
    }
    
    public Vector<String> getSummary()
@@ -63,8 +75,14 @@ public class EquippableItem extends Item implements GUIConstants
          strList.add("Magical Armor   " + GUITools.getSignedString(magicalArmor));
       if(block != 0)
          strList.add("Block           " + GUITools.getSignedString(block));
-      if(block != 0)
+      if(energyRecharge != 0)
          strList.add("Energy Recharge " + GUITools.getSignedString(energyRecharge));
+      if(maxHealth != 0)
+         strList.add("Max Health      " + GUITools.getSignedString(maxHealth));
+      if(maxEnergy != 0)
+         strList.add("Max Energy      " + GUITools.getSignedString(maxEnergy));
+      if(vision != 0)
+         strList.add("Vision          " + GUITools.getSignedString(vision));
       return strList;
    }
    
@@ -103,10 +121,28 @@ public class EquippableItem extends Item implements GUIConstants
          str = String.format("Block           %s (%s)", GUITools.getSignedString(block), GUITools.getSignedString(val));
          strList.add(str);
       }
-      if(this.energyRecharge != 0.0 ||  that.energyRecharge != 0.0)
+      if(this.energyRecharge != 0 ||  that.energyRecharge != 0)
       {
          val = this.energyRecharge - that.energyRecharge;
          str = String.format("Magical Damage  %s (%s)", GUITools.getSignedString(energyRecharge), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.maxHealth != 0 ||  that.maxHealth != 0)
+      {
+         val = this.maxHealth - that.maxHealth;
+         str = String.format("Max Health      %s (%s)", GUITools.getSignedString(maxHealth), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.maxEnergy != 0 ||  that.maxEnergy != 0)
+      {
+         val = this.maxEnergy - that.maxEnergy;
+         str = String.format("Max Energy      %s (%s)", GUITools.getSignedString(maxEnergy), GUITools.getSignedString(val));
+         strList.add(str);
+      }
+      if(this.vision != 0 ||  that.vision != 0)
+      {
+         val = this.vision - that.vision;
+         str = String.format("Vision          %s (%s)", GUITools.getSignedString(vision), GUITools.getSignedString(val));
          strList.add(str);
       }
       return strList;
@@ -135,6 +171,9 @@ public class EquippableItem extends Item implements GUIConstants
       magicalArmor = getAdjusted(magicalArmor, qualityMod);
       block = getAdjusted(block, qualityMod);
       energyRecharge = getAdjusted(energyRecharge, qualityMod);
+      maxHealth = getAdjusted(maxHealth, qualityMod);
+      maxEnergy = getAdjusted(maxEnergy, qualityMod);
+      // vision not adjusted by quality
    }
    
    private int getAdjusted(int base, double mod)
