@@ -102,14 +102,34 @@ public class BaseAI
    
    public Vector<Coord> getPathTowards(Coord c)
    {
-      boolean[][] basePassable = GameState.getCurZone().getLowPassMap();
-      boolean[][] passable = new boolean[basePassable.length][basePassable[0].length];
+      int radius = 13;
+      int minX = self.getXLocation() - radius;
+      int maxX = self.getXLocation() + radius;
+      int minY = self.getYLocation() - radius;
+      int maxY = self.getYLocation() + radius;
+      boolean[][] passMap = GameState.getCurZone().getPathingMap(self, radius);
+      // block off actors
       for(Actor a : GameState.getActorList())
       {
-         passable[a.getXLocation()][a.getYLocation()] = false;
+         if(a != self)
+         {
+            if(a.getXLocation() >= minX &&
+               a.getXLocation() <= maxX &&
+               a.getYLocation() >= minY &&
+               a.getYLocation() <= maxY)
+            passMap[a.getXLocation() - self.getXLocation() + radius][a.getYLocation() - self.getYLocation() + radius] = false;
+         }
       }
+      // set target as passable
+      passMap[c.x - self.getXLocation() + radius][c.y - self.getYLocation() + radius] = true;
+      
+      // generate path
       AStar aStar = new AStar();
-      Vector<Coord> path = aStar.path(passable, self.getXLocation(), self.getYLocation(), c.x, c.y);
+      Vector<Coord> path = aStar.path(passMap, radius, radius, c.x - self.getXLocation() + radius, c.y - self.getYLocation() + radius);
+      // adjust for offset
+      Coord offset = new Coord(self.getXLocation() - radius, self.getYLocation() - radius);
+      for(Coord step : path)
+         step.add(offset);
       return path;
    }
    public Vector<Coord> getPathTowards(Actor a){return getPathTowards(new Coord(a.getXLocation(), a.getYLocation()));}
@@ -139,12 +159,18 @@ public class BaseAI
          }
          if(plan.getActionType() == ActionType.STEP)
          {
-            self.takeStep(plan.getDirection());
+            if(plan.hasXYTarget())
+               self.takeStep(new Coord(x, y));
+            else
+               self.takeStep(plan.getDirection());
             self.discharge(self.getMoveSpeed());
          }
          if(plan.getActionType() == ActionType.USE)
          {
-            self.doToggle(plan.getDirection());
+            if(plan.hasXYTarget())
+               self.doToggle(new Coord(x, y));
+            else
+               self.doToggle(plan.getDirection());
             self.discharge(self.getInteractSpeed());
          }
          if(plan.getActionType() == ActionType.BASIC_ATTACK)

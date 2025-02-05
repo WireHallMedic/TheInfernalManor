@@ -9,6 +9,14 @@ public class MapCellFactory implements GUIConstants
       return new Door();
    }
    
+   public static MapCell getGate()
+   {
+      Door d = new Door();
+      d.getStateA().setTransparent(true);
+      d.getStateA().setHighPassable(true);
+      return d;
+   }
+   
    public static MapCell getChest()
    {
       MapCell a = new MapCell(MapCellBase.CHEST_CLOSED);

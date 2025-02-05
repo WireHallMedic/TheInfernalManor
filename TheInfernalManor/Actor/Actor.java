@@ -164,10 +164,9 @@ public class Actor extends ForegroundObject
       location[1] = y;
    }
    
-   public int[] getLocation()
+   public Coord getLocation()
    {
-      int[] locCopy = {location[0], location[1]};
-      return locCopy;
+      return new Coord(location[0], location[1]);
    }
    
    public int getXLocation()
@@ -179,6 +178,12 @@ public class Actor extends ForegroundObject
    {
       return location[1];
    }
+   
+   public int distanceTo(int x, int y)
+   {
+      return WSTools.getAngbandMetric(getXLocation(), getYLocation(), x, y);
+   }
+   public int distanceTo(Actor a){return distanceTo(a.getXLocation(), a.getYLocation());}
    
    public boolean isAdjacent(int x, int y)
    {
@@ -432,16 +437,20 @@ public class Actor extends ForegroundObject
    // execute actions
    public void takeStep(Direction dir)
    {
-      int xLoc = getXLocation() + dir.x;
-      int yLoc = getYLocation() + dir.y;
-      setLocation(xLoc, yLoc);
+      takeStep(new Coord(getXLocation() + dir.x, getYLocation() + dir.y));
+   }
+   public void takeStep(Coord c)
+   {
+      setLocation(c.x, c.y);
    }
    
    public void doToggle(Direction dir)
    {
-      int xLoc = getXLocation() + dir.x;
-      int yLoc = getYLocation() + dir.y;
-      GameState.getCurZone().doToggle(xLoc, yLoc);
+      doToggle(new Coord(getXLocation() + dir.x, getYLocation() + dir.y));
+   }
+   public void doToggle(Coord c)
+   {
+      GameState.getCurZone().doToggle(c.x, c.y);
    }
    
    public void doAttack(Attack attack, int x, int y)
@@ -452,6 +461,10 @@ public class Actor extends ForegroundObject
          curEnergy -= attack.getEnergyCost();
          attack.discharge();
       }
+   }
+   public void doAttack(Attack attack, Coord c)
+   {
+      doAttack(attack, c.x, c.y);
    }
    
    public void pickUp()

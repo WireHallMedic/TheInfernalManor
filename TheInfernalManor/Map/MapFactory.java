@@ -29,6 +29,19 @@ public class MapFactory implements GUIConstants
       map.setTile(11, 9, new MapCell(fragilePillar));
       map.setTile(11, 10, new MapCell(fragilePillar));
       
+      for(int x = 1; x < 19; x++)
+         map.setTile(x, 12, MapCellFactory.getMapCell(MapCellBase.LOW_WALL, LIGHT_GREY, DARK_GREY));
+      for(int y = 13; y < 19; y++)
+      {
+         map.setTile(5, y, MapCellFactory.getMapCell(MapCellBase.LOW_WALL, LIGHT_GREY, DARK_GREY));
+         map.setTile(10, y, MapCellFactory.getMapCell(MapCellBase.LOW_WALL, LIGHT_GREY, DARK_GREY));
+         map.setTile(15, y, MapCellFactory.getMapCell(MapCellBase.LOW_WALL, LIGHT_GREY, DARK_GREY));
+      }
+      map.setTile(2, 12, MapCellFactory.getGate());
+      map.setTile(7, 12, MapCellFactory.getGate());
+      map.setTile(12, 12, MapCellFactory.getGate());
+      map.setTile(17, 12, MapCellFactory.getGate());
+      
       map.setItemAt(2, 3, new Gold(10));
       
       return map;

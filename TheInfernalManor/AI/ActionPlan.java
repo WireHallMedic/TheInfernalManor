@@ -2,6 +2,7 @@ package TheInfernalManor.AI;
 
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
+import WidlerSuite.Coord;
 
 public class ActionPlan
 {
@@ -39,13 +40,20 @@ public class ActionPlan
    
    public ActionPlan(ActionType at, int ind)
    {
-      this(at, null);
+      this(at, Direction.ORIGIN);
       index = ind;
    }
    
    public ActionPlan(ActionType at)
    {
       this(at, Direction.ORIGIN);
+   }
+   
+   public ActionPlan(ActionType at, Coord t)
+   {
+      this(at);
+      targetX = t.x;
+      targetY = t.y;
    }
    
    public boolean hasXYTarget()

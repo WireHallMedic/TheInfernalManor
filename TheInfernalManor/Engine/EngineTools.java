@@ -279,4 +279,18 @@ public class EngineTools implements EngineConstants
       }
       return newList.toArray(new Rollable[newList.size()]);
    }
+   
+   public static void printBoolMap(boolean[][] map)
+   {
+      for(int y = 0; y < map[0].length; y++)
+      {
+         for(int x = 0; x < map.length; x++)
+            if(map[x][y])
+               System.out.print(".");
+            else
+               System.out.print("#");
+         System.out.println();
+      }
+      System.out.println();
+   }
 }

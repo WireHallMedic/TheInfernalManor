@@ -44,8 +44,8 @@ public class ActorFactory
    
    public static Actor getTestEnemy(int x, int y)
    {
-      Actor a = new Actor("Wandering Enemy", 'e');
-      a.setAI(new WanderAI(a, .5));
+      Actor a = new Actor("Basic Enemy", 'e');
+      a.setAI(new StandardAI(a));
       a.setLocation(x, y);
       a.fullHeal();
       return a;
