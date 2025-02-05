@@ -225,6 +225,16 @@ public class Actor extends ForegroundObject
          abilityList.add(a);
    }
    
+   public void getPreferredAbility()
+   {
+      Ability a = getBasicAttack();
+      for(int i = abilityList.size() - 1; i > -1; i--)
+      {
+         if(canUseAbility(i))
+            a = getAbility(i);
+      }
+   }
+   
    // status effect methods
    public void add(StatusEffect se)
    {

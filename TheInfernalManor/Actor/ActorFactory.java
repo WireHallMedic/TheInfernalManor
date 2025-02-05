@@ -59,4 +59,14 @@ public class ActorFactory
       a.fullHeal();
       return a;
    }
+   
+   public static Actor getTestWizard(int x, int y)
+   {
+      Actor a = new Actor("Wizard", 'w');
+      a.setAI(new StandardAI(a));
+      a.addAbility(AttackFactory.getBlast());
+      a.setLocation(x, y);
+      a.fullHeal();
+      return a;
+   }
 }

@@ -22,7 +22,7 @@ public class AttackFactory implements AbilityConstants
       Attack a = new Attack("Beam");
       
       a.setPower(1.0);
-      a.setBaseDamage(0);
+      a.setBaseDamage(5);
       a.setRange(5);
       a.setEnergyCost(5);
       a.setRechargeTime(10);
@@ -37,7 +37,7 @@ public class AttackFactory implements AbilityConstants
       Attack a = new Attack("Cone");
       
       a.setPower(1.0);
-      a.setBaseDamage(0);
+      a.setBaseDamage(5);
       a.setRange(7);
       a.setEnergyCost(5);
       a.setRechargeTime(10);
@@ -53,7 +53,7 @@ public class AttackFactory implements AbilityConstants
       Attack a = new Attack("Big Cone");
       
       a.setPower(1.0);
-      a.setBaseDamage(0);
+      a.setBaseDamage(5);
       a.setRange(9);
       a.setEnergyCost(5);
       a.setRechargeTime(10);
@@ -69,7 +69,7 @@ public class AttackFactory implements AbilityConstants
       Attack a = new Attack("Blast");
       
       a.setPower(1.0);
-      a.setBaseDamage(0);
+      a.setBaseDamage(5);
       a.setRange(9);
       a.setEnergyCost(5);
       a.setRechargeTime(10);
@@ -85,7 +85,7 @@ public class AttackFactory implements AbilityConstants
       Attack a = new Attack("Aura Blast");
       
       a.setPower(1.0);
-      a.setBaseDamage(0);
+      a.setBaseDamage(5);
       a.setRange(0);
       a.setEnergyCost(5);
       a.setRechargeTime(10);

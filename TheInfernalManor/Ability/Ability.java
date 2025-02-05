@@ -1,5 +1,7 @@
 package TheInfernalManor.Ability;
 
+import TheInfernalManor.Actor.*;
+
 public class Ability implements AbilityConstants
 {   
 	protected String name;
@@ -72,5 +74,12 @@ public class Ability implements AbilityConstants
    public void discharge()
    {
       chargeLevel = 0;
+   }
+   
+   public int getRange(Actor a)
+   {
+      if(range == USE_WEAPON_RANGE)
+         return a.getWeapon().getRange();
+      return range;
    }
 }
