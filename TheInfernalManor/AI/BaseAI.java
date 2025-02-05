@@ -96,6 +96,21 @@ public class BaseAI
       return prospect;
    }
    
+   public Vector<Coord> getPathTowards(Coord c)
+   {
+      boolean[][] basePassable = GameState.getCurZone().getLowPassMap();
+      boolean[][] passable = new boolean[basePassable.length][basePassable[0].length];
+      for(Actor a : GameState.getActorList())
+      {
+         passable[a.getXLocation()][a.getYLocation()] = false;
+      }
+      AStar aStar = new AStar();
+      Vector<Coord> path = aStar.path(passable, self.getXLocation(), self.getYLocation(), c.x, c.y);
+      return path;
+   }
+   public Vector<Coord> getPathTowards(Actor a){return getPathTowards(new Coord(a.getXLocation(), a.getYLocation()));}
+   
+   
    public void act()
    {
       for(ActionPlan plan : pendingAction)
