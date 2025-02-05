@@ -244,9 +244,9 @@ public class GameState implements EngineConstants, Runnable
          {
             a.die();
             actorList.removeElementAt(i);
-            i--;
             if(i <= initiativeIndex)
                initiativeIndex--;
+            i--;
          }
       }
    }
