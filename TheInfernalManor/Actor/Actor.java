@@ -8,6 +8,7 @@ import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
 import WidlerSuite.Coord;
+import WidlerSuite.WSTools;
 
 public class Actor extends ForegroundObject
 {
@@ -178,6 +179,12 @@ public class Actor extends ForegroundObject
    {
       return location[1];
    }
+   
+   public boolean isAdjacent(int x, int y)
+   {
+      return WSTools.getAngbandMetric(getXLocation(), getYLocation(), x, y) == 1;
+   }
+   public boolean isAdjacent(Actor a){return isAdjacent(a.getXLocation(), a.getYLocation());}
    
    public boolean canStep(int x, int y, ZoneMap map)
    {

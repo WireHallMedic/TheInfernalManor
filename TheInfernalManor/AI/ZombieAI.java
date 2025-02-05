@@ -27,8 +27,7 @@ public class ZombieAI extends BaseAI
          Direction dirTo = Direction.getDirectionTo(self.getXLocation(), self.getYLocation(),
                                                     target.getXLocation(), target.getYLocation());
          // adjacent, attack
-         if(WSTools.getAngbandMetric(self.getXLocation(), self.getYLocation(),
-                                     target.getXLocation(), target.getYLocation()) == 1)
+         if(self.isAdjacent(target))
          {
             ap = new ActionPlan(ActionType.BASIC_ATTACK, dirTo);
          }
