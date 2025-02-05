@@ -223,4 +223,20 @@ public class ZoneMap
          passMap[x][y] = isLowPassable(xCorner + x, yCorner + y);
       return new SpiralSearch(passMap, radius, radius);
    }
+   
+   public boolean[][] getPathingMap(Actor a, int radius)
+   {
+      boolean[][] pathMap = new boolean[(radius * 2) + 1][(radius * 2) + 1];
+      int xOffset = a.getXLocation();
+      int yOffset = a.getYLocation();
+      boolean ignoreDoors = a.getAI().getUsesDoors();
+      for(int x = xOffset - radius; x < xOffset + radius + 1; x++)
+      for(int y = yOffset - radius; y < yOffset + radius + 1; y++)
+      {
+         MapCell mc = getTile(x + xOffset, y + yOffset);
+         pathMap[x + xOffset][y + yOffset] = mc.isLowPassable();
+         //if(mc instanceof Door)
+      }
+      return pathMap;
+   }
 }

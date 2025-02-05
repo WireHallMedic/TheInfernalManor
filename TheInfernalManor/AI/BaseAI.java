@@ -12,6 +12,7 @@ public class BaseAI
 	protected Vector<ActionPlan> pendingAction;
 	protected Vector<ActionPlan> previousAction;
    protected boolean playerControlled;
+   protected boolean usesDoors;
    protected Team team;
 
 
@@ -19,12 +20,14 @@ public class BaseAI
 	public Vector<ActionPlan> getPendingAction(){return pendingAction;}
 	public Vector<ActionPlan> getPreviousAction(){return previousAction;}
    public boolean isPlayerControlled(){return playerControlled;}
+   public boolean getUsesDoors(){return usesDoors;}
    public Team getTeam(){return team;}
 
 
 	public void setSelf(Actor s){self = s;}
    public void setPlayerControlled(boolean pc){playerControlled = pc;}
    public void setTeam(Team t){team = t;}
+   public void setUsesDoors(boolean u){usesDoors = u;}
 
    public BaseAI(Actor s)
    {
@@ -32,6 +35,7 @@ public class BaseAI
       pendingAction = new Vector<ActionPlan>();
       previousAction = new Vector<ActionPlan>();
       playerControlled = false;
+      usesDoors = true;
       team = Team.ENEMY;
    }
    
