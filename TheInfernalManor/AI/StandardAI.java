@@ -23,16 +23,22 @@ public class StandardAI extends BaseAI
       // default action
       ActionPlan ap = new ActionPlan(ActionType.DELAY, Direction.ORIGIN);
       Actor target = getClosestVisibleEnemy();
+      Ability preferredAbility = self.getPreferredAbility();
       if(target != null)
       {
-         // adjacent, attack
-         if(self.isAdjacent(target))
+         // in range, attack
+         if(self.distanceTo(target) <= preferredAbility.getRange(self))
          {
-            
-            Direction dirTo = Direction.getDirectionTo(self.getLocation(), target.getLocation());
-            ap = new ActionPlan(ActionType.BASIC_ATTACK, dirTo);
+            ActionType actionType = ActionType.BASIC_ATTACK;
+            if(preferredAbility == self.getBasicAttack())
+               ap = new ActionPlan(ActionType.BASIC_ATTACK, target.getLocation());
+            else
+            {
+               ap = new ActionPlan(ActionType.ABILITY, target.getLocation());
+               ap.setIndex(self.getIndex(preferredAbility));
+            }
          }
-         else if(self.distanceTo(target) <= MAX_PATHING_DIST)// not adjacent, do some planning
+         else if(self.distanceTo(target) <= MAX_PATHING_DIST)// not close enough, move closer
          {
             Vector<Coord> path = getPathTowards(target);
             // has path to

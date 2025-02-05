@@ -42,6 +42,7 @@ public class GameState implements EngineConstants, Runnable
       actorList.add(playerCharacter);
       actorList.add(ActorFactory.getTestEnemy(4, 15));
       Actor a = ActorFactory.getTestEnemy(9, 15);
+      a.setMainHand(WeaponFactory.getSling());
       a.getAI().setUsesDoors(false);
       actorList.add(a);
       Actor b = ActorFactory.getTestZombie(14, 15);
