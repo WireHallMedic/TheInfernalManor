@@ -14,6 +14,8 @@ public class BaseAI
    protected boolean playerControlled;
    protected boolean usesDoors;
    protected Team team;
+   
+   public static final int MAX_PATHING_DIST = 13;
 
 
 	public Actor getSelf(){return self;}
@@ -100,9 +102,31 @@ public class BaseAI
       return prospect;
    }
    
+   public Direction getDumbstep(Coord c)
+   {
+      Direction dirTo = Direction.getDirectionTo(self.getXLocation(), self.getYLocation(), c.x, c.y);
+      if(self.canStep(self.getXLocation() + dirTo.x, self.getYLocation() + dirTo.y, GameState.getCurZone()))
+      // can step directly towards
+      {
+         return dirTo;
+      }
+      else if(self.canStep(self.getXLocation() + dirTo.clockwise().x, self.getYLocation() + dirTo.clockwise().y, GameState.getCurZone()))
+      // can step clockwise
+      {
+         return dirTo.clockwise();
+      }
+      else if(self.canStep(self.getXLocation() + dirTo.counterClockwise().x, self.getYLocation() + dirTo.counterClockwise().y, GameState.getCurZone()))
+      //can step counterclockwise
+      {
+         return dirTo.counterClockwise();
+      }
+      return null;
+   }
+   public Direction getDumbstep(Actor a){return getDumbstep(a.getLocation());}
+   
    public Vector<Coord> getPathTowards(Coord c)
    {
-      int radius = 13;
+      int radius = MAX_PATHING_DIST;
       int minX = self.getXLocation() - radius;
       int maxX = self.getXLocation() + radius;
       int minY = self.getYLocation() - radius;

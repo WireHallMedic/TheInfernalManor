@@ -32,7 +32,7 @@ public class StandardAI extends BaseAI
             Direction dirTo = Direction.getDirectionTo(self.getLocation(), target.getLocation());
             ap = new ActionPlan(ActionType.BASIC_ATTACK, dirTo);
          }
-         else // not adjacent, do some planning
+         else if(self.distanceTo(target) <= MAX_PATHING_DIST)// not adjacent, do some planning
          {
             Vector<Coord> path = getPathTowards(target);
             // has path to
@@ -46,6 +46,13 @@ public class StandardAI extends BaseAI
                else if(GameState.getCurZone().getTile(nextStep) instanceof Door && usesDoors)
                   ap = new ActionPlan(ActionType.USE, nextStep);
             }
+         }
+         // no path or too far away, do dumbstep
+         if(ap.getActionType() == ActionType.DELAY)
+         {
+            Direction dir = getDumbstep(target);
+            if(dir != null)
+               ap = new ActionPlan(ActionType.STEP, dir);
          }
       }
       // else do nothing

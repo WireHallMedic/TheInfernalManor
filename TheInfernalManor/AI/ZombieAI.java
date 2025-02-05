@@ -34,17 +34,9 @@ public class ZombieAI extends BaseAI
          else if(self.canStep(self.getXLocation() + dirTo.x, self.getYLocation() + dirTo.y, GameState.getCurZone()))
          // not adjacent but can step, step
          {
-            ap = new ActionPlan(ActionType.STEP, dirTo);
-         }
-         else if(self.canStep(self.getXLocation() + dirTo.clockwise().x, self.getYLocation() + dirTo.clockwise().y, GameState.getCurZone()))
-         // not adjacent but can step clockwise, step clockwise
-         {
-            ap = new ActionPlan(ActionType.STEP, dirTo.clockwise());
-         }
-         else if(self.canStep(self.getXLocation() + dirTo.counterClockwise().x, self.getYLocation() + dirTo.counterClockwise().y, GameState.getCurZone()))
-         // not adjacent but can step counter-clockwise, step counterclockwise
-         {
-            ap = new ActionPlan(ActionType.STEP, dirTo.counterClockwise());
+            dirTo = getDumbstep(target);
+            if(dirTo != null)
+               ap = new ActionPlan(ActionType.STEP, dirTo);
          }
       }
       // else do nothing
