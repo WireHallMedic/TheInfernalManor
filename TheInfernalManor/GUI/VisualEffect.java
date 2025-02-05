@@ -1,5 +1,6 @@
 package TheInfernalManor.GUI;
 
+import WidlerSuite.Coord;
 
 public class VisualEffect implements GUIConstants
 {
@@ -67,6 +68,11 @@ public class VisualEffect implements GUIConstants
          ticksElapsed = 0;
          curIndex++;
       }
+   }
+   
+   public Coord getLocation()
+   {
+      return new Coord(xLoc, yLoc);
    }
 
 }
