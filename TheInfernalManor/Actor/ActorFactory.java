@@ -69,4 +69,10 @@ public class ActorFactory
       a.fullHeal();
       return a;
    }
+   
+   public static void setHealthByLevel(Actor a)
+   {
+      int level = Math.max(a.getPowerLevel(), 0);
+      a.getBaseStats().setMaxHealth(5 + (5 * level));
+   }
 }
