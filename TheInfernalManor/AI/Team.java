@@ -14,4 +14,9 @@ public enum Team
          return false;
       return true;
    }
+   
+   public boolean isFriend(Team that)
+   {
+      return this == that;
+   }
 }

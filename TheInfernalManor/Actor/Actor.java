@@ -442,6 +442,11 @@ public class Actor extends ForegroundObject implements ActorConstants
       return ai.getTeam().isEnemy(that.getAI().getTeam());
    }
    
+   public boolean isFriend(Actor that)
+   {
+      return ai.getTeam().isFriend(that.getAI().getTeam());
+   }
+   
    
    public boolean canSee(int x, int y)
    {
