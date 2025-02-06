@@ -288,9 +288,6 @@ public class Actor extends ForegroundObject implements ActorConstants
       {
          setCurBlock(getCurBlock() - damage);
       }
-      
-      if(isDead())
-         die();
    }
    
    public boolean isDead()
