@@ -61,6 +61,12 @@ public class MapCell implements GUIConstants
          this.brokenForm = new MapCell(that.brokenForm);
    }
    
+   public void setColors(int fg, int bg)
+   {
+      setFGColor(fg);
+      setBGColor(bg);
+   }
+   
    
    public boolean isBreakable()
    {

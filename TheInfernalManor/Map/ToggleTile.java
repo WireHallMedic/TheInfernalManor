@@ -52,4 +52,26 @@ public class ToggleTile extends MapCell
 	@Override public boolean isLowPassable(){return getCurState().isLowPassable();}
 	@Override public boolean isHighPassable(){return getCurState().isHighPassable();}
 	@Override public boolean isTransparent(){return getCurState().isTransparent();}
+   
+	
+   @Override
+	public void setFGColor(int f)
+   {
+      stateA.setFGColor(f);
+      stateB.setFGColor(f);
+   }
+   
+   @Override
+	public void setBGColor(int b)
+   {
+      stateA.setBGColor(b);
+      stateB.setBGColor(b);
+   }
+   
+   @Override
+   public void setColors(int fg, int bg)
+   {
+      setFGColor(fg);
+      setBGColor(bg);
+   }
 }
