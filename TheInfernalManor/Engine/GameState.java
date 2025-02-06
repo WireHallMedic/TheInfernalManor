@@ -190,6 +190,11 @@ public class GameState implements EngineConstants, Runnable
    public static void resolveAttack(Actor attacker, Attack attack, Coord c){resolveAttack(attacker, attack, c.x, c.y);}
    
    
+   public static void notifyOfDeath(Actor a)
+   {
+   
+   }
+   
    // adventure mode loop
    public void run()
    {

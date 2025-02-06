@@ -298,6 +298,7 @@ public class Actor extends ForegroundObject implements ActorConstants
    public void die()
    {
       GameState.getCurZone().setDecoration(getXLocation(), getYLocation(), getCorpse());
+      GameState.notifyOfDeath(this);
    }
    
    public ForegroundObject getCorpse()
