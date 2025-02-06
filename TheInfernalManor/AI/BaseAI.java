@@ -14,6 +14,7 @@ public class BaseAI
    protected boolean playerControlled;
    protected boolean usesDoors;
    protected Team team;
+   protected ActorMemory memory;
    
    public static final int MAX_PATHING_DIST = 13;
 
@@ -24,12 +25,14 @@ public class BaseAI
    public boolean isPlayerControlled(){return playerControlled;}
    public boolean getUsesDoors(){return usesDoors;}
    public Team getTeam(){return team;}
+   public ActorMemory getMemory(){return memory;}
 
 
 	public void setSelf(Actor s){self = s;}
    public void setPlayerControlled(boolean pc){playerControlled = pc;}
    public void setTeam(Team t){team = t;}
    public void setUsesDoors(boolean u){usesDoors = u;}
+   public void setMemory(ActorMemory m){memory = m;}
 
    public BaseAI(Actor s)
    {
@@ -39,6 +42,7 @@ public class BaseAI
       playerControlled = false;
       usesDoors = true;
       team = Team.ENEMY;
+      memory = new ActorMemory(self);
    }
    
    public boolean hasPlan()
@@ -77,6 +81,27 @@ public class BaseAI
       {
          setPendingAction(new ActionPlan(ActionType.DELAY));
       }
+   }
+   
+   public Actor getClosestKnownEnemy()
+   {
+      Actor prospect = null;
+      int dist = 100;
+      for(int i = 0; i < memory.getMemoryList().size(); i++)
+      {
+         Actor a = memory.getMemoryList().elementAt(i).getActor();
+         if(self.isEnemy(a))
+         {
+            int d = WSTools.getAngbandMetric(self.getXLocation(), self.getYLocation(),
+                                             a.getXLocation(), a.getYLocation());
+            if(d < dist)
+            {
+               dist = d;
+               prospect = a;
+            }
+         }
+      }
+      return prospect;
    }
    
    public Actor getClosestVisibleEnemy()

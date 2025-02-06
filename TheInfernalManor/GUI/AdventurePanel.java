@@ -342,7 +342,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : ;
+         case KeyEvent.VK_BACK_QUOTE : player.setLocation(1, 1); break;
       }
    }
    public void keyTyped(KeyEvent ke){}

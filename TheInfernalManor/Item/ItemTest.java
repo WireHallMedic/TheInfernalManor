@@ -35,7 +35,7 @@ public class ItemTest {
    @Test public void testArmor()
    {
       Actor defender = new Actor("", ' ');
-      defender.setMaxHealth(10);
+      defender.getBaseStats().setMaxHealth(10);
       Armor a = new Armor("Test armor");
       a.setPhysicalArmor(5);
       a.setBlock(10);

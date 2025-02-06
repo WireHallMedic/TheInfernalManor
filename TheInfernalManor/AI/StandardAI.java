@@ -22,7 +22,7 @@ public class StandardAI extends BaseAI
    {
       // default action
       ActionPlan ap = new ActionPlan(ActionType.DELAY, Direction.ORIGIN);
-      Actor target = getClosestVisibleEnemy();
+      Actor target = getClosestKnownEnemy();
       Ability preferredAbility = self.getPreferredAbility();
       if(target != null)
       {

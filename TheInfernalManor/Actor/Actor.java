@@ -10,12 +10,8 @@ import TheInfernalManor.Ability.*;
 import WidlerSuite.Coord;
 import WidlerSuite.WSTools;
 
-public class Actor extends ForegroundObject
+public class Actor extends ForegroundObject implements ActorConstants
 {
-   public static final int FULLY_CHARGED = 10;
-   public static final int MAX_RELICS = 3;
-   public static final int TICKS_TO_RECOVER_BLOCK = 10;
-   
 	private int[] location;
    private BaseAI ai;
    private int maxHealth;
@@ -319,11 +315,15 @@ public class Actor extends ForegroundObject
          inTurn = true;
       }
       if(!ai.isPlayerControlled())
+      {
          GameState.calcEnemyFoV(this);
+      }
+      ai.getMemory().update();
    }
    
    public void endTurn()
    {
+      ai.getMemory().increment();
       inTurn = false;
    }
    

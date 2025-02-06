@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4211;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4350;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sGUI%sGameOverPanel.java
@@ -27,6 +27,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionType.java
 %\011TheInfernalManor%sItem%sItemQuality.java
 %\011TheInfernalManor%sItem%sEquippableItem.java
+%\011TheInfernalManor%sAI%sMemoryObject.java
 %\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sGUI%sAnimationManager.java
 %\011TheInfernalManor%sItem%sItemRoll.java
@@ -91,6 +92,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sArmorFactory.java
 %\011TheInfernalManor%sGUI%sInfoPanel.java
 %\011TheInfernalManor%sAI%sZombieAI.java
+%\011TheInfernalManor%sAI%sActorMemory.java
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
 %\011TheInfernalManor%sAI%sBaseAI.java
 %\011%uWidlerSuite%sAStar.java
@@ -109,10 +111,11 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sGold.java
 %\011%uWidlerSuite%sAStarOpenList.java
 %\011%uWidlerSuite%sWSTools.java
+%\011TheInfernalManor%sActor%sActorConstants.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!4211;f
+!4350;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sGUI%sGameOverPanel.java
@@ -125,6 +128,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionType.java
 %\011TheInfernalManor%sItem%sItemQuality.java
 %\011TheInfernalManor%sItem%sEquippableItem.java
+%\011TheInfernalManor%sAI%sMemoryObject.java
 %\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sGUI%sAnimationManager.java
 %\011TheInfernalManor%sItem%sItemRoll.java
@@ -189,6 +193,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sArmorFactory.java
 %\011TheInfernalManor%sGUI%sInfoPanel.java
 %\011TheInfernalManor%sAI%sZombieAI.java
+%\011TheInfernalManor%sAI%sActorMemory.java
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
 %\011TheInfernalManor%sAI%sBaseAI.java
 %\011%uWidlerSuite%sAStar.java
@@ -207,6 +212,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sGold.java
 %\011%uWidlerSuite%sAStarOpenList.java
 %\011%uWidlerSuite%sWSTools.java
+%\011TheInfernalManor%sActor%sActorConstants.java
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
