@@ -28,4 +28,20 @@ public enum RoomTemplateCellMapping
       character = c;
       mapCellBase = mcb;
    }
+   
+   public static MapCellBase getMapCellBaseFromMapping(char c)
+   {
+      RoomTemplateCellMapping mapping = deserialize(c);
+      if(mapping == null)
+         return null;
+      return mapping.mapCellBase;
+   }
+   
+   public static RoomTemplateCellMapping deserialize(char c)
+   {
+      for(int i = 0; i < RoomTemplateCellMapping.values().length; i++)
+         if(RoomTemplateCellMapping.values()[i].character == c)
+            return RoomTemplateCellMapping.values()[i];
+      return null;
+   }
 }
