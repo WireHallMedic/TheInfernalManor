@@ -11,6 +11,7 @@ public enum RoomTemplateCellMapping
    BARS              (':', MapCellBase.BARS),
    SHALLOW_LIQUID    ('-', MapCellBase.SHALLOW_LIQUID),
    DEEP_LIQUID       ('~', MapCellBase.DEEP_LIQUID),
+   CONTAINER         ('0', MapCellBase.LOW_WALL),
    CHEST             ('c', MapCellBase.CHEST_CLOSED),
    METAL_CHEST       ('C', MapCellBase.CHEST_CLOSED),
    DOOR              ('|', MapCellBase.DOOR_CLOSED),
