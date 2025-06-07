@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4396;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4453;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sGUI%sGameOverPanel.java
@@ -57,6 +57,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sMapCell.java
 %\011%uStrictCurses%sSCConstants.java
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
+%\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -116,7 +117,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!4396;f
+!4453;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sGUI%sGameOverPanel.java
@@ -159,6 +160,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sMapCell.java
 %\011%uStrictCurses%sSCConstants.java
 %\011TheInfernalManor%sGUI%sAdventurePanel.java
+%\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
@@ -218,10 +220,11 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!185;l
+!246;l
 %\011TheInfernalManor%sEngine%sEngineToolsTest.java
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java
+%\011TheInfernalManor%sMap%sRoomTemplateCellMappingTest.java
 %\011TheInfernalManor%sItem%sItemTest.java
 !558;t
 jgrJUnit0xr	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1738673244601:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sMapTest.java	1738673244601:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1738673244601:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1738673244601:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1738673244601:P%\011ItemTest.java	%\011TheInfernalManor%sAbility%sAbility.java	1738673244601:P%\011AbilityTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1738673244601:P%\011Item.java	
