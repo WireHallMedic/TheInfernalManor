@@ -4,13 +4,14 @@ import TheInfernalManor.GUI.*;
 import WidlerSuite.SpiralSearch;
 import java.util.*;
 
-public class RoomTemplate
-{
+public class RoomTemplate implements MapConstants
+{   
    private int width;
    private int height;
    private RoomTemplateCellMapping[][] mappingTable;
    private boolean[][] independentlyRandomTable;
    private boolean[][] dependentlyRandomTable;
+   private ConnectionType connectionType;
    
    public int getWidth(){return width;}
    public int getHeight(){return height;}
@@ -18,6 +19,7 @@ public class RoomTemplate
    public RoomTemplate(int w, int h)
    {
       setSize(w, h);
+      connectionType = ConnectionType.ISOLATED;
    }
    
    public RoomTemplate(Vector<String> data)
