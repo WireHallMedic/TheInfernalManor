@@ -61,6 +61,11 @@ public class RoomTemplate implements MapConstants
       }
    }
    
+   public void set(int x, int y, char c)
+   {
+      set(x, y, c, false, false);
+   }
+   
    private void setChar(int x, int y, char c)
    {
       RoomTemplateCellMapping cm = RoomTemplateCellMapping.deserialize(c);
@@ -134,6 +139,61 @@ public class RoomTemplate implements MapConstants
          val = input.elementAt(y).charAt((x * 2) + 1);
          deserialize(x, y, mod, val);
       }
+   }
+   
+   public void setConnectionType()
+   {
+      boolean north = false;
+      boolean east = false;
+      boolean south = false;
+      boolean west = false;
+      for(int x = 1; x < width - 1; x++)
+      {
+         if(mappingTable[x][0].mapCellBase.lowPassable)
+            north = true;
+         if(mappingTable[x][height - 1].mapCellBase.lowPassable)
+            south = true;
+      }
+      for(int y = 1; y < height - 1; y++)
+      {
+         if(mappingTable[0][y].mapCellBase.lowPassable)
+            west = true;
+         if(mappingTable[width - 1][y].mapCellBase.lowPassable)
+            east = true;
+      }
+      int exits = 0;
+      if(north) exits++;
+      if(south) exits++;
+      if(east) exits++;
+      if(west) exits++;
+      
+      if(exits == 0)
+      {
+         connectionType = ConnectionType.ISOLATED;
+         return;
+      }
+      if(exits == 1)
+      {
+         connectionType = ConnectionType.TERMINAL;
+         return;
+      }
+      if(exits == 3)
+      {
+         connectionType = ConnectionType.TEE;
+         return;
+      }
+      if(exits == 4)
+      {
+         connectionType = ConnectionType.CROSS;
+         return;
+      }
+      // exits == 2
+      if((north && south) || (east && west))
+      {
+         connectionType = ConnectionType.STRAIGHT;
+         return;
+      }
+      connectionType = ConnectionType.ELBOW;
    }
    
    // debug method
