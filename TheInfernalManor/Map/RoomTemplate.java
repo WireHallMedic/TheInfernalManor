@@ -146,16 +146,4 @@ public class RoomTemplate
          System.out.print("X");
       System.out.println("");
    }
-   
-   public static void main(String[] args)
-   {
-      RoomTemplate rt = new RoomTemplate(5, 5);
-      rt.set(1, 1, '0', false, false);
-      rt.set(2, 2, '0', true, false);
-      rt.set(3, 3, '0', false, true);
-      rt.print();
-      
-      RoomTemplate rt2 = new RoomTemplate(rt.serialize());
-      rt2.print();
-   }
 }
