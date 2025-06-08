@@ -111,4 +111,93 @@ public class RoomTemplateTest implements MapConstants
       rt.setConnectionType();
       assertEquals("Recognize cross room.", ConnectionType.CROSS, rt.getConnectionType());
    }
+
+
+   @Test public void rotateTest() 
+   {
+      // testing with IR
+      RoomTemplate rt = getHollowRoom(5);
+      rt.set(0, 2, '.', true, false);
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(0, 2).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(2, 0).character);
+      assertEquals("No IR at old location.", false, rt.isIndependentlyRandom(0, 2));
+      assertEquals("IR at new location.", true, rt.isIndependentlyRandom(2, 0));
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(2, 0).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(4, 2).character);
+      assertEquals("No IR at old location.", false, rt.isIndependentlyRandom(2, 0));
+      assertEquals("IR at new location.", true, rt.isIndependentlyRandom(4, 2));
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(4, 2).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(2, 4).character);
+      assertEquals("No IR at old location.", false, rt.isIndependentlyRandom(4, 2));
+      assertEquals("IR at new location.", true, rt.isIndependentlyRandom(2, 4));
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(2, 4).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(0, 2).character);
+      assertEquals("No IR at old location.", false, rt.isIndependentlyRandom(2, 4));
+      assertEquals("IR at new location.", true, rt.isIndependentlyRandom(0, 2));
+      // testing with DR
+      rt = getHollowRoom(5);
+      rt.set(0, 2, '.', false, true);
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(0, 2).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(2, 0).character);
+      assertEquals("No DR at old location.", false, rt.isDependentlyRandom(0, 2));
+      assertEquals("DR at new location.", true, rt.isDependentlyRandom(2, 0));
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(2, 0).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(4, 2).character);
+      assertEquals("No DR at old location.", false, rt.isDependentlyRandom(2, 0));
+      assertEquals("DR at new location.", true, rt.isDependentlyRandom(4, 2));
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(4, 2).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(2, 4).character);
+      assertEquals("No DR at old location.", false, rt.isDependentlyRandom(4, 2));
+      assertEquals("DR at new location.", true, rt.isDependentlyRandom(2, 4));
+      rt.rotate();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(2, 4).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(0, 2).character);
+      assertEquals("No DR at old location.", false, rt.isDependentlyRandom(2, 4));
+      assertEquals("DR at new location.", true, rt.isDependentlyRandom(0, 2));
+   }
+
+
+   @Test public void mirrorXTest() 
+   {
+      RoomTemplate rt = getHollowRoom(5);
+      rt.set(0, 2, '.', true, false);
+      rt.mirrorX();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(0, 2).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(4, 2).character);
+      assertEquals("No IR at old location.", false, rt.isIndependentlyRandom(0, 2));
+      assertEquals("IR at new location.", true, rt.isIndependentlyRandom(4, 2));
+      rt = getHollowRoom(5);
+      rt.set(0, 2, '.', false, true);
+      rt.mirrorX();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(0, 2).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(4, 2).character);
+      assertEquals("No DR at old location.", false, rt.isDependentlyRandom(0, 2));
+      assertEquals("DR at new location.", true, rt.isDependentlyRandom(4, 2));
+   }
+
+
+   @Test public void mirrorYTest() 
+   {
+      RoomTemplate rt = getHollowRoom(5);
+      rt.set(2, 0, '.', true, false);
+      rt.mirrorY();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(2, 0).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(2, 4).character);
+      assertEquals("No IR at old location.", false, rt.isIndependentlyRandom(2, 0));
+      assertEquals("IR at new location.", true, rt.isIndependentlyRandom(2, 4));
+      rt = getHollowRoom(5);
+      rt.set(2, 0, '.', false, true);
+      rt.mirrorY();
+      assertEquals("Wall at old location.", '#', rt.getCellMapping(2, 0).character);
+      assertEquals("Clear at new location.", '.', rt.getCellMapping(2, 4).character);
+      assertEquals("No DR at old location.", false, rt.isDependentlyRandom(2, 0));
+      assertEquals("DR at new location.", true, rt.isDependentlyRandom(2, 4));
+   }
 }

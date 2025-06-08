@@ -42,6 +42,27 @@ public class RoomTemplate implements MapConstants
       setConnectionType();
    }
    
+   public RoomTemplateCellMapping getCellMapping(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return mappingTable[x][y];
+      return null;
+   }
+   
+   public boolean isIndependentlyRandom(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return independentlyRandomTable[x][y];
+      return false;
+   }
+   
+   public boolean isDependentlyRandom(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return dependentlyRandomTable[x][y];
+      return false;
+   }
+   
    public void setSize(int w, int h)
    {
       width = w;
@@ -207,6 +228,62 @@ public class RoomTemplate implements MapConstants
          return;
       }
       connectionType = ConnectionType.ELBOW;
+   }
+   
+   
+   // rotates a quarter turn clockwise
+   public void rotate()
+   {
+      RoomTemplateCellMapping[][] newMappingTable  = new RoomTemplateCellMapping[width][height];
+      boolean[][] newIRTable = new boolean[width][height];
+      boolean[][] newDRTable = new boolean[width][height];
+      int w = height - 1;
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         newMappingTable[x][y] = mappingTable[y][w - x];
+         newIRTable[x][y] = independentlyRandomTable[y][w - x];
+         newDRTable[x][y] = dependentlyRandomTable[y][w - x];
+      }
+      mappingTable = newMappingTable;
+      independentlyRandomTable = newIRTable;
+      dependentlyRandomTable = newDRTable;
+   }
+   
+   public void mirrorX()
+   {
+      RoomTemplateCellMapping[][] newMappingTable  = new RoomTemplateCellMapping[width][height];
+      boolean[][] newIRTable = new boolean[width][height];
+      boolean[][] newDRTable = new boolean[width][height];
+      int w = width - 1;
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         newMappingTable[x][y] = mappingTable[w - x][y];
+         newIRTable[x][y] = independentlyRandomTable[w - x][y];
+         newDRTable[x][y] = dependentlyRandomTable[w - x][y];
+      }
+      mappingTable = newMappingTable;
+      independentlyRandomTable = newIRTable;
+      dependentlyRandomTable = newDRTable;
+   }
+   
+   public void mirrorY()
+   {
+      RoomTemplateCellMapping[][] newMappingTable  = new RoomTemplateCellMapping[width][height];
+      boolean[][] newIRTable = new boolean[width][height];
+      boolean[][] newDRTable = new boolean[width][height];
+      int w = height - 1;
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         newMappingTable[x][y] = mappingTable[x][w - y];
+         newIRTable[x][y] = independentlyRandomTable[x][w - y];
+         newDRTable[x][y] = dependentlyRandomTable[x][w - y];
+      }
+      mappingTable = newMappingTable;
+      independentlyRandomTable = newIRTable;
+      dependentlyRandomTable = newDRTable;
    }
    
    // debug method
