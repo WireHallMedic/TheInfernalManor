@@ -26,6 +26,10 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JRadioButton iRB;
    private JRadioButton dRB;
    private char selectedChar;
+   private static final int SET_COLOR = Color.BLACK.getRGB();
+   private static final int I_R_COLOR = Color.BLUE.darker().getRGB();
+   private static final int D_R_COLOR = Color.RED.darker().getRGB();
+   private RoomTemplate curRoomTemplate;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -58,12 +62,15 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       displayPanel = new SCPanel(palette, 21, 21);
       mapPanel.add(displayPanel);
       
+      roomTemplate = new RoomTemplate(21, 21);
+      
       for(int x = 0; x < 21; x++)
       for(int y = 0; y < 21; y++)
-         drawingPanel.setTileIndex(x, y, '.');
+         roomTemplate.set(x, y, '.', false, false);
       
       setCharButtons();
       updateCurrentlySelectedLabel();
+      setDrawingPanel();
       setVisible(true);
       
    }
@@ -112,6 +119,22 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       if(dRB.isSelected())
          prefixChar = 'd';
       currentlySelectedL.setText("Currently Selected: " + prefixChar + selectedChar);
+   }
+   
+   public void setDrawingPanel()
+   {
+      for(int x = 0; x < 21; x++)
+      for(int y = 0; y < 21; y++)
+      {
+         int c = SET_COLOR;
+         if(roomTemplate.isIndependentlyRandom(x, y))
+            c = I_R_COLOR;
+         if(roomTemplate.isDependentlyRandom(x, y))
+            c = D_R_COLOR;
+         drawingPanel.setTileIndex(x, y, roomTemplate.getCellMapping(x, y).character);
+         drawingPanel.setTileBG(x, y, c);
+      }
+      drawingPanel.repaint();
    }
    
    public void actionPerformed(ActionEvent ae)
