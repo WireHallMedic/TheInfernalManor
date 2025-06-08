@@ -29,6 +29,19 @@ public class RoomTemplate implements MapConstants
       deserialize(data);
    }
    
+   public RoomTemplate(RoomTemplate that)
+   {
+      setSize(that.getWidth(), that.getHeight());
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         this.mappingTable[x][y] = that.mappingTable[x][y];
+         this.independentlyRandomTable[x][y] = that.independentlyRandomTable[x][y];
+         this.dependentlyRandomTable[x][y] = that.dependentlyRandomTable[x][y];
+      }
+      setConnectionType();
+   }
+   
    public void setSize(int w, int h)
    {
       width = w;
