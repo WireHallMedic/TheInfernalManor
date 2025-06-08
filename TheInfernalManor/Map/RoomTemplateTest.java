@@ -21,8 +21,7 @@ public class RoomTemplateTest {
    {
       int width = 10;
       int height = 10;
-      int targetSame = width * height * 2;
-      int actualSame = 0;
+      boolean problem = false;
       RoomTemplate rt = new RoomTemplate(width, height);
       int len = RoomTemplateCellMapping.values().length;
       for(int x = 0; x < width; x++)
@@ -39,9 +38,9 @@ public class RoomTemplateTest {
       
       for(int y = 0; y < height; y++)
       for(int x = 0; x < width * 2; x++)
-         if(a.elementAt(y).charAt(x) == b.elementAt(y).charAt(x))
-            actualSame++;
+         if(a.elementAt(y).charAt(x) != b.elementAt(y).charAt(x))
+            problem = true;
    
-      Assert.assertEquals("Serializing and deserializing result in good copy.", targetSame, actualSame);
+      Assert.assertFalse("Serializing and deserializing result in good copy.", problem);
    }
 }
