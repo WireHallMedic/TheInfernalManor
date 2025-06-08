@@ -3,16 +3,19 @@ package TheInfernalManor.Tools;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Map.*;
 import StrictCurses.*;
 
-public class ToolRoomTemplateWorkshopMain extends JFrame
+public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener
 {
    private JPanel mapPanel;
    private JPanel controlPanel;
    private SCTilePalette palette;
    private SCPanel drawingPanel;
    private SCPanel displayPanel;
+   private RoomTemplate roomTemplate;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -42,6 +45,14 @@ public class ToolRoomTemplateWorkshopMain extends JFrame
          drawingPanel.setTileIndex(x, y, '.');
       
       setVisible(true);
+      
+      javax.swing.Timer timer = new javax.swing.Timer(1000 / 60, this);
+      timer.start();
+   }
+   
+   public void actionPerformed(ActionEvent ae)
+   {
+   
    }
    
    public static final void main(String[] args)
