@@ -17,6 +17,7 @@ public enum RoomTemplateCellMapping
    DOOR              ('|', MapCellBase.DOOR_CLOSED),
    METAL_DOOR        ('+', MapCellBase.DOOR_CLOSED),
    TOGGLE            ('!', MapCellBase.TOGGLE_UNFLIPPED),
+   FEATURE           ('f', MapCellBase.CLEAR),
    EXIT              ('>', MapCellBase.EXIT);
    
    public char character;

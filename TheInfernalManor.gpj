@@ -220,13 +220,14 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!246;l
+!296;l
 %\011TheInfernalManor%sEngine%sEngineToolsTest.java
 %\011TheInfernalManor%sMap%sMapTest.java
+%\011TheInfernalManor%sMap%sRoomTemplateTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java
 %\011TheInfernalManor%sMap%sRoomTemplateCellMappingTest.java
 %\011TheInfernalManor%sItem%sItemTest.java
-!558;t
-jgrJUnit0xr	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1738673244601:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sMapTest.java	1738673244601:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1738673244601:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1738673244601:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1738673244601:P%\011ItemTest.java	%\011TheInfernalManor%sAbility%sAbility.java	1738673244601:P%\011AbilityTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1738673244601:P%\011Item.java	
+!778;t
+jgrJUnit0xr	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1738673244601:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sMapTest.java	1738673244601:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1738673244601:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1738673244601:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1738673244601:P%\011ItemTest.java	%\011TheInfernalManor%sMap%sRoomTemplateCellMappingTest.java	1749328401324:P%\011RoomTemplateCellMapping.java	%\011TheInfernalManor%sAbility%sAbility.java	1738673244601:P%\011AbilityTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1738673244601:P%\011Item.java	%\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java	1749328401324:P%\011RoomTemplateCellMappingTest.java	
 !35;m
 RunSelect	TheInfernalManor.TIMMain
