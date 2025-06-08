@@ -15,6 +15,7 @@ public class RoomTemplate implements MapConstants
    
    public int getWidth(){return width;}
    public int getHeight(){return height;}
+   public ConnectionType getConnectionType(){return connectionType;}
    
    public RoomTemplate(int w, int h)
    {

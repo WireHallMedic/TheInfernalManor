@@ -21,6 +21,8 @@ public class RoomTemplateTest {
    {
       int width = 10;
       int height = 10;
+      int targetSame = width * height * 2;
+      int actualSame = 0;
       RoomTemplate rt = new RoomTemplate(width, height);
       int len = RoomTemplateCellMapping.values().length;
       for(int x = 0; x < width; x++)
@@ -34,13 +36,12 @@ public class RoomTemplateTest {
       RoomTemplate rt2 = new RoomTemplate(rt.serialize());
       Vector<String> a = rt.serialize();
       Vector<String> b = rt2.serialize();
-      boolean problem = false;
       
       for(int y = 0; y < height; y++)
       for(int x = 0; x < width * 2; x++)
-         if(a.elementAt(y).charAt(x) != b.elementAt(y).charAt(x))
-            problem = true;
+         if(a.elementAt(y).charAt(x) == b.elementAt(y).charAt(x))
+            actualSame++;
    
-      Assert.assertFalse("Serializing and deserializing result in good copy.", problem);
+      Assert.assertEquals("Serializing and deserializing result in good copy.", targetSame, actualSame);
    }
 }
