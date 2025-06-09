@@ -42,7 +42,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setLayout(new GridLayout(1, 2));
       
       mapPanel = new JPanel();
-      mapPanel.setLayout(new GridLayout(2, 1));
+      mapPanel.setLayout(new GridLayout(1, 1));
       add(mapPanel);
       
       controlPanel = new JPanel();
@@ -60,8 +60,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel = new SCPanel(palette, 21, 21);
       drawingPanel.addMouseListener(this);
       mapPanel.add(drawingPanel);
-      displayPanel = new SCPanel(palette, 21, 21);
-      mapPanel.add(displayPanel);
+     // displayPanel = new SCPanel(palette, 21, 21);
+      //mapPanel.add(displayPanel);
       
       roomTemplate = new RoomTemplate(21, 21);
       
@@ -96,14 +96,20 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       JRadioButton setB = new JRadioButton("Set");
       setB.setSelected(true);
       setB.addActionListener(this);
+      setB.setForeground(Color.WHITE);
+      setB.setBackground(new Color(SET_COLOR));
       group.add(setB);
       anonPanel.add(setB);
       iRB = new JRadioButton("iRand");
       iRB.addActionListener(this);
+      iRB.setForeground(Color.WHITE);
+      iRB.setBackground(new Color(I_R_COLOR));
       group.add(iRB);
       anonPanel.add(iRB);
       dRB = new JRadioButton("dRand");
       dRB.addActionListener(this);
+      dRB.setForeground(Color.WHITE);
+      dRB.setBackground(new Color(D_R_COLOR));
       group.add(dRB);
       anonPanel.add(dRB);
       controlSubpanel2.add(anonPanel);
@@ -114,12 +120,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    private void updateCurrentlySelectedLabel()
    {
-      char prefixChar = ' ';
-      if(iRB.isSelected())
-         prefixChar = 'i';
-      if(dRB.isSelected())
-         prefixChar = 'd';
-      currentlySelectedL.setText("Currently Selected: " + prefixChar + selectedChar);
+      currentlySelectedL.setText("Currently Selected: " + selectedChar);
    }
    
    public void setDrawingPanel()
