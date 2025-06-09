@@ -8,7 +8,7 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
 import StrictCurses.*;
 
-public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener
+public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener, MapConstants
 {
    private JPanel mapPanel;
    private JPanel controlPanel;
@@ -17,11 +17,12 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JPanel controlSubpanel3;
    private SCTilePalette palette;
    private SCPanel drawingPanel;
-   private SCPanel displayPanel;
    private RoomTemplate roomTemplate;
    private char[] charArr;
    private JButton[] charButtonArr;
    private JLabel currentlySelectedL;
+   private JButton[] connectionButtonArr;
+   private JLabel connectionL;
    private JRadioButton setB;
    private JRadioButton iRB;
    private JRadioButton dRB;
@@ -50,6 +51,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       add(controlPanel);
       
       controlSubpanel1 = new JPanel();
+      controlSubpanel1.setLayout(new GridLayout(3, 1));
       controlPanel.add(controlSubpanel1);
       controlSubpanel2 = new JPanel();
       controlPanel.add(controlSubpanel2);
@@ -60,8 +62,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel = new SCPanel(palette, 21, 21);
       drawingPanel.addMouseListener(this);
       mapPanel.add(drawingPanel);
-     // displayPanel = new SCPanel(palette, 21, 21);
-      //mapPanel.add(displayPanel);
       
       roomTemplate = new RoomTemplate(21, 21);
       
@@ -69,14 +69,15 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       for(int y = 0; y < 21; y++)
          roomTemplate.set(x, y, '.', false, false);
       
-      setCharButtons();
-      updateCurrentlySelectedLabel();
+      setDrawingButtons();
+      setConnectionButtons();
       setDrawingPanel();
+      updateCurrentLabels();
       setVisible(true);
       
    }
    
-   private void setCharButtons()
+   private void setDrawingButtons()
    {
       int len = RoomTemplateCellMapping.values().length;
       controlSubpanel2.setLayout(new GridLayout((len + 4) / 3, 2));
@@ -118,9 +119,30 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       controlSubpanel2.add(currentlySelectedL);
    }
    
-   private void updateCurrentlySelectedLabel()
+   private void setConnectionButtons()
+   {
+      int len = ConnectionType.values().length;
+      connectionButtonArr = new JButton[len];
+      JPanel anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(3, 3));
+      controlSubpanel1.add(anonPanel);
+      
+      for(int i = 0; i < len; i++)
+      {
+         String str = ConnectionType.values()[i].name;
+         connectionButtonArr[i] = new JButton(str);
+         connectionButtonArr[i].addActionListener(this);
+         anonPanel.add(connectionButtonArr[i]);
+      }
+      connectionL = new JLabel("Connection Type: ");
+      anonPanel.add(connectionL);
+   }
+   
+   private void updateCurrentLabels()
    {
       currentlySelectedL.setText("Currently Selected: " + selectedChar);
+      roomTemplate.setConnectionType();
+      connectionL.setText("Connection Type: " + roomTemplate.getConnectionType().name);
    }
    
    public void setDrawingPanel()
@@ -142,6 +164,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private void mouseClickedInDrawingPanel()
    {
       int[] mouseLoc = drawingPanel.getMouseLocTile();
+      if(mouseLoc[0] == -1 || mouseLoc[1] == -1)
+         return;
       if(roomTemplate.isInBounds(mouseLoc[0], mouseLoc[1]))
       {
          boolean iR = iRB.isSelected();
@@ -149,6 +173,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          roomTemplate.set(mouseLoc[0], mouseLoc[1], selectedChar, iR, dR);
       }
       setDrawingPanel();
+      updateCurrentLabels();
    }
    
    // listeners
@@ -168,7 +193,74 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             break;
          }
       }
-      updateCurrentlySelectedLabel();
+      for(int i = 0; i < ConnectionType.values().length; i++)
+      {
+         if(ae.getSource() == connectionButtonArr[i])
+         {
+            setWalls(ConnectionType.values()[i]);
+            break;
+         }
+      }
+      updateCurrentLabels();
+   }
+   
+   private void setWalls(ConnectionType type)
+   {
+      switch(type)
+      {
+         case ISOLATED :   fillNorthWall('#');
+                           fillEastWall('#');
+                           fillSouthWall('#');
+                           fillWestWall('#');
+                           break;
+         case TERMINAL :   fillNorthWall('.');
+                           fillEastWall('#');
+                           fillSouthWall('#');
+                           fillWestWall('#');
+                           break;
+         case STRAIGHT :   fillNorthWall('.');
+                           fillSouthWall('.');
+                           fillEastWall('#');
+                           fillWestWall('#');
+                           break;
+         case ELBOW :      fillNorthWall('.');
+                           fillEastWall('.');
+                           fillSouthWall('#');
+                           fillWestWall('#');
+                           break;
+         case TEE :        fillNorthWall('.');
+                           fillEastWall('.');
+                           fillSouthWall('.');
+                           fillWestWall('#');
+                           break;
+         case CROSS :      fillNorthWall('.');
+                           fillEastWall('.');
+                           fillSouthWall('.');
+                           fillWestWall('.');
+                           break;
+      }
+      setDrawingPanel();
+   }
+   
+   private void fillWestWall(char c)
+   {
+      for(int i = 0; i < roomTemplate.getHeight(); i++)
+         roomTemplate.set(0, i, c, false, false);
+   }
+   private void fillEastWall(char c)
+   {
+      for(int i = 0; i < roomTemplate.getHeight(); i++)
+         roomTemplate.set(roomTemplate.getWidth() - 1, i, c, false, false);
+   }
+   private void fillNorthWall(char c)
+   {
+      for(int i = 0; i < roomTemplate.getWidth(); i++)
+         roomTemplate.set(i, 0, c, false, false);
+   }
+   private void fillSouthWall(char c)
+   {
+      for(int i = 0; i < roomTemplate.getWidth(); i++)
+         roomTemplate.set(i, roomTemplate.getWidth() - 1, c, false, false);
    }
    
    public static final void main(String[] args)
