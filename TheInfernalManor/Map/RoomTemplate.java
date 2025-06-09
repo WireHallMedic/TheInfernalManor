@@ -183,16 +183,16 @@ public class RoomTemplate implements MapConstants
       boolean west = false;
       for(int x = 1; x < width - 1; x++)
       {
-         if(mappingTable[x][0].mapCellBase.lowPassable)
+         if(mappingTable[x][0].mapCellBase.pathingPassable)
             north = true;
-         if(mappingTable[x][height - 1].mapCellBase.lowPassable)
+         if(mappingTable[x][height - 1].mapCellBase.pathingPassable)
             south = true;
       }
       for(int y = 1; y < height - 1; y++)
       {
-         if(mappingTable[0][y].mapCellBase.lowPassable)
+         if(mappingTable[0][y].mapCellBase.pathingPassable)
             west = true;
-         if(mappingTable[width - 1][y].mapCellBase.lowPassable)
+         if(mappingTable[width - 1][y].mapCellBase.pathingPassable)
             east = true;
       }
       int exits = 0;
