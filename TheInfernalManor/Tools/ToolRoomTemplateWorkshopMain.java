@@ -8,7 +8,7 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
 import StrictCurses.*;
 
-public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener
+public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener
 {
    private JPanel mapPanel;
    private JPanel controlPanel;
@@ -58,6 +58,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       
       palette = new SCTilePalette("WidlerTiles_16x16.png", 16, 16);
       drawingPanel = new SCPanel(palette, 21, 21);
+      drawingPanel.addMouseListener(this);
       mapPanel.add(drawingPanel);
       displayPanel = new SCPanel(palette, 21, 21);
       mapPanel.add(displayPanel);
@@ -136,6 +137,25 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       }
       drawingPanel.repaint();
    }
+   
+   private void mouseClickedInDrawingPanel()
+   {
+      int[] mouseLoc = drawingPanel.getMouseLocTile();
+      if(roomTemplate.isInBounds(mouseLoc[0], mouseLoc[1]))
+      {
+         boolean iR = iRB.isSelected();
+         boolean dR = dRB.isSelected();
+         roomTemplate.set(mouseLoc[0], mouseLoc[1], selectedChar, iR, dR);
+      }
+      setDrawingPanel();
+   }
+   
+   // listeners
+   public void mouseClicked(MouseEvent me){mouseClickedInDrawingPanel();}
+   public void mousePressed(MouseEvent me){}
+   public void mouseReleased(MouseEvent me){}
+   public void mouseEntered(MouseEvent me){}
+   public void mouseExited(MouseEvent me){}
    
    public void actionPerformed(ActionEvent ae)
    {
