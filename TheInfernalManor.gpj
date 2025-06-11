@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4563;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4613;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -35,6 +35,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sItemRoll.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
 %\011%uWidlerSuite%sWSConstants.java
+%\011TheInfernalManor%sMap%sRoomTemplateDeck.java
 %\011TheInfernalManor%sMap%sToggleTile.java
 %\011%uStrictCurses%sSCPanel.java
 %\011TheInfernalManor%sEngine%sRNG.java
@@ -119,7 +120,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!4563;f
+!4613;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -140,6 +141,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sItem%sItemRoll.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
 %\011%uWidlerSuite%sWSConstants.java
+%\011TheInfernalManor%sMap%sRoomTemplateDeck.java
 %\011TheInfernalManor%sMap%sToggleTile.java
 %\011%uStrictCurses%sSCPanel.java
 %\011TheInfernalManor%sEngine%sRNG.java
