@@ -94,7 +94,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       JPanel anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 3));
       ButtonGroup group = new ButtonGroup();
-      JRadioButton setB = new JRadioButton("Set");
+      setB = new JRadioButton("Set");
       setB.setSelected(true);
       setB.addActionListener(this);
       setB.setForeground(Color.WHITE);
@@ -161,23 +161,46 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel.repaint();
    }
    
-   private void mouseClickedInDrawingPanel()
+   private void mouseClickedInDrawingPanel(MouseEvent me)
    {
       int[] mouseLoc = drawingPanel.getMouseLocTile();
-      if(mouseLoc[0] == -1 || mouseLoc[1] == -1)
+      if(!roomTemplate.isInBounds(mouseLoc[0], mouseLoc[1]))
          return;
-      if(roomTemplate.isInBounds(mouseLoc[0], mouseLoc[1]))
+      if(me.getButton() == MouseEvent.BUTTON1)
       {
          boolean iR = iRB.isSelected();
          boolean dR = dRB.isSelected();
          roomTemplate.set(mouseLoc[0], mouseLoc[1], selectedChar, iR, dR);
       }
+      if(me.getButton() == MouseEvent.BUTTON3)
+      {
+         char c = roomTemplate.getChar(mouseLoc[0], mouseLoc[1]);
+         if(c != (char)0)
+         {
+            pressCharButton(c);
+            if(roomTemplate.isIndependentlyRandom(mouseLoc[0], mouseLoc[1]))
+               iRB.doClick();
+            else if(roomTemplate.isDependentlyRandom(mouseLoc[0], mouseLoc[1]))
+               dRB.doClick();
+            else
+               setB.doClick();
+         }
+      }
       setDrawingPanel();
       updateCurrentLabels();
    }
    
+   private void pressCharButton(char c)
+   {
+      for(int i = 0; i < RoomTemplateCellMapping.values().length; i++)
+      {
+         if(c == charArr[i])
+            charButtonArr[i].doClick();
+      }
+   }
+   
    // listeners
-   public void mouseClicked(MouseEvent me){mouseClickedInDrawingPanel();}
+   public void mouseClicked(MouseEvent me){mouseClickedInDrawingPanel(me);}
    public void mousePressed(MouseEvent me){}
    public void mouseReleased(MouseEvent me){}
    public void mouseEntered(MouseEvent me){}

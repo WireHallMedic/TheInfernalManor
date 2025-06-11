@@ -49,6 +49,13 @@ public class RoomTemplate implements MapConstants
       return null;
    }
    
+   public char getChar(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return getCellMapping(x, y).character;
+      return (char)0;
+   }
+   
    public boolean isIndependentlyRandom(int x, int y)
    {
       if(isInBounds(x, y))
