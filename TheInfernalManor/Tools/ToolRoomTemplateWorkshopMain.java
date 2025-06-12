@@ -21,6 +21,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private char[] charArr;
    private JButton[] charButtonArr;
    private JLabel currentlySelectedL;
+   private JLabel typeCountL;
    private JButton[] connectionButtonArr;
    private JLabel connectionL;
    private JRadioButton setB;
@@ -31,6 +32,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private static final int I_R_COLOR = Color.BLUE.darker().getRGB();
    private static final int D_R_COLOR = Color.RED.darker().getRGB();
    private RoomTemplate curRoomTemplate;
+   private RoomTemplateDeck deck;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -39,6 +41,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle("Room Template Workshop");
       selectedChar = '.';
+      deck = new RoomTemplateDeck();
       
       setLayout(new GridLayout(1, 2));
       
@@ -124,18 +127,37 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       int len = ConnectionType.values().length;
       connectionButtonArr = new JButton[len];
       JPanel anonPanel = new JPanel();
-      anonPanel.setLayout(new GridLayout(3, 3));
+      anonPanel.setLayout(new GridLayout(6, 1));
       controlSubpanel1.add(anonPanel);
-      
+      JPanel[] anonSubpanel = new JPanel[6];
+      for(int i = 0; i < 6; i++)
+      {
+         anonSubpanel[i] = new JPanel();
+         if(i < (len + 2) / 3)
+            anonSubpanel[i].setLayout(new GridLayout(1, 3));
+         else
+            anonSubpanel[i].setLayout(new GridLayout(1, 1));
+         anonPanel.add(anonSubpanel[i]);
+      }
       for(int i = 0; i < len; i++)
       {
          String str = ConnectionType.values()[i].name;
          connectionButtonArr[i] = new JButton(str);
          connectionButtonArr[i].addActionListener(this);
-         anonPanel.add(connectionButtonArr[i]);
+         anonSubpanel[i / 3].add(connectionButtonArr[i]);
       }
+      int curIndex = len / 3;
       connectionL = new JLabel("Connection Type: ");
-      anonPanel.add(connectionL);
+      anonSubpanel[curIndex].add(connectionL);
+      curIndex++;
+      typeCountL = new JLabel("Type Count: ");
+      anonSubpanel[curIndex].add(typeCountL);
+      curIndex++;
+      while(curIndex < 6)
+      {
+         anonSubpanel[curIndex].add(new JPanel());
+         curIndex++;
+      }
    }
    
    private void updateCurrentLabels()

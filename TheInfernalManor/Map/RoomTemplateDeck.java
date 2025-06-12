@@ -15,6 +15,47 @@ public class RoomTemplateDeck implements MapConstants
       }
    }
    
+   public int length()
+   {
+      return ConnectionType.values().length;
+   }
+   
+   public int size(ConnectionType ct)
+   {
+      return typeList[ct.ordinal()].list.size();
+   }
+   
+   public void add(RoomTemplate rt)
+   {
+      typeList[rt.getConnectionType().ordinal()].list.add(rt);
+   }
+   
+   public RoomTemplate get(ConnectionType ct, int i)
+   {
+      if(size(ct) < i)
+         return typeList[ct.ordinal()].list.elementAt(i);
+      return null;
+   }
+   
+   public void sort()
+   {
+      for(int reps = 0; reps < 2; reps++)
+      {
+         for(int i = 0; i < ConnectionType.values().length; i++)
+         {
+            for(int j = 0; j < size(ConnectionType.values()[i]); j++)
+            {
+               RoomTemplate rt = get(ConnectionType.values()[i], j);
+               if(rt.getConnectionType() != ConnectionType.values()[i])
+               {
+                  typeList[ConnectionType.values()[i].ordinal()].list.removeElement(rt);
+                  add(rt);
+               }
+            }
+         }
+      }
+   }
+   
    
    private class RTCollection
    {
