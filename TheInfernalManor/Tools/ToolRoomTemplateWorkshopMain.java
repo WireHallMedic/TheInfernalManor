@@ -33,6 +33,11 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private static final int D_R_COLOR = Color.RED.darker().getRGB();
    private RoomTemplate curRoomTemplate;
    private RoomTemplateDeck deck;
+   private JButton saveB;
+   private JButton loadB;
+   private JButton newRoomB;
+   private JButton newDeckB;
+   private JButton deleteRoomB;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -42,6 +47,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setTitle("Room Template Workshop");
       selectedChar = '.';
       deck = new RoomTemplateDeck();
+      roomTemplate = new RoomTemplate(21, 21);
+      deck.add(roomTemplate);
       
       setLayout(new GridLayout(1, 2));
       
@@ -54,11 +61,13 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       add(controlPanel);
       
       controlSubpanel1 = new JPanel();
-      controlSubpanel1.setLayout(new GridLayout(3, 1));
+      controlSubpanel1.setLayout(new GridLayout(1, 1));
       controlPanel.add(controlSubpanel1);
       controlSubpanel2 = new JPanel();
+      controlSubpanel2.setLayout(new GridLayout(1, 1));
       controlPanel.add(controlSubpanel2);
       controlSubpanel3 = new JPanel();
+      controlSubpanel3.setLayout(new GridLayout(1, 1));
       controlPanel.add(controlSubpanel3);
       
       palette = new SCTilePalette("WidlerTiles_16x16.png", 16, 16);
@@ -66,7 +75,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel.addMouseListener(this);
       mapPanel.add(drawingPanel);
       
-      roomTemplate = new RoomTemplate(21, 21);
       
       for(int x = 0; x < 21; x++)
       for(int y = 0; y < 21; y++)
@@ -74,10 +82,48 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       
       setDrawingButtons();
       setConnectionButtons();
+      setControlButtons();
       setDrawingPanel();
       updateCurrentLabels();
       setVisible(true);
       
+   }
+   
+   private void setControlButtons()
+   {
+      newRoomB = new JButton("New Room");
+      deleteRoomB = new JButton("Delete Room");
+      saveB = new JButton("Save");
+      loadB = new JButton("Load");
+      newDeckB = new JButton("New Set");
+      
+      JPanel anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(6, 1));
+      
+      JPanel subPanel = new JPanel();
+      subPanel.setLayout(new GridLayout(1, 2));
+      newRoomB = new JButton("New Room");
+      newRoomB.addActionListener(this);
+      subPanel.add(newRoomB);
+      deleteRoomB = new JButton("Delete Room");
+      deleteRoomB.addActionListener(this);
+      subPanel.add(deleteRoomB);
+      anonPanel.add(subPanel);
+      
+      subPanel = new JPanel();
+      subPanel.setLayout(new GridLayout(1, 3));
+      saveB = new JButton("Save");
+      saveB.addActionListener(this);
+      subPanel.add(saveB);
+      loadB = new JButton("Load");
+      loadB.addActionListener(this);
+      subPanel.add(loadB);
+      newDeckB = new JButton("New Group");
+      newDeckB.addActionListener(this);
+      subPanel.add(newDeckB);
+      anonPanel.add(subPanel);
+      
+      controlSubpanel3.add(anonPanel);
    }
    
    private void setDrawingButtons()
@@ -164,7 +210,9 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    {
       currentlySelectedL.setText("Currently Selected: " + selectedChar);
       roomTemplate.setConnectionType();
+      deck.sort();
       connectionL.setText("Connection Type: " + roomTemplate.getConnectionType().name);
+      setCountLabel();
    }
    
    public void setDrawingPanel()
@@ -306,6 +354,19 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    {
       for(int i = 0; i < roomTemplate.getWidth(); i++)
          roomTemplate.set(i, roomTemplate.getWidth() - 1, c, false, false);
+   }
+   
+   private void setCountLabel()
+   {
+      String output = "";
+      for(int i = 0; i < ConnectionType.values().length; i++)
+      {
+         ConnectionType ct = ConnectionType.values()[i];
+         output += ct.name + ": " + deck.size(ct);
+         if(i != ConnectionType.values().length - 1)
+            output += ", ";
+      }
+      typeCountL.setText("Type Count: " + output);
    }
    
    public static final void main(String[] args)

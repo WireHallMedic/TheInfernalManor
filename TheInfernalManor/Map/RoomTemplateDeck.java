@@ -45,6 +45,8 @@ public class RoomTemplateDeck implements MapConstants
          {
             for(int j = 0; j < size(ConnectionType.values()[i]); j++)
             {
+               System.out.println("" + size(ConnectionType.values()[i]));
+               System.out.println("i = " + i + "; j = " + j);
                RoomTemplate rt = get(ConnectionType.values()[i], j);
                if(rt.getConnectionType() != ConnectionType.values()[i])
                {

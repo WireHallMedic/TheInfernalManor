@@ -226,7 +226,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!296;l
+!350;l
+%\011TheInfernalManor%sMap%sRoomTemplateDeckTest.java
 %\011TheInfernalManor%sEngine%sEngineToolsTest.java
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sMap%sRoomTemplateTest.java
