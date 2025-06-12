@@ -32,7 +32,7 @@ public class RoomTemplateDeck implements MapConstants
    
    public RoomTemplate get(ConnectionType ct, int i)
    {
-      if(size(ct) < i)
+      if(size(ct) > i)
          return typeList[ct.ordinal()].list.elementAt(i);
       return null;
    }
@@ -45,8 +45,6 @@ public class RoomTemplateDeck implements MapConstants
          {
             for(int j = 0; j < size(ConnectionType.values()[i]); j++)
             {
-               System.out.println("" + size(ConnectionType.values()[i]));
-               System.out.println("i = " + i + "; j = " + j);
                RoomTemplate rt = get(ConnectionType.values()[i], j);
                if(rt.getConnectionType() != ConnectionType.values()[i])
                {
