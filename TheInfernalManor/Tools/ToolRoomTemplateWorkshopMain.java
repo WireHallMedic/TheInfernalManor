@@ -38,6 +38,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton newRoomB;
    private JButton newDeckB;
    private JButton deleteRoomB;
+   private int roomSize;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -47,7 +48,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setTitle("Room Template Workshop");
       selectedChar = '.';
       deck = new RoomTemplateDeck();
-      roomTemplate = new RoomTemplate(21, 21);
+      roomSize = 21;
+      roomTemplate = new RoomTemplate(roomSize, roomSize);
       deck.add(roomTemplate);
       
       setLayout(new GridLayout(1, 2));
@@ -71,13 +73,13 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       controlPanel.add(controlSubpanel3);
       
       palette = new SCTilePalette("WidlerTiles_16x16.png", 16, 16);
-      drawingPanel = new SCPanel(palette, 21, 21);
+      drawingPanel = new SCPanel(palette, roomSize, roomSize);
       drawingPanel.addMouseListener(this);
       mapPanel.add(drawingPanel);
       
       
-      for(int x = 0; x < 21; x++)
-      for(int y = 0; y < 21; y++)
+      for(int x = 0; x < roomSize; x++)
+      for(int y = 0; y < roomSize; y++)
          roomTemplate.set(x, y, '.', false, false);
       
       setDrawingButtons();
@@ -217,8 +219,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    public void setDrawingPanel()
    {
-      for(int x = 0; x < 21; x++)
-      for(int y = 0; y < 21; y++)
+      for(int x = 0; x < roomSize; x++)
+      for(int y = 0; y < roomSize; y++)
       {
          int c = SET_COLOR;
          if(roomTemplate.isIndependentlyRandom(x, y))
@@ -294,6 +296,17 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             break;
          }
       }
+      if(ae.getSource() == newRoomB)
+      {
+         roomTemplate = new RoomTemplate(roomSize, roomSize);
+         deck.add(roomTemplate);
+         setDrawingPanel();
+      }
+      if(ae.getSource() == saveB){}
+      if(ae.getSource() == loadB){}
+      if(ae.getSource() == newDeckB){}
+      if(ae.getSource() == deleteRoomB){}
+      
       updateCurrentLabels();
    }
    
