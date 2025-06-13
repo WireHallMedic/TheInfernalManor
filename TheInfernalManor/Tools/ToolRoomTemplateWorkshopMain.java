@@ -79,11 +79,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel.addMouseListener(this);
       mapPanel.add(drawingPanel);
       
-      
-      for(int x = 0; x < roomSize; x++)
-      for(int y = 0; y < roomSize; y++)
-         roomTemplate.set(x, y, '.', false, false);
-      
       setDrawingButtons();
       setConnectionButtons();
       setControlButtons();
