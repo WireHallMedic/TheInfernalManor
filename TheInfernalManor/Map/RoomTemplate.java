@@ -20,13 +20,15 @@ public class RoomTemplate implements MapConstants
    public RoomTemplate(int w, int h)
    {
       setSize(w, h);
-      connectionType = ConnectionType.ISOLATED;
+      clear();
+      setConnectionType();
    }
    
    public RoomTemplate(Vector<String> data)
    {
       this(1, 1);
       deserialize(data);
+      setConnectionType();
    }
    
    public RoomTemplate(RoomTemplate that)
@@ -40,6 +42,13 @@ public class RoomTemplate implements MapConstants
          this.dependentlyRandomTable[x][y] = that.dependentlyRandomTable[x][y];
       }
       setConnectionType();
+   }
+   
+   public void clear()
+   {
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+         set(x, y, '.', false, false);
    }
    
    public RoomTemplateCellMapping getCellMapping(int x, int y)

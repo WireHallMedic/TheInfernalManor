@@ -18,6 +18,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private SCTilePalette palette;
    private SCPanel drawingPanel;
    private RoomTemplate roomTemplate;
+   private int curConnectionType;
+   private int curConnectionIndex;
    private char[] charArr;
    private JButton[] charButtonArr;
    private JLabel currentlySelectedL;
