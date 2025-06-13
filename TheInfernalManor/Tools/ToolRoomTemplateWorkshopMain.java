@@ -25,7 +25,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JLabel currentlySelectedL;
    private JLabel typeCountL;
    private JButton[] connectionButtonArr;
-   private JLabel connectionL;
+   private JLabel currentRoomL;
    private JRadioButton setB;
    private JRadioButton iRB;
    private JRadioButton dRB;
@@ -40,6 +40,10 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton newRoomB;
    private JButton newDeckB;
    private JButton deleteRoomB;
+   private JButton nextConnTypeB;
+   private JButton prevConnTypeB;
+   private JButton nextRoomB;
+   private JButton prevRoomB;
    private int roomSize;
    
    public ToolRoomTemplateWorkshopMain()
@@ -53,6 +57,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       roomSize = 21;
       roomTemplate = new RoomTemplate(roomSize, roomSize);
       deck.add(roomTemplate);
+      setLocationValues();
       
       setLayout(new GridLayout(1, 2));
       
@@ -192,12 +197,29 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          anonSubpanel[i / 3].add(connectionButtonArr[i]);
       }
       int curIndex = len / 3;
-      connectionL = new JLabel("Connection Type: ");
-      anonSubpanel[curIndex].add(connectionL);
-      curIndex++;
       typeCountL = new JLabel("Type Count: ");
       anonSubpanel[curIndex].add(typeCountL);
       curIndex++;
+      
+      anonSubpanel[curIndex].setLayout(new GridLayout(1, 4));
+      prevConnTypeB = new JButton("Prev Type");
+      prevConnTypeB.addActionListener(this);
+      anonSubpanel[curIndex].add(prevConnTypeB);
+      nextConnTypeB = new JButton("Next Type");
+      nextConnTypeB.addActionListener(this);
+      anonSubpanel[curIndex].add(nextConnTypeB);
+      prevRoomB = new JButton("Prev Room");
+      prevRoomB.addActionListener(this);
+      anonSubpanel[curIndex].add(prevRoomB);
+      nextRoomB = new JButton("Next Room");
+      nextRoomB.addActionListener(this);
+      anonSubpanel[curIndex].add(nextRoomB);
+      curIndex++;
+      
+      currentRoomL = new JLabel("Connection Type: ");
+      anonSubpanel[curIndex].add(currentRoomL);
+      curIndex++;
+      
       while(curIndex < 6)
       {
          anonSubpanel[curIndex].add(new JPanel());
@@ -209,9 +231,20 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    {
       currentlySelectedL.setText("Currently Selected: " + selectedChar);
       roomTemplate.setConnectionType();
-      deck.sort();
-      connectionL.setText("Connection Type: " + roomTemplate.getConnectionType().name);
+      deck.sort(roomTemplate);
+      setLocationValues();
       setCountLabel();
+      ConnectionType ct = ConnectionType.values()[curConnectionType];
+      String curStr = "Current Room: %s (%d/%d)";
+      currentRoomL.setText(String.format(curStr, ct.name, curConnectionIndex + 1, deck.size(ct)));
+      
+   }
+   
+   private void setLocationValues()
+   {
+      int[] indexes = deck.getIndex(roomTemplate);
+      curConnectionType = indexes[0];
+      curConnectionIndex = indexes[1];
    }
    
    public void setDrawingPanel()
