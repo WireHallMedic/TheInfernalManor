@@ -237,7 +237,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       ConnectionType ct = ConnectionType.values()[curConnectionType];
       String curStr = "Current Room: %s (%d/%d)";
       currentRoomL.setText(String.format(curStr, ct.name, curConnectionIndex + 1, deck.size(ct)));
-      
    }
    
    private void setLocationValues()
@@ -336,6 +335,56 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       if(ae.getSource() == loadB){}
       if(ae.getSource() == newDeckB){}
       if(ae.getSource() == deleteRoomB){}
+      
+      
+      if(ae.getSource() == nextConnTypeB)
+      {
+         int newRoom = curConnectionIndex;
+         int newType = curConnectionType;
+         do
+         {
+            newType++;
+            if(newType >= ConnectionType.values().length)
+               newType = 0;
+         }
+         while(deck.size(newType) == 0);
+         if(newRoom >= deck.size(newType))
+            newRoom = deck.size(newType) - 1;
+         roomTemplate = deck.get(newType, newRoom);
+         setDrawingPanel();
+      }
+      if(ae.getSource() == prevConnTypeB)
+      {
+         int newRoom = curConnectionIndex;
+         int newType = curConnectionType;
+         do
+         {
+            newType--;
+            if(newType < 0)
+               newType = ConnectionType.values().length - 1;
+         }
+         while(deck.size(newType) == 0);
+         if(newRoom >= deck.size(newType))
+            newRoom = deck.size(newType) - 1;
+         roomTemplate = deck.get(newType, newRoom);
+         setDrawingPanel();
+      }
+      if(ae.getSource() == nextRoomB)
+      {
+         int newRoom = curConnectionIndex + 1;
+         if(newRoom >= deck.size(curConnectionType))
+            newRoom = 0;
+         roomTemplate = deck.get(curConnectionType, newRoom);
+         setDrawingPanel();
+      }
+      if(ae.getSource() == prevRoomB)
+      {
+         int newRoom = curConnectionIndex - 1;
+         if(newRoom < 0)
+            newRoom = deck.size(curConnectionType) - 1;
+         roomTemplate = deck.get(curConnectionType, newRoom);
+         setDrawingPanel();
+      }
       
       updateCurrentLabels();
    }

@@ -22,7 +22,12 @@ public class RoomTemplateDeck implements MapConstants
    
    public int size(ConnectionType ct)
    {
-      return typeList[ct.ordinal()].list.size();
+      return size(ct.ordinal());
+   }
+   
+   public int size(int ct)
+   {
+      return typeList[ct].list.size();
    }
    
    public void add(RoomTemplate rt)
@@ -37,7 +42,10 @@ public class RoomTemplateDeck implements MapConstants
       return null;
    }
    
-   
+   public RoomTemplate get(int ct, int i)
+   {
+      return get(ConnectionType.values()[ct], i);
+   }
    
    public int[] getIndex(RoomTemplate rt)
    {
