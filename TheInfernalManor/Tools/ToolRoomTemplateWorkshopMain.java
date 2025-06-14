@@ -1,7 +1,9 @@
 
 package TheInfernalManor.Tools;
 
+import java.io.*;
 import javax.swing.*;
+import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import TheInfernalManor.GUI.*;
@@ -473,7 +475,23 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             JOptionPane.showMessageDialog(this, "Save Attempt Aborted", "File name cannot be blank.", JOptionPane.ERROR_MESSAGE);
             return;
          }
+         fileName = fileName + ".ttd";
       }
+      PrintWriter outFile;
+		Vector<String> saveStringList = deck.serialize();
+		try
+		{
+			outFile = new PrintWriter(fileName);
+		
+			for(String str : saveStringList)
+			{
+				outFile.print(str);
+			}
+			
+			outFile.close();
+		}
+		catch(FileNotFoundException fnfEx){}
+		catch(Exception ex){}
    }
    
    public static final void main(String[] args)
