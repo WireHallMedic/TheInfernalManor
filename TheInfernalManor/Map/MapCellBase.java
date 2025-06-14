@@ -9,7 +9,7 @@ public enum MapCellBase
    WALL              ('#', false, false, false),
    LOW_WALL          ('=', false, true, true),
    BARS              (':', false, false, true),
-   SHALLOW_LIQUID    ('~', false, true, true),
+   SHALLOW_LIQUID    ('~', true, true, true),
    DEEP_LIQUID       (SCConstants.ALMOST_EQUAL_TO_TILE, false, true, true),
    CHEST_CLOSED      ('?', false, true, true),
    CHEST_OPEN        (SCConstants.INVERTED_QUESTION_TILE, false, true, true),

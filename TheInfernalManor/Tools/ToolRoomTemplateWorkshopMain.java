@@ -25,6 +25,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private int curConnectionIndex;
    private char[] charArr;
    private JButton[] charButtonArr;
+   private JButton fillAllB;
    private JLabel currentlySelectedL;
    private JLabel typeCountL;
    private JButton[] connectionButtonArr;
@@ -192,7 +193,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       for(int i = 0; i < 6; i++)
       {
          anonSubpanel[i] = new JPanel();
-         if(i < (len + 2) / 3)
+         if(i < 3)
             anonSubpanel[i].setLayout(new GridLayout(1, 3));
          else
             anonSubpanel[i].setLayout(new GridLayout(1, 1));
@@ -206,6 +207,13 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          anonSubpanel[i / 3].add(connectionButtonArr[i]);
       }
       int curIndex = len / 3;
+      fillAllB = new JButton("Fill All with Selected");
+      fillAllB.addActionListener(this);
+      anonSubpanel[curIndex].add(fillAllB);
+      anonSubpanel[curIndex].add(new JPanel());
+      anonSubpanel[curIndex].add(new JPanel());
+      curIndex++;
+      
       typeCountL = new JLabel("Type Count: ");
       anonSubpanel[curIndex].add(typeCountL);
       curIndex++;
@@ -272,6 +280,18 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel.repaint();
    }
    
+   private void fillAll()
+   {
+      boolean iR = iRB.isSelected();
+      boolean dR = dRB.isSelected();
+      for(int x = 0; x < roomSize; x++)
+      for(int y = 0; y < roomSize; y++)
+      {
+         roomTemplate.set(x, y, selectedChar, iR, dR);
+      }
+      setDrawingPanel();
+   }
+   
    private void mouseClickedInDrawingPanel(MouseEvent me)
    {
       int[] mouseLoc = drawingPanel.getMouseLocTile();
@@ -334,6 +354,11 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             setWalls(ConnectionType.values()[i]);
             break;
          }
+      }
+      if(ae.getSource() == fillAllB)
+      {
+         if(getConfirmation("Overwrite ALL tiles in this room with '" + selectedChar + "'?", "Fill All"))
+            fillAll();
       }
       if(ae.getSource() == newRoomB)
       {
