@@ -234,7 +234,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    private void updateCurrentLabels()
    {
-      currentlySelectedL.setText("Currently Selected: " + selectedChar);
+      String str = "Currently Selected: %c (%s)";
+      currentlySelectedL.setText(String.format(str, selectedChar, RoomTemplateCellMapping.deserialize(selectedChar).name));
       roomTemplate.setConnectionType();
       deck.sort(roomTemplate);
       setLocationValues();
@@ -492,7 +493,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
 			
 			outFile.close();
 		}
-		catch(Exception ex){System.out.println("Exception: " + ex.toString());}
+		catch(Exception ex){System.out.println("Exception while saving: " + ex.toString());}
    }
    
    private void load()
@@ -517,7 +518,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             setDrawingPanel();
             updateCurrentLabels();
    		}
-   		catch(Exception ex){System.out.println("Exception: " + ex.toString());}
+   		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
       }
    }
    

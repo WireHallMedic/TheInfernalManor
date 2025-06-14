@@ -4,30 +4,33 @@ package TheInfernalManor.Map;
 
 public enum RoomTemplateCellMapping
 {
-   CLEAR             ('.', MapCellBase.CLEAR),
-   ROUGH             (',', MapCellBase.ROUGH),
-   WALL              ('#', MapCellBase.WALL),
-   LOW_WALL          ('=', MapCellBase.LOW_WALL),
-   BARS              (':', MapCellBase.BARS),
-   SHALLOW_LIQUID    ('-', MapCellBase.SHALLOW_LIQUID),
-   DEEP_LIQUID       ('~', MapCellBase.DEEP_LIQUID),
-   CONTAINER         ('0', MapCellBase.LOW_WALL),
-   CHEST             ('c', MapCellBase.CHEST_CLOSED),
-   METAL_CHEST       ('C', MapCellBase.CHEST_CLOSED),
-   DOOR              ('|', MapCellBase.DOOR_CLOSED),
-   METAL_DOOR        ('+', MapCellBase.DOOR_CLOSED),
-   TOGGLE            ('!', MapCellBase.TOGGLE_UNFLIPPED),
-   FEATURE           ('f', MapCellBase.CLEAR),
-   EXIT              ('>', MapCellBase.EXIT);
+   CLEAR             ('.', "Clear", MapCellBase.CLEAR),
+   ROUGH             (',', "Rough", MapCellBase.ROUGH),
+   WALL              ('#', "Wall", MapCellBase.WALL),
+   LOW_WALL          ('=', "Low Wall", MapCellBase.LOW_WALL),
+   BARS              (':', "Bars", MapCellBase.BARS),
+   SHALLOW_LIQUID    ('-', "Shallow Liquid", MapCellBase.SHALLOW_LIQUID),
+   DEEP_LIQUID       ('~', "Deep Liquid", MapCellBase.DEEP_LIQUID),
+   CONTAINER         ('0', "Container", MapCellBase.LOW_WALL),
+   CHEST             ('c', "Chest", MapCellBase.CHEST_CLOSED),
+   METAL_CHEST       ('C', "Metal Chest", MapCellBase.CHEST_CLOSED),
+   DOOR              ('|', "Door", MapCellBase.DOOR_CLOSED),
+   METAL_DOOR        ('+', "Metal Door", MapCellBase.DOOR_CLOSED),
+   TOGGLE            ('!', "Switch", MapCellBase.TOGGLE_UNFLIPPED),
+   FEATURE           ('f', "Feature", MapCellBase.CLEAR),
+   SPAWN             ('s', "Spawn", MapCellBase.CLEAR),
+   EXIT              ('>', "Exit", MapCellBase.EXIT);
    
    public char character;
    public MapCellBase mapCellBase;
+   public String name;
    public static final char INDEPENDENTLY_RANDOM = 'i';
    public static final char DEPENDENTLY_RANDOM = 'd';
    
-   private RoomTemplateCellMapping(char c, MapCellBase mcb)
+   private RoomTemplateCellMapping(char c, String n, MapCellBase mcb)
    {
       character = c;
+      name = n;
       mapCellBase = mcb;
    }
    
