@@ -104,6 +104,25 @@ public class RoomTemplateDeck implements MapConstants
       }
    }
    
+   public Vector<String> serialize()
+   {
+      Vector<String> outList = new Vector<String>();
+      outList.add("@HEADER\n");
+      outList.add("@BODY\n");
+      
+      for(int i = 0; i < ConnectionType.values().length; i++)
+      {
+         for(int j = 0; j < size(ConnectionType.values()[i]); j++)
+         {
+            Vector<String> rtStrList = get(i, j).serialize();
+            for(String str : rtStrList)
+               outList.add(str + "\n");
+         }
+         outList.add("\n");
+      }
+      return outList;
+   }
+   
    
    private class RTCollection
    {

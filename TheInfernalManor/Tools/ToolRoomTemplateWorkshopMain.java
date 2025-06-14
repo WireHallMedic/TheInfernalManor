@@ -45,6 +45,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton nextRoomB;
    private JButton prevRoomB;
    private int roomSize;
+   private String fileName;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -53,6 +54,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle("Room Template Workshop");
       selectedChar = '.';
+      fileName = null;
       deck = new RoomTemplateDeck();
       roomSize = 21;
       roomTemplate = new RoomTemplate(roomSize, roomSize);
@@ -331,7 +333,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          deck.add(roomTemplate);
          setDrawingPanel();
       }
-      if(ae.getSource() == saveB){}
+      if(ae.getSource() == saveB){save();}
       if(ae.getSource() == loadB){}
       if(ae.getSource() == newDeckB){}
       if(ae.getSource() == deleteRoomB){}
@@ -459,6 +461,19 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             output += ", ";
       }
       typeCountL.setText("Type Count: " + output);
+   }
+   
+   private void save()
+   {
+      if(fileName == null || fileName.equals(""))
+      {
+         fileName = JOptionPane.showInputDialog(this, "Enter file name:");
+         if(fileName == null || fileName.equals(""))
+         {
+            JOptionPane.showMessageDialog(this, "Save Attempt Aborted", "File name cannot be blank.", JOptionPane.ERROR_MESSAGE);
+            return;
+         }
+      }
    }
    
    public static final void main(String[] args)
