@@ -41,6 +41,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton saveB;
    private JButton loadB;
    private JButton newRoomB;
+   private JButton dupeRoomB;
    private JButton newDeckB;
    private JButton deleteRoomB;
    private JButton nextConnTypeB;
@@ -110,10 +111,13 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       anonPanel.setLayout(new GridLayout(6, 1));
       
       JPanel subPanel = new JPanel();
-      subPanel.setLayout(new GridLayout(1, 2));
+      subPanel.setLayout(new GridLayout(1, 3));
       newRoomB = new JButton("New Room");
       newRoomB.addActionListener(this);
       subPanel.add(newRoomB);
+      dupeRoomB = new JButton("Duplicate Room");
+      dupeRoomB.addActionListener(this);
+      subPanel.add(dupeRoomB);
       deleteRoomB = new JButton("Delete Room");
       deleteRoomB.addActionListener(this);
       subPanel.add(deleteRoomB);
@@ -127,7 +131,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       loadB = new JButton("Load");
       loadB.addActionListener(this);
       subPanel.add(loadB);
-      newDeckB = new JButton("New Group");
+      newDeckB = new JButton("New Deck");
       newDeckB.addActionListener(this);
       subPanel.add(newDeckB);
       anonPanel.add(subPanel);
@@ -207,16 +211,16 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       curIndex++;
       
       anonSubpanel[curIndex].setLayout(new GridLayout(1, 4));
-      prevConnTypeB = new JButton("Prev Type");
+      prevConnTypeB = new JButton((char)8592 + " Prev Type");
       prevConnTypeB.addActionListener(this);
       anonSubpanel[curIndex].add(prevConnTypeB);
-      nextConnTypeB = new JButton("Next Type");
+      nextConnTypeB = new JButton((char)8594 + " Next Type");
       nextConnTypeB.addActionListener(this);
       anonSubpanel[curIndex].add(nextConnTypeB);
-      prevRoomB = new JButton("Prev Room");
+      prevRoomB = new JButton((char)8593 + " Prev Room");
       prevRoomB.addActionListener(this);
       anonSubpanel[curIndex].add(prevRoomB);
-      nextRoomB = new JButton("Next Room");
+      nextRoomB = new JButton((char)8595 + " Next Room");
       nextRoomB.addActionListener(this);
       anonSubpanel[curIndex].add(nextRoomB);
       curIndex++;
@@ -337,10 +341,24 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          deck.add(newRT);
          setCurrentRoom(newRT);
       }
+      if(ae.getSource() == dupeRoomB)
+      {
+         RoomTemplate newRT = new RoomTemplate(roomTemplate);
+         deck.add(newRT);
+         setCurrentRoom(newRT);
+      }
+      if(ae.getSource() == deleteRoomB)
+      {
+         if(getConfirmation("Delete this room?", "Delete Room"))
+            deleteRoom(roomTemplate);
+      }
       if(ae.getSource() == saveB){save();}
       if(ae.getSource() == loadB){load();}
-      if(ae.getSource() == newDeckB){}
-      if(ae.getSource() == deleteRoomB){deleteRoom(roomTemplate);}
+      if(ae.getSource() == newDeckB)
+      {
+         if(getConfirmation("This will discard any unsaved progress.", "Create New Deck"))
+            newDeck();
+      }
       
       
       if(ae.getSource() == nextConnTypeB)
@@ -549,6 +567,22 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       roomTemplate = rt;
       setDrawingPanel();
       updateCurrentLabels();
+   }
+   
+   public void newDeck()
+   {
+      RoomTemplateDeck newDeck = new RoomTemplateDeck();
+      RoomTemplate newRoomTemplate = new RoomTemplate(roomSize, roomSize);
+      newDeck.add(newRoomTemplate);
+      deck = newDeck;
+      setCurrentRoom(newRoomTemplate);
+      fileName = "";
+   }
+   
+   public boolean getConfirmation(String message, String label)
+   {
+      int selection = JOptionPane.showConfirmDialog(this, message, label, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+      return selection == JOptionPane.OK_OPTION;
    }
    
    public static final void main(String[] args)
