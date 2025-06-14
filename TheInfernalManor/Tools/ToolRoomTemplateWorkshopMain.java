@@ -3,6 +3,7 @@ package TheInfernalManor.Tools;
 
 import java.io.*;
 import javax.swing.*;
+import javax.swing.filechooser.*;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -56,7 +57,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setTitle("Room Template Workshop");
       selectedChar = '.';
-      fileName = null;
+      fileName = "";
       deck = new RoomTemplateDeck();
       roomSize = 21;
       roomTemplate = new RoomTemplate(roomSize, roomSize);
@@ -336,7 +337,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          setDrawingPanel();
       }
       if(ae.getSource() == saveB){save();}
-      if(ae.getSource() == loadB){}
+      if(ae.getSource() == loadB){load();}
       if(ae.getSource() == newDeckB){}
       if(ae.getSource() == deleteRoomB){}
       
@@ -467,16 +468,17 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    private void save()
    {
-      if(fileName == null || fileName.equals(""))
+      String saveLoc = "";
+      saveLoc = JOptionPane.showInputDialog(this, "Enter file name: ", fileName);
+      if(saveLoc == null || saveLoc.equals(""))
       {
-         fileName = JOptionPane.showInputDialog(this, "Enter file name:");
-         if(fileName == null || fileName.equals(""))
-         {
-            JOptionPane.showMessageDialog(this, "Save Attempt Aborted", "File name cannot be blank.", JOptionPane.ERROR_MESSAGE);
-            return;
-         }
-         fileName = fileName + ".ttd";
+         JOptionPane.showMessageDialog(this, "Save Attempt Aborted", "File name cannot be blank.", JOptionPane.ERROR_MESSAGE);
+         return;
       }
+      fileName = saveLoc;
+      if(!fileName.contains(".ttd"))
+         fileName = fileName + ".ttd";
+      
       PrintWriter outFile;
 		Vector<String> saveStringList = deck.serialize();
 		try
@@ -490,8 +492,33 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
 			
 			outFile.close();
 		}
-		catch(FileNotFoundException fnfEx){}
-		catch(Exception ex){}
+		catch(Exception ex){System.out.println("Exception: " + ex.toString());}
+   }
+   
+   private void load()
+   {
+      JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+      FileNameExtensionFilter filter = new FileNameExtensionFilter(
+         "TIM Template Deck ", "ttd");
+      chooser.setFileFilter(filter);
+      int returnVal = chooser.showOpenDialog(this);
+      if(returnVal == JFileChooser.APPROVE_OPTION) 
+      {
+         fileName = chooser.getSelectedFile().getAbsolutePath();
+   		Vector<String> saveString = new Vector<String>();
+   		try
+   		{
+   			Scanner inFile = new Scanner(new FileReader(fileName));
+   			while(inFile.hasNext())
+   				saveString.add(inFile.nextLine().replace("\n", ""));
+   			inFile.close();
+            deck = new RoomTemplateDeck(saveString);
+            roomTemplate = deck.getFirstRoom();
+            setDrawingPanel();
+            updateCurrentLabels();
+   		}
+   		catch(Exception ex){System.out.println("Exception: " + ex.toString());}
+      }
    }
    
    public static final void main(String[] args)
