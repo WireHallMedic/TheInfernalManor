@@ -36,9 +36,22 @@ public class RoomTemplateDeck implements MapConstants
       return typeList[ct].list.size();
    }
    
+   public int getCount()
+   {
+      int count = 0;
+      for(int i = 0; i < typeList.length; i++)
+         count += typeList[i].list.size();
+      return count;
+   }
+   
    public void add(RoomTemplate rt)
    {
       typeList[rt.getConnectionType().ordinal()].list.add(rt);
+   }
+   
+   public void remove(RoomTemplate rt)
+   {
+      typeList[rt.getConnectionType().ordinal()].list.remove(rt);
    }
    
    public RoomTemplate get(ConnectionType ct, int i)

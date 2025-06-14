@@ -333,14 +333,14 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       }
       if(ae.getSource() == newRoomB)
       {
-         roomTemplate = new RoomTemplate(roomSize, roomSize);
-         deck.add(roomTemplate);
-         setDrawingPanel();
+         RoomTemplate newRT = new RoomTemplate(roomSize, roomSize);
+         deck.add(newRT);
+         setCurrentRoom(newRT);
       }
       if(ae.getSource() == saveB){save();}
       if(ae.getSource() == loadB){load();}
       if(ae.getSource() == newDeckB){}
-      if(ae.getSource() == deleteRoomB){}
+      if(ae.getSource() == deleteRoomB){deleteRoom(roomTemplate);}
       
       
       if(ae.getSource() == nextConnTypeB)
@@ -356,8 +356,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          while(deck.size(newType) == 0);
          if(newRoom >= deck.size(newType))
             newRoom = deck.size(newType) - 1;
-         roomTemplate = deck.get(newType, newRoom);
-         setDrawingPanel();
+         setCurrentRoom(deck.get(newType, newRoom));
       }
       if(ae.getSource() == prevConnTypeB)
       {
@@ -372,24 +371,21 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          while(deck.size(newType) == 0);
          if(newRoom >= deck.size(newType))
             newRoom = deck.size(newType) - 1;
-         roomTemplate = deck.get(newType, newRoom);
-         setDrawingPanel();
+         setCurrentRoom(deck.get(newType, newRoom));
       }
       if(ae.getSource() == nextRoomB)
       {
          int newRoom = curConnectionIndex + 1;
          if(newRoom >= deck.size(curConnectionType))
             newRoom = 0;
-         roomTemplate = deck.get(curConnectionType, newRoom);
-         setDrawingPanel();
+         setCurrentRoom(deck.get(curConnectionType, newRoom));
       }
       if(ae.getSource() == prevRoomB)
       {
          int newRoom = curConnectionIndex - 1;
          if(newRoom < 0)
             newRoom = deck.size(curConnectionType) - 1;
-         roomTemplate = deck.get(curConnectionType, newRoom);
-         setDrawingPanel();
+         setCurrentRoom(deck.get(curConnectionType, newRoom));
       }
       
       updateCurrentLabels();
@@ -473,7 +469,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       saveLoc = JOptionPane.showInputDialog(this, "Enter file name: ", fileName);
       if(saveLoc == null || saveLoc.equals(""))
       {
-         JOptionPane.showMessageDialog(this, "Save Attempt Aborted", "File name cannot be blank.", JOptionPane.ERROR_MESSAGE);
+         JOptionPane.showMessageDialog(this, "File name cannot be blank.","Save Attempt Aborted",  JOptionPane.ERROR_MESSAGE);
          return;
       }
       fileName = saveLoc;
@@ -514,12 +510,45 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    				saveString.add(inFile.nextLine().replace("\n", ""));
    			inFile.close();
             deck = new RoomTemplateDeck(saveString);
-            roomTemplate = deck.getFirstRoom();
-            setDrawingPanel();
-            updateCurrentLabels();
+            setCurrentRoom(deck.getFirstRoom());
    		}
    		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
       }
+   }
+   
+   public void deleteRoom(RoomTemplate target)
+   {
+      if(deck.getCount() < 2)
+      {
+         JOptionPane.showMessageDialog(this,"Cannot delete the last room.",  "Delete Attempt Aborted", JOptionPane.ERROR_MESSAGE);
+         return;
+      }
+      int[] newTarget = deck.getIndex(target);
+      // not first in type, use previous
+      if(newTarget[1] > 0)
+      {
+         newTarget[1]--;
+      }
+      // only one in type, grab first after deletion
+      else if(deck.size(newTarget[0]) == 1)
+      {
+         newTarget = null;
+      }
+      // first in type, more exist; use next (same index after deletion)
+      ;
+      
+      deck.remove(target);
+      if(newTarget == null)
+         setCurrentRoom(deck.getFirstRoom());
+      else
+         setCurrentRoom(deck.get(newTarget[0], newTarget[1]));
+   }
+   
+   public void setCurrentRoom(RoomTemplate rt)
+   {
+      roomTemplate = rt;
+      setDrawingPanel();
+      updateCurrentLabels();
    }
    
    public static final void main(String[] args)
