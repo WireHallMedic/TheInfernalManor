@@ -11,7 +11,7 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
 import StrictCurses.*;
 
-public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener, MapConstants
+public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener, MapConstants, KeyListener
 {
    private JPanel mapPanel;
    private JPanel controlPanel;
@@ -96,6 +96,9 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setControlButtons();
       setDrawingPanel();
       updateCurrentLabels();
+      setUnfocusable(controlPanel);
+      setUnfocusable(mapPanel);
+      this.addKeyListener(this);
       setVisible(true);
       
    }
@@ -330,110 +333,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       }
    }
    
-   // listeners
-   public void mouseClicked(MouseEvent me){mouseClickedInDrawingPanel(me);}
-   public void mousePressed(MouseEvent me){}
-   public void mouseReleased(MouseEvent me){}
-   public void mouseEntered(MouseEvent me){}
-   public void mouseExited(MouseEvent me){}
-   
-   public void actionPerformed(ActionEvent ae)
-   {
-      for(int i = 0; i < RoomTemplateCellMapping.values().length; i++)
-      {
-         if(ae.getSource() == charButtonArr[i])
-         {
-            selectedChar = charArr[i];
-            break;
-         }
-      }
-      for(int i = 0; i < ConnectionType.values().length; i++)
-      {
-         if(ae.getSource() == connectionButtonArr[i])
-         {
-            setWalls(ConnectionType.values()[i]);
-            break;
-         }
-      }
-      if(ae.getSource() == fillAllB)
-      {
-         if(getConfirmation("Overwrite ALL tiles in this room with '" + selectedChar + "'?", "Fill All"))
-            fillAll();
-      }
-      if(ae.getSource() == newRoomB)
-      {
-         RoomTemplate newRT = new RoomTemplate(roomSize, roomSize);
-         deck.add(newRT);
-         setCurrentRoom(newRT);
-      }
-      if(ae.getSource() == dupeRoomB)
-      {
-         RoomTemplate newRT = new RoomTemplate(roomTemplate);
-         deck.add(newRT);
-         setCurrentRoom(newRT);
-      }
-      if(ae.getSource() == deleteRoomB)
-      {
-         if(getConfirmation("Delete this room?", "Delete Room"))
-            deleteRoom(roomTemplate);
-      }
-      if(ae.getSource() == saveB){save();}
-      if(ae.getSource() == loadB){load();}
-      if(ae.getSource() == newDeckB)
-      {
-         if(getConfirmation("This will discard any unsaved progress.", "Create New Deck"))
-            newDeck();
-      }
-      
-      
-      if(ae.getSource() == nextConnTypeB)
-      {
-         int newRoom = curConnectionIndex;
-         int newType = curConnectionType;
-         do
-         {
-            newType++;
-            if(newType >= ConnectionType.values().length)
-               newType = 0;
-         }
-         while(deck.size(newType) == 0);
-         if(newRoom >= deck.size(newType))
-            newRoom = deck.size(newType) - 1;
-         setCurrentRoom(deck.get(newType, newRoom));
-      }
-      if(ae.getSource() == prevConnTypeB)
-      {
-         int newRoom = curConnectionIndex;
-         int newType = curConnectionType;
-         do
-         {
-            newType--;
-            if(newType < 0)
-               newType = ConnectionType.values().length - 1;
-         }
-         while(deck.size(newType) == 0);
-         if(newRoom >= deck.size(newType))
-            newRoom = deck.size(newType) - 1;
-         setCurrentRoom(deck.get(newType, newRoom));
-      }
-      if(ae.getSource() == nextRoomB)
-      {
-         int newRoom = curConnectionIndex + 1;
-         if(newRoom >= deck.size(curConnectionType))
-            newRoom = 0;
-         setCurrentRoom(deck.get(curConnectionType, newRoom));
-      }
-      if(ae.getSource() == prevRoomB)
-      {
-         int newRoom = curConnectionIndex - 1;
-         if(newRoom < 0)
-            newRoom = deck.size(curConnectionType) - 1;
-         setCurrentRoom(deck.get(curConnectionType, newRoom));
-      }
-      
-      updateCurrentLabels();
-   }
-   
    private void setWalls(ConnectionType type)
    {
       switch(type)
@@ -608,6 +507,139 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    {
       int selection = JOptionPane.showConfirmDialog(this, message, label, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
       return selection == JOptionPane.OK_OPTION;
+   }
+   
+   // recursive method to make everything unfocusable
+   private void setUnfocusable(Component c)
+   {
+      c.setFocusable(false);
+      if(c instanceof Container)
+      {
+         Container c2 = (Container)c;
+         for(Component subComponent : c2.getComponents())
+            setUnfocusable(subComponent);
+      }
+   }
+   
+   // listeners
+   public void mouseClicked(MouseEvent me){mouseClickedInDrawingPanel(me);}
+   public void mousePressed(MouseEvent me){}
+   public void mouseReleased(MouseEvent me){}
+   public void mouseEntered(MouseEvent me){}
+   public void mouseExited(MouseEvent me){}
+   
+   public void keyPressed(KeyEvent ke)
+   {
+      switch(ke.getKeyCode())
+      {
+         case KeyEvent.VK_UP:    prevRoomB.doClick();
+                                 break;
+         case KeyEvent.VK_DOWN:  nextRoomB.doClick();
+                                 break;
+         case KeyEvent.VK_LEFT:  prevConnTypeB.doClick();
+                                 break;
+         case KeyEvent.VK_RIGHT: nextConnTypeB.doClick();
+                                 break;
+      }
+   }
+   
+   public void keyReleased(KeyEvent ke){}
+   public void keyTyped(KeyEvent ke){}
+   
+   public void actionPerformed(ActionEvent ae)
+   {
+      for(int i = 0; i < RoomTemplateCellMapping.values().length; i++)
+      {
+         if(ae.getSource() == charButtonArr[i])
+         {
+            selectedChar = charArr[i];
+            break;
+         }
+      }
+      for(int i = 0; i < ConnectionType.values().length; i++)
+      {
+         if(ae.getSource() == connectionButtonArr[i])
+         {
+            setWalls(ConnectionType.values()[i]);
+            break;
+         }
+      }
+      if(ae.getSource() == fillAllB)
+      {
+         if(getConfirmation("Overwrite ALL tiles in this room with '" + selectedChar + "'?", "Fill All"))
+            fillAll();
+      }
+      if(ae.getSource() == newRoomB)
+      {
+         RoomTemplate newRT = new RoomTemplate(roomSize, roomSize);
+         deck.add(newRT);
+         setCurrentRoom(newRT);
+      }
+      if(ae.getSource() == dupeRoomB)
+      {
+         RoomTemplate newRT = new RoomTemplate(roomTemplate);
+         deck.add(newRT);
+         setCurrentRoom(newRT);
+      }
+      if(ae.getSource() == deleteRoomB)
+      {
+         if(getConfirmation("Delete this room?", "Delete Room"))
+            deleteRoom(roomTemplate);
+      }
+      if(ae.getSource() == saveB){save();}
+      if(ae.getSource() == loadB){load();}
+      if(ae.getSource() == newDeckB)
+      {
+         if(getConfirmation("This will discard any unsaved progress.", "Create New Deck"))
+            newDeck();
+      }
+      
+      if(ae.getSource() == nextConnTypeB)
+      {
+         int newRoom = curConnectionIndex;
+         int newType = curConnectionType;
+         do
+         {
+            newType++;
+            if(newType >= ConnectionType.values().length)
+               newType = 0;
+         }
+         while(deck.size(newType) == 0);
+         if(newRoom >= deck.size(newType))
+            newRoom = deck.size(newType) - 1;
+         setCurrentRoom(deck.get(newType, newRoom));
+      }
+      if(ae.getSource() == prevConnTypeB)
+      {
+         int newRoom = curConnectionIndex;
+         int newType = curConnectionType;
+         do
+         {
+            newType--;
+            if(newType < 0)
+               newType = ConnectionType.values().length - 1;
+         }
+         while(deck.size(newType) == 0);
+         if(newRoom >= deck.size(newType))
+            newRoom = deck.size(newType) - 1;
+         setCurrentRoom(deck.get(newType, newRoom));
+      }
+      if(ae.getSource() == nextRoomB)
+      {
+         int newRoom = curConnectionIndex + 1;
+         if(newRoom >= deck.size(curConnectionType))
+            newRoom = 0;
+         setCurrentRoom(deck.get(curConnectionType, newRoom));
+      }
+      if(ae.getSource() == prevRoomB)
+      {
+         int newRoom = curConnectionIndex - 1;
+         if(newRoom < 0)
+            newRoom = deck.size(curConnectionType) - 1;
+         setCurrentRoom(deck.get(curConnectionType, newRoom));
+      }
+      
+      updateCurrentLabels();
    }
    
    public static final void main(String[] args)
