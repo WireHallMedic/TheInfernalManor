@@ -12,7 +12,7 @@ import WidlerSuite.*;
 import StrictCurses.*;
 
 
-public class ToolMapTester extends JFrame implements ActionListener
+public class ToolMapTester extends JFrame implements ActionListener, GUIConstants
 {
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
@@ -120,8 +120,15 @@ public class ToolMapTester extends JFrame implements ActionListener
          for(int x = 0; x < mapWidth; x++)
          for(int y = 0; y < mapHeight; y++)
          {
-            MapCell cell = zoneMap.getTile(x, y);
-            mapPanel.setTile(x, y, cell.getIconIndex(), cell.getFGColor(), cell.getBGColor());
+            if(zoneMap.isInBounds(x, y))
+            {
+               MapCell cell = zoneMap.getTile(x, y);
+               mapPanel.setTile(x, y, cell.getIconIndex(), cell.getFGColor(), cell.getBGColor());
+            }
+            else
+            {
+               mapPanel.setTile(x, y, ' ', WHITE, BLACK);
+            }
          }
       }
       mapPanel.repaint();
