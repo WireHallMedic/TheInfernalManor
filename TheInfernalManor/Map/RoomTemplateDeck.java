@@ -21,6 +21,11 @@ public class RoomTemplateDeck implements MapConstants
       deserialize(strList);
    }
    
+   public int getRoomSize()
+   {
+      return getFirstRoom().getWidth();
+   }
+   
    public int length()
    {
       return ConnectionType.values().length;

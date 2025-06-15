@@ -452,7 +452,13 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    				saveString.add(inFile.nextLine().replace("\n", ""));
    			inFile.close();
             deck = new RoomTemplateDeck(saveString);
+            roomSize = deck.getRoomSize();
+            mapPanel.remove(drawingPanel);
+            drawingPanel = new SCPanel(palette, roomSize, roomSize);
+            mapPanel.add(drawingPanel);
             setCurrentRoom(deck.getFirstRoom());
+            setDrawingPanel();
+            updateCurrentLabels();
    		}
    		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
       }
@@ -495,12 +501,30 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    public void newDeck()
    {
+      String sizeStr = JOptionPane.showInputDialog(this, "Enter room size: ", "" + roomSize);
+      try
+      {
+         int newSize = Integer.parseInt(sizeStr);
+         if(newSize < 3)
+            throw new Exception();
+         roomSize = newSize;
+      }
+      catch(Exception ex)
+      {
+         JOptionPane.showMessageDialog(this,"Room size must be an integer of 3 or greater.",  "New Deck Aborted", JOptionPane.ERROR_MESSAGE);
+         return;
+      }
       RoomTemplateDeck newDeck = new RoomTemplateDeck();
       RoomTemplate newRoomTemplate = new RoomTemplate(roomSize, roomSize);
       newDeck.add(newRoomTemplate);
       deck = newDeck;
+      mapPanel.remove(drawingPanel);
+      drawingPanel = new SCPanel(palette, roomSize, roomSize);
+      mapPanel.add(drawingPanel);
       setCurrentRoom(newRoomTemplate);
       fileName = "";
+      setDrawingPanel();
+      updateCurrentLabels();
    }
    
    public boolean getConfirmation(String message, String label)
