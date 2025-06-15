@@ -10,6 +10,7 @@ public class MapGrid implements MapConstants
 	private RoomTemplateDeck deck;
 	private double connectivity;
    private GridNode oobNode;
+   private RoomTemplate[][] templateMap;
 
 
 	public int getWidth(){return width;}
@@ -17,11 +18,9 @@ public class MapGrid implements MapConstants
 	public GridNode[][] getNodeMap(){return nodeMap;}
 	public RoomTemplateDeck getDeck(){return deck;}
 	public double getConnectivity(){return connectivity;}
+   public RoomTemplate[][] getTemplateMap(){return templateMap;}
 
 
-	public void setWidth(int w){width = w;}
-	public void setHeight(int h){height = h;}
-	public void setNodeMap(GridNode[][] n){nodeMap = n;}
 	public void setDeck(RoomTemplateDeck d){deck = d;}
 	public void setConnectivity(double c){connectivity = c;}
 
@@ -38,7 +37,9 @@ public class MapGrid implements MapConstants
       oobNode.east = ConnectionStatus.MUST_NOT;
       oobNode.west = ConnectionStatus.MUST_NOT;
       generateBlankNodeMap();
+      templateMap = new RoomTemplate[width][height];
       populateNodeMap();
+      populateTemplateMap();
    }
    
    private void generateBlankNodeMap()
@@ -62,6 +63,20 @@ public class MapGrid implements MapConstants
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
          fillNode(x, y);
+   }
+   
+   public void populateTemplateMap()
+   {
+      GridNode curNode;
+      RoomTemplate curRT;
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         curNode = getNode(x, y);
+         curRT = deck.getRandom(curNode.getConnectionType());
+         rotateToMatch(curNode, curRT);
+         templateMap[x][y] = curRT;
+      }
    }
    
    private void fillNode(int x, int y)
@@ -150,7 +165,8 @@ public class MapGrid implements MapConstants
    
    private void rotateToMatch(GridNode node, RoomTemplate template)
    {
-      
+      while(!node.matches(template))
+         template.rotate();
    }
    
    private class GridNode
@@ -203,7 +219,15 @@ public class MapGrid implements MapConstants
       
       public boolean matches(RoomTemplate rt)
       {
+         boolean n = north == ConnectionStatus.MUST;
+         boolean s = south == ConnectionStatus.MUST;
+         boolean e = east == ConnectionStatus.MUST;
+         boolean w = west == ConnectionStatus.MUST;
          
+         return n == rt.connectsNorth() &&
+                s == rt.connectsSouth() &&
+                e == rt.connectsEast() &&
+                w == rt.connectsWest();
       }
    }
 }
