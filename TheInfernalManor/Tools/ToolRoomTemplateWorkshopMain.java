@@ -433,7 +433,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
 		
 			for(String str : saveStringList)
 			{
-				outFile.print(str);
+				outFile.println(str);
 			}
 			
 			outFile.close();

@@ -169,8 +169,8 @@ public class RoomTemplateDeck implements MapConstants
    public Vector<String> serialize()
    {
       Vector<String> outList = new Vector<String>();
-      outList.add("@HEADER\n");
-      outList.add("@BODY\n");
+      outList.add("@HEADER");
+      outList.add("@BODY");
       
       for(int i = 0; i < ConnectionType.values().length; i++)
       {
@@ -178,9 +178,9 @@ public class RoomTemplateDeck implements MapConstants
          {
             Vector<String> rtStrList = get(i, j).serialize();
             for(String str : rtStrList)
-               outList.add(str + "\n");
+               outList.add(str);
+            outList.add("");
          }
-         outList.add("\n");
       }
       outList.add("@END");
       return outList;

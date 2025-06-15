@@ -162,6 +162,7 @@ public class ToolMapTester extends JFrame implements ActionListener
       catch(Exception ex)
       {
          System.out.println("Exception while generating map grid: " + ex.toString());
+         ex.printStackTrace(System.out);
          mapGrid = null;
       }
    }
