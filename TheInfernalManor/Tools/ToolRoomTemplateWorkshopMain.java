@@ -51,6 +51,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton prevRoomB;
    private int roomSize;
    private String fileName;
+   private javax.swing.Timer timer;
    
    public ToolRoomTemplateWorkshopMain()
    {
@@ -87,20 +88,18 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       controlPanel.add(controlSubpanel3);
       
       palette = new SCTilePalette("WidlerTiles_16x16.png", 16, 16);
-      drawingPanel = new SCPanel(palette, roomSize, roomSize);
-      drawingPanel.addMouseListener(this);
-      mapPanel.add(drawingPanel);
+      resetDrawingPanel();
       
       setDrawingButtons();
       setConnectionButtons();
       setControlButtons();
-      setDrawingPanel();
-      updateCurrentLabels();
       setUnfocusable(controlPanel);
       setUnfocusable(mapPanel);
       this.addKeyListener(this);
       setVisible(true);
       
+      timer = new javax.swing.Timer(1000 / 25, this);
+      timer.start();
    }
    
    private void setControlButtons()
@@ -292,7 +291,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       {
          roomTemplate.set(x, y, selectedChar, iR, dR);
       }
-      setDrawingPanel();
    }
    
    private void mouseClickedInDrawingPanel(MouseEvent me)
@@ -320,8 +318,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
                setB.doClick();
          }
       }
-      setDrawingPanel();
-      updateCurrentLabels();
    }
    
    private void pressCharButton(char c)
@@ -368,7 +364,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
                            fillWestWall('.');
                            break;
       }
-      setDrawingPanel();
    }
    
    private void fillWestWall(char c)
@@ -403,6 +398,18 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             output += ", ";
       }
       typeCountL.setText("Type Count: " + output);
+   }
+   
+   private void resetDrawingPanel()
+   {
+      if(drawingPanel != null)
+      {
+         mapPanel.remove(drawingPanel);
+         drawingPanel.removeMouseListener(this);
+      }
+      drawingPanel = new SCPanel(palette, roomSize, roomSize);
+      mapPanel.add(drawingPanel);
+      drawingPanel.addMouseListener(this);
    }
    
    private void save()
@@ -453,12 +460,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    			inFile.close();
             deck = new RoomTemplateDeck(saveString);
             roomSize = deck.getRoomSize();
-            mapPanel.remove(drawingPanel);
-            drawingPanel = new SCPanel(palette, roomSize, roomSize);
-            mapPanel.add(drawingPanel);
+            resetDrawingPanel();
             setCurrentRoom(deck.getFirstRoom());
-            setDrawingPanel();
-            updateCurrentLabels();
    		}
    		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
       }
@@ -495,8 +498,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    public void setCurrentRoom(RoomTemplate rt)
    {
       roomTemplate = rt;
-      setDrawingPanel();
-      updateCurrentLabels();
    }
    
    public void newDeck()
@@ -518,13 +519,9 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       RoomTemplate newRoomTemplate = new RoomTemplate(roomSize, roomSize);
       newDeck.add(newRoomTemplate);
       deck = newDeck;
-      mapPanel.remove(drawingPanel);
-      drawingPanel = new SCPanel(palette, roomSize, roomSize);
-      mapPanel.add(drawingPanel);
       setCurrentRoom(newRoomTemplate);
+      resetDrawingPanel();
       fileName = "";
-      setDrawingPanel();
-      updateCurrentLabels();
    }
    
    public boolean getConfirmation(String message, String label)
@@ -572,6 +569,17 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    public void actionPerformed(ActionEvent ae)
    {
+      if(ae.getSource() == timer)
+      {
+         if(drawingPanel != null)
+         {
+            updateCurrentLabels();
+            setDrawingPanel();
+            this.repaint();
+            return;
+         }
+      }
+      
       for(int i = 0; i < RoomTemplateCellMapping.values().length; i++)
       {
          if(ae.getSource() == charButtonArr[i])
@@ -662,8 +670,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             newRoom = deck.size(curConnectionType) - 1;
          setCurrentRoom(deck.get(curConnectionType, newRoom));
       }
-      
-      updateCurrentLabels();
    }
    
    public static final void main(String[] args)
