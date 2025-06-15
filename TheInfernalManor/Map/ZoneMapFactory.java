@@ -19,7 +19,7 @@ public class ZoneMapFactory implements MapConstants
       for(int x = 0; x < roomsWide; x++)
       for(int y = 0; y < roomsTall; y++)
       {
-         placeTemplate(zm, templateGrid[x][y], x * (widthOfRoom - 1), y * (heightOfRoom - 1));
+         placeTemplate(zm, templateGrid[x][y].resolveRandomTiles(), x * (widthOfRoom - 1), y * (heightOfRoom - 1));
       }
       zm.updateAllMaps();
       return zm;

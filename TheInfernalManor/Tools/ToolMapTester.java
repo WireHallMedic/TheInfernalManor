@@ -22,9 +22,11 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JButton loadDeckB;
    private JButton rollGridB;
    private JButton rollTemplateB;
+   private JButton rollRandomB;
    private JTextField roomsWideF;
    private JTextField roomsTallF;
    private JTextField connectivityF;
+   private JTextField mRRF;
    private ZoneMap zoneMap;
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
@@ -54,6 +56,10 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       rollTemplateB.addActionListener(this);
       controlPanel.add(rollTemplateB);
       
+      rollRandomB = new JButton("Reroll Random Tiles");
+      rollRandomB.addActionListener(this);
+      controlPanel.add(rollRandomB);
+      
       JPanel anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Rooms Wide"));
@@ -73,6 +79,13 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       anonPanel.add(new JLabel("Connectivity"));
       connectivityF = new JTextField(".5");
       anonPanel.add(connectivityF);
+      controlPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Min Room Ratio"));
+      mRRF = new JTextField(".1");
+      anonPanel.add(mRRF);
       controlPanel.add(anonPanel);
       
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
@@ -101,6 +114,11 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          generateZoneMap();
       }
       if(ae.getSource() == rollTemplateB)
+      {
+         mapGrid.populateTemplateMap();
+         generateZoneMap();
+      }
+      if(ae.getSource() == rollRandomB)
       {
          generateZoneMap();
       }
@@ -164,7 +182,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          int rWide = Integer.parseInt(roomsWideF.getText());
          int rTall = Integer.parseInt(roomsTallF.getText());
          double conn = Double.parseDouble(connectivityF.getText());
-         mapGrid = new MapGrid(rWide, rTall, conn, deck);
+         double ratio = Double.parseDouble(mRRF.getText());
+         mapGrid = new MapGrid(rWide, rTall, conn, deck, ratio);
       }
       catch(Exception ex)
       {

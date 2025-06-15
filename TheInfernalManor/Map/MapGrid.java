@@ -11,6 +11,7 @@ public class MapGrid implements MapConstants
 	private double connectivity;
    private GridNode oobNode;
    private RoomTemplate[][] templateMap;
+   private double minRatio;
 
 
 	public int getWidth(){return width;}
@@ -19,27 +20,49 @@ public class MapGrid implements MapConstants
 	public RoomTemplateDeck getDeck(){return deck;}
 	public double getConnectivity(){return connectivity;}
    public RoomTemplate[][] getTemplateMap(){return templateMap;}
+   public double getMinRatio(){return minRatio;}
 
 
 	public void setDeck(RoomTemplateDeck d){deck = d;}
 	public void setConnectivity(double c){connectivity = c;}
 
 
-   public MapGrid(int w, int h, double c, RoomTemplateDeck d)
+   public MapGrid(int w, int h, double c, RoomTemplateDeck d, double mr)
    {
       width = w;
       height = h;
       connectivity = c;
       deck = d;
+      minRatio = Math.min(1.0, mr);
       oobNode = new GridNode();
       oobNode.north = ConnectionStatus.MUST_NOT;
       oobNode.south = ConnectionStatus.MUST_NOT;
       oobNode.east = ConnectionStatus.MUST_NOT;
       oobNode.west = ConnectionStatus.MUST_NOT;
-      generateBlankNodeMap();
-      templateMap = new RoomTemplate[width][height];
-      populateNodeMap();
-      populateTemplateMap();
+      do
+      {
+         generateBlankNodeMap();
+         templateMap = new RoomTemplate[width][height];
+         populateNodeMap();
+         populateTemplateMap();
+      }
+      while(getRoomRatio() < minRatio);
+   }
+   
+   public MapGrid(int w, int h, double c, RoomTemplateDeck d)
+   {
+      this(w, h, c, d, 0.0);
+   }
+   
+   public double getRoomRatio()
+   {
+      int max = width * height;
+      int actual = 0;
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+         if(nodeMap[x][y].hasConnections())
+            actual++;
+      return (double)actual / (double)max;
    }
    
    private void generateBlankNodeMap()
@@ -60,9 +83,25 @@ public class MapGrid implements MapConstants
    
    public void populateNodeMap()
    {
+      fillNode(width / 2, height / 2);
+      fillRemainingNodes();
+   }
+   
+   private void fillRemainingNodes()
+   {
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
-         fillNode(x, y);
+      {
+         GridNode curNode = getNode(x, y);
+         if(curNode.north == ConnectionStatus.UNDEFINED)
+            curNode.north = ConnectionStatus.MUST_NOT;
+         if(curNode.south == ConnectionStatus.UNDEFINED)
+            curNode.south = ConnectionStatus.MUST_NOT;
+         if(curNode.east == ConnectionStatus.UNDEFINED)
+            curNode.east = ConnectionStatus.MUST_NOT;
+         if(curNode.west == ConnectionStatus.UNDEFINED)
+            curNode.west = ConnectionStatus.MUST_NOT;
+      }
    }
    
    public void populateTemplateMap()
@@ -74,16 +113,22 @@ public class MapGrid implements MapConstants
       {
          curNode = getNode(x, y);
          curRT = deck.getRandom(curNode.getConnectionType());
+         curRT.resolveRandomTiles();
          rotateToMatch(curNode, curRT);
          templateMap[x][y] = curRT;
       }
    }
+   
    
    private void fillNode(int x, int y)
    {
       GridNode thisNode = getNode(x, y);
       GridNode thatNode = null;
       ConnectionStatus connection = null;
+      boolean recurseNorth = false;
+      boolean recurseSouth = false;
+      boolean recurseEast = false;
+      boolean recurseWest = false;
       // north
       thatNode = getNode(x, y - 1);
       if(thisNode.north == ConnectionStatus.UNDEFINED)
@@ -95,7 +140,10 @@ public class MapGrid implements MapConstants
          else
          {
             if(roll())
+            {
                connection = ConnectionStatus.MUST;
+               recurseNorth = true;
+            }
             else
                connection = ConnectionStatus.MUST_NOT;
             thisNode.north = connection;
@@ -113,7 +161,10 @@ public class MapGrid implements MapConstants
          else
          {
             if(roll())
+            {
                connection = ConnectionStatus.MUST;
+               recurseSouth = true;
+            }
             else
                connection = ConnectionStatus.MUST_NOT;
             thisNode.south = connection;
@@ -131,7 +182,10 @@ public class MapGrid implements MapConstants
          else
          {
             if(roll())
+            {
                connection = ConnectionStatus.MUST;
+               recurseWest = true;
+            }
             else
                connection = ConnectionStatus.MUST_NOT;
             thisNode.west = connection;
@@ -149,13 +203,20 @@ public class MapGrid implements MapConstants
          else
          {
             if(roll())
+            {
                connection = ConnectionStatus.MUST;
+               recurseEast = true;
+            }
             else
                connection = ConnectionStatus.MUST_NOT;
             thisNode.east = connection;
             thatNode.west = connection;
          }
       }
+      if(recurseNorth) fillNode(x, y - 1);
+      if(recurseSouth) fillNode(x, y + 1);
+      if(recurseEast) fillNode(x + 1, y);
+      if(recurseWest) fillNode(x - 1, y);
    }
    
    private boolean roll()
@@ -175,6 +236,14 @@ public class MapGrid implements MapConstants
       public ConnectionStatus south = ConnectionStatus.UNDEFINED;
       public ConnectionStatus east = ConnectionStatus.UNDEFINED;
       public ConnectionStatus west = ConnectionStatus.UNDEFINED;
+      
+      public boolean hasConnections()
+      {
+         return north == ConnectionStatus.MUST ||
+                south == ConnectionStatus.MUST ||
+                east == ConnectionStatus.MUST ||
+                west == ConnectionStatus.MUST;
+      }
       
       public ConnectionType getConnectionType()
       {

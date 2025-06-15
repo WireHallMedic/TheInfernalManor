@@ -100,6 +100,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       
       timer = new javax.swing.Timer(1000 / 25, this);
       timer.start();
+      
+      connectionButtonArr[0].doClick();
    }
    
    private void setControlButtons()

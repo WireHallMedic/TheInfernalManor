@@ -1,6 +1,7 @@
 package TheInfernalManor.Map;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Engine.*;
 import WidlerSuite.SpiralSearch;
 import java.util.*;
 
@@ -327,6 +328,30 @@ public class RoomTemplate implements MapConstants
       mappingTable = newMappingTable;
       independentlyRandomTable = newIRTable;
       dependentlyRandomTable = newDRTable;
+   }
+   
+   // returns a copy of the template, resolving randomness
+   public RoomTemplate resolveRandomTiles()
+   {
+      RoomTemplate newRT = new RoomTemplate(this);
+      boolean dependentRoll = RNG.nextBoolean();
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         if(independentlyRandomTable[x][y])
+         {
+            newRT.independentlyRandomTable[x][y] = false;
+            if(RNG.nextBoolean())
+               newRT.mappingTable[x][y] = RoomTemplateCellMapping.CLEAR;
+         }
+         if(dependentlyRandomTable[x][y])
+         {
+            newRT.dependentlyRandomTable[x][y] = false;
+            if(dependentRoll)
+               newRT.mappingTable[x][y] = RoomTemplateCellMapping.CLEAR;
+         }
+      }
+      return newRT;
    }
    
    // debug method
