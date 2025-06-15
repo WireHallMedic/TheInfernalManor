@@ -191,26 +191,53 @@ public class RoomTemplate implements MapConstants
       }
    }
    
-   public void setConnectionType()
+   public boolean connectsNorth()
    {
-      boolean north = false;
-      boolean east = false;
-      boolean south = false;
-      boolean west = false;
       for(int x = 1; x < width - 1; x++)
       {
          if(mappingTable[x][0].mapCellBase.pathingPassable)
-            north = true;
-         if(mappingTable[x][height - 1].mapCellBase.pathingPassable)
-            south = true;
+            return true;
       }
+      return false;
+   }
+   
+   public boolean connectsSouth()
+   {
+      for(int x = 1; x < width - 1; x++)
+      {
+         if(mappingTable[x][height - 1].mapCellBase.pathingPassable)
+            return true;
+      }
+      return false;
+   }
+   
+   public boolean connectsEast()
+   {
+      for(int y = 1; y < height - 1; y++)
+      {
+         if(mappingTable[width - 1][y].mapCellBase.pathingPassable)
+            return true;
+      }
+      return false;
+   }
+   
+   public boolean connectsWest()
+   {
       for(int y = 1; y < height - 1; y++)
       {
          if(mappingTable[0][y].mapCellBase.pathingPassable)
-            west = true;
-         if(mappingTable[width - 1][y].mapCellBase.pathingPassable)
-            east = true;
+            return true;
       }
+      return false;
+   }
+   
+   public void setConnectionType()
+   {
+      boolean north = connectsNorth();
+      boolean east = connectsEast();
+      boolean south = connectsSouth();
+      boolean west = connectsWest();
+      
       int exits = 0;
       if(north) exits++;
       if(south) exits++;

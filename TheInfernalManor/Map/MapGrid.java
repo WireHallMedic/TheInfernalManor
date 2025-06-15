@@ -148,6 +148,11 @@ public class MapGrid implements MapConstants
       return RNG.nextDouble() <= connectivity;
    }
    
+   private void rotateToMatch(GridNode node, RoomTemplate template)
+   {
+      
+   }
+   
    private class GridNode
    {
       public ConnectionStatus north = ConnectionStatus.UNDEFINED;
@@ -194,6 +199,11 @@ public class MapGrid implements MapConstants
                 south != ConnectionStatus.UNDEFINED &&
                 east != ConnectionStatus.UNDEFINED &&
                 west != ConnectionStatus.UNDEFINED;
+      }
+      
+      public boolean matches(RoomTemplate rt)
+      {
+         
       }
    }
 }

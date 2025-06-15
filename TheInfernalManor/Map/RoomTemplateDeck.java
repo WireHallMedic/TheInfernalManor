@@ -1,6 +1,7 @@
 package TheInfernalManor.Map;
 
 import java.util.*;
+import TheInfernalManor.Engine.*;
 
 public class RoomTemplateDeck implements MapConstants
 {
@@ -19,6 +20,15 @@ public class RoomTemplateDeck implements MapConstants
    {
       this();
       deserialize(strList);
+   }
+   
+   // returns true if there is at least one template of each type
+   public boolean isComplete()
+   {
+      for(int i = 0; i < length(); i++)
+         if(size(i) == 0)
+            return false;
+      return true;
    }
    
    public int getRoomSize()
@@ -57,6 +67,22 @@ public class RoomTemplateDeck implements MapConstants
    public void remove(RoomTemplate rt)
    {
       typeList[rt.getConnectionType().ordinal()].list.remove(rt);
+   }
+   
+   public RoomTemplate getRandom(ConnectionType ct)
+   {
+      return getRandom(ct.ordinal());
+   }
+   
+   public RoomTemplate getRandom(int ct)
+   {
+      int roll = RNG.nextInt(size(ct));
+      RoomTemplate rt = new RoomTemplate(get(ct, roll));
+      if(RNG.nextBoolean())
+         rt.mirrorX();
+      if(RNG.nextBoolean())
+         rt.mirrorY();
+      return rt;
    }
    
    public RoomTemplate get(ConnectionType ct, int i)
