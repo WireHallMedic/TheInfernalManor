@@ -277,7 +277,6 @@ public class RoomTemplate implements MapConstants
    // rotates a quarter turn clockwise
    public void rotate()
    {
-      System.out.println("w: " + width + ", h: " + height);
       RoomTemplateCellMapping[][] newMappingTable  = new RoomTemplateCellMapping[width][height];
       boolean[][] newIRTable = new boolean[width][height];
       boolean[][] newDRTable = new boolean[width][height];
