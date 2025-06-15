@@ -24,6 +24,8 @@ public class ToolMapTester extends JFrame implements ActionListener
    private JButton rollTemplateB;
    private JTextField roomsWideF;
    private JTextField roomsTallF;
+   private JTextField connectivityF;
+   private ZoneMap zoneMap;
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
    
@@ -66,29 +68,114 @@ public class ToolMapTester extends JFrame implements ActionListener
       anonPanel.add(roomsTallF);
       controlPanel.add(anonPanel);
       
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Connectivity"));
+      connectivityF = new JTextField(".5");
+      anonPanel.add(connectivityF);
+      controlPanel.add(anonPanel);
+      
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
       
       setSize(1600, 1000);
       setTitle("Map Tester");
       setDefaultCloseOperation(EXIT_ON_CLOSE);
+      
+      zoneMap = null;
+      
       setVisible(true);
+      redrawMap();
    }
    
    public void actionPerformed(ActionEvent ae)
    {
-      if(ae.getSource() == loadDeckB){}
-      if(ae.getSource() == rollGridB){}
-      if(ae.getSource() == rollTemplateB){}
+      if(ae.getSource() == loadDeckB)
+      {
+         load();
+         generateMapGrid();
+         generateZoneMap();
+      }
+      if(ae.getSource() == rollGridB)
+      {
+         generateMapGrid();
+         generateZoneMap();
+      }
+      if(ae.getSource() == rollTemplateB)
+      {
+         generateZoneMap();
+      }
       redrawMap();
    }
    
    private void redrawMap()
    {
-      for(int x = 0; x < mapWidth; x++)
-      for(int y = 0; y < mapHeight; y++)
-         mapPanel.setTileIndex(x, y, '.');
+      if(zoneMap == null)
+      {
+         for(int x = 0; x < mapWidth; x++)
+         for(int y = 0; y < mapHeight; y++)
+            mapPanel.setTileIndex(x, y, '.');
+      }
+      else
+      {
+         for(int x = 0; x < mapWidth; x++)
+         for(int y = 0; y < mapHeight; y++)
+         {
+            MapCell cell = zoneMap.getTile(x, y);
+            mapPanel.setTile(x, y, cell.getIconIndex(), cell.getFGColor(), cell.getBGColor());
+         }
+      }
       mapPanel.repaint();
    }
+   
+   private void load()
+   {
+      JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+      FileNameExtensionFilter filter = new FileNameExtensionFilter(
+         "TIM Template Deck ", "ttd");
+      chooser.setFileFilter(filter);
+      int returnVal = chooser.showOpenDialog(this);
+      if(returnVal == JFileChooser.APPROVE_OPTION) 
+      {
+         String fileName = chooser.getSelectedFile().getAbsolutePath();
+   		Vector<String> saveString = new Vector<String>();
+   		try
+   		{
+   			Scanner inFile = new Scanner(new FileReader(fileName));
+   			while(inFile.hasNext())
+   				saveString.add(inFile.nextLine().replace("\n", ""));
+   			inFile.close();
+            deck = new RoomTemplateDeck(saveString);
+   		}
+   		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
+      }
+   }
+   
+   private void generateMapGrid()
+   {
+      try
+      {
+         int rWide = Integer.parseInt(roomsWideF.getText());
+         int rTall = Integer.parseInt(roomsTallF.getText());
+         double conn = Double.parseDouble(connectivityF.getText());
+         mapGrid = new MapGrid(rWide, rTall, conn, deck);
+      }
+      catch(Exception ex)
+      {
+         System.out.println("Exception while generating map grid: " + ex.toString());
+         mapGrid = null;
+      }
+   }
+   
+   private void generateZoneMap()
+   {
+      if(mapGrid != null)
+      {
+         zoneMap = ZoneMapFactory.generate(mapGrid.getTemplateMap());
+      }
+      else
+         zoneMap = null;
+   }
+
    
    public static void main(String[] args)
    {

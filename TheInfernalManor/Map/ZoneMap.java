@@ -149,6 +149,13 @@ public class ZoneMap
       transparentMap[x][y] = getTile(x, y).isTransparent();
    }
    
+   public void updateAllMaps()
+   {
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+         updateMaps(x, y);
+   }
+   
    public MapCell getTile(int x, int y)
    {
       if(isInBounds(x, y))

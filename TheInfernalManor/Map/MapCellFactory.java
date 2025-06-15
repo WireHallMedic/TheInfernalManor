@@ -2,7 +2,7 @@ package TheInfernalManor.Map;
 
 import TheInfernalManor.GUI.*;
 
-public class MapCellFactory implements GUIConstants
+public class MapCellFactory implements GUIConstants, MapConstants
 {
    public static MapCell getDoor()
    {
@@ -33,5 +33,10 @@ public class MapCellFactory implements GUIConstants
       mc.setFGColor(fg);
       mc.setBGColor(bg);
       return mc;
+   }
+   
+   public static MapCell getMapCell(RoomTemplateCellMapping rtcm)
+   {
+      return getMapCell(rtcm.mapCellBase, WHITE, BLACK);
    }
 }

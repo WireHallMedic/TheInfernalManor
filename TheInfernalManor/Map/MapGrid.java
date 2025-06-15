@@ -54,8 +54,8 @@ public class MapGrid implements MapConstants
    {
       if(x < 0 || x >= width ||
          y < 0 || y >= height)
-         return nodeMap[x][y];
-      return oobNode;
+         return oobNode;
+      return nodeMap[x][y];
    }
    
    public void populateNodeMap()
