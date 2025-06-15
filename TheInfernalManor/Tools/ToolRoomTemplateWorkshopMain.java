@@ -519,8 +519,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       RoomTemplate newRoomTemplate = new RoomTemplate(roomSize, roomSize);
       newDeck.add(newRoomTemplate);
       deck = newDeck;
-      setCurrentRoom(newRoomTemplate);
       resetDrawingPanel();
+      setCurrentRoom(newRoomTemplate);
       fileName = "";
    }
    
