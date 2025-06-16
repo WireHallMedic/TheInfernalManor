@@ -11,7 +11,8 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Map.*;
 import StrictCurses.*;
 
-public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener, MapConstants, KeyListener
+public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListener, MouseListener, MouseMotionListener, 
+                                                                    MapConstants, KeyListener
 {
    private JPanel mapPanel;
    private JPanel controlPanel;
@@ -51,6 +52,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton prevRoomB;
    private int roomSize;
    private String fileName;
+   private boolean mouseButtonDown;
    private javax.swing.Timer timer;
    
    public ToolRoomTemplateWorkshopMain()
@@ -62,6 +64,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       selectedChar = '.';
       fileName = "";
       deck = new RoomTemplateDeck();
+      mouseButtonDown = false;
       roomSize = 21;
       roomTemplate = new RoomTemplate(roomSize, roomSize);
       deck.add(roomTemplate);
@@ -300,12 +303,6 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       int[] mouseLoc = drawingPanel.getMouseLocTile();
       if(!roomTemplate.isInBounds(mouseLoc[0], mouseLoc[1]))
          return;
-      if(me.getButton() == MouseEvent.BUTTON1)
-      {
-         boolean iR = iRB.isSelected();
-         boolean dR = dRB.isSelected();
-         roomTemplate.set(mouseLoc[0], mouseLoc[1], selectedChar, iR, dR);
-      }
       if(me.getButton() == MouseEvent.BUTTON3)
       {
          char c = roomTemplate.getChar(mouseLoc[0], mouseLoc[1]);
@@ -319,6 +316,12 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
             else
                setB.doClick();
          }
+      }
+      else
+      {
+         boolean iR = iRB.isSelected();
+         boolean dR = dRB.isSelected();
+         roomTemplate.set(mouseLoc[0], mouseLoc[1], selectedChar, iR, dR);
       }
    }
    
@@ -412,6 +415,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       drawingPanel = new SCPanel(palette, roomSize, roomSize);
       mapPanel.add(drawingPanel);
       drawingPanel.addMouseListener(this);
+      drawingPanel.addMouseMotionListener(this);
    }
    
    private void save()
@@ -550,6 +554,13 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    public void mouseReleased(MouseEvent me){}
    public void mouseEntered(MouseEvent me){}
    public void mouseExited(MouseEvent me){}
+   
+   public void mouseMoved(MouseEvent me){}
+   public void mouseDragged(MouseEvent me)
+   {
+      drawingPanel.mouseMoved(me); // because mouseDragged prevents mouseMoved, which SCPanel needs to update mouseloc
+      mouseClickedInDrawingPanel(me);
+   }
    
    public void keyPressed(KeyEvent ke)
    {

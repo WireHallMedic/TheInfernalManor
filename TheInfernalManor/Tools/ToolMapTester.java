@@ -84,7 +84,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Min Room Ratio"));
-      mRRF = new JTextField(".1");
+      mRRF = new JTextField(".75");
       anonPanel.add(mRRF);
       controlPanel.add(anonPanel);
       
