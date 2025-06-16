@@ -34,7 +34,6 @@ public class ZoneMapFactory implements MapConstants
       int totalMapWidth = (widthOfRoom + 3) * roomsWide;
       int totalMapHeight = (heightOfRoom + 3) * roomsTall;
       ZoneMap zm = new ZoneMap(totalMapWidth, totalMapHeight);
-      clear(zm);
       for(int x = 0; x < upper.getWidth(); x++)
       for(int y = 0; y < upper.getHeight(); y++)
       {

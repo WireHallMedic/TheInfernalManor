@@ -18,6 +18,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private SCPanel mapPanel;
    private JPanel controlPanel;
    private MapGrid mapGrid = null;
+   private GridOfMapGrids gridOfGrids = null;
    private RoomTemplateDeck deck = null;
    private JButton loadDeckB;
    private JComboBox<MapTypes> mapTypeDD;
@@ -31,6 +32,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private ZoneMap zoneMap;
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
+   boolean continuousGeneration = true;
    
    public ToolMapTester()
    {
@@ -110,22 +112,45 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       if(ae.getSource() == loadDeckB)
       {
          load();
-         generateMapGrid();
+         if(continuousGeneration)
+            generateMapGrid();
+         else
+            generateGridOfMapGrids();
          generateZoneMap();
       }
       if(ae.getSource() == rollGridB)
       {
-         generateMapGrid();
+         if(continuousGeneration)
+            generateMapGrid();
+         else
+            generateGridOfMapGrids();
          generateZoneMap();
       }
       if(ae.getSource() == rollTemplateB)
       {
-         mapGrid.populateTemplateMap();
+         if(continuousGeneration)
+            mapGrid.populateTemplateMap();
+         else
+            gridOfGrids.populateTemplateMaps();
          generateZoneMap();
       }
       if(ae.getSource() == rollRandomB)
       {
          generateZoneMap();
+      }
+      if(ae.getSource() == mapTypeDD)
+      {
+         switch(mapTypeDD.getSelectedItem())
+         {
+            case MapTypes.ROAD     : 
+            case MapTypes.FIELD    :
+            case MapTypes.DUNGEON  :
+            case MapTypes.CAVERN   : continuousGeneration = true; break;
+            case MapTypes.FOREST   :
+            case MapTypes.MOUNTAIN :
+            case MapTypes.CATACOMB : continuousGeneration = false; break;
+            default :
+         }
       }
       redrawMap();
    }
@@ -197,14 +222,43 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
    }
    
+   private void generateGridOfMapGrids()
+   {
+      try
+      {
+         int rWide = Integer.parseInt(roomsWideF.getText());
+         int rTall = Integer.parseInt(roomsTallF.getText());
+         double conn = Double.parseDouble(connectivityF.getText());
+         double ratio = Double.parseDouble(mRRF.getText());
+         gridOfGrids = new GridOfMapGrids(rWide, rTall, conn, deck);
+      }
+      catch(Exception ex)
+      {
+         System.out.println("Exception while generating grid of map grids: " + ex.toString());
+         mapGrid = null;
+      }
+   }
+   
    private void generateZoneMap()
    {
-      if(mapGrid != null)
+      if(continuousGeneration)
       {
-         zoneMap = ZoneMapFactory.generate(mapGrid.getTemplateMap());
+         if(mapGrid != null)
+         {
+            zoneMap = ZoneMapFactory.generate(mapGrid.getTemplateMap());
+         }
+         else
+            zoneMap = null;
       }
       else
-         zoneMap = null;
+      {
+         if(gridOfGrids != null)
+         {
+            zoneMap = ZoneMapFactory.generate(gridOfGrids);
+         }
+         else
+            zoneMap = null;
+      }
    }
 
    

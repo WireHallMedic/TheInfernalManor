@@ -67,6 +67,15 @@ public class GridOfMapGrids implements MapConstants
       }
    }
    
+   public void populateTemplateMaps()
+   {
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         lowerGridArr[x][y].populateTemplateMap();
+      }
+   }
+   
    public MapGrid getGrid(int x, int y)
    {
       return lowerGridArr[x][y];
