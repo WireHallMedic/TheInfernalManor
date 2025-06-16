@@ -20,4 +20,27 @@ public interface MapConstants
          name = n;
       }
    };
+   public enum MapTypes
+   {
+      ROAD     ("Road"), 
+      FOREST   ("Forest"),
+      FIELD    ("Field"), 
+      MOUNTAIN ("Mountain"),
+      DUNGEON  ("Dungeon"),
+      CAVERN   ("Cavern"),
+      CATACOMB ("Catacomb");
+      
+      public String name;
+      
+      private MapTypes(String n)
+      {
+         name = n;
+      }
+      
+      @Override
+      public String toString()
+      {
+         return name;
+      }
+   };
 }

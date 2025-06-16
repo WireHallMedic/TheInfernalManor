@@ -12,7 +12,7 @@ import WidlerSuite.*;
 import StrictCurses.*;
 
 
-public class ToolMapTester extends JFrame implements ActionListener, GUIConstants
+public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants
 {
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
@@ -20,6 +20,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private MapGrid mapGrid = null;
    private RoomTemplateDeck deck = null;
    private JButton loadDeckB;
+   private JComboBox<MapTypes> mapTypeDD;
    private JButton rollGridB;
    private JButton rollTemplateB;
    private JButton rollRandomB;
@@ -47,6 +48,10 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       loadDeckB = new JButton("Load Deck");
       loadDeckB.addActionListener(this);
       controlPanel.add(loadDeckB);
+      
+      mapTypeDD = new JComboBox<MapTypes>(MapTypes.values());
+      mapTypeDD.addActionListener(this);
+      controlPanel.add(mapTypeDD);
       
       rollGridB = new JButton("Reroll Grid");
       rollGridB.addActionListener(this);
