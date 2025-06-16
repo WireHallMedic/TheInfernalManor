@@ -230,7 +230,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          int rTall = Integer.parseInt(roomsTallF.getText());
          double conn = Double.parseDouble(connectivityF.getText());
          double ratio = Double.parseDouble(mRRF.getText());
-         gridOfGrids = new GridOfMapGrids(rWide, rTall, conn, deck);
+         gridOfGrids = new GridOfMapGrids(rWide, rTall, conn, deck, ratio);
       }
       catch(Exception ex)
       {

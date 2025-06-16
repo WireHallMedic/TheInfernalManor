@@ -34,11 +34,7 @@ public class MapGrid implements MapConstants
       connectivity = c;
       deck = d;
       minRatio = Math.min(1.0, mr);
-      oobNode = new GridNode();
-      oobNode.north = ConnectionStatus.MUST_NOT;
-      oobNode.south = ConnectionStatus.MUST_NOT;
-      oobNode.east = ConnectionStatus.MUST_NOT;
-      oobNode.west = ConnectionStatus.MUST_NOT;
+      oobNode = getOOBNode();
       do
       {
          generateBlankNodeMap();
@@ -47,6 +43,16 @@ public class MapGrid implements MapConstants
          populateTemplateMap();
       }
       while(getRoomRatio() < minRatio);
+   }
+   
+   private GridNode getOOBNode()
+   {
+      GridNode newNode = new GridNode();
+      newNode.north = ConnectionStatus.MUST_NOT;
+      newNode.south = ConnectionStatus.MUST_NOT;
+      newNode.east = ConnectionStatus.MUST_NOT;
+      newNode.west = ConnectionStatus.MUST_NOT;
+      return newNode;
    }
    
    public void closeAll()
@@ -227,15 +233,15 @@ public class MapGrid implements MapConstants
       if(recurseWest) fillNode(x - 1, y);
    }
    
-   private boolean roll()
-   {
-      return RNG.nextDouble() <= connectivity;
-   }
-   
    private void rotateToMatch(GridNode node, RoomTemplate template)
    {
       while(!node.matches(template))
          template.rotate();
+   }
+   
+   private boolean roll()
+   {
+      return RNG.nextDouble() <= connectivity;
    }
    
    private class GridNode
@@ -244,6 +250,15 @@ public class MapGrid implements MapConstants
       public ConnectionStatus south = ConnectionStatus.UNDEFINED;
       public ConnectionStatus east = ConnectionStatus.UNDEFINED;
       public ConnectionStatus west = ConnectionStatus.UNDEFINED;
+      
+      public GridNode(){}
+      public GridNode(ConnectionStatus n, ConnectionStatus s, ConnectionStatus e, ConnectionStatus w)
+      {
+         north = n;
+         south = s;
+         east = e;
+         west = w;
+      }
       
       public boolean hasConnections()
       {

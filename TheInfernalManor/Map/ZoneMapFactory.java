@@ -4,7 +4,7 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
 
-public class ZoneMapFactory implements MapConstants
+public class ZoneMapFactory implements MapConstants, GUIConstants
 {
    public static ZoneMap generate(RoomTemplate[][] templateGrid)
    {
@@ -29,30 +29,48 @@ public class ZoneMapFactory implements MapConstants
    {
       int roomsWide = upper.getWidth() * upper.getLowerWidth();
       int roomsTall = upper.getHeight() * upper.getLowerHeight();
-      int widthOfRoom = upper.getGrid(0, 0).getTemplateMap()[0][0].getWidth();
-      int heightOfRoom = upper.getGrid(0, 0).getTemplateMap()[0][0].getHeight();
-      int totalMapWidth = (widthOfRoom + 3) * roomsWide;
-      int totalMapHeight = (heightOfRoom + 3) * roomsTall;
+      int widthOfRoom = upper.getLowerGrid(0, 0).getTemplateMap()[0][0].getWidth();
+      int heightOfRoom = upper.getLowerGrid(0, 0).getTemplateMap()[0][0].getHeight();
+      int islandWidth = (widthOfRoom * upper.getLowerWidth()) + 3;
+      int islandHeight = (heightOfRoom * upper.getLowerHeight()) + 3;
+      int totalMapWidth = islandWidth * upper.getWidth();
+      int totalMapHeight = islandHeight * upper.getHeight();
       ZoneMap zm = new ZoneMap(totalMapWidth, totalMapHeight);
+      clear(zm);
       for(int x = 0; x < upper.getWidth(); x++)
       for(int y = 0; y < upper.getHeight(); y++)
       {
+         ZoneMap submap = new ZoneMap(islandWidth, islandHeight);
          for(int x2 = 0; x2 < upper.getLowerWidth(); x2++)
          for(int y2 = 0; y2 < upper.getLowerHeight(); y2++)
          {
+            RoomTemplate rt = upper.getLowerGrid(x, y).getTemplateMap()[x2][y2].resolveRandomTiles();
+            int xOrigin = (widthOfRoom - 1) * x2;
+            int yOrigin = (heightOfRoom - 1) * y2;
+            placeTemplate(submap, rt, xOrigin, yOrigin);
+         
+         ////////////////////////
+         /*
             RoomTemplate rt = upper.getGrid(x, y).getTemplateMap()[x2][y2].resolveRandomTiles();
-            int xOrigin = x * ((upper.getWidth() * upper.getLowerWidth()) + 3);
-            xOrigin += upper.getLowerWidth() * x2;
-            int yOrigin = y * ((upper.getWidth() * upper.getLowerWidth()) + 3);
-            yOrigin += upper.getLowerWidth() * y2;
+            int xOrigin = x * islandWidth;
+            xOrigin += (widthOfRoom - 1) * x2;
+            int yOrigin = y * islandHeight;
+            yOrigin += (heightOfRoom - 1) * y2;
+            //placeTemplate(zm, rt, xOrigin - upper.getGrid(x, y).getLeadingX(RoomTemplateCellMapping.WALL), yOrigin);
             placeTemplate(zm, rt, xOrigin, yOrigin);
+         */
          }
+         submap = getTrimmed(submap);
+         if(submap != null)
+            overlay(submap, zm, (x * islandWidth), (y * islandHeight));
       }
+      fillNulls(zm);
+      replaceAll(zm, MapCellBase.WALL, MapCellBase.DEEP_LIQUID);
       zm.updateAllMaps();
       return zm;
    }
    
-   private static void clear(ZoneMap zm)
+   protected static void clear(ZoneMap zm)
    {
       MapCell[][] tileMap = zm.getTileMap();
       for(int x = 0; x < tileMap.length; x++)
@@ -60,7 +78,39 @@ public class ZoneMapFactory implements MapConstants
          tileMap[x][y] = null;
    }
    
-   private static void placeTemplate(ZoneMap zm, RoomTemplate rt, int xOrigin, int yOrigin)
+   protected static void fillNulls(ZoneMap zm)
+   {
+      MapCell[][] tileMap = zm.getTileMap();
+      for(int x = 0; x < tileMap.length; x++)
+      for(int y = 0; y < tileMap[0].length; y++)
+         if(tileMap[x][y] == null)
+            tileMap[x][y] = MapCellFactory.getMapCell(MapCellBase.WALL, WHITE, BLACK);
+   }
+   
+   protected static void replaceAll(ZoneMap zm, MapCellBase find, MapCellBase replace)
+   {
+      MapCell[][] tileMap = zm.getTileMap();
+      for(int x = 0; x < tileMap.length; x++)
+      for(int y = 0; y < tileMap[0].length; y++)
+         if(tileMap[x][y].getIconIndex() == find.iconIndex)
+            tileMap[x][y] = MapCellFactory.getMapCell(replace, WHITE, BLACK);
+   }
+   
+   protected static void overlay(ZoneMap top, ZoneMap bottom, int xOrigin, int yOrigin)
+   {
+      MapCell[][] topMap = top.getTileMap();
+      MapCell[][] bottomMap = bottom.getTileMap();
+      for(int x = 0; x < top.getWidth(); x++)
+      for(int y = 0; y < top.getHeight(); y++)
+      {
+         if(bottom.isInBounds(x + xOrigin, y + yOrigin))
+         {
+            bottomMap[x + xOrigin][y + yOrigin] = topMap[x][y];
+         }
+      }
+   }
+   
+   protected static void placeTemplate(ZoneMap zm, RoomTemplate rt, int xOrigin, int yOrigin)
    {
       MapCell[][] tileMap = zm.getTileMap();
       for(int x = 0; x < rt.getWidth(); x++)
@@ -148,5 +198,88 @@ public class ZoneMapFactory implements MapConstants
          return c1;
       else
          return c2;
+   }
+   
+   // removes high-impassable rows and columns beyond the first in contact with low-impassable
+   private static ZoneMap getTrimmed(ZoneMap original)
+   {
+      int xLeading = 0;
+      int yLeading = 0;
+      int xTrailing = 0;
+      int yTrailing = 0;
+      boolean continueF = true;
+      for(int x = 0; x < original.getWidth() && continueF; x++)
+      {
+         for(int y = 0; y < original.getHeight(); y++)
+         {
+            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            {
+               continueF = false;
+               break;
+            }
+         }
+         if(continueF)
+            xLeading++;
+      }
+      continueF = true;
+      for(int x = original.getWidth() - 1; x >= 0 && continueF; x--)
+      {
+         for(int y = 0; y < original.getHeight(); y++)
+         {
+            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            {
+               continueF = false;
+               break;
+            }
+         }
+         if(continueF)
+            xTrailing++;
+      }
+      continueF = true;
+      for(int y = 0; y < original.getHeight() && continueF; y++)
+      {
+         for(int x = 0; x < original.getWidth(); x++)
+         {
+            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            {
+               continueF = false;
+               break;
+            }
+         }
+         if(continueF)
+            yLeading++;
+      }
+      continueF = true;
+      for(int y = original.getHeight() - 1; y >= 0 && continueF; y--)
+      {
+         for(int x = 0; x < original.getWidth(); x++)
+         {
+            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            {
+               continueF = false;
+               break;
+            }
+         }
+         if(continueF)
+            yTrailing++;
+      }
+      xLeading = Math.max(0, xLeading - 1);
+      yLeading = Math.max(0, yLeading - 1);
+      xTrailing = Math.max(0, xTrailing - 1);
+      yTrailing = Math.max(0, yTrailing - 1);
+      
+      // solid tile
+      if(original.getWidth() - 1 == xLeading)
+         return null;
+         
+      ZoneMap trimmed = new ZoneMap(original.getWidth() - (xLeading + xTrailing), original.getHeight() - (yLeading + yTrailing));
+      MapCell[][] oMap = original.getTileMap();
+      MapCell[][] tMap = trimmed.getTileMap();
+      for(int x = 0; x < trimmed.getWidth(); x++)
+      for(int y = 0; y < trimmed.getHeight(); y++)
+      {
+         tMap[x][y] = oMap[x + xLeading][y + yLeading];
+      }
+      return trimmed;
    }
 }

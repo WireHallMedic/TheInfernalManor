@@ -35,15 +35,15 @@ public class GridOfMapGrids implements MapConstants
    public void setLowerHeight(int h){lowerHeight = h;}
 
 
-   public GridOfMapGrids(int w, int h, double c, RoomTemplateDeck d)
+   public GridOfMapGrids(int w, int h, double c, RoomTemplateDeck d, double mr)
    {
       width = w;
       height = h;
       connectivity = c;
-      lowerConnectivity = .75;
+      lowerConnectivity = .5;
       deck = d;
-      minRatio = .67;
-      lowerMinRatio = .67;
+      minRatio = mr;
+      lowerMinRatio = .5;
       lowerWidth = 3;
       lowerHeight = 3;
       rollUpper();
@@ -51,7 +51,7 @@ public class GridOfMapGrids implements MapConstants
    
    public void rollUpper()
    {
-      upperGrid = new MapGrid(width, height, connectivity, deck);
+      upperGrid = new MapGrid(width, height, connectivity, deck, minRatio);
       rollLowers();
    }
    
@@ -61,7 +61,7 @@ public class GridOfMapGrids implements MapConstants
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
       {
-         lowerGridArr[x][y] = new MapGrid(lowerWidth, lowerHeight, lowerConnectivity, deck);
+         lowerGridArr[x][y] = new MapGrid(lowerWidth, lowerHeight, lowerConnectivity, deck, lowerMinRatio);
          if(upperGrid.getTemplateMap()[x][y].getConnectionType() == ConnectionType.ISOLATED)
             lowerGridArr[x][y].closeAll();
       }
@@ -76,7 +76,7 @@ public class GridOfMapGrids implements MapConstants
       }
    }
    
-   public MapGrid getGrid(int x, int y)
+   public MapGrid getLowerGrid(int x, int y)
    {
       return lowerGridArr[x][y];
    }
