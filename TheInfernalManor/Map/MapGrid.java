@@ -245,6 +245,18 @@ public class MapGrid implements MapConstants
                 west == ConnectionStatus.MUST;
       }
       
+      public void setUndefinedTo(ConnectionStatus newStatus)
+      {
+         if(north == ConnectionStatus.UNDEFINED)
+            north = newStatus;
+         if(south == ConnectionStatus.UNDEFINED)
+            south = newStatus;
+         if(east == ConnectionStatus.UNDEFINED)
+            east = newStatus;
+         if(west == ConnectionStatus.UNDEFINED)
+            west = newStatus;
+      }
+      
       public ConnectionType getConnectionType()
       {
          int exits = 0;
