@@ -25,6 +25,34 @@ public class ZoneMapFactory implements MapConstants
       return zm;
    }
    
+   public static ZoneMap generate(GridOfMapGrids upper)
+   {
+      int roomsWide = upper.getWidth() * upper.getLowerWidth();
+      int roomsTall = upper.getHeight() * upper.getLowerHeight();
+      int widthOfRoom = upper.getGrid(0, 0).getTemplateMap()[0][0].getWidth();
+      int heightOfRoom = upper.getGrid(0, 0).getTemplateMap()[0][0].getHeight();
+      int totalMapWidth = (widthOfRoom + 3) * roomsWide;
+      int totalMapHeight = (heightOfRoom + 3) * roomsTall;
+      ZoneMap zm = new ZoneMap(totalMapWidth, totalMapHeight);
+      clear(zm);
+      for(int x = 0; x < upper.getWidth(); x++)
+      for(int y = 0; y < upper.getHeight(); y++)
+      {
+         for(int x2 = 0; x2 < upper.getLowerWidth(); x2++)
+         for(int y2 = 0; y2 < upper.getLowerHeight(); y2++)
+         {
+            RoomTemplate rt = upper.getGrid(x, y).getTemplateMap()[x2][y2].resolveRandomTiles();
+            int xOrigin = x * ((upper.getWidth() * upper.getLowerWidth()) + 3);
+            xOrigin += upper.getLowerWidth() * x2;
+            int yOrigin = y * ((upper.getWidth() * upper.getLowerWidth()) + 3);
+            yOrigin += upper.getLowerWidth() * y2;
+            placeTemplate(zm, rt, xOrigin, yOrigin);
+         }
+      }
+      zm.updateAllMaps();
+      return zm;
+   }
+   
    private static void clear(ZoneMap zm)
    {
       MapCell[][] tileMap = zm.getTileMap();

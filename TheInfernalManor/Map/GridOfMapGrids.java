@@ -4,5 +4,71 @@ import TheInfernalManor.Engine.*;
 
 public class GridOfMapGrids implements MapConstants
 {
+	private int width;
+	private int height;
+   private int lowerWidth;
+   private int lowerHeight;
+	private RoomTemplateDeck deck;
+	private double connectivity;
+	private double lowerConnectivity;
+   private double minRatio;
+   private double lowerMinRatio;
+   private MapGrid upperGrid;
+   private MapGrid[][] lowerGridArr;
 
+
+	public int getWidth(){return width;}
+	public int getHeight(){return height;}
+	public RoomTemplateDeck getDeck(){return deck;}
+	public double getConnectivity(){return connectivity;}
+   public double getUpperMinRatio(){return minRatio;}
+   public int getLowerWidth(){return lowerWidth;}
+   public int getLowerHeight(){return lowerHeight;}
+
+
+	public void setDeck(RoomTemplateDeck d){deck = d;}
+	public void setUpperConnectivity(double c){connectivity = c;}
+   public void setLowerConnectivity(double c){lowerConnectivity = c;}
+   public void setUpperMinRatio(double mr){minRatio = mr;}
+   public void setLowerMinRatio(double mr){minRatio = mr;}
+   public void setLowerWidth(int w){lowerWidth = w;}
+   public void setLowerHeight(int h){lowerHeight = h;}
+
+
+   public GridOfMapGrids(int w, int h, double c, RoomTemplateDeck d)
+   {
+      width = w;
+      height = h;
+      connectivity = c;
+      lowerConnectivity = .75;
+      deck = d;
+      minRatio = .67;
+      lowerMinRatio = .67;
+      lowerWidth = 3;
+      lowerHeight = 3;
+      rollUpper();
+   }     
+   
+   public void rollUpper()
+   {
+      upperGrid = new MapGrid(width, height, connectivity, deck);
+      rollLowers();
+   }
+   
+   public void rollLowers()
+   {
+      lowerGridArr = new MapGrid[width][height];
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         lowerGridArr[x][y] = new MapGrid(lowerWidth, lowerHeight, lowerConnectivity, deck);
+         if(upperGrid.getTemplateMap()[x][y].getConnectionType() == ConnectionType.ISOLATED)
+            lowerGridArr[x][y].closeAll();
+      }
+   }
+   
+   public MapGrid getGrid(int x, int y)
+   {
+      return lowerGridArr[x][y];
+   }
 }

@@ -49,6 +49,14 @@ public class MapGrid implements MapConstants
       while(getRoomRatio() < minRatio);
    }
    
+   public void closeAll()
+   {
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+         nodeMap[x][y] = oobNode;
+      populateTemplateMap();
+   }
+   
    public MapGrid(int w, int h, double c, RoomTemplateDeck d)
    {
       this(w, h, c, d, 0.0);
