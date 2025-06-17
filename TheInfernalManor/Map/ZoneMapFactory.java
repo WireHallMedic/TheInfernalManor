@@ -41,6 +41,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       for(int y = 0; y < upper.getHeight(); y++)
       {
          ZoneMap submap = new ZoneMap(islandWidth, islandHeight);
+         clear(submap);
          for(int x2 = 0; x2 < upper.getLowerWidth(); x2++)
          for(int y2 = 0; y2 < upper.getLowerHeight(); y2++)
          {
@@ -48,25 +49,21 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             int xOrigin = (widthOfRoom - 1) * x2;
             int yOrigin = (heightOfRoom - 1) * y2;
             placeTemplate(submap, rt, xOrigin, yOrigin);
-         
-         ////////////////////////
-         /*
-            RoomTemplate rt = upper.getGrid(x, y).getTemplateMap()[x2][y2].resolveRandomTiles();
-            int xOrigin = x * islandWidth;
-            xOrigin += (widthOfRoom - 1) * x2;
-            int yOrigin = y * islandHeight;
-            yOrigin += (heightOfRoom - 1) * y2;
-            //placeTemplate(zm, rt, xOrigin - upper.getGrid(x, y).getLeadingX(RoomTemplateCellMapping.WALL), yOrigin);
-            placeTemplate(zm, rt, xOrigin, yOrigin);
-         */
          }
+         fillNulls(submap);
          submap = getTrimmed(submap);
          if(submap != null)
-            overlay(submap, zm, (x * islandWidth), (y * islandHeight));
+         {
+            int maxXInset = islandWidth - submap.getWidth();
+            int maxYInset = islandHeight - submap.getHeight();
+            overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 1), (y * islandHeight) + RNG.nextInt(maxYInset + 1));
+         }
       }
       fillNulls(zm);
+      zm = getTrimmed(zm);
       replaceAll(zm, MapCellBase.WALL, MapCellBase.DEEP_LIQUID);
       zm.updateAllMaps();
+      
       return zm;
    }
    

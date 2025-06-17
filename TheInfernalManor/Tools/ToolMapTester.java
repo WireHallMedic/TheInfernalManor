@@ -29,6 +29,12 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JTextField roomsTallF;
    private JTextField connectivityF;
    private JTextField mRRF;
+   private JCheckBox maxConnectionsCB;
+   private JTextField lowerRoomsWideF;
+   private JTextField lowerRoomsTallF;
+   private JTextField lowerConnectivityF;
+   private JTextField lowerMRRF;
+   private JCheckBox lowerMaxConnectionsCB;
    private ZoneMap zoneMap;
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
@@ -45,7 +51,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       layoutPanel.add(mapPanel, .8, 1.0, 0.0, 0.0);
       
       controlPanel = new JPanel();
-      controlPanel.setLayout(new GridLayout(10, 1));
+      controlPanel.setLayout(new GridLayout(15, 1));
       
       loadDeckB = new JButton("Load Deck");
       loadDeckB.addActionListener(this);
@@ -94,6 +100,40 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       mRRF = new JTextField(".75");
       anonPanel.add(mRRF);
       controlPanel.add(anonPanel);
+      
+      maxConnectionsCB = new JCheckBox("Maximize Connections");
+      controlPanel.add(maxConnectionsCB);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Lower Rooms Wide"));
+      lowerRoomsWideF = new JTextField("3");
+      anonPanel.add(lowerRoomsWideF);
+      controlPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Lower Rooms Tall"));
+      lowerRoomsTallF = new JTextField("3");
+      anonPanel.add(lowerRoomsTallF);
+      controlPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Lower Connectivity"));
+      lowerConnectivityF = new JTextField(".5");
+      anonPanel.add(lowerConnectivityF);
+      controlPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Lower Min Room Ratio"));
+      lowerMRRF = new JTextField(".75");
+      anonPanel.add(lowerMRRF);
+      controlPanel.add(anonPanel);
+      
+      lowerMaxConnectionsCB = new JCheckBox("Maximize Lower Connections");
+      controlPanel.add(lowerMaxConnectionsCB);
       
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
       
@@ -214,6 +254,11 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          double conn = Double.parseDouble(connectivityF.getText());
          double ratio = Double.parseDouble(mRRF.getText());
          mapGrid = new MapGrid(rWide, rTall, conn, deck, ratio);
+         if(maxConnectionsCB.isSelected())
+         {
+            mapGrid.maximizeConnections();
+            mapGrid.populateTemplateMap();
+         }
       }
       catch(Exception ex)
       {
@@ -230,7 +275,19 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          int rTall = Integer.parseInt(roomsTallF.getText());
          double conn = Double.parseDouble(connectivityF.getText());
          double ratio = Double.parseDouble(mRRF.getText());
+         int lWide = Integer.parseInt(lowerRoomsWideF.getText());
+         int lTall = Integer.parseInt(lowerRoomsTallF.getText());
+         double lConn = Double.parseDouble(lowerConnectivityF.getText());
+         double lRatio = Double.parseDouble(lowerMRRF.getText());
          gridOfGrids = new GridOfMapGrids(rWide, rTall, conn, deck, ratio);
+         gridOfGrids.setLowerConnectivity(lConn);
+         gridOfGrids.setLowerMinRatio(lRatio);
+         gridOfGrids.setLowerWidth(lWide);
+         gridOfGrids.setLowerHeight(lTall);
+         if(maxConnectionsCB.isSelected())
+            gridOfGrids.maximizeConnections();
+         if(lowerMaxConnectionsCB.isSelected())
+            gridOfGrids.maximizeLowerConnections();
       }
       catch(Exception ex)
       {

@@ -63,6 +63,29 @@ public class MapGrid implements MapConstants
       populateTemplateMap();
    }
    
+   // connnects all non-isolated nodes
+   public void maximizeConnections()
+   {
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         if(getNode(x, y).hasConnections())
+         {
+            if(getNode(x + 1, y).hasConnections())
+            {
+               getNode(x, y).east = ConnectionStatus.MUST;
+               getNode(x + 1, y).west = ConnectionStatus.MUST;
+            }
+            if(getNode(x, y + 1).hasConnections())
+            {
+               getNode(x, y).south = ConnectionStatus.MUST;
+               getNode(x, y + 1).north = ConnectionStatus.MUST;
+            }
+         }
+      }
+      populateTemplateMap();
+   }
+   
    public MapGrid(int w, int h, double c, RoomTemplateDeck d)
    {
       this(w, h, c, d, 0.0);

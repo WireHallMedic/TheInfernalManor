@@ -15,6 +15,7 @@ public class GridOfMapGrids implements MapConstants
    private double lowerMinRatio;
    private MapGrid upperGrid;
    private MapGrid[][] lowerGridArr;
+   private boolean maximizeLowerConnections;
 
 
 	public int getWidth(){return width;}
@@ -46,8 +47,21 @@ public class GridOfMapGrids implements MapConstants
       lowerMinRatio = .5;
       lowerWidth = 3;
       lowerHeight = 3;
+      maximizeLowerConnections = false;
       rollUpper();
-   }     
+   }
+   
+   public void maximizeConnections()
+   {
+      upperGrid.maximizeConnections();
+      rollLowers();
+   }
+   
+   public void maximizeLowerConnections()
+   {
+      maximizeLowerConnections = true;
+      rollLowers();
+   }
    
    public void rollUpper()
    {
@@ -64,6 +78,8 @@ public class GridOfMapGrids implements MapConstants
          lowerGridArr[x][y] = new MapGrid(lowerWidth, lowerHeight, lowerConnectivity, deck, lowerMinRatio);
          if(upperGrid.getTemplateMap()[x][y].getConnectionType() == ConnectionType.ISOLATED)
             lowerGridArr[x][y].closeAll();
+         if(maximizeLowerConnections)
+            lowerGridArr[x][y].maximizeConnections();
       }
    }
    
