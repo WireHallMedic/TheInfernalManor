@@ -3,6 +3,8 @@ package TheInfernalManor.Map;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
+import WidlerSuite.*;
+import java.util.*;
 
 public class ZoneMapFactory implements MapConstants, GUIConstants
 {
@@ -25,6 +27,8 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return zm;
    }
    
+   
+   // generate map for island-style
    public static ZoneMap generate(GridOfMapGrids upper)
    {
       int roomsWide = upper.getWidth() * upper.getLowerWidth();
@@ -59,12 +63,150 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 1), (y * islandHeight) + RNG.nextInt(maxYInset + 1));
          }
       }
+      addBridges(zm, upper.getUpperGrid(), widthOfRoom, heightOfRoom, islandWidth, islandHeight);
       fillNulls(zm);
-      zm = getTrimmed(zm);
+      //zm = getTrimmed(zm);
       replaceAll(zm, MapCellBase.WALL, MapCellBase.DEEP_LIQUID);
       zm.updateAllMaps();
       
       return zm;
+   }
+   
+   protected static void setLine(ZoneMap z, Coord start, Coord end, MapCellBase base)
+   {
+      Vector<Coord> line = StraightLine.findLine(start, end);
+      for(Coord c : line)
+      {
+         z.getTileMap()[c.x][c.y] = MapCellFactory.getMapCell(base);
+      }
+   }
+   
+   protected static void addBridges(ZoneMap z, MapGrid connMap, int widthOfRoom, int heightOfRoom, 
+                             int islandWidth, int islandHeight)
+   {
+      RoomTemplate[][] rt = connMap.getTemplateMap();
+      for(int x = 0; x < rt.length - 1; x++)
+      for(int y = 0; y < rt[0].length; y++)
+      {
+         if(rt[x][y].connectsEast())
+         {
+            Coord start = getEastCoord(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
+            Coord end = getWestCoord(z, (x + 1) * islandWidth, y * islandHeight, islandWidth, islandHeight);
+            if(start != null && end != null)
+            {
+               Coord median1 = new Coord((start.x + end.x) / 2, start.y);
+               Coord median2 = new Coord((start.x + end.x) / 2, end.y);
+               setLine(z, start, median1, MapCellBase.CLEAR);
+               setLine(z, median1, median2, MapCellBase.CLEAR);
+               setLine(z, median2, end, MapCellBase.CLEAR);
+            }
+         }
+      }
+      for(int x = 0; x < rt.length; x++)
+      for(int y = 0; y < rt[0].length - 1; y++)
+      {
+         if(rt[x][y].connectsSouth())
+         {
+            Coord start = getSouthCoord(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
+            Coord end = getNorthCoord(z, x * islandWidth, (y + 1) * islandHeight, islandWidth, islandHeight);
+            if(start != null && end != null)
+            {
+               Coord median1 = new Coord(start.x, (start.y + end.y) / 2);
+               Coord median2 = new Coord(end.x, (start.y + end.y) / 2);
+               setLine(z, start, median1, MapCellBase.CLEAR);
+               setLine(z, median1, median2, MapCellBase.CLEAR);
+               setLine(z, median2, end, MapCellBase.CLEAR);
+            }
+         }
+      }
+   }
+   
+   protected static Coord getWestCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      Vector<Coord> cellList = new Vector<Coord>();
+      for(int x = 0; x < islandWidth && cellList.size() == 0; x++)
+      {
+         for(int y = 0; y < islandHeight; y++)
+         {
+            if(zm.getTile(xStart + x, yStart + y) != null &&
+               (zm.getTile(xStart + x, yStart + y).isLowPassable() || 
+                zm.getTile(xStart + x, yStart + y) instanceof ToggleTile))
+            {
+               cellList.add(new Coord(xStart + x, yStart + y));
+            }
+         }
+      }
+      if(cellList.size() > 0)
+      {
+         return cellList.elementAt(RNG.nextInt(cellList.size()));
+      }
+      return null;
+   }
+   
+   protected static Coord getEastCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      Vector<Coord> cellList = new Vector<Coord>();
+      for(int x = islandWidth - 1; x >= 0 && cellList.size() == 0; x--)
+      {
+         for(int y = 0; y < islandHeight; y++)
+         {
+            if(zm.getTile(xStart + x, yStart + y) != null &&
+               (zm.getTile(xStart + x, yStart + y).isLowPassable() || 
+                zm.getTile(xStart + x, yStart + y) instanceof ToggleTile))
+            {
+               cellList.add(new Coord(xStart + x, yStart + y));
+            }
+         }
+      }
+      if(cellList.size() > 0)
+      {
+         return cellList.elementAt(RNG.nextInt(cellList.size()));
+      }
+      return null;
+   }
+   
+   protected static Coord getNorthCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      Vector<Coord> cellList = new Vector<Coord>();
+      for(int y = 0; y < islandHeight && cellList.size() == 0; y++)
+      {
+         for(int x = 0; x < islandWidth; x++)
+         {
+            if(zm.getTile(xStart + x, yStart + y) != null &&
+               (zm.getTile(xStart + x, yStart + y).isLowPassable() || 
+                zm.getTile(xStart + x, yStart + y) instanceof ToggleTile))
+            {
+               cellList.add(new Coord(xStart + x, yStart + y));
+            }
+         }
+      }
+      if(cellList.size() > 0)
+      {
+         return cellList.elementAt(RNG.nextInt(cellList.size()));
+      }
+      return null;
+   }
+   
+   protected static Coord getSouthCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      Vector<Coord> cellList = new Vector<Coord>();
+      for(int y = islandHeight - 1; y >= 0 && cellList.size() == 0; y--)
+      {
+         for(int x = 0; x < islandWidth; x++)
+         {
+            if(zm.getTile(xStart + x, yStart + y) != null &&
+               (zm.getTile(xStart + x, yStart + y).isLowPassable() || 
+                zm.getTile(xStart + x, yStart + y) instanceof ToggleTile))
+            {
+               cellList.add(new Coord(xStart + x, yStart + y));
+            }
+         }
+      }
+      if(cellList.size() > 0)
+      {
+         return cellList.elementAt(RNG.nextInt(cellList.size()));
+      }
+      return null;
    }
    
    protected static void clear(ZoneMap zm)

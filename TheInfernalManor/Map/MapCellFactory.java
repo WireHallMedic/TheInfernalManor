@@ -35,6 +35,11 @@ public class MapCellFactory implements GUIConstants, MapConstants
       return mc;
    }
    
+   public static MapCell getMapCell(MapCellBase base)
+   {
+      return getMapCell(base, WHITE, BLACK);
+   }
+   
    public static MapCell getMapCell(RoomTemplateCellMapping rtcm)
    {
       return getMapCell(rtcm.mapCellBase, WHITE, BLACK);

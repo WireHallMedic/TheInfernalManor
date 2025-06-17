@@ -25,6 +25,7 @@ public class GridOfMapGrids implements MapConstants
    public double getUpperMinRatio(){return minRatio;}
    public int getLowerWidth(){return lowerWidth;}
    public int getLowerHeight(){return lowerHeight;}
+   public MapGrid getUpperGrid(){return upperGrid;}
 
 
 	public void setDeck(RoomTemplateDeck d){deck = d;}
