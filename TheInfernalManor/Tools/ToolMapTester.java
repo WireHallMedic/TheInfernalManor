@@ -169,6 +169,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             generateMapGrid();
          else
             generateGridOfMapGrids();
+         xCorner = 0;
+         yCorner = 0;
          generateZoneMap();
       }
       if(ae.getSource() == rollTemplateB)

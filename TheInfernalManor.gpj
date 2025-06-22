@@ -13,8 +13,8 @@ s#i0
 s#k0
 s#j0
 s#l0
-!200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!4836;g
+!217;u
+a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.Tools.ToolMapTester	iTheInfernalManor.Tools.ToolMapTester!5058;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -48,6 +48,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sActorVisualEffect.java
 %\011TheInfernalManor%sAI%sTeam.java
 %\011TheInfernalManor%sActor%sActor.java
+%\011%uWidlerSuite%sRectLine.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sMap%sGridOfMapGrids.java
@@ -67,6 +68,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
 %\011TheInfernalManor%simages%sWidlerTiles_8x16.png
+%\011%uWidlerSuite%sLuhnChecksum.java
 %\011TheInfernalManor%sAbility%sAbilityConstants.java
 %\011TheInfernalManor%simages%sWidlerTiles_16x16.png
 %\011%uWidlerSuite%sNoiseChoir.java
@@ -74,6 +76,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uWidlerSuite%sNoiseObj.java
 %\011%uWidlerSuite%sAStarNode.java
 %\011%uStrictCurses%sSCTileStamp.java
+%\011%uWidlerSuite%sDijkstraMap.java
 %\011TheInfernalManor%sGUI%sHelpPanel.java
 %\011TheInfernalManor%sMap%sMapFactory.java
 %\011TheInfernalManor%sAbility%sAttackFactory.java
@@ -94,7 +97,9 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sTIMPanel.java
 %\011TheInfernalManor%sMap%sZoneMap.java
 %\011TheInfernalManor%sGUI%sVisualEffect.java
+%\011%uWidlerSuite%sDijkstraRing.java
 %\011TheInfernalManor%sAbility%sAttack.java
+%\011%uWidlerSuite%sLineIntersection.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
 %\011TheInfernalManor%sMap%sMapGrid.java
@@ -113,6 +118,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAbility%sStatusEffect.java
 %\011TheInfernalManor%sAbility%sActionSpeed.java
 %\011TheInfernalManor%sEngine%sEngineTools.java
+%\011%uWidlerSuite%sVoronoi.java
 %\011TheInfernalManor%sItem%sWeaponFactory.java
 %\011%uWidlerSuite%sSmoothCA.java
 %\011%uWidlerSuite%sSpiralSearch.java
@@ -125,7 +131,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!4836;f
+!5058;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -159,6 +165,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sActorVisualEffect.java
 %\011TheInfernalManor%sAI%sTeam.java
 %\011TheInfernalManor%sActor%sActor.java
+%\011%uWidlerSuite%sRectLine.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sMap%sGridOfMapGrids.java
@@ -178,6 +185,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
 %\011TheInfernalManor%simages%sWidlerTiles_8x16.png
+%\011%uWidlerSuite%sLuhnChecksum.java
 %\011TheInfernalManor%sAbility%sAbilityConstants.java
 %\011TheInfernalManor%simages%sWidlerTiles_16x16.png
 %\011%uWidlerSuite%sNoiseChoir.java
@@ -185,6 +193,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011%uWidlerSuite%sNoiseObj.java
 %\011%uWidlerSuite%sAStarNode.java
 %\011%uStrictCurses%sSCTileStamp.java
+%\011%uWidlerSuite%sDijkstraMap.java
 %\011TheInfernalManor%sGUI%sHelpPanel.java
 %\011TheInfernalManor%sMap%sMapFactory.java
 %\011TheInfernalManor%sAbility%sAttackFactory.java
@@ -205,7 +214,9 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sTIMPanel.java
 %\011TheInfernalManor%sMap%sZoneMap.java
 %\011TheInfernalManor%sGUI%sVisualEffect.java
+%\011%uWidlerSuite%sDijkstraRing.java
 %\011TheInfernalManor%sAbility%sAttack.java
+%\011%uWidlerSuite%sLineIntersection.java
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
 %\011TheInfernalManor%sMap%sMapGrid.java
@@ -224,6 +235,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAbility%sStatusEffect.java
 %\011TheInfernalManor%sAbility%sActionSpeed.java
 %\011TheInfernalManor%sEngine%sEngineTools.java
+%\011%uWidlerSuite%sVoronoi.java
 %\011TheInfernalManor%sItem%sWeaponFactory.java
 %\011%uWidlerSuite%sSmoothCA.java
 %\011%uWidlerSuite%sSpiralSearch.java
