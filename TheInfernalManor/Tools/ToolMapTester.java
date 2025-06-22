@@ -12,7 +12,7 @@ import WidlerSuite.*;
 import StrictCurses.*;
 
 
-public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants
+public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener
 {
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
@@ -39,6 +39,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
    boolean continuousGeneration = true;
+   private int xCorner;
+   private int yCorner;
    
    public ToolMapTester()
    {
@@ -49,6 +51,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       
       mapPanel = new SCPanel(new SCTilePalette("WidlerTiles_16x16.png", 16, 16), mapWidth, mapHeight);
       layoutPanel.add(mapPanel, .8, 1.0, 0.0, 0.0);
+      mapPanel.addMouseListener(this);
       
       controlPanel = new JPanel();
       controlPanel.setLayout(new GridLayout(15, 1));
@@ -208,9 +211,9 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          for(int x = 0; x < mapWidth; x++)
          for(int y = 0; y < mapHeight; y++)
          {
-            if(zoneMap.isInBounds(x, y))
+            if(zoneMap.isInBounds(x + xCorner, y + yCorner))
             {
-               MapCell cell = zoneMap.getTile(x, y);
+               MapCell cell = zoneMap.getTile(x + xCorner, y + yCorner);
                mapPanel.setTile(x, y, cell.getIconIndex(), cell.getFGColor(), cell.getBGColor());
             }
             else
@@ -317,6 +320,20 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             zoneMap = null;
       }
    }
+   
+   public void mouseClicked(MouseEvent me)
+   {
+      int[] mouseLoc = mapPanel.getMouseLocTile();
+      int xShift = mouseLoc[0] - (mapWidth / 2);
+      int yShift = mouseLoc[1] - (mapHeight / 2);
+      xCorner += xShift;
+      yCorner += yShift;
+      redrawMap();
+   }
+   public void mousePressed(MouseEvent me){}
+   public void mouseReleased(MouseEvent me){}
+   public void mouseEntered(MouseEvent me){}
+   public void mouseExited(MouseEvent me){}
 
    
    public static void main(String[] args)
