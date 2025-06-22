@@ -12,7 +12,7 @@ import WidlerSuite.*;
 import StrictCurses.*;
 
 
-public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener
+public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener, MouseMotionListener
 {
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
@@ -41,6 +41,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    boolean continuousGeneration = true;
    private int xCorner;
    private int yCorner;
+   private int[] lastMouseLoc = {0, 0};
    
    public ToolMapTester()
    {
@@ -52,6 +53,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       mapPanel = new SCPanel(new SCTilePalette("WidlerTiles_16x16.png", 16, 16), mapWidth, mapHeight);
       layoutPanel.add(mapPanel, .8, 1.0, 0.0, 0.0);
       mapPanel.addMouseListener(this);
+      mapPanel.addMouseMotionListener(this);
       
       controlPanel = new JPanel();
       controlPanel.setLayout(new GridLayout(15, 1));
@@ -324,16 +326,32 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    public void mouseClicked(MouseEvent me)
    {
       int[] mouseLoc = mapPanel.getMouseLocTile();
-      int xShift = mouseLoc[0] - (mapWidth / 2);
-      int yShift = mouseLoc[1] - (mapHeight / 2);
+      int xShift = mouseLoc[0] - ((mapWidth + 1)/ 2);
+      int yShift = mouseLoc[1] - ((mapHeight + 1) / 2);
       xCorner += xShift;
       yCorner += yShift;
       redrawMap();
    }
-   public void mousePressed(MouseEvent me){}
+   public void mousePressed(MouseEvent me){lastMouseLoc = mapPanel.getMouseLocTile();}
    public void mouseReleased(MouseEvent me){}
    public void mouseEntered(MouseEvent me){}
    public void mouseExited(MouseEvent me){}
+   
+   public void mouseMoved(MouseEvent me){}
+   public void mouseDragged(MouseEvent me)
+   {
+      mapPanel.mouseMoved(me); // because mouseDragged prevents mouseMoved, which SCPanel needs to update mouseloc
+      int[] dragLoc = mapPanel.getMouseLocTile();
+      int xShift = lastMouseLoc[0] - dragLoc[0];
+      int yShift = lastMouseLoc[1] - dragLoc[1];
+      if(xShift != 0 || yShift != 0)
+      {
+         xCorner += xShift;
+         yCorner += yShift;
+         lastMouseLoc = dragLoc;
+         redrawMap();
+      }
+   }
 
    
    public static void main(String[] args)
