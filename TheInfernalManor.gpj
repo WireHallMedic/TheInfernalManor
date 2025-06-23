@@ -254,9 +254,10 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!350;l
+!395;l
 %\011TheInfernalManor%sMap%sRoomTemplateDeckTest.java
 %\011TheInfernalManor%sEngine%sEngineToolsTest.java
+%\011TheInfernalManor%sMap%sTIMRoomTest.java
 %\011TheInfernalManor%sMap%sMapTest.java
 %\011TheInfernalManor%sMap%sRoomTemplateTest.java
 %\011TheInfernalManor%sAbility%sAbilityTest.java

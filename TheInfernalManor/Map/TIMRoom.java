@@ -1,6 +1,6 @@
 /*
 
-Addit a bit more functionality to WidlerSuite.Room
+Adds a bit more functionality to WidlerSuite.Room
 
 */
 package TheInfernalManor.Map;
