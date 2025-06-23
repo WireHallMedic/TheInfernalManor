@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !217;u
-a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.Tools.ToolMapTester	iTheInfernalManor.Tools.ToolMapTester!5058;g
+a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.Tools.ToolMapTester	iTheInfernalManor.Tools.ToolMapTester!5148;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -32,6 +32,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sMemoryObject.java
 %\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sMap%sRoomTemplate.java
+%\011%uWidlerSuite%sRoom.java
 %\011TheInfernalManor%sGUI%sAnimationManager.java
 %\011TheInfernalManor%sItem%sItemRoll.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
@@ -65,6 +66,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
+%\011TheInfernalManor%sMap%sTIMBinarySpacePartitioning.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
 %\011TheInfernalManor%simages%sWidlerTiles_8x16.png
@@ -131,7 +133,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!5058;f
+!5148;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -149,6 +151,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sMemoryObject.java
 %\011TheInfernalManor%sItem%sOffHand.java
 %\011TheInfernalManor%sMap%sRoomTemplate.java
+%\011%uWidlerSuite%sRoom.java
 %\011TheInfernalManor%sGUI%sAnimationManager.java
 %\011TheInfernalManor%sItem%sItemRoll.java
 %\011TheInfernalManor%sGUI%sShopPanel.java
@@ -182,6 +185,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java
 %\011TheInfernalManor%sGUI%sQuestEndPanel.java
 %\011%uStrictCurses%sSCTileStruct.java
+%\011TheInfernalManor%sMap%sTIMBinarySpacePartitioning.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
 %\011TheInfernalManor%simages%sWidlerTiles_8x16.png
@@ -257,6 +261,6 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sMap%sRoomTemplateCellMappingTest.java
 %\011TheInfernalManor%sItem%sItemTest.java
 !1146;t
-jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1749928409100:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1749928409100:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbility.java	1749928409100:P%\011AbilityTest.java	%\011TheInfernalManor%sMap%sRoomTemplateDeckTest.java	1749928409100:P%\011RoomTemplateDeck.java	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1749928409100:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sRoomTemplate.java	1749928409100:P%\011RoomTemplateTest.java	%\011TheInfernalManor%sMap%sRoomTemplateTest.java	1749928409100:P%\011RoomTemplate.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1749928409100:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1749928409100:P%\011ItemTest.java	%\011TheInfernalManor%sMap%sRoomTemplateCellMappingTest.java	1749928409100:P%\011RoomTemplateCellMapping.java	%\011TheInfernalManor%sMap%sRoomTemplateDeck.java	1749928409100:P%\011RoomTemplateDeckTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1749928409100:P%\011Item.java	%\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java	1749928409100:P%\011RoomTemplateCellMappingTest.java	
+jgrJUnit0xr	%\011TheInfernalManor%sMap%sMapTest.java	1750689244581:P	%\011TheInfernalManor%sEngine%sEngineTools.java	1750689244581:P%\011EngineToolsTest.java	%\011TheInfernalManor%sAbility%sAbility.java	1750689244581:P%\011AbilityTest.java	%\011TheInfernalManor%sMap%sRoomTemplateDeckTest.java	1750689244581:P%\011RoomTemplateDeck.java	%\011TheInfernalManor%sEngine%sEngineToolsTest.java	1750689244581:P%\011EngineTools.java	%\011TheInfernalManor%sMap%sRoomTemplate.java	1750689244581:P%\011RoomTemplateTest.java	%\011TheInfernalManor%sMap%sRoomTemplateTest.java	1750689244581:P%\011RoomTemplate.java	%\011TheInfernalManor%sAbility%sAbilityTest.java	1750689244581:P%\011Ability.java	%\011TheInfernalManor%sItem%sItem.java	1750689244581:P%\011ItemTest.java	%\011TheInfernalManor%sMap%sRoomTemplateCellMappingTest.java	1750689244581:P%\011RoomTemplateCellMapping.java	%\011TheInfernalManor%sMap%sRoomTemplateDeck.java	1750689244581:P%\011RoomTemplateDeckTest.java	%\011TheInfernalManor%sItem%sItemTest.java	1750689244581:P%\011Item.java	%\011TheInfernalManor%sMap%sRoomTemplateCellMapping.java	1750689244581:P%\011RoomTemplateCellMappingTest.java	
 !47;m
 RunSelect	TheInfernalManor.Tools.ToolMapTester

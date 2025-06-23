@@ -31,6 +31,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    // generate map for island-style
    public static ZoneMap generate(GridOfMapGrids upper, int separation)
    {
+      separation = Math.max(separation, 5);
       int roomsWide = upper.getWidth() * upper.getLowerWidth();
       int roomsTall = upper.getHeight() * upper.getLowerHeight();
       int widthOfRoom = upper.getLowerGrid(0, 0).getTemplateMap()[0][0].getWidth();
@@ -58,9 +59,9 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          submap = getTrimmed(submap);
          if(submap != null)
          {
-            int maxXInset = islandWidth - submap.getWidth();
-            int maxYInset = islandHeight - submap.getHeight();
-            overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 1), (y * islandHeight) + RNG.nextInt(maxYInset + 1));
+            int maxXInset = islandWidth - submap.getWidth() - 4;
+            int maxYInset = islandHeight - submap.getHeight() - 4;
+            overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 3), (y * islandHeight) + RNG.nextInt(maxYInset + 3));
          }
       }
       addBridges(zm, upper.getUpperGrid(), widthOfRoom, heightOfRoom, islandWidth, islandHeight);
