@@ -157,11 +157,14 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       if(ae.getSource() == loadDeckB)
       {
          load();
-         if(continuousGeneration)
-            generateMapGrid();
-         else
-            generateGridOfMapGrids();
-         generateZoneMap();
+         if(deck != null)
+         {
+            if(continuousGeneration)
+               generateMapGrid();
+            else
+               generateGridOfMapGrids();
+            generateZoneMap();
+         }
       }
       if(ae.getSource() == rollGridB)
       {
@@ -247,6 +250,11 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    				saveString.add(inFile.nextLine().replace("\n", ""));
    			inFile.close();
             deck = new RoomTemplateDeck(saveString);
+            if(!deck.isUniformSquareSize())
+            {
+               deck = null;
+               JOptionPane.showMessageDialog(this, "Tile set must be squares of uniform size.","Load Attempt Aborted",  JOptionPane.ERROR_MESSAGE);
+            }
    		}
    		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
       }
