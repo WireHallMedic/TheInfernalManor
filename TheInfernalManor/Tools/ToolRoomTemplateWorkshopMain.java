@@ -30,6 +30,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JLabel currentlySelectedL;
    private JLabel typeCountL;
    private JButton[] connectionButtonArr;
+   private JLabel completeL;
+   private JLabel uniformL;
    private JLabel currentRoomL;
    private JRadioButton setB;
    private JRadioButton iRB;
@@ -223,8 +225,10 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       fillAllB = new JButton("Fill All with Selected");
       fillAllB.addActionListener(this);
       anonSubpanel[curIndex].add(fillAllB);
-      anonSubpanel[curIndex].add(new JPanel());
-      anonSubpanel[curIndex].add(new JPanel());
+      completeL = new JLabel("Complete Deck: ");
+      anonSubpanel[curIndex].add(completeL);
+      uniformL = new JLabel("Uniform Squares: ");
+      anonSubpanel[curIndex].add(uniformL);
       curIndex++;
       
       typeCountL = new JLabel("Type Count: ");
@@ -284,6 +288,10 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       ConnectionType ct = ConnectionType.values()[curConnectionType];
       String curStr = "Current Room: %s (%d/%d)";
       currentRoomL.setText(String.format(curStr, ct.name, curConnectionIndex + 1, deck.size(ct)));
+      curStr = "Complete Deck: " + ((deck.isComplete()) ? "True" : "False");
+      completeL.setText(curStr);
+      curStr = "Uniform Squares: " + ((deck.isUniformSquareSize()) ? "True" : "False");
+      uniformL.setText(curStr);
    }
    
    private void setLocationValues()

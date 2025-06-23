@@ -91,6 +91,7 @@ public class RoomTemplateDeck implements MapConstants
    public void add(RoomTemplate rt)
    {
       typeList[rt.getConnectionType().ordinal()].list.add(rt);
+      updateF = true;
    }
    
    public void remove(RoomTemplate rt)
