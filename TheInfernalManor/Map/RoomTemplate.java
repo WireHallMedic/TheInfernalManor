@@ -84,14 +84,27 @@ public class RoomTemplate implements MapConstants
    {
       width = w;
       height = h;
-      mappingTable = new RoomTemplateCellMapping[w][h];
-      independentlyRandomTable = new boolean[w][h];
-      dependentlyRandomTable = new boolean[w][h];
+      RoomTemplateCellMapping[][] newMappingTable = new RoomTemplateCellMapping[w][h];
+      boolean[][] newIndependentlyRandomTable = new boolean[w][h];
+      boolean[][] newDependentlyRandomTable = new boolean[w][h];
       for(int x = 0; x < w; x++)
       for(int y = 0; y < h; y++)
       {
-         mappingTable[x][y] = RoomTemplateCellMapping.CLEAR;
+         if(mappingTable != null &&
+            x < mappingTable.length &&
+            y < mappingTable[0].length &&
+            mappingTable[x][y] != null)
+         {
+            newMappingTable[x][y] = mappingTable[x][y];
+            newIndependentlyRandomTable[x][y] = independentlyRandomTable[x][y];
+            newDependentlyRandomTable[x][y] = dependentlyRandomTable[x][y];
+         }
+         else
+            newMappingTable[x][y] = RoomTemplateCellMapping.CLEAR;
       }
+      mappingTable = newMappingTable;
+      independentlyRandomTable = newIndependentlyRandomTable;
+      dependentlyRandomTable = newDependentlyRandomTable;
    }
    
    public boolean isInBounds(int x, int y)

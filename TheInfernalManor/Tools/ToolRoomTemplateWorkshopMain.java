@@ -50,7 +50,12 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private JButton prevConnTypeB;
    private JButton nextRoomB;
    private JButton prevRoomB;
-   private int roomSize;
+   private JButton addWidthB;
+   private JButton reduceWidthB;
+   private JButton addHeightB;
+   private JButton reduceHeightB;
+   private int roomWidth;
+   private int roomHeight;
    private String fileName;
    private boolean mouseButtonDown;
    private javax.swing.Timer timer;
@@ -65,8 +70,9 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       fileName = "";
       deck = new RoomTemplateDeck();
       mouseButtonDown = false;
-      roomSize = 21;
-      roomTemplate = new RoomTemplate(roomSize, roomSize);
+      roomWidth = 11;
+      roomHeight = 11;
+      roomTemplate = new RoomTemplate(roomWidth, roomHeight);
       deck.add(roomTemplate);
       setLocationValues();
       
@@ -194,10 +200,10 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       int len = ConnectionType.values().length;
       connectionButtonArr = new JButton[len];
       JPanel anonPanel = new JPanel();
-      anonPanel.setLayout(new GridLayout(6, 1));
+      anonPanel.setLayout(new GridLayout(7, 1));
       controlSubpanel1.add(anonPanel);
-      JPanel[] anonSubpanel = new JPanel[6];
-      for(int i = 0; i < 6; i++)
+      JPanel[] anonSubpanel = new JPanel[7];
+      for(int i = 0; i < anonSubpanel.length; i++)
       {
          anonSubpanel[i] = new JPanel();
          if(i < 3)
@@ -240,6 +246,22 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       anonSubpanel[curIndex].add(nextRoomB);
       curIndex++;
       
+      anonSubpanel[curIndex].setLayout(new GridLayout(1, 4));
+      addWidthB = new JButton("+Width");
+      addWidthB.addActionListener(this);
+      anonSubpanel[curIndex].add(addWidthB);
+      reduceWidthB = new JButton("-Width");
+      reduceWidthB.addActionListener(this);
+      anonSubpanel[curIndex].add(reduceWidthB);
+      addHeightB = new JButton("+Height");
+      addHeightB.addActionListener(this);
+      anonSubpanel[curIndex].add(addHeightB);
+      reduceHeightB = new JButton("-Height");
+      reduceHeightB.addActionListener(this);
+      anonSubpanel[curIndex].add(reduceHeightB);
+      curIndex++;
+      
+      anonSubpanel[curIndex].setLayout(new GridLayout(1, 4));
       currentRoomL = new JLabel("Connection Type: ");
       anonSubpanel[curIndex].add(currentRoomL);
       curIndex++;
@@ -273,8 +295,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    
    public void setDrawingPanel()
    {
-      for(int x = 0; x < roomSize; x++)
-      for(int y = 0; y < roomSize; y++)
+      for(int x = 0; x < roomWidth; x++)
+      for(int y = 0; y < roomHeight; y++)
       {
          int c = SET_COLOR;
          if(roomTemplate.isIndependentlyRandom(x, y))
@@ -291,8 +313,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    {
       boolean iR = iRB.isSelected();
       boolean dR = dRB.isSelected();
-      for(int x = 0; x < roomSize; x++)
-      for(int y = 0; y < roomSize; y++)
+      for(int x = 0; x < roomWidth; x++)
+      for(int y = 0; y < roomHeight; y++)
       {
          roomTemplate.set(x, y, selectedChar, iR, dR);
       }
@@ -389,7 +411,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private void fillSouthWall(char c)
    {
       for(int i = 0; i < roomTemplate.getWidth(); i++)
-         roomTemplate.set(i, roomTemplate.getWidth() - 1, c, false, false);
+         roomTemplate.set(i, roomTemplate.getHeight() - 1, c, false, false);
    }
    
    private void setCountLabel()
@@ -411,11 +433,14 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       {
          mapPanel.remove(drawingPanel);
          drawingPanel.removeMouseListener(this);
+         drawingPanel.removeMouseMotionListener(this);
       }
-      drawingPanel = new SCPanel(palette, roomSize, roomSize);
+      drawingPanel = new SCPanel(palette, roomWidth, roomHeight);
       mapPanel.add(drawingPanel);
+      mapPanel.revalidate();
       drawingPanel.addMouseListener(this);
       drawingPanel.addMouseMotionListener(this);
+      mapPanel.repaint();
    }
    
    private void save()
@@ -465,8 +490,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    				saveString.add(inFile.nextLine().replace("\n", ""));
    			inFile.close();
             deck = new RoomTemplateDeck(saveString);
-            roomSize = deck.getRoomSize();
-            resetDrawingPanel();
+            roomHeight = deck.getFirstRoom().getWidth();
+            roomHeight = deck.getFirstRoom().getHeight();
             setCurrentRoom(deck.getFirstRoom());
    		}
    		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
@@ -504,25 +529,19 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    public void setCurrentRoom(RoomTemplate rt)
    {
       roomTemplate = rt;
+      if(rt.getWidth() != roomWidth ||
+         rt.getHeight() != roomHeight)
+      {
+         roomWidth = rt.getWidth();
+         roomHeight = rt.getHeight();
+         resetDrawingPanel();
+      }
    }
    
    public void newDeck()
    {
-      String sizeStr = JOptionPane.showInputDialog(this, "Enter room size: ", "" + roomSize);
-      try
-      {
-         int newSize = Integer.parseInt(sizeStr);
-         if(newSize < 3)
-            throw new Exception();
-         roomSize = newSize;
-      }
-      catch(Exception ex)
-      {
-         JOptionPane.showMessageDialog(this,"Room size must be an integer of 3 or greater.",  "New Deck Aborted", JOptionPane.ERROR_MESSAGE);
-         return;
-      }
       RoomTemplateDeck newDeck = new RoomTemplateDeck();
-      RoomTemplate newRoomTemplate = new RoomTemplate(roomSize, roomSize);
+      RoomTemplate newRoomTemplate = new RoomTemplate(roomWidth, roomHeight);
       newDeck.add(newRoomTemplate);
       deck = newDeck;
       resetDrawingPanel();
@@ -616,7 +635,7 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       }
       if(ae.getSource() == newRoomB)
       {
-         RoomTemplate newRT = new RoomTemplate(roomSize, roomSize);
+         RoomTemplate newRT = new RoomTemplate(roomWidth, roomHeight);
          deck.add(newRT);
          setCurrentRoom(newRT);
       }
@@ -682,6 +701,26 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
          if(newRoom < 0)
             newRoom = deck.size(curConnectionType) - 1;
          setCurrentRoom(deck.get(curConnectionType, newRoom));
+      }
+      if(ae.getSource() == addWidthB)
+      {
+         roomTemplate.setSize(roomWidth + 1, roomHeight);
+         setCurrentRoom(roomTemplate);
+      }
+      if(ae.getSource() == reduceWidthB)
+      {
+         roomTemplate.setSize(Math.max(1, roomWidth - 1), roomHeight);
+         setCurrentRoom(roomTemplate);
+      }
+      if(ae.getSource() == addHeightB)
+      {
+         roomTemplate.setSize(roomWidth, roomHeight + 1);
+         setCurrentRoom(roomTemplate);
+      }
+      if(ae.getSource() == reduceHeightB)
+      {
+         roomTemplate.setSize(roomWidth, Math.max(1, roomHeight - 1));
+         setCurrentRoom(roomTemplate);
       }
    }
    

@@ -31,11 +31,6 @@ public class RoomTemplateDeck implements MapConstants
       return true;
    }
    
-   public int getRoomSize()
-   {
-      return getFirstRoom().getWidth();
-   }
-   
    public int length()
    {
       return ConnectionType.values().length;
