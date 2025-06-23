@@ -6,6 +6,8 @@ import TheInfernalManor.Engine.*;
 public class RoomTemplateDeck implements MapConstants
 {
    private RTCollection[] typeList;
+   private boolean uniformSquareSize;
+   private boolean updateF;
    
    public RoomTemplateDeck()
    {
@@ -14,6 +16,38 @@ public class RoomTemplateDeck implements MapConstants
       {
          typeList[i] = new RTCollection(ConnectionType.values()[i]);
       }
+      uniformSquareSize = false;
+      updateF = true;
+   }
+   
+   public boolean isUniformSquareSize()
+   {
+      if(updateF)
+      {
+         updateF = false;
+         uniformSquareSize = true;
+         RoomTemplate rt = getFirstRoom();
+         int w = rt.getWidth();
+         int h = rt.getHeight();
+         if(w != h)
+            uniformSquareSize = false;
+         else
+         {
+            for(ConnectionType ct : ConnectionType.values())
+            {
+               for(int i = 0; i < typeList[ct.ordinal()].list.size() && uniformSquareSize; i++)
+               {
+                  rt = get(ct, i);
+                  if(rt.getWidth() != w ||
+                     rt.getHeight() != h)
+                  {
+                     uniformSquareSize = false;
+                  }
+               }
+            }
+         }
+      }
+      return uniformSquareSize;
    }
    
    public RoomTemplateDeck(Vector<String> strList)
