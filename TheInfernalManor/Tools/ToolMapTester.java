@@ -318,7 +318,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       {
          if(gridOfGrids != null)
          {
-            zoneMap = ZoneMapFactory.generate(gridOfGrids);
+            zoneMap = ZoneMapFactory.generate(gridOfGrids, 10);
          }
          else
             zoneMap = null;

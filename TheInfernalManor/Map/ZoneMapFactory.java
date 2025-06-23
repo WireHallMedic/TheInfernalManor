@@ -29,14 +29,14 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    
    
    // generate map for island-style
-   public static ZoneMap generate(GridOfMapGrids upper)
+   public static ZoneMap generate(GridOfMapGrids upper, int separation)
    {
       int roomsWide = upper.getWidth() * upper.getLowerWidth();
       int roomsTall = upper.getHeight() * upper.getLowerHeight();
       int widthOfRoom = upper.getLowerGrid(0, 0).getTemplateMap()[0][0].getWidth();
       int heightOfRoom = upper.getLowerGrid(0, 0).getTemplateMap()[0][0].getHeight();
-      int islandWidth = (widthOfRoom * upper.getLowerWidth()) + 3;
-      int islandHeight = (heightOfRoom * upper.getLowerHeight()) + 3;
+      int islandWidth = (widthOfRoom * upper.getLowerWidth()) + separation;
+      int islandHeight = (heightOfRoom * upper.getLowerHeight()) + separation;
       int totalMapWidth = islandWidth * upper.getWidth();
       int totalMapHeight = islandHeight * upper.getHeight();
       ZoneMap zm = new ZoneMap(totalMapWidth, totalMapHeight);
@@ -65,11 +65,15 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       }
       addBridges(zm, upper.getUpperGrid(), widthOfRoom, heightOfRoom, islandWidth, islandHeight);
       fillNulls(zm);
-      //zm = getTrimmed(zm);
       replaceAll(zm, MapCellBase.WALL, MapCellBase.DEEP_LIQUID);
       zm.updateAllMaps();
       
       return zm;
+   }
+   
+   public static ZoneMap generate(GridOfMapGrids upper)
+   {
+      return generate(upper, 3);
    }
    
    protected static void setLine(ZoneMap z, Coord start, Coord end, MapCellBase base)
