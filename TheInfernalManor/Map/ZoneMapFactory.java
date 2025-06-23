@@ -45,24 +45,10 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       for(int x = 0; x < upper.getWidth(); x++)
       for(int y = 0; y < upper.getHeight(); y++)
       {
-         ZoneMap submap = new ZoneMap(islandWidth, islandHeight);
-         clear(submap);
-         for(int x2 = 0; x2 < upper.getLowerWidth(); x2++)
-         for(int y2 = 0; y2 < upper.getLowerHeight(); y2++)
-         {
-            RoomTemplate rt = upper.getLowerGrid(x, y).getTemplateMap()[x2][y2].resolveRandomTiles();
-            int xOrigin = (widthOfRoom - 1) * x2;
-            int yOrigin = (heightOfRoom - 1) * y2;
-            placeTemplate(submap, rt, xOrigin, yOrigin);
-         }
-         fillNulls(submap);
-         submap = getTrimmed(submap);
-         if(submap != null)
-         {
-            int maxXInset = islandWidth - submap.getWidth() - 4;
-            int maxYInset = islandHeight - submap.getHeight() - 4;
-            overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 3), (y * islandHeight) + RNG.nextInt(maxYInset + 3));
-         }
+         ZoneMap submap = generate(upper.getLowerGrid(x, y).getTemplateMap());
+         int maxXInset = islandWidth - submap.getWidth() - 4;
+         int maxYInset = islandHeight - submap.getHeight() - 4;
+         overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 3), (y * islandHeight) + RNG.nextInt(maxYInset + 3));
       }
       addBridges(zm, upper.getUpperGrid(), widthOfRoom, heightOfRoom, islandWidth, islandHeight);
       fillNulls(zm);
@@ -75,6 +61,25 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    public static ZoneMap generate(GridOfMapGrids upper)
    {
       return generate(upper, 3);
+   }
+   
+   public static ZoneMap generateBSP(int w, int h, int min, int max)
+   {
+      ZoneMap z = new ZoneMap(w, h);
+      TIMBinarySpacePartitioning.setPartitionChance(.67);
+      Vector<Room> roomList = TIMBinarySpacePartitioning.partition(w - 1, h - 1, min, max);
+      for(Room r : roomList)
+      {
+         if(!r.isParent)
+         {
+            for(int x = r.origin.x + 1; x < r.origin.x + r.size.x; x++)
+            for(int y = r.origin.y + 1; y < r.origin.y + r.size.y; y++)
+            {
+               z.getTileMap()[x][y] = MapCellFactory.getMapCell(MapCellBase.CLEAR);
+            }
+         }
+      }
+      return z;
    }
    
    protected static void setLine(ZoneMap z, Coord start, Coord end, MapCellBase base)

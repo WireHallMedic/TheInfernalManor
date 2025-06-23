@@ -14,6 +14,7 @@ import StrictCurses.*;
 
 public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener, MouseMotionListener
 {
+   private static final String[] layoutList = {"MapGrid", "GridOfGrids", "BSP"};
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
    private JPanel controlPanel;
@@ -21,7 +22,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private GridOfMapGrids gridOfGrids = null;
    private RoomTemplateDeck deck = null;
    private JButton loadDeckB;
-   private JComboBox<MapTypes> mapTypeDD;
+   private JComboBox<String> mapTypeDD;
    private JButton rollGridB;
    private JButton rollTemplateB;
    private JButton rollRandomB;
@@ -38,7 +39,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private ZoneMap zoneMap;
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
-   boolean continuousGeneration = true;
+   private int generationType = 0;
    private int xCorner;
    private int yCorner;
    private int[] lastMouseLoc = {0, 0};
@@ -62,7 +63,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       loadDeckB.addActionListener(this);
       controlPanel.add(loadDeckB);
       
-      mapTypeDD = new JComboBox<MapTypes>(MapTypes.values());
+      mapTypeDD = new JComboBox<String>(layoutList);
       mapTypeDD.addActionListener(this);
       controlPanel.add(mapTypeDD);
       
@@ -159,18 +160,18 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          load();
          if(deck != null)
          {
-            if(continuousGeneration)
+            if(generationType == 0)
                generateMapGrid();
-            else
+            else if(generationType == 1)
                generateGridOfMapGrids();
             generateZoneMap();
          }
       }
       if(ae.getSource() == rollGridB)
       {
-         if(continuousGeneration)
+         if(generationType == 0)
             generateMapGrid();
-         else
+         else if(generationType == 1)
             generateGridOfMapGrids();
          xCorner = 0;
          yCorner = 0;
@@ -178,9 +179,9 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       if(ae.getSource() == rollTemplateB)
       {
-         if(continuousGeneration)
+         if(generationType == 0)
             mapGrid.populateTemplateMap();
-         else
+         else if(generationType == 1)
             gridOfGrids.populateTemplateMaps();
          generateZoneMap();
       }
@@ -190,17 +191,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       if(ae.getSource() == mapTypeDD)
       {
-         switch(mapTypeDD.getSelectedItem())
-         {
-            case MapTypes.ROAD     : 
-            case MapTypes.FIELD    :
-            case MapTypes.DUNGEON  :
-            case MapTypes.CAVERN   : continuousGeneration = true; break;
-            case MapTypes.FOREST   :
-            case MapTypes.MOUNTAIN :
-            case MapTypes.CATACOMB : continuousGeneration = false; break;
-            default :
-         }
+         generationType = mapTypeDD.getSelectedIndex();
+         generateZoneMap();
       }
       redrawMap();
    }
@@ -313,7 +305,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    
    private void generateZoneMap()
    {
-      if(continuousGeneration)
+      if(generationType == 0)
       {
          if(mapGrid != null)
          {
@@ -322,7 +314,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          else
             zoneMap = null;
       }
-      else
+      else if(generationType == 1)
       {
          if(gridOfGrids != null)
          {
@@ -330,6 +322,10 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          }
          else
             zoneMap = null;
+      }
+      else if(generationType == 2)
+      {
+         zoneMap = ZoneMapFactory.generateBSP(80, 60, 5, 15);
       }
    }
    
