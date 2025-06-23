@@ -13,7 +13,7 @@ public class TIMRoom extends Room
    public boolean connectsEast;
    public boolean connectsSouth;
    public boolean connectsWest;
-   private int numOfConnections;
+   public int numOfConnections;
    
    public TIMRoom()
    {
@@ -59,13 +59,24 @@ public class TIMRoom extends Room
       for(int y = origin.y; y < origin.y + size.y; y++)
       {
          if(z.getTile(origin.x, y).isLowPassable() || z.getTile(origin.x, y) instanceof Door)
-            connectsNorth = true;
+            connectsWest = true;
          if(z.getTile(origin.x + size.x - 1, y).isLowPassable() || z.getTile(origin.x + size.x - 1, y) instanceof Door)
-            connectsSouth = true;
+            connectsEast = true;
       }
       if(connectsNorth) numOfConnections++;
       if(connectsEast) numOfConnections++;
       if(connectsSouth) numOfConnections++;
       if(connectsWest) numOfConnections++;
+   }
+   
+   public boolean overlaps(TIMRoom that)
+   {
+      return intervalOverlap(this.origin.x + this.size.x, that.origin.x + this.size.x, this.origin.x, that.origin.x) &&
+         intervalOverlap(this.origin.y + this.size.y, that.origin.y + this.size.y, this.origin.y, that.origin.y);
+   }
+   
+   private boolean intervalOverlap(int max1, int max2, int min1, int min2)
+   {
+      return (max1 >= min2) & (max2 >= min1);
    }
 }
