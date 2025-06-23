@@ -22,13 +22,14 @@ public interface MapConstants
    };
    public enum MapTypes
    {
-      ROAD     ("Road"), 
-      FOREST   ("Forest"),
-      FIELD    ("Field"), 
-      MOUNTAIN ("Mountain"),
-      DUNGEON  ("Dungeon"),
-      CAVERN   ("Cavern"),
-      CATACOMB ("Catacomb");
+      ROAD     ("Road"),      // gridArea, maximize connections
+      FIELD    ("Fields"),     // gridArea, maximize connections
+      FOREST   ("Forest"),    // gridArea
+      CAVERN   ("Cavern"),    // gridArea
+      CATACOMB ("Catacomb"),  // gridOfGrids
+      MOUNTAIN ("Mountain"),  // gridOfGrids, maximize lower connections
+      BUILDING ("Building"),  // BSP
+      DUNGEON  ("Dungeon");   // BSP, rooms less than full size
       
       public String name;
       

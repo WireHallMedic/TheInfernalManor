@@ -95,15 +95,47 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          if(rt[x][y].connectsEast())
          {
-            Coord start = getEastCoord(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
-            Coord end = getWestCoord(z, (x + 1) * islandWidth, y * islandHeight, islandWidth, islandHeight);
-            if(start != null && end != null)
+            Coord start = null;
+            Coord end = null;
+            // chance to try and make straight bridge
+            if(RNG.nextInt(2) == 1)
             {
-               Coord median1 = new Coord((start.x + end.x) / 2, start.y);
-               Coord median2 = new Coord((start.x + end.x) / 2, end.y);
-               setLine(z, start, median1, MapCellBase.CLEAR);
-               setLine(z, median1, median2, MapCellBase.CLEAR);
-               setLine(z, median2, end, MapCellBase.CLEAR);
+               Vector<Coord> startList = getEastCoords(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               Vector<Coord> endList = getWestCoords(z, (x + 1) * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               Vector<Coord> verifiedStartList = new Vector<Coord>();
+               Vector<Coord> verifiedEndList = new Vector<Coord>();
+               // make list of linear pairs
+               for(Coord st : startList)
+               for(Coord en : endList)
+               {
+                  if(st.y == en.y)
+                  {
+                     verifiedStartList.add(st);
+                     verifiedEndList.add(en);
+                  }
+               }
+               // if at least one pair exists, choose a pair and make a bridge
+               if(verifiedStartList.size() > 0)
+               {
+                  int index = RNG.nextInt(verifiedStartList.size());
+                  start = verifiedStartList.elementAt(index);
+                  end = verifiedEndList.elementAt(index);
+                  setLine(z, start, end, MapCellBase.CLEAR);
+               }
+            }
+            // if no bridge has been made, make a non-linear bridge
+            if(start == null)
+            {
+               start = getEastCoord(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               end = getWestCoord(z, (x + 1) * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               if(start != null && end != null)
+               {
+                  Coord median1 = new Coord((start.x + end.x) / 2, start.y);
+                  Coord median2 = new Coord((start.x + end.x) / 2, end.y);
+                  setLine(z, start, median1, MapCellBase.CLEAR);
+                  setLine(z, median1, median2, MapCellBase.CLEAR);
+                  setLine(z, median2, end, MapCellBase.CLEAR);
+               }
             }
          }
       }
@@ -112,21 +144,62 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          if(rt[x][y].connectsSouth())
          {
-            Coord start = getSouthCoord(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
-            Coord end = getNorthCoord(z, x * islandWidth, (y + 1) * islandHeight, islandWidth, islandHeight);
-            if(start != null && end != null)
+            Coord start = null;
+            Coord end = null;
+            // chance to try and make straight bridge
+            if(RNG.nextInt(2) == 1)
             {
-               Coord median1 = new Coord(start.x, (start.y + end.y) / 2);
-               Coord median2 = new Coord(end.x, (start.y + end.y) / 2);
-               setLine(z, start, median1, MapCellBase.CLEAR);
-               setLine(z, median1, median2, MapCellBase.CLEAR);
-               setLine(z, median2, end, MapCellBase.CLEAR);
+               Vector<Coord> startList = getSouthCoords(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               Vector<Coord> endList = getNorthCoords(z, (x + 1) * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               Vector<Coord> verifiedStartList = new Vector<Coord>();
+               Vector<Coord> verifiedEndList = new Vector<Coord>();
+               // make list of linear pairs
+               for(Coord st : startList)
+               for(Coord en : endList)
+               {
+                  if(st.x == en.x)
+                  {
+                     verifiedStartList.add(st);
+                     verifiedEndList.add(en);
+                  }
+               }
+               // if at least one pair exists, choose a pair and make a bridge
+               if(verifiedStartList.size() > 0)
+               {
+                  int index = RNG.nextInt(verifiedStartList.size());
+                  start = verifiedStartList.elementAt(index);
+                  end = verifiedEndList.elementAt(index);
+                  setLine(z, start, end, MapCellBase.CLEAR);
+               }
+            }
+            // if no bridge has been made, make a non-linear bridge
+            if(start == null)
+            {
+               start = getSouthCoord(z, x * islandWidth, y * islandHeight, islandWidth, islandHeight);
+               end = getNorthCoord(z, x * islandWidth, (y + 1) * islandHeight, islandWidth, islandHeight);
+               if(start != null && end != null)
+               {
+                  Coord median1 = new Coord(start.x, (start.y + end.y) / 2);
+                  Coord median2 = new Coord(end.x, (start.y + end.y) / 2);
+                  setLine(z, start, median1, MapCellBase.CLEAR);
+                  setLine(z, median1, median2, MapCellBase.CLEAR);
+                  setLine(z, median2, end, MapCellBase.CLEAR);
+               }
             }
          }
       }
    }
    
-   protected static Coord getWestCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   protected static Coord pickCoordFromList(Vector<Coord> list)
+   {
+      if(list.size() > 0)
+      {
+         return list.elementAt(RNG.nextInt(list.size()));
+      }
+      return null;
+   }
+   
+   protected static Vector<Coord> getWestCoords(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
    {
       Vector<Coord> cellList = new Vector<Coord>();
       for(int x = 0; x < islandWidth && cellList.size() == 0; x++)
@@ -141,14 +214,15 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             }
          }
       }
-      if(cellList.size() > 0)
-      {
-         return cellList.elementAt(RNG.nextInt(cellList.size()));
-      }
-      return null;
+      return cellList;
    }
    
-   protected static Coord getEastCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   protected static Coord getWestCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      return pickCoordFromList(getWestCoords(zm, xStart, yStart, islandWidth, islandHeight));
+   }
+   
+   protected static Vector<Coord> getEastCoords(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
    {
       Vector<Coord> cellList = new Vector<Coord>();
       for(int x = islandWidth - 1; x >= 0 && cellList.size() == 0; x--)
@@ -163,14 +237,15 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             }
          }
       }
-      if(cellList.size() > 0)
-      {
-         return cellList.elementAt(RNG.nextInt(cellList.size()));
-      }
-      return null;
+      return cellList;
    }
    
-   protected static Coord getNorthCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   protected static Coord getEastCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      return pickCoordFromList(getEastCoords(zm, xStart, yStart, islandWidth, islandHeight));
+   }
+   
+   protected static Vector<Coord> getNorthCoords(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
    {
       Vector<Coord> cellList = new Vector<Coord>();
       for(int y = 0; y < islandHeight && cellList.size() == 0; y++)
@@ -185,14 +260,15 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             }
          }
       }
-      if(cellList.size() > 0)
-      {
-         return cellList.elementAt(RNG.nextInt(cellList.size()));
-      }
-      return null;
+      return cellList;
    }
    
-   protected static Coord getSouthCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   protected static Coord getNorthCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      return pickCoordFromList(getNorthCoords(zm, xStart, yStart, islandWidth, islandHeight));
+   }
+   
+   protected static Vector<Coord> getSouthCoords(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
    {
       Vector<Coord> cellList = new Vector<Coord>();
       for(int y = islandHeight - 1; y >= 0 && cellList.size() == 0; y--)
@@ -207,11 +283,12 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             }
          }
       }
-      if(cellList.size() > 0)
-      {
-         return cellList.elementAt(RNG.nextInt(cellList.size()));
-      }
-      return null;
+      return cellList;
+   }
+   
+   protected static Coord getSouthCoord(ZoneMap zm, int xStart, int yStart, int islandWidth, int islandHeight)
+   {
+      return pickCoordFromList(getSouthCoords(zm, xStart, yStart, islandWidth, islandHeight));
    }
    
    protected static void clear(ZoneMap zm)
