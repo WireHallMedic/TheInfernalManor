@@ -278,12 +278,12 @@ public class RoomTemplate implements MapConstants
    // rotates a quarter turn clockwise
    public void rotate()
    {
-      RoomTemplateCellMapping[][] newMappingTable  = new RoomTemplateCellMapping[width][height];
-      boolean[][] newIRTable = new boolean[width][height];
-      boolean[][] newDRTable = new boolean[width][height];
+      RoomTemplateCellMapping[][] newMappingTable  = new RoomTemplateCellMapping[height][width];
+      boolean[][] newIRTable = new boolean[height][width];
+      boolean[][] newDRTable = new boolean[height][width];
       int w = height - 1;
-      for(int x = 0; x < width; x++)
-      for(int y = 0; y < height; y++)
+      for(int x = 0; x < height; x++)
+      for(int y = 0; y < width; y++)
       {
          newMappingTable[x][y] = mappingTable[y][w - x];
          newIRTable[x][y] = independentlyRandomTable[y][w - x];
@@ -292,6 +292,9 @@ public class RoomTemplate implements MapConstants
       mappingTable = newMappingTable;
       independentlyRandomTable = newIRTable;
       dependentlyRandomTable = newDRTable;
+      int temp = width;
+      width = height;
+      height = temp;
    }
    
    public void mirrorX()
