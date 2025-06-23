@@ -19,7 +19,7 @@ public enum RoomTemplateCellMapping
    TOGGLE            ('!', "Switch", MapCellBase.TOGGLE_UNFLIPPED),
    FEATURE           ('f', "Feature", MapCellBase.CLEAR),
    SPAWN             ('s', "Spawn", MapCellBase.CLEAR),
-   EXIT              ('>', "Exit", MapCellBase.EXIT);
+   CONNECTION        ('X', "Connection", MapCellBase.CLEAR);
    
    public char character;
    public MapCellBase mapCellBase;
