@@ -30,6 +30,10 @@ public class MapCellFactory implements GUIConstants, MapConstants
    public static MapCell getMapCell(MapCellBase base, int fg, int bg)
    {
       MapCell mc = new MapCell(base);
+      if(base == MapCellBase.DOOR_CLOSED)
+         mc = getDoor();
+      if(base == MapCellBase.CHEST_CLOSED)
+         mc = getChest();
       mc.setFGColor(fg);
       mc.setBGColor(bg);
       return mc;
