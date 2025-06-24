@@ -40,6 +40,10 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JTextField lowerMRRF;
    private JCheckBox lowerMaxConnectionsCB;
    // BSP controls
+   private JTextField bspMaxRoomF;
+   private JTextField bspMinRoomF;
+   private JTextField bspConnectivityChanceF;
+   private JTextField bspConnectivityRatioF;
    private ZoneMap zoneMap;
    private JPanel upperControlPanel;
    private JPanel lowerControlPanel;
@@ -165,6 +169,35 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       
       lowerMaxConnectionsCB = new JCheckBox("Maximize Lower Connections");
       gridPanel.add(lowerMaxConnectionsCB);
+      
+      // BSP controls
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Maximum Room Size"));
+      bspMaxRoomF = new JTextField("15");
+      anonPanel.add(bspMaxRoomF);
+      bspPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Minimum Room Size"));
+      bspMinRoomF = new JTextField("5");
+      anonPanel.add(bspMinRoomF);
+      bspPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Extra Connectivity Chance"));
+      bspConnectivityChanceF = new JTextField(".5");
+      anonPanel.add(bspConnectivityChanceF);
+      bspPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Extra Connectivity Ratio"));
+      bspConnectivityRatioF = new JTextField(".5");
+      anonPanel.add(bspConnectivityRatioF);
+      bspPanel.add(anonPanel);
       
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
       
@@ -356,7 +389,18 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       {
          if(gridPanelVisible)
             swapLowerControlPanel();
-         zoneMap = ZoneMapFactory.generateBSP(80, 60, 5, 15);
+         try
+         {
+            int roomMax = Integer.parseInt(bspMaxRoomF.getText());
+            int roomMin = Integer.parseInt(bspMinRoomF.getText());
+            double connChance = Double.parseDouble(bspConnectivityChanceF.getText());
+            double connRatio = Double.parseDouble(bspConnectivityRatioF.getText());
+            zoneMap = ZoneMapFactory.generateBSP(80, 60, roomMin, roomMax);
+         }
+         catch(Exception ex)
+         {
+            System.out.println("Exception when generating BSP map: " + ex.toString());
+         }
       }
    }
    

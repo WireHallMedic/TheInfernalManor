@@ -63,7 +63,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return generate(upper, 3);
    }
    
-   public static ZoneMap generateBSP(int w, int h, int min, int max)
+   public static ZoneMap generateBSP(int w, int h, int min, int max, double connChance, double connRatio)
    {
       ZoneMap z = new ZoneMap(w, h);
       TIMBinarySpacePartitioning.setPartitionChance(.67);
@@ -80,9 +80,13 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          }
       }
       addDoors(z, roomList);
-      increaseConnectivity(z, roomList, .33, .75);
+      increaseConnectivity(z, roomList, connChance, connRatio);
       z.updateAllMaps();
       return z;
+   }
+   public static ZoneMap generateBSP(int w, int h, int min, int max)
+   {
+      return generateBSP(w, h, min, max, .5, .5);
    }
    
    protected static void addDoors(ZoneMap z, Vector<TIMRoom> roomList)
