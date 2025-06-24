@@ -40,7 +40,12 @@ public class TIMRoom extends Room implements Comparable<TIMRoom>
    // for sorting
    public int compareTo(TIMRoom that)
    {
-      return (this.size.x * this.size.y) - (that.size.x * that.size.y);
+      return this.getArea() - that.getArea();
+   }
+   
+   public int getArea()
+   {
+      return size.x * size.y;
    }
    
    // because WidlerSuite rooms don't overlap, and TIM rooms do.

@@ -21,6 +21,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private MapGrid mapGrid = null;
    private GridOfMapGrids gridOfGrids = null;
    private RoomTemplateDeck deck = null;
+   private Vector<TIMRoom> roomList = null;
+   private ZoneMap zoneMap;
    // basic controls
    private JButton loadDeckB;
    private JComboBox<String> mapTypeDD;
@@ -44,7 +46,6 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JTextField bspMinRoomF;
    private JTextField bspConnectivityChanceF;
    private JTextField bspConnectivityRatioF;
-   private ZoneMap zoneMap;
    private JPanel upperControlPanel;
    private JPanel lowerControlPanel;
    private JPanel gridPanel;
@@ -201,6 +202,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
       
+      generateRoomList();
       setSize(1600, 1000);
       setTitle("Map Tester");
       setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -231,6 +233,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             generateMapGrid();
          else if(generationType == 1)
             generateGridOfMapGrids();
+         else if(generationType == 2)
+            generateRoomList();
          xCorner = 0;
          yCorner = 0;
          generateZoneMap();
@@ -250,6 +254,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       if(ae.getSource() == mapTypeDD)
       {
          generationType = mapTypeDD.getSelectedIndex();
+         if(generationType == 2)
          generateZoneMap();
       }
       redrawMap();
@@ -307,6 +312,21 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             }
    		}
    		catch(Exception ex){System.out.println("Exception while loading: " + ex.toString());}
+      }
+   }
+   
+   private void generateRoomList()
+   {
+      try
+      {
+         int roomMax = Integer.parseInt(bspMaxRoomF.getText());
+         int roomMin = Integer.parseInt(bspMinRoomF.getText());
+         TIMBinarySpacePartitioning.setPartitionChance(.5);
+         roomList = TIMBinarySpacePartitioning.partition(mapWidth, mapHeight, roomMin, roomMax);
+      }
+      catch(Exception ex)
+      {
+         System.out.println("Exception when generating roomList: " + ex.toString());
       }
    }
    
@@ -389,13 +409,13 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       {
          if(gridPanelVisible)
             swapLowerControlPanel();
+         if(roomList.size() == 0)
+            generateRoomList();
          try
          {
-            int roomMax = Integer.parseInt(bspMaxRoomF.getText());
-            int roomMin = Integer.parseInt(bspMinRoomF.getText());
             double connChance = Double.parseDouble(bspConnectivityChanceF.getText());
             double connRatio = Double.parseDouble(bspConnectivityRatioF.getText());
-            zoneMap = ZoneMapFactory.generateBSP(80, 60, roomMin, roomMax);
+            zoneMap = ZoneMapFactory.generateBSP(roomList, connChance, connRatio);
          }
          catch(Exception ex)
          {

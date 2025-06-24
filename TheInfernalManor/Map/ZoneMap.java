@@ -5,6 +5,7 @@ import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
 import WidlerSuite.SpiralSearch;
 import WidlerSuite.Coord;
+import java.util.*;
 
 public class ZoneMap
 {
@@ -18,6 +19,7 @@ public class ZoneMap
    private Item[][] itemMap;
    private ForegroundObject[][] decorationMap;
    private MapCell oobTile;
+   private Vector<TIMRoom> roomList;
 
 
 	public int getWidth(){return width;}
@@ -29,15 +31,18 @@ public class ZoneMap
    public Item[][] getItemMap(){return itemMap;}
    public ForegroundObject[][] getDecorationMap(){return decorationMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
+   public Vector<TIMRoom> getRoomList(){return roomList;}
 
 
 	public void setName(String n){name = n;}
    public void setOOBTile(MapCell o){oobTile = o;}
+   public void setRoomList(Vector<TIMRoom> rl){roomList = rl;}
 
 
    public ZoneMap(int w, int h)
    {
       setSize(w, h);
+      roomList = new Vector<TIMRoom>();
    }
    
    public void setSize(int w, int h)
