@@ -67,27 +67,58 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    {
       ZoneMap z = new ZoneMap(w, h);
       TIMBinarySpacePartitioning.setPartitionChance(.67);
-      Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(w - 1, h - 1, min, max);
+      Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(w, h, min, max);
       for(Room r : roomList)
       {
          if(!r.isParent)
          {
-            for(int x = r.origin.x + 1; x < r.origin.x + r.size.x; x++)
-            for(int y = r.origin.y + 1; y < r.origin.y + r.size.y; y++)
+            for(int x = r.origin.x + 1; x < r.origin.x + r.size.x - 1; x++)
+            for(int y = r.origin.y + 1; y < r.origin.y + r.size.y - 1; y++)
             {
                z.getTileMap()[x][y] = MapCellFactory.getMapCell(MapCellBase.CLEAR);
             }
          }
       }
       addDoors(z, roomList);
+      z.updateAllMaps();
       return z;
    }
    
    protected static void addDoors(ZoneMap z, Vector<TIMRoom> roomList)
    {
-      for(int i = 0; i < roomList.size(); i++)
+      for(int i = 1; i < roomList.size(); i += 2)
       {
-      
+         Vector<Coord> prospectList = new Vector<Coord>();
+         TIMRoom curRoom = roomList.elementAt(i);
+         if(curRoom.isHorizontallyAdjacent(roomList.elementAt(i + 1)))
+         {
+            for(int y = curRoom.origin.y + 1; y < curRoom.origin.y + curRoom.size.y - 1; y++)
+            {
+               int x = curRoom.origin.x + curRoom.size.x - 1;
+               if(z.getTile(x - 1, y).isLowPassable() &&
+                  z.getTile(x + 1, y).isLowPassable() &&
+                  !(z.getTile(x, y - 1) instanceof Door) &&
+                  !(z.getTile(x, y + 1) instanceof Door))
+                  prospectList.add(new Coord(x, y));
+            }
+         }
+         else // vertically adjacent
+         {
+            for(int x = curRoom.origin.x + 1; x < curRoom.origin.x + curRoom.size.x - 1; x++)
+            {
+               int y = curRoom.origin.y + curRoom.size.y - 1;
+               if(z.getTile(x, y - 1).isLowPassable() &&
+                  z.getTile(x, y + 1).isLowPassable() &&
+                  !(z.getTile(x - 1, y) instanceof Door) &&
+                  !(z.getTile(x + 1, y) instanceof Door))
+                  prospectList.add(new Coord(x, y));
+            }
+         }
+         if(prospectList.size() > 0)
+         {
+            Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
+            z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+         }
       }
    }
    

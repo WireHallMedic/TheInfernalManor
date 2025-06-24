@@ -182,4 +182,39 @@ public class TIMRoomTest {
       Assert.assertFalse("Check non-overlapping b to a.", room2.overlaps(room1));
    }
 
+
+   @Test public void testAdjacency() 
+   {
+      TIMRoom room1 = new TIMRoom();
+      room1.origin = new Coord(0, 0);
+      room1.size = new Coord(5, 5);
+      TIMRoom room2 = new TIMRoom();
+      room2.origin = new Coord(10, 10);
+      room2.size = new Coord(5, 5);
+      
+      // horizontally adjacent
+      Assert.assertFalse("Not horizontally adjacent.", room1.isHorizontallyAdjacent(room2));
+      Assert.assertFalse("Not horizontally adjacent.", room2.isHorizontallyAdjacent(room1));
+      Assert.assertFalse("Not vertically adjacent.", room1.isVerticallyAdjacent(room2));
+      Assert.assertFalse("Not vertically adjacent.", room2.isVerticallyAdjacent(room1));
+      
+      room2.origin.x = 4;
+      room2.origin.y = 0;
+      
+      // horizontally adjacent
+      Assert.assertTrue("Horizontally adjacent.", room1.isHorizontallyAdjacent(room2));
+      Assert.assertTrue("Horizontally adjacent sibiling only.", room2.isHorizontallyAdjacent(room1));
+      Assert.assertFalse("Not vertically adjacent.", room1.isVerticallyAdjacent(room2));
+      Assert.assertFalse("Not vertically adjacent.", room2.isVerticallyAdjacent(room1));
+      
+      room2.origin.x = 0;
+      room2.origin.y = 4;
+      
+      // vertically adjacent
+      Assert.assertFalse("Not horizontally adjacent.", room1.isHorizontallyAdjacent(room2));
+      Assert.assertFalse("Not horizontally adjacent sibiling only.", room2.isHorizontallyAdjacent(room1));
+      Assert.assertTrue("Vertically adjacent.", room1.isVerticallyAdjacent(room2));
+      Assert.assertTrue("Vertically adjacent.", room2.isVerticallyAdjacent(room1));
+   }
+
 }

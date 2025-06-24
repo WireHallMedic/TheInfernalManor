@@ -1,22 +1,7 @@
 /*******************************************************************************************
 Copied from WidlerSuite, altered to use TIM RNG.
 
-A binary space partitioning algorithm, which recursively splits an area into smaller
-rooms. As there is little data to keep track of other than the list of rooms,
-basically you can just call BinarySpacePartitioning.partition(x, y, minRoomDiameter, 
-maxRoomDiameter).
- 
-The first room on the returned list (index 0) is the entire area; beyond that, every pair
-((n*2)-1) and (n*2) are sibilings and either horizontally or vertically adjacent. The 
-first sibiling is always the left or top of the pair.
-  
-If you just want the lowest level of the tree, remove every room where isParent == true.
- 
-Modeled after the algorithm at:
-http:  www.roguebasin.com/index.php?title=Basic_BSP_Dungeon_generation
-  
-Copyright 2019 Michael Widler
-Free for private or public use. No warranty is implied or expressed.
+Additionally, WS BSP rooms do not overlap; TIM ones do.
 
 *******************************************************************************************/
 
@@ -95,9 +80,9 @@ public class TIMBinarySpacePartitioning
          a.size.x = minRoomDiameter + (int)(diameterVarianceX * RNG.nextDouble());
          a.size.y = r.size.y;
    
-         b.origin.x = a.origin.x + a.size.x;
+         b.origin.x = a.origin.x + a.size.x - 1;
          b.origin.y = a.origin.y;
-         b.size.x = r.size.x - a.size.x;
+         b.size.x = r.size.x - a.size.x + 1;
          b.size.y = a.size.y;
       }
       else // taller; divide horizontally
@@ -107,9 +92,9 @@ public class TIMBinarySpacePartitioning
          a.size.y = minRoomDiameter + (int)(diameterVarianceY * RNG.nextDouble());
    
          b.origin.x = a.origin.x;
-         b.origin.y = a.origin.y + a.size.y;
+         b.origin.y = a.origin.y + a.size.y - 1;
          b.size.x = a.size.x;
-         b.size.y = r.size.y - a.size.y;
+         b.size.y = r.size.y - a.size.y + 1;
       }
       return new TIMRoom[] {a, b};
    }
