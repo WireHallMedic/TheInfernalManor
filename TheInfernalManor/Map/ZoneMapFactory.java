@@ -80,6 +80,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          }
       }
       addDoors(z, roomList);
+      increaseConnectivity(z, roomList, .33, .75);
       z.updateAllMaps();
       return z;
    }
@@ -92,32 +93,109 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          TIMRoom curRoom = roomList.elementAt(i);
          if(curRoom.isHorizontallyAdjacent(roomList.elementAt(i + 1)))
          {
-            for(int y = curRoom.origin.y + 1; y < curRoom.origin.y + curRoom.size.y - 1; y++)
-            {
-               int x = curRoom.origin.x + curRoom.size.x - 1;
-               if(z.getTile(x - 1, y).isLowPassable() &&
-                  z.getTile(x + 1, y).isLowPassable() &&
-                  !(z.getTile(x, y - 1) instanceof Door) &&
-                  !(z.getTile(x, y + 1) instanceof Door))
-                  prospectList.add(new Coord(x, y));
-            }
+            prospectList = getVerticalDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
+                           curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
          }
          else // vertically adjacent
          {
-            for(int x = curRoom.origin.x + 1; x < curRoom.origin.x + curRoom.size.x - 1; x++)
-            {
-               int y = curRoom.origin.y + curRoom.size.y - 1;
-               if(z.getTile(x, y - 1).isLowPassable() &&
-                  z.getTile(x, y + 1).isLowPassable() &&
-                  !(z.getTile(x - 1, y) instanceof Door) &&
-                  !(z.getTile(x + 1, y) instanceof Door))
-                  prospectList.add(new Coord(x, y));
-            }
+            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+                           curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y + curRoom.size.y - 1);
          }
          if(prospectList.size() > 0)
          {
             Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
             z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+         }
+      }
+   }
+   
+   protected static Vector<Coord> getVerticalDoorProspects(ZoneMap z, int x, int yStart, int yEnd)
+   {
+      Vector<Coord> prospectList = new Vector<Coord>();
+      for(int y = yStart; y < yEnd; y++)
+      {
+         if(isValidVerticalDoorLocation(z, x, y))
+            prospectList.add(new Coord(x, y));
+      }
+      return prospectList;
+   }
+   
+   protected static Vector<Coord> getHorizontalDoorProspects(ZoneMap z, int xStart, int xEnd, int y)
+   {
+      Vector<Coord> prospectList = new Vector<Coord>();
+      for(int x = xStart; x < xEnd; x++)
+      {
+         if(isValidHorizontalDoorLocation(z, x, y))
+            prospectList.add(new Coord(x, y));
+      }
+      return prospectList;
+   }
+   
+   protected static boolean isValidHorizontalDoorLocation(ZoneMap z, int x, int y)
+   {               
+      return z.getTile(x, y - 1).isLowPassable() &&
+             z.getTile(x, y + 1).isLowPassable() &&
+             !(z.getTile(x - 1, y) instanceof Door) &&
+             !(z.getTile(x + 1, y) instanceof Door);
+   }
+   
+   protected static boolean isValidVerticalDoorLocation(ZoneMap z, int x, int y)
+   {               
+      return z.getTile(x - 1, y).isLowPassable() &&
+             z.getTile(x + 1, y).isLowPassable() &&
+             !(z.getTile(x, y - 1) instanceof Door) &&
+             !(z.getTile(x, y + 1) instanceof Door);
+   }
+   
+   protected static void increaseConnectivity(ZoneMap z, Vector<TIMRoom> roomList, double connectionChance, double affectedRooms)
+   {
+      roomList = TIMRoom.removeParents(roomList);
+      Vector<Coord> prospectList = new Vector<Coord>();
+      TIMRoom curRoom;
+      Collections.sort(roomList);
+      for(int i = 0; i < (int)(roomList.size() * affectedRooms); i++)
+      {
+         curRoom = roomList.elementAt(i);
+         curRoom.setConnections(z);
+         if(!curRoom.connectsNorth && RNG.nextDouble() <= connectionChance)
+         {
+            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+                           curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y);
+            if(prospectList.size() > 0)
+            {
+               Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
+               z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+            }
+         }
+         if(!curRoom.connectsSouth && RNG.nextDouble() <= connectionChance)
+         {
+            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+                           curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y + curRoom.size.y - 1);
+            if(prospectList.size() > 0)
+            {
+               Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
+               z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+            }
+         }
+         if(!curRoom.connectsWest && RNG.nextDouble() <= connectionChance)
+         {
+            prospectList = getVerticalDoorProspects(z, curRoom.origin.x, 
+                           curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
+            if(prospectList.size() > 0)
+            {
+               Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
+               z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+            }
+         }
+         if(!curRoom.connectsEast && RNG.nextDouble() <= connectionChance)
+         {
+            prospectList = getVerticalDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
+                           curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
+            if(prospectList.size() > 0)
+            {
+               Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
+               z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+            }
          }
       }
    }

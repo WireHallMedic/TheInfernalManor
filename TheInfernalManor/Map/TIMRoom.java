@@ -6,9 +6,10 @@ Adds a bit more functionality to WidlerSuite.Room
 package TheInfernalManor.Map;
 
 import WidlerSuite.*;
+import java.util.*;
 import TheInfernalManor.Engine.*;
 
-public class TIMRoom extends Room
+public class TIMRoom extends Room implements Comparable<TIMRoom>
 {
    public boolean connectsNorth;
    public boolean connectsEast;
@@ -34,6 +35,12 @@ public class TIMRoom extends Room
    public boolean isTerminal()
    {
       return numOfConnections == 1;
+   }
+   
+   // for sorting
+   public int compareTo(TIMRoom that)
+   {
+      return (this.size.x * this.size.y) - (that.size.x * that.size.y);
    }
    
    // because WidlerSuite rooms don't overlap, and TIM rooms do.
@@ -123,5 +130,14 @@ public class TIMRoom extends Room
       cell.y += RNG.nextInt(size.y);
       
       return cell;
+   }
+   
+   public static Vector<TIMRoom> removeParents(Vector<TIMRoom> fullList)
+   {
+      Vector<TIMRoom> newList = new Vector<TIMRoom>();
+      for(TIMRoom room : fullList)
+         if(!room.isParent)
+            newList.add(room);
+      return newList;
    }
 }
