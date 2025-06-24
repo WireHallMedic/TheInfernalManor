@@ -67,7 +67,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    {
       ZoneMap z = new ZoneMap(w, h);
       TIMBinarySpacePartitioning.setPartitionChance(.67);
-      Vector<Room> roomList = TIMBinarySpacePartitioning.partition(w - 1, h - 1, min, max);
+      Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(w - 1, h - 1, min, max);
       for(Room r : roomList)
       {
          if(!r.isParent)
@@ -79,7 +79,16 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             }
          }
       }
+      addDoors(z, roomList);
       return z;
+   }
+   
+   protected static void addDoors(ZoneMap z, Vector<TIMRoom> roomList)
+   {
+      for(int i = 0; i < roomList.size(); i++)
+      {
+      
+      }
    }
    
    protected static void setLine(ZoneMap z, Coord start, Coord end, MapCellBase base)

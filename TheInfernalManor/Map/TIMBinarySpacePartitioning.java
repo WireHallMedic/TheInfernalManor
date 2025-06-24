@@ -34,16 +34,16 @@ public class TIMBinarySpacePartitioning
    public static void setPartitionChance(double pc){partitionChance = pc;}
     
    // the main function
-   public static Vector<Room> partition(int x, int y, int minRoomDiameter, int maxRoomDiameter)
+   public static Vector<TIMRoom> partition(int x, int y, int minRoomDiameter, int maxRoomDiameter)
    {
-      Vector<Room> roomList = new Vector<Room>();
-      Room[] addRooms;
+      Vector<TIMRoom> roomList = new Vector<TIMRoom>();
+      TIMRoom[] addRooms;
    
       // The max has to be at least twice the min
       if(maxRoomDiameter < 2 * minRoomDiameter)
          maxRoomDiameter = 2 * minRoomDiameter;
    
-      Room startRoom = new Room();
+      TIMRoom startRoom = new TIMRoom();
       startRoom.origin = new Coord(0, 0);
       startRoom.size = new Coord(x, y);
       startRoom.iteration = 0;
@@ -73,16 +73,16 @@ public class TIMBinarySpacePartitioning
       }
       return roomList;
    }
-   public static Vector<Room> partition(Coord size, int minRoomDiameter, int maxRoomDiameter)
+   public static Vector<TIMRoom> partition(Coord size, int minRoomDiameter, int maxRoomDiameter)
    {
       return partition(size.x, size.y, minRoomDiameter, maxRoomDiameter);
    }
    
    // the main work method. Splits a room and returns its children
-   protected static Room[] divide(Room r, int minRoomDiameter)
+   protected static TIMRoom[] divide(Room r, int minRoomDiameter)
    {
-      Room a = new Room();
-      Room b = new Room();
+      TIMRoom a = new TIMRoom();
+      TIMRoom b = new TIMRoom();
       a.iteration = r.iteration + 1;
       b.iteration = r.iteration + 1;
       r.isParent = true;
@@ -111,6 +111,6 @@ public class TIMBinarySpacePartitioning
          b.size.x = a.size.x;
          b.size.y = r.size.y - a.size.y;
       }
-      return new Room[] {a, b};
+      return new TIMRoom[] {a, b};
    }
 }
