@@ -21,22 +21,31 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private MapGrid mapGrid = null;
    private GridOfMapGrids gridOfGrids = null;
    private RoomTemplateDeck deck = null;
+   // basic controls
    private JButton loadDeckB;
    private JComboBox<String> mapTypeDD;
    private JButton rollGridB;
    private JButton rollTemplateB;
    private JButton rollRandomB;
+   // grid controls
    private JTextField roomsWideF;
    private JTextField roomsTallF;
    private JTextField connectivityF;
    private JTextField mRRF;
    private JCheckBox maxConnectionsCB;
+   // grid of grid controls
    private JTextField lowerRoomsWideF;
    private JTextField lowerRoomsTallF;
    private JTextField lowerConnectivityF;
    private JTextField lowerMRRF;
    private JCheckBox lowerMaxConnectionsCB;
+   // BSP controls
    private ZoneMap zoneMap;
+   private JPanel upperControlPanel;
+   private JPanel lowerControlPanel;
+   private JPanel gridPanel;
+   private JPanel bspPanel;
+   private boolean gridPanelVisible;
    private static final int mapWidth = 80;
    private static final int mapHeight = 60;
    private int generationType = 0;
@@ -57,89 +66,105 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       mapPanel.addMouseMotionListener(this);
       
       controlPanel = new JPanel();
-      controlPanel.setLayout(new GridLayout(15, 1));
+      controlPanel.setLayout(new GridLayout(2, 1));
+      upperControlPanel = new JPanel();
+      upperControlPanel.setLayout(new GridLayout(5, 1));
+      controlPanel.add(upperControlPanel);
+      
+      lowerControlPanel = new JPanel();
+      lowerControlPanel.setLayout(new GridLayout(1, 1));
+      controlPanel.add(lowerControlPanel);
+      
+      gridPanel = new JPanel();
+      gridPanel.setLayout(new GridLayout(12, 1));
+      lowerControlPanel.add(gridPanel);
+      gridPanelVisible = true;
+      
+      bspPanel = new JPanel();
+      bspPanel.setLayout(new GridLayout(12, 1));
+      // not added yet, swaps out with gridPanel
       
       loadDeckB = new JButton("Load Deck");
       loadDeckB.addActionListener(this);
-      controlPanel.add(loadDeckB);
+      upperControlPanel.add(loadDeckB);
       
       mapTypeDD = new JComboBox<String>(layoutList);
       mapTypeDD.addActionListener(this);
-      controlPanel.add(mapTypeDD);
+      upperControlPanel.add(mapTypeDD);
       
       rollGridB = new JButton("Reroll Grid");
       rollGridB.addActionListener(this);
-      controlPanel.add(rollGridB);
+      upperControlPanel.add(rollGridB);
       
       rollTemplateB = new JButton("Reroll Templates");
       rollTemplateB.addActionListener(this);
-      controlPanel.add(rollTemplateB);
+      upperControlPanel.add(rollTemplateB);
       
       rollRandomB = new JButton("Reroll Random Tiles");
       rollRandomB.addActionListener(this);
-      controlPanel.add(rollRandomB);
+      upperControlPanel.add(rollRandomB);
       
       JPanel anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Rooms Wide"));
       roomsWideF = new JTextField("5");
       anonPanel.add(roomsWideF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Rooms Tall"));
       roomsTallF = new JTextField("5");
       anonPanel.add(roomsTallF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Connectivity"));
       connectivityF = new JTextField(".5");
       anonPanel.add(connectivityF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Min Room Ratio"));
       mRRF = new JTextField(".75");
       anonPanel.add(mRRF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       maxConnectionsCB = new JCheckBox("Maximize Connections");
-      controlPanel.add(maxConnectionsCB);
+      gridPanel.add(maxConnectionsCB);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Lower Rooms Wide"));
       lowerRoomsWideF = new JTextField("3");
       anonPanel.add(lowerRoomsWideF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Lower Rooms Tall"));
       lowerRoomsTallF = new JTextField("3");
       anonPanel.add(lowerRoomsTallF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Lower Connectivity"));
       lowerConnectivityF = new JTextField(".5");
       anonPanel.add(lowerConnectivityF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Lower Min Room Ratio"));
       lowerMRRF = new JTextField(".75");
       anonPanel.add(lowerMRRF);
-      controlPanel.add(anonPanel);
+      gridPanel.add(anonPanel);
       
       lowerMaxConnectionsCB = new JCheckBox("Maximize Lower Connections");
-      controlPanel.add(lowerMaxConnectionsCB);
+      gridPanel.add(lowerMaxConnectionsCB);
       
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
       
@@ -309,6 +334,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       {
          if(mapGrid != null)
          {
+            if(!gridPanelVisible)
+               swapLowerControlPanel();
             zoneMap = ZoneMapFactory.generate(mapGrid.getTemplateMap());
          }
          else
@@ -316,6 +343,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       else if(generationType == 1)
       {
+         if(!gridPanelVisible)
+            swapLowerControlPanel();
          if(gridOfGrids != null)
          {
             zoneMap = ZoneMapFactory.generate(gridOfGrids, 10);
@@ -325,8 +354,27 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       else if(generationType == 2)
       {
+         if(gridPanelVisible)
+            swapLowerControlPanel();
          zoneMap = ZoneMapFactory.generateBSP(80, 60, 5, 15);
       }
+   }
+   
+   private void swapLowerControlPanel()
+   {
+      gridPanelVisible = !gridPanelVisible;
+      if(gridPanelVisible)
+      {
+         lowerControlPanel.remove(bspPanel);
+         lowerControlPanel.add(gridPanel);
+      }
+      else
+      {
+         lowerControlPanel.remove(gridPanel);
+         lowerControlPanel.add(bspPanel);
+      }
+      lowerControlPanel.revalidate();
+      lowerControlPanel.repaint();
    }
    
    public void mouseClicked(MouseEvent me)

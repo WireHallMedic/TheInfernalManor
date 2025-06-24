@@ -23,7 +23,7 @@ public interface MapConstants
    public enum MapTypes
    {
       ROAD     ("Road"),      // gridArea, maximize connections
-      FIELD    ("Fields"),     // gridArea, maximize connections
+      FIELD    ("Fields"),    // gridArea, maximize connections
       FOREST   ("Forest"),    // gridArea
       CAVERN   ("Cavern"),    // gridArea
       CATACOMB ("Catacomb"),  // gridOfGrids
