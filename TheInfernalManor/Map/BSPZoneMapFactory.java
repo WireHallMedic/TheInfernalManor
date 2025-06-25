@@ -7,8 +7,9 @@ import WidlerSuite.*;
 import java.util.*;
 
 public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, GUIConstants
-{
-
+{   
+   private static ConnectedRooms connectedRooms = new ConnectedRooms();
+   
    public static ZoneMap generate(int w, int h, int min, int max, double connChance, double connRatio)
    {
       TIMBinarySpacePartitioning.setPartitionChance(.5);
@@ -44,6 +45,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    
    public static ZoneMap generateDungeon(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
    {
+      connectedRooms = new ConnectedRooms();
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
       for(int i = 0; i < roomList.size(); i++)
          if(roomList.elementAt(i).isParent)
@@ -265,6 +267,52 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          setLine(z, start, median1, MapCellBase.CLEAR);
          setLine(z, median1, median2, MapCellBase.CLEAR);
          setLine(z, median2, end, MapCellBase.CLEAR);
+      }
+   }
+   
+   public static TIMRoom getRoom(Coord c, Vector<TIMRoom> roomList)
+   {
+      for(TIMRoom room : roomList)
+      {
+         if(!room.isParent && room.contains(c))
+            return room;
+      }
+      return null;
+   }
+   
+   private static class ConnectedRooms
+   {
+      private Vector<TIMRoom> parallelA;
+      private Vector<TIMRoom> parallelB;
+      
+      public ConnectedRooms()
+      {
+         parallelA = new Vector<TIMRoom>();
+         parallelB = new Vector<TIMRoom>();
+      }
+      
+      public void add(TIMRoom a, TIMRoom b)
+      {
+         parallelA.add(a);
+         parallelB.add(b);
+      }
+      
+      public void add(Coord a, Coord b, Vector<TIMRoom> roomList)
+      {
+         add(getRoom(a, roomList), getRoom(b, roomList));
+      }
+      
+      public boolean contains(TIMRoom a, TIMRoom b)
+      {
+         for(int i = 0; i < parallelA.size(); i++)
+         {
+            if((parallelA.elementAt(i) == a &&
+               parallelB.elementAt(i) == b) ||
+               (parallelA.elementAt(i) == b &&
+               parallelB.elementAt(i) == a))
+            return true;
+         }
+         return false;
       }
    }
 }
