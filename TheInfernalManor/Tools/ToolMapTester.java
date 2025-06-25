@@ -415,7 +415,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          {
             double connChance = Double.parseDouble(bspConnectivityChanceF.getText());
             double connRatio = Double.parseDouble(bspConnectivityRatioF.getText());
-            zoneMap = ZoneMapFactory.generateBSP(roomList, connChance, connRatio);
+            zoneMap = BSPZoneMapFactory.generate(roomList, connChance, connRatio);
          }
          catch(Exception ex)
          {
