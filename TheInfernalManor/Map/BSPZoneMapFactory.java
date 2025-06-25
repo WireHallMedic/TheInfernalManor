@@ -45,13 +45,13 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    public static ZoneMap generateDungeon(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
    {
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
+      for(int i = 0; i < roomList.size(); i++)
+         if(!roomList.elementAt(i).isParent)
+            newRoomList.add(generateSubroom(roomList.elementAt(i), minRoomSize, maxRoomSize));
       
       ZoneMap z = new ZoneMap(roomList.elementAt(0).size.x, roomList.elementAt(0).size.y);
-      for(int i = 0; i < roomList.size(); i++)
+      for(TIMRoom r : newRoomList)
       {
-         if(!roomList.elementAt(i).isParent)
-            roomList.set(i, generateSubroom(roomList.elementAt(i), minRoomSize, maxRoomSize));
-         TIMRoom r = roomList.elementAt(i);
          if(!r.isParent)
          {
             for(int x = r.origin.x + 1; x < r.origin.x + r.size.x - 1; x++)
@@ -62,7 +62,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          }
       }
       z.updateAllMaps();
-      z.setRoomList(TIMRoom.removeParents(roomList));
+      z.setRoomList(newRoomList);
       return z;
    }
    
@@ -76,6 +76,10 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       if(newSize.y > original.size.y)
          newSize.y = original.size.y;
       newRoom.size = newSize;
+      int xSpace = original.size.x - newRoom.size.x;
+      int ySpace = original.size.y - newRoom.size.y;
+      newRoom.origin.x += RNG.nextInt(xSpace + 1);
+      newRoom.origin.y += RNG.nextInt(ySpace + 1);
       return newRoom;
    }
       

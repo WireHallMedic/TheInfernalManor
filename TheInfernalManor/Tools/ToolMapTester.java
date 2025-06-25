@@ -235,7 +235,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             generateGridOfMapGrids();
          else if(generationType == 2)
             generateRoomList();
-         else if(generationType == 2)
+         else if(generationType == 3)
             generateRoomList();
          xCorner = 0;
          yCorner = 0;

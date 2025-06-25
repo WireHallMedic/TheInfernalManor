@@ -26,8 +26,8 @@ public class TIMRoom extends Room implements Comparable<TIMRoom>
    public TIMRoom(Room that)
    {
       this();
-      this.origin = that.origin;
-      this.size = that.size;
+      this.origin = new Coord(that.origin);
+      this.size = new Coord(that.size);
       this.iteration = that.iteration;
       this.isParent = that.isParent;
    }
