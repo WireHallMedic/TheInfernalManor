@@ -46,11 +46,13 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    {
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
       for(int i = 0; i < roomList.size(); i++)
-         if(!roomList.elementAt(i).isParent)
+         if(roomList.elementAt(i).isParent)
+            newRoomList.add(roomList.elementAt(i));
+         else
             newRoomList.add(generateSubroom(roomList.elementAt(i), minRoomSize, maxRoomSize));
-      
+      roomList = newRoomList;
       ZoneMap z = new ZoneMap(roomList.elementAt(0).size.x, roomList.elementAt(0).size.y);
-      for(TIMRoom r : newRoomList)
+      for(TIMRoom r : roomList)
       {
          if(!r.isParent)
          {
@@ -63,7 +65,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       }
       addTunnels(z, roomList);
       z.updateAllMaps();
-      z.setRoomList(newRoomList);
+      z.setRoomList(TIMRoom.removeParents(roomList));
       return z;
    }
    
@@ -188,7 +190,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       Coord start = null;
       Coord end = null;
       // try and make a straight line
- //     if(RNG.nextInt(2) == 1)
+      if(RNG.nextInt(2) == 1)
       {
          Vector<Coord> verifiedStartList = new Vector<Coord>();
          Vector<Coord> verifiedEndList = new Vector<Coord>();
@@ -209,6 +211,16 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             setLine(z, start, end, MapCellBase.CLEAR);
          }
       }
+      if(start == null) // no straight tunnel built, build angled tunnel
+      {
+         start = pickCoordFromList(aList);
+         end = pickCoordFromList(bList);
+         Coord median1 = new Coord(start.x, (start.y + end.y) / 2);
+         Coord median2 = new Coord(end.x, (start.y + end.y) / 2);
+         setLine(z, start, median1, MapCellBase.CLEAR);
+         setLine(z, median1, median2, MapCellBase.CLEAR);
+         setLine(z, median2, end, MapCellBase.CLEAR);
+      }
    }
 
    
@@ -223,7 +235,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       Coord start = null;
       Coord end = null;
       // try and make a straight line
- //     if(RNG.nextInt(2) == 1)
+      if(RNG.nextInt(2) == 1)
       {
          Vector<Coord> verifiedStartList = new Vector<Coord>();
          Vector<Coord> verifiedEndList = new Vector<Coord>();
@@ -243,6 +255,16 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             end = verifiedEndList.elementAt(index);
             setLine(z, start, end, MapCellBase.CLEAR);
          }
+      }
+      if(start == null) // no straight tunnel built, build angled tunnel
+      {
+         start = pickCoordFromList(aList);
+         end = pickCoordFromList(bList);
+         Coord median1 = new Coord((start.x + end.x) / 2, start.y);
+         Coord median2 = new Coord((start.x + end.x) / 2, end.y);
+         setLine(z, start, median1, MapCellBase.CLEAR);
+         setLine(z, median1, median2, MapCellBase.CLEAR);
+         setLine(z, median2, end, MapCellBase.CLEAR);
       }
    }
 }
