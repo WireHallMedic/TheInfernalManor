@@ -8,7 +8,7 @@ import java.util.*;
 
 public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, GUIConstants
 {   
-   private static ConnectedRooms connectedRooms = new ConnectedRooms();
+   private static ConnectedRooms connectedRooms = new ConnectedRooms(null);
    
    public static ZoneMap generate(int w, int h, int min, int max, double connChance, double connRatio)
    {
@@ -45,16 +45,15 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    
    public static ZoneMap generateDungeon(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
    {
-      connectedRooms = new ConnectedRooms();
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
       for(int i = 0; i < roomList.size(); i++)
          if(roomList.elementAt(i).isParent)
             newRoomList.add(roomList.elementAt(i));
          else
             newRoomList.add(generateSubroom(roomList.elementAt(i), minRoomSize, maxRoomSize));
-      roomList = newRoomList;
+      connectedRooms = new ConnectedRooms(roomList); // connRooms needs unshrunk rooms
       ZoneMap z = new ZoneMap(roomList.elementAt(0).size.x, roomList.elementAt(0).size.y);
-      for(TIMRoom r : roomList)
+      for(TIMRoom r : newRoomList)
       {
          if(!r.isParent)
          {
@@ -65,9 +64,10 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             }
          }
       }
-      addTunnels(z, roomList);
+      addTunnels(z, newRoomList);
+      increaseConnectivity(z, roomList, newRoomList, connChance, connRatio);
       z.updateAllMaps();
-      z.setRoomList(TIMRoom.removeParents(roomList));
+      z.setRoomList(TIMRoom.removeParents(newRoomList));
       return z;
    }
    
@@ -111,7 +111,6 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          }
       }
    }
-
    
    protected static void increaseConnectivity(ZoneMap z, Vector<TIMRoom> roomList, double connectionChance, double affectedRooms)
    {
@@ -163,6 +162,30 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
                z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
             }
+         }
+      }
+   }
+
+   
+   protected static void increaseConnectivity(ZoneMap z, Vector<TIMRoom> largeRoomList, Vector<TIMRoom> smallRoomList, double connectionChance, double affectedRooms)
+   {
+      largeRoomList = TIMRoom.removeParents(largeRoomList);
+      smallRoomList = TIMRoom.removeParents(smallRoomList);
+      for(int i = 0; i < largeRoomList.size(); i++)
+      {
+         if(!largeRoomList.elementAt(i).isParent)
+         {
+            TIMRoom largeRoom = largeRoomList.elementAt(i);
+            TIMRoom smallRoom = smallRoomList.elementAt(i);
+            Vector<TIMRoom> adjList = new Vector<TIMRoom>();
+            // check north
+            for(int x = largeRoom.origin.x + 1; x < largeRoom.origin.x + largeRoom.size.x - 2; x++)
+            {
+               TIMRoom prospect = getRoom(x, largeRoom.origin.y - 1, largeRoomList);
+               if(!adjList.contains(prospect))
+                  adjList.add(prospect);
+            }
+            System.out.println("Possible north connections: " + adjList.size());
          }
       }
    }
@@ -223,6 +246,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          setLine(z, median1, median2, MapCellBase.CLEAR);
          setLine(z, median2, end, MapCellBase.CLEAR);
       }
+      connectedRooms.add(start, end);
    }
 
    
@@ -268,6 +292,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          setLine(z, median1, median2, MapCellBase.CLEAR);
          setLine(z, median2, end, MapCellBase.CLEAR);
       }
+      connectedRooms.add(start, end);
    }
    
    public static TIMRoom getRoom(Coord c, Vector<TIMRoom> roomList)
@@ -279,16 +304,20 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       }
       return null;
    }
+   public static TIMRoom getRoom(int x, int y, Vector<TIMRoom> roomList){return getRoom(new Coord(x, y), roomList);}
    
+   // private class for tracking which rooms already have tunnels
    private static class ConnectedRooms
    {
       private Vector<TIMRoom> parallelA;
       private Vector<TIMRoom> parallelB;
+      private Vector<TIMRoom> connRoomList;
       
-      public ConnectedRooms()
+      public ConnectedRooms(Vector<TIMRoom> rl)
       {
          parallelA = new Vector<TIMRoom>();
          parallelB = new Vector<TIMRoom>();
+         connRoomList = rl;
       }
       
       public void add(TIMRoom a, TIMRoom b)
@@ -297,9 +326,9 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          parallelB.add(b);
       }
       
-      public void add(Coord a, Coord b, Vector<TIMRoom> roomList)
+      public void add(Coord a, Coord b)
       {
-         add(getRoom(a, roomList), getRoom(b, roomList));
+         add(getRoom(a, connRoomList), getRoom(b, connRoomList));
       }
       
       public boolean contains(TIMRoom a, TIMRoom b)
@@ -313,6 +342,11 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             return true;
          }
          return false;
+      }
+      
+      public void print()
+      {
+         System.out.println("Connections: " + parallelA.size());
       }
    }
 }

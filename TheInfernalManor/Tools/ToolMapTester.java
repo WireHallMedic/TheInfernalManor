@@ -256,8 +256,17 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       if(ae.getSource() == mapTypeDD)
       {
          generationType = mapTypeDD.getSelectedIndex();
-         if(generationType == 2)
-         generateZoneMap();
+         if(generationType == 0 ||generationType == 1)
+         {
+            if(!gridPanelVisible)
+               swapLowerControlPanel();
+         }
+         if(generationType == 2 || generationType == 3)
+         {
+            if(gridPanelVisible)
+               swapLowerControlPanel();
+            generateZoneMap();
+         }
       }
       redrawMap();
    }
@@ -389,8 +398,6 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       {
          if(mapGrid != null)
          {
-            if(!gridPanelVisible)
-               swapLowerControlPanel();
             zoneMap = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
          }
          else
@@ -398,8 +405,6 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       else if(generationType == 1)
       {
-         if(!gridPanelVisible)
-            swapLowerControlPanel();
          if(gridOfGrids != null)
          {
             zoneMap = GridZoneMapFactory.generate(gridOfGrids, 10);
@@ -409,8 +414,6 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       else if(generationType == 2)
       {
-         if(gridPanelVisible)
-            swapLowerControlPanel();
          if(roomList.size() == 0)
             generateRoomList();
          try
@@ -426,8 +429,6 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       }
       else if(generationType == 3)
       {
-         if(gridPanelVisible)
-            swapLowerControlPanel();
          if(roomList.size() == 0)
             generateRoomList();
          try
