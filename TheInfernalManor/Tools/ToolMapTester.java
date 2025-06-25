@@ -14,7 +14,7 @@ import StrictCurses.*;
 
 public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener, MouseMotionListener
 {
-   private static final String[] layoutList = {"MapGrid", "GridOfGrids", "BSP"};
+   private static final String[] layoutList = {"MapGrid", "GridOfGrids", "BSP", "BSP Islands"};
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
    private JPanel controlPanel;
@@ -235,6 +235,8 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             generateGridOfMapGrids();
          else if(generationType == 2)
             generateRoomList();
+         else if(generationType == 2)
+            generateRoomList();
          xCorner = 0;
          yCorner = 0;
          generateZoneMap();
@@ -420,6 +422,23 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          catch(Exception ex)
          {
             System.out.println("Exception when generating BSP map: " + ex.toString());
+         }
+      }
+      else if(generationType == 3)
+      {
+         if(gridPanelVisible)
+            swapLowerControlPanel();
+         if(roomList.size() == 0)
+            generateRoomList();
+         try
+         {
+            double connChance = Double.parseDouble(bspConnectivityChanceF.getText());
+            double connRatio = Double.parseDouble(bspConnectivityRatioF.getText());
+            zoneMap = BSPZoneMapFactory.generateDungeon(roomList, 5, 10, connChance, connRatio);
+         }
+         catch(Exception ex)
+         {
+            System.out.println("Exception when generating BSP Island map: " + ex.toString());
          }
       }
    }

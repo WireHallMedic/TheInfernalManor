@@ -9,7 +9,6 @@ import java.util.*;
 public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, GUIConstants
 {
 
-   
    public static ZoneMap generate(int w, int h, int min, int max, double connChance, double connRatio)
    {
       TIMBinarySpacePartitioning.setPartitionChance(.5);
@@ -43,10 +42,41 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       return generate(w, h, min, max, .5, .5);
    }
    
-   public static ZoneMap generateBSPCatacombs(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
+   public static ZoneMap generateDungeon(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
    {
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
-      return null;
+      
+      ZoneMap z = new ZoneMap(roomList.elementAt(0).size.x, roomList.elementAt(0).size.y);
+      for(int i = 0; i < roomList.size(); i++)
+      {
+         if(!roomList.elementAt(i).isParent)
+            roomList.set(i, generateSubroom(roomList.elementAt(i), minRoomSize, maxRoomSize));
+         TIMRoom r = roomList.elementAt(i);
+         if(!r.isParent)
+         {
+            for(int x = r.origin.x + 1; x < r.origin.x + r.size.x - 1; x++)
+            for(int y = r.origin.y + 1; y < r.origin.y + r.size.y - 1; y++)
+            {
+               z.getTileMap()[x][y] = MapCellFactory.getMapCell(MapCellBase.CLEAR);
+            }
+         }
+      }
+      z.updateAllMaps();
+      z.setRoomList(TIMRoom.removeParents(roomList));
+      return z;
+   }
+   
+   protected static TIMRoom generateSubroom(TIMRoom original, int minSize, int maxSize)
+   {
+      TIMRoom newRoom = new TIMRoom(original);
+      int sizeVariability = maxSize - minSize;
+      Coord newSize = new Coord(minSize + RNG.nextInt(sizeVariability + 1), minSize + RNG.nextInt(sizeVariability + 1));
+      if(newSize.x > original.size.x)
+         newSize.x = original.size.x;
+      if(newSize.y > original.size.y)
+         newSize.y = original.size.y;
+      newRoom.size = newSize;
+      return newRoom;
    }
       
    protected static void addDoors(ZoneMap z, Vector<TIMRoom> roomList)
