@@ -61,6 +61,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             }
          }
       }
+      addTunnels(z, roomList);
       z.updateAllMaps();
       z.setRoomList(newRoomList);
       return z;
@@ -161,5 +162,87 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          }
       }
    }
+   
+   protected static void addTunnels(ZoneMap z, Vector<TIMRoom> roomList)
+   {
+      for(int i = 1; i < roomList.size(); i += 2)
+      {
+         TIMRoom a = roomList.elementAt(i);
+         TIMRoom b = roomList.elementAt(i + 1);
+         // horizontally adjacent
+         if(a.contains(b.origin.x - 1, b.origin.y + 1))
+            addHorizontalTunnel(z, a, b);
+         else
+            addVerticalTunnel(z, a, b);
+      }
+   }
+   
+   public static void addVerticalTunnel(ZoneMap z, TIMRoom a, TIMRoom b)
+   {
+      Vector<Coord> aList = new Vector<Coord>();
+      for(int i = 0; aList.size() == 0; i++)
+         aList = getHorizontalDoorProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - (2 + i));
+      Vector<Coord> bList = new Vector<Coord>();
+      for(int i = 0; bList.size() == 0; i++)
+         bList = getHorizontalDoorProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + 1 + i);
+      Coord start = null;
+      Coord end = null;
+      // try and make a straight line
+ //     if(RNG.nextInt(2) == 1)
+      {
+         Vector<Coord> verifiedStartList = new Vector<Coord>();
+         Vector<Coord> verifiedEndList = new Vector<Coord>();
+         for(Coord st : aList)
+         for(Coord en : bList)
+         {
+            if(st.x == en.x)
+            {
+               verifiedStartList.add(st);
+               verifiedEndList.add(en);
+            }
+         }
+         if(verifiedStartList.size() > 0)
+         {
+            int index = RNG.nextInt(verifiedStartList.size());
+            start = verifiedStartList.elementAt(index);
+            end = verifiedEndList.elementAt(index);
+            setLine(z, start, end, MapCellBase.CLEAR);
+         }
+      }
+   }
 
+   
+   public static void addHorizontalTunnel(ZoneMap z, TIMRoom a, TIMRoom b)
+   {
+      Vector<Coord> aList = new Vector<Coord>();
+      for(int i = 0; aList.size() == 0; i++)
+         aList = getVerticalDoorProspects(z, a.origin.x + a.size.x - (2 + i), a.origin.y + 1, a.origin.y + a.size.y - 2);
+      Vector<Coord> bList = new Vector<Coord>();
+      for(int i = 0; bList.size() == 0; i++)
+         bList = getVerticalDoorProspects(z, b.origin.x + 1 + i, b.origin.y + 1, b.origin.y + b.size.y - 2);
+      Coord start = null;
+      Coord end = null;
+      // try and make a straight line
+ //     if(RNG.nextInt(2) == 1)
+      {
+         Vector<Coord> verifiedStartList = new Vector<Coord>();
+         Vector<Coord> verifiedEndList = new Vector<Coord>();
+         for(Coord st : aList)
+         for(Coord en : bList)
+         {
+            if(st.y == en.y)
+            {
+               verifiedStartList.add(st);
+               verifiedEndList.add(en);
+            }
+         }
+         if(verifiedStartList.size() > 0)
+         {
+            int index = RNG.nextInt(verifiedStartList.size());
+            start = verifiedStartList.elementAt(index);
+            end = verifiedEndList.elementAt(index);
+            setLine(z, start, end, MapCellBase.CLEAR);
+         }
+      }
+   }
 }
