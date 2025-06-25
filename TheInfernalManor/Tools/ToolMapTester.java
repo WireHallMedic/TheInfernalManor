@@ -389,7 +389,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          {
             if(!gridPanelVisible)
                swapLowerControlPanel();
-            zoneMap = ZoneMapFactory.generate(mapGrid.getTemplateMap());
+            zoneMap = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
          }
          else
             zoneMap = null;
@@ -400,7 +400,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             swapLowerControlPanel();
          if(gridOfGrids != null)
          {
-            zoneMap = ZoneMapFactory.generate(gridOfGrids, 10);
+            zoneMap = GridZoneMapFactory.generate(gridOfGrids, 10);
          }
          else
             zoneMap = null;

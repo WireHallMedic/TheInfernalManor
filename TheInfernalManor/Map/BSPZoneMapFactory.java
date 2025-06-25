@@ -48,6 +48,30 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
       return null;
    }
+      
+   protected static void addDoors(ZoneMap z, Vector<TIMRoom> roomList)
+   {
+      for(int i = 1; i < roomList.size(); i += 2)
+      {
+         Vector<Coord> prospectList = new Vector<Coord>();
+         TIMRoom curRoom = roomList.elementAt(i);
+         if(curRoom.isHorizontallyAdjacent(roomList.elementAt(i + 1)))
+         {
+            prospectList = getVerticalDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
+                           curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
+         }
+         else // vertically adjacent
+         {
+            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+                           curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y + curRoom.size.y - 1);
+         }
+         if(prospectList.size() > 0)
+         {
+            Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
+            z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+         }
+      }
+   }
 
    
    protected static void increaseConnectivity(ZoneMap z, Vector<TIMRoom> roomList, double connectionChance, double affectedRooms)
