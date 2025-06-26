@@ -46,6 +46,9 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JTextField bspMinRoomF;
    private JTextField bspConnectivityChanceF;
    private JTextField bspConnectivityRatioF;
+   // BSP Dungeon controls
+   private JTextField dungeonRoomMinF;
+   private JTextField dungeonRoomMaxF;
    private JPanel upperControlPanel;
    private JPanel lowerControlPanel;
    private JPanel gridPanel;
@@ -175,14 +178,14 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Maximum Room Size"));
-      bspMaxRoomF = new JTextField("15");
+      bspMaxRoomF = new JTextField("25");
       anonPanel.add(bspMaxRoomF);
       bspPanel.add(anonPanel);
       
       anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Minimum Room Size"));
-      bspMinRoomF = new JTextField("5");
+      bspMinRoomF = new JTextField("15");
       anonPanel.add(bspMinRoomF);
       bspPanel.add(anonPanel);
       
@@ -198,6 +201,20 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       anonPanel.add(new JLabel("Extra Connectivity Ratio"));
       bspConnectivityRatioF = new JTextField(".5");
       anonPanel.add(bspConnectivityRatioF);
+      bspPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Lower Room Min Size"));
+      dungeonRoomMinF = new JTextField("5");
+      anonPanel.add(dungeonRoomMinF);
+      bspPanel.add(anonPanel);
+      
+      anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      anonPanel.add(new JLabel("Lower Room Min Size"));
+      dungeonRoomMaxF = new JTextField("10");
+      anonPanel.add(dungeonRoomMaxF);
       bspPanel.add(anonPanel);
       
       layoutPanel.add(controlPanel, .2, 1.0, .8, 0.0);
@@ -435,7 +452,9 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          {
             double connChance = Double.parseDouble(bspConnectivityChanceF.getText());
             double connRatio = Double.parseDouble(bspConnectivityRatioF.getText());
-            zoneMap = BSPZoneMapFactory.generateDungeon(roomList, 5, 10, connChance, connRatio);
+            int lowerMin = Integer.parseInt(dungeonRoomMinF.getText());
+            int lowerMax = Integer.parseInt(dungeonRoomMaxF.getText());
+            zoneMap = BSPZoneMapFactory.generateDungeon(roomList, lowerMin, lowerMax, connChance, connRatio);
          }
          catch(Exception ex)
          {

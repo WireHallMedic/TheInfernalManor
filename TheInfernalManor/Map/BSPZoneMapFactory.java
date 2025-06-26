@@ -69,7 +69,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       addTunnels(z, roomList, newRoomList); // use low walls instead of clear to avoid misidentifying paths as rooms
       replaceAll(z, MapCellBase.LOW_WALL, MapCellBase.CLEAR);
       // no longer need sibiling pairs, can sort to add connections with preference for bigger rooms
-      newRoomList = TIMRoom.removeParents(roomList);
+      newRoomList = TIMRoom.removeParents(newRoomList);
       Collections.sort(newRoomList);
       Collections.reverse(newRoomList);
       increaseDungeonConnectivity(z, newRoomList, connChance, connRatio);
@@ -79,7 +79,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       return z;
    }
    
-   // generated rooms are at least two tiles smaller than the original, with a buffer in the north and west
+   // generated rooms are at least one tile smaller than the original, with a buffer in the north and west
    protected static TIMRoom generateSubroom(TIMRoom original, int minSize, int maxSize)
    {
       TIMRoom newRoom = new TIMRoom(original);
