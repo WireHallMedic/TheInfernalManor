@@ -177,7 +177,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          {
             room.setConnections(z);
             // north
-            if(!room.connectsNorth && false)
+            if(!room.connectsNorth && RNG.nextDouble() <= connectionChance)
             {
                Vector<Coord> prospectList = new Vector<Coord>();
                for(int x = room.origin.x + 1; x < room.origin.x + room.size.x - 2; x++)
@@ -203,7 +203,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                }
             }
             // south
-            if(!room.connectsSouth && false)
+            if(!room.connectsSouth && RNG.nextDouble() <= connectionChance)
             {
                Vector<Coord> prospectList = new Vector<Coord>();
                for(int x = room.origin.x + 1; x < room.origin.x + room.size.x - 2; x++)
@@ -229,7 +229,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                }
             }
             // east
-            if(!room.connectsEast && false)
+            if(!room.connectsEast && RNG.nextDouble() <= connectionChance)
             {
                Vector<Coord> prospectList = new Vector<Coord>();
                for(int y = room.origin.y + 1; y < room.origin.y + room.size.y - 2; y++)
@@ -255,7 +255,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                }
             }
             // west
-            if(!room.connectsWest)
+            if(!room.connectsWest && RNG.nextDouble() <= connectionChance)
             {
                Vector<Coord> prospectList = new Vector<Coord>();
                for(int y = room.origin.y + 1; y < room.origin.y + room.size.y - 2; y++)
@@ -329,14 +329,18 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          {
             int index = RNG.nextInt(verifiedStartList.size());
             start = verifiedStartList.elementAt(index);
+            start.y++;
             end = verifiedEndList.elementAt(index);
+            end.y--;
             setLine(z, start, end, MapCellBase.LOW_WALL);
          }
       }
       if(start == null) // no straight tunnel built, build angled tunnel
       {
          start = pickCoordFromList(aList);
+            start.y++;
          end = pickCoordFromList(bList);
+            end.y--;
          Coord median1 = new Coord(start.x, (start.y + end.y) / 2);
          Coord median2 = new Coord(end.x, (start.y + end.y) / 2);
          setLine(z, start, median1, MapCellBase.LOW_WALL);
@@ -375,14 +379,18 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          {
             int index = RNG.nextInt(verifiedStartList.size());
             start = verifiedStartList.elementAt(index);
+            start.x++;
             end = verifiedEndList.elementAt(index);
+            end.x--;
             setLine(z, start, end, MapCellBase.LOW_WALL);
          }
       }
       if(start == null) // no straight tunnel built, build angled tunnel
       {
          start = pickCoordFromList(aList);
+         start.x++;
          end = pickCoordFromList(bList);
+         end.x--;
          Coord median1 = new Coord((start.x + end.x) / 2, start.y);
          Coord median2 = new Coord((start.x + end.x) / 2, end.y);
          setLine(z, start, median1, MapCellBase.LOW_WALL);
