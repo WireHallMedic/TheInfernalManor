@@ -85,13 +85,13 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       TIMRoom newRoom = new TIMRoom(original);
       int sizeVariability = maxSize - minSize;
       Coord newSize = new Coord(minSize + RNG.nextInt(sizeVariability + 1), minSize + RNG.nextInt(sizeVariability + 1));
-      if(newSize.x > original.size.x - 1)
-         newSize.x = original.size.x - 1;
-      if(newSize.y > original.size.y - 1)
-         newSize.y = original.size.y - 1;
+      if(newSize.x > original.size.x - 2)
+         newSize.x = original.size.x - 2;
+      if(newSize.y > original.size.y - 2)
+         newSize.y = original.size.y - 2;
       newRoom.size = newSize;
-      int xSpace = (original.size.x - 1) - newRoom.size.x;
-      int ySpace = (original.size.y - 1) - newRoom.size.y;
+      int xSpace = (original.size.x - 2) - newRoom.size.x;
+      int ySpace = (original.size.y - 2) - newRoom.size.y;
       newRoom.origin.x += RNG.nextInt(xSpace + 1) + 1;
       newRoom.origin.y += RNG.nextInt(ySpace + 1) + 1;
       return newRoom;
