@@ -131,6 +131,12 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       }
    }
    
+   protected static void setConnections(ZoneMap z, Vector<TIMRoom> roomList)
+   {
+      for(TIMRoom room : roomList)
+         room.setConnections(z);
+   }
+   
    protected static void placeTemplate(ZoneMap zm, RoomTemplate rt, int xOrigin, int yOrigin)
    {
       MapCell[][] tileMap = zm.getTileMap();
