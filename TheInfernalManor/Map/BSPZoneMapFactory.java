@@ -72,20 +72,21 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       return z;
    }
    
+   // generated rooms are at least two tiles smaller than the original, with a buffer in the north and west
    protected static TIMRoom generateSubroom(TIMRoom original, int minSize, int maxSize)
    {
       TIMRoom newRoom = new TIMRoom(original);
       int sizeVariability = maxSize - minSize;
       Coord newSize = new Coord(minSize + RNG.nextInt(sizeVariability + 1), minSize + RNG.nextInt(sizeVariability + 1));
-      if(newSize.x > original.size.x)
-         newSize.x = original.size.x;
-      if(newSize.y > original.size.y)
-         newSize.y = original.size.y;
+      if(newSize.x > original.size.x - 1)
+         newSize.x = original.size.x - 1;
+      if(newSize.y > original.size.y - 1)
+         newSize.y = original.size.y - 1;
       newRoom.size = newSize;
-      int xSpace = original.size.x - newRoom.size.x;
-      int ySpace = original.size.y - newRoom.size.y;
-      newRoom.origin.x += RNG.nextInt(xSpace + 1);
-      newRoom.origin.y += RNG.nextInt(ySpace + 1);
+      int xSpace = (original.size.x - 1) - newRoom.size.x;
+      int ySpace = (original.size.y - 1) - newRoom.size.y;
+      newRoom.origin.x += RNG.nextInt(xSpace + 1) + 1;
+      newRoom.origin.y += RNG.nextInt(ySpace + 1) + 1;
       return newRoom;
    }
       
@@ -175,36 +176,58 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          if(!room.isParent)
          {
             room.setConnections(z);
-            if(!room.connectsNorth)
+            // north
+            if(!room.connectsNorth && false)
             {
-               int x = room.origin.x + 1;
-               x += RNG.nextInt(room.size.x - 2);
-               int y = room.origin.y;
-               boolean foundF = false;
-               while(z.isInBounds(x, y) && !foundF)
+               Vector<Coord> prospectList = new Vector<Coord>();
+               for(int x = room.origin.x + 1; x < room.origin.x + room.size.x - 2; x++)
                {
-                  if(z.getTile(x, y).isLowPassable())
+                  int y = room.origin.y;
+                  boolean foundF = false;
+                  while(z.isInBounds(x, y) && !foundF)
                   {
-                     foundF = true;
+                     if(z.getTile(x, y - 1).isLowPassable() ||
+                        z.getTile(x + 1, y).isLowPassable() ||
+                        z.getTile(x - 1, y).isLowPassable())
+                        foundF = true;
+                     else
+                        y--;
                   }
-                  else
-                  {
-                     y--;
-                  }
+                  if(foundF)
+                     prospectList.add(new Coord(x, y));
                }
-               if(foundF)
+               if(prospectList.size() > 0)
                {
-                  setLine(z, new Coord(x, room.origin.y), new Coord(x, y), MapCellBase.LOW_WALL);
+                  Coord target = pickCoordFromList(prospectList);
+                  setLine(z, new Coord(target.x, room.origin.y), target, MapCellBase.SHALLOW_LIQUID);
                }
-               
-//                Vector<Coord> aList = new Vector<Coord>();
-//                for(int i = 0; aList.size() == 0; i++)
-//                   aList = searchVerticallyForTunnelProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - i);
-//                Vector<Coord> bList = new Vector<Coord>();
-//                for(int i = 0; bList.size() == 0; i++)
-//                   bList = searchVerticallyForTunnelProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + i);
-//                Coord start = null;
-//                Coord end = null;
+            }
+
+            // south
+            if(!room.connectsSouth)
+            {
+               Vector<Coord> prospectList = new Vector<Coord>();
+               for(int x = room.origin.x + 1; x < room.origin.x + room.size.x - 2; x++)
+               {
+                  int y = room.origin.y + room.size.y - 1;
+                  boolean foundF = false;
+                  while(z.isInBounds(x, y) && !foundF)
+                  {
+                     if(z.getTile(x, y + 1).isLowPassable() ||
+                        z.getTile(x + 1, y).isLowPassable() ||
+                        z.getTile(x - 1, y).isLowPassable())
+                        foundF = true;
+                     else
+                        y++;
+                  }
+                  if(foundF)
+                     prospectList.add(new Coord(x, y));
+               }
+               if(prospectList.size() > 0)
+               {
+                  Coord target = pickCoordFromList(prospectList);
+                  setLine(z, new Coord(target.x, room.origin.y + room.size.y - 1), target, MapCellBase.SHALLOW_LIQUID);
+               }
             }
          }
       }
