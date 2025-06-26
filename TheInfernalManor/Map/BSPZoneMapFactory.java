@@ -66,7 +66,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       }
       addTunnels(z, roomList, newRoomList); // use low walls instead of clear to avoid misidentifying paths as rooms
       replaceAll(z, MapCellBase.LOW_WALL, MapCellBase.ROUGH);
-      increaseConnectivity(z, roomList, newRoomList, connChance, connRatio);
+      //increaseConnectivity(z, roomList, newRoomList, connChance, connRatio);
       z.updateAllMaps();
       z.setRoomList(TIMRoom.removeParents(newRoomList));
       return z;
@@ -97,12 +97,12 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          TIMRoom curRoom = roomList.elementAt(i);
          if(curRoom.isHorizontallyAdjacent(roomList.elementAt(i + 1)))
          {
-            prospectList = getVerticalDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
+            prospectList = searchVerticallyForDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
                            curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
          }
          else // vertically adjacent
          {
-            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+            prospectList = searchHorizontallyForDoorProspects(z, curRoom.origin.x + 1, 
                            curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y + curRoom.size.y - 1);
          }
          if(prospectList.size() > 0)
@@ -126,7 +126,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          curRoom.setConnections(z);
          if(!curRoom.connectsNorth && RNG.nextDouble() <= connectionChance)
          {
-            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+            prospectList = searchHorizontallyForDoorProspects(z, curRoom.origin.x + 1, 
                            curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y);
             if(prospectList.size() > 0)
             {
@@ -136,7 +136,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          }
          if(!curRoom.connectsSouth && RNG.nextDouble() <= connectionChance)
          {
-            prospectList = getHorizontalDoorProspects(z, curRoom.origin.x + 1, 
+            prospectList = searchHorizontallyForDoorProspects(z, curRoom.origin.x + 1, 
                            curRoom.origin.x + curRoom.size.x - 1, curRoom.origin.y + curRoom.size.y - 1);
             if(prospectList.size() > 0)
             {
@@ -146,7 +146,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          }
          if(!curRoom.connectsWest && RNG.nextDouble() <= connectionChance)
          {
-            prospectList = getVerticalDoorProspects(z, curRoom.origin.x, 
+            prospectList = searchVerticallyForDoorProspects(z, curRoom.origin.x, 
                            curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
             if(prospectList.size() > 0)
             {
@@ -156,7 +156,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          }
          if(!curRoom.connectsEast && RNG.nextDouble() <= connectionChance)
          {
-            prospectList = getVerticalDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
+            prospectList = searchVerticallyForDoorProspects(z, curRoom.origin.x + curRoom.size.x - 1, 
                            curRoom.origin.y + 1, curRoom.origin.y + curRoom.size.y - 1);
             if(prospectList.size() > 0)
             {
@@ -176,39 +176,19 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       {
          if(!largeRoomList.elementAt(i).isParent)
          {
-            TIMRoom largeRoom = largeRoomList.elementAt(i);
             TIMRoom smallRoom = smallRoomList.elementAt(i);
-            Vector<TIMRoom> adjList = new Vector<TIMRoom>();
-            // check north
-            for(int x = largeRoom.origin.x + 1; x < largeRoom.origin.x + largeRoom.size.x - 2; x++)
+            smallRoom.setConnections(z);
+            if(!smallRoom.connectsNorth)
             {
-               TIMRoom largeProspect = getRoom(x, largeRoom.origin.y - 1, largeRoomList);
-               TIMRoom smallProspect = null;
-               if(largeProspect != null)
-               {
-                  for(int j = 0; j < smallRoomList.size(); j++)
-                  {
-                     if(largeProspect.contains(smallRoomList.elementAt(j).getCenter()))
-                     {
-                        smallProspect = smallRoomList.elementAt(j);
-                        if(!adjList.contains(smallProspect) && !connectedRooms.contains(smallRoom, smallProspect))
-                           adjList.add(smallProspect);
-                     }
-                  }
-               }
+//                Vector<Coord> aList = new Vector<Coord>();
+//                for(int i = 0; aList.size() == 0; i++)
+//                   aList = searchVerticallyForTunnelProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - i);
+//                Vector<Coord> bList = new Vector<Coord>();
+//                for(int i = 0; bList.size() == 0; i++)
+//                   bList = searchVerticallyForTunnelProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + i);
+//                Coord start = null;
+//                Coord end = null;
             }
-            if(adjList.size() > 0)
-            for(TIMRoom smallProspect : adjList)
-            {
-               int minX = Math.max(smallProspect.origin.x + 1, smallRoom.origin.x + 1);
-               int maxX = Math.min(smallProspect.origin.x + smallProspect.size.x - 2, 
-                                   smallRoom.origin.x + smallRoom.size.x - 2);
-               if(minX <= maxX)
-               {
-                  System.out.println("Possible north connection: " + minX + ", " + maxX);
-               }
-            }
-            System.out.println("Possible north connections: " + adjList.size());
          }
       }
    }
@@ -224,6 +204,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          // horizontally adjacent
          if(bigA.contains(bigB.origin.x - 1, bigB.origin.y + 1))
             addHorizontalTunnel(z, smallA, smallB);
+         // vertically adjacent
          else
             addVerticalTunnel(z, smallA, smallB);
       }
@@ -233,10 +214,10 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    {
       Vector<Coord> aList = new Vector<Coord>();
       for(int i = 0; aList.size() == 0; i++)
-         aList = getHorizontalDoorProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - i);
+         aList = searchHorizontallyForTunnelProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - 1 - i);
       Vector<Coord> bList = new Vector<Coord>();
       for(int i = 0; bList.size() == 0; i++)
-         bList = getHorizontalDoorProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + i);
+         bList = searchHorizontallyForTunnelProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + i);
       Coord start = null;
       Coord end = null;
       // try and make a straight line
@@ -279,10 +260,10 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    {
       Vector<Coord> aList = new Vector<Coord>();
       for(int i = 0; aList.size() == 0; i++)
-         aList = getVerticalDoorProspects(z, a.origin.x + a.size.x - (2 + i), a.origin.y + 1, a.origin.y + a.size.y - 2);
+         aList = searchVerticallyForTunnelProspects(z, a.origin.x + a.size.x - (2 + i), a.origin.y + 1, a.origin.y + a.size.y - 2);
       Vector<Coord> bList = new Vector<Coord>();
       for(int i = 0; bList.size() == 0; i++)
-         bList = getVerticalDoorProspects(z, b.origin.x + 1 + i, b.origin.y + 1, b.origin.y + b.size.y - 2);
+         bList = searchVerticallyForTunnelProspects(z, b.origin.x + 1 + i, b.origin.y + 1, b.origin.y + b.size.y - 2);
       Coord start = null;
       Coord end = null;
       // try and make a straight line

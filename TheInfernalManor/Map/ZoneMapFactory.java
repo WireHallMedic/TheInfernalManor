@@ -9,7 +9,7 @@ import java.util.*;
 public class ZoneMapFactory implements MapConstants, GUIConstants
 {   
    
-   protected static Vector<Coord> getVerticalDoorProspects(ZoneMap z, int x, int yStart, int yEnd)
+   protected static Vector<Coord> searchVerticallyForDoorProspects(ZoneMap z, int x, int yStart, int yEnd)
    {
       Vector<Coord> prospectList = new Vector<Coord>();
       for(int y = yStart; y < yEnd; y++)
@@ -20,12 +20,33 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return prospectList;
    }
    
-   protected static Vector<Coord> getHorizontalDoorProspects(ZoneMap z, int xStart, int xEnd, int y)
+   protected static Vector<Coord> searchHorizontallyForDoorProspects(ZoneMap z, int xStart, int xEnd, int y)
    {
       Vector<Coord> prospectList = new Vector<Coord>();
       for(int x = xStart; x < xEnd; x++)
       {
          if(isValidHorizontalDoorLocation(z, x, y))
+            prospectList.add(new Coord(x, y));
+      }
+      return prospectList;
+   }
+   protected static Vector<Coord> searchVerticallyForTunnelProspects(ZoneMap z, int x, int yStart, int yEnd)
+   {
+      Vector<Coord> prospectList = new Vector<Coord>();
+      for(int y = yStart; y <= yEnd; y++)
+      {
+         if(isValidTunnelStartLocation(z, x, y))
+            prospectList.add(new Coord(x, y));
+      }
+      return prospectList;
+   }
+   
+   protected static Vector<Coord> searchHorizontallyForTunnelProspects(ZoneMap z, int xStart, int xEnd, int y)
+   {
+      Vector<Coord> prospectList = new Vector<Coord>();
+      for(int x = xStart; x <= xEnd; x++)
+      {
+         if(isValidTunnelStartLocation(z, x, y))
             prospectList.add(new Coord(x, y));
       }
       return prospectList;
@@ -45,6 +66,12 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
              z.getTile(x + 1, y).isLowPassable() &&
              !(z.getTile(x, y - 1) instanceof Door) &&
              !(z.getTile(x, y + 1) instanceof Door);
+   }
+   
+   protected static boolean isValidTunnelStartLocation(ZoneMap z, int x, int y)
+   {
+      return z.getTile(x, y).isLowPassable() &&
+             !(z.getTile(x, y) instanceof Door);
    }
       
    protected static void setLine(ZoneMap z, Coord start, Coord end, MapCellBase base)
