@@ -64,7 +64,8 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             }
          }
       }
-      addTunnels(z, newRoomList);
+      addTunnels(z, roomList, newRoomList); // use low walls instead of clear to avoid misidentifying paths as rooms
+      replaceAll(z, MapCellBase.LOW_WALL, MapCellBase.ROUGH);
       increaseConnectivity(z, roomList, newRoomList, connChance, connRatio);
       z.updateAllMaps();
       z.setRoomList(TIMRoom.removeParents(newRoomList));
@@ -181,26 +182,50 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             // check north
             for(int x = largeRoom.origin.x + 1; x < largeRoom.origin.x + largeRoom.size.x - 2; x++)
             {
-               TIMRoom prospect = getRoom(x, largeRoom.origin.y - 1, largeRoomList);
-               if(!adjList.contains(prospect))
-                  adjList.add(prospect);
+               TIMRoom largeProspect = getRoom(x, largeRoom.origin.y - 1, largeRoomList);
+               TIMRoom smallProspect = null;
+               if(largeProspect != null)
+               {
+                  for(int j = 0; j < smallRoomList.size(); j++)
+                  {
+                     if(largeProspect.contains(smallRoomList.elementAt(j).getCenter()))
+                     {
+                        smallProspect = smallRoomList.elementAt(j);
+                        if(!adjList.contains(smallProspect) && !connectedRooms.contains(smallRoom, smallProspect))
+                           adjList.add(smallProspect);
+                     }
+                  }
+               }
+            }
+            if(adjList.size() > 0)
+            for(TIMRoom smallProspect : adjList)
+            {
+               int minX = Math.max(smallProspect.origin.x + 1, smallRoom.origin.x + 1);
+               int maxX = Math.min(smallProspect.origin.x + smallProspect.size.x - 2, 
+                                   smallRoom.origin.x + smallRoom.size.x - 2);
+               if(minX <= maxX)
+               {
+                  System.out.println("Possible north connection: " + minX + ", " + maxX);
+               }
             }
             System.out.println("Possible north connections: " + adjList.size());
          }
       }
    }
    
-   protected static void addTunnels(ZoneMap z, Vector<TIMRoom> roomList)
+   protected static void addTunnels(ZoneMap z, Vector<TIMRoom> bigRoomList, Vector<TIMRoom> smallRoomList)
    {
-      for(int i = 1; i < roomList.size(); i += 2)
+      for(int i = 1; i < smallRoomList.size(); i += 2)
       {
-         TIMRoom a = roomList.elementAt(i);
-         TIMRoom b = roomList.elementAt(i + 1);
+         TIMRoom bigA = bigRoomList.elementAt(i);
+         TIMRoom bigB = bigRoomList.elementAt(i + 1);
+         TIMRoom smallA = smallRoomList.elementAt(i);
+         TIMRoom smallB = smallRoomList.elementAt(i + 1);
          // horizontally adjacent
-         if(a.contains(b.origin.x - 1, b.origin.y + 1))
-            addHorizontalTunnel(z, a, b);
+         if(bigA.contains(bigB.origin.x - 1, bigB.origin.y + 1))
+            addHorizontalTunnel(z, smallA, smallB);
          else
-            addVerticalTunnel(z, a, b);
+            addVerticalTunnel(z, smallA, smallB);
       }
    }
    
@@ -208,10 +233,10 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    {
       Vector<Coord> aList = new Vector<Coord>();
       for(int i = 0; aList.size() == 0; i++)
-         aList = getHorizontalDoorProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - (2 + i));
+         aList = getHorizontalDoorProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - i);
       Vector<Coord> bList = new Vector<Coord>();
       for(int i = 0; bList.size() == 0; i++)
-         bList = getHorizontalDoorProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + 1 + i);
+         bList = getHorizontalDoorProspects(z, b.origin.x + 1, b.origin.x + b.size.x - 2, b.origin.y + i);
       Coord start = null;
       Coord end = null;
       // try and make a straight line
@@ -233,7 +258,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             int index = RNG.nextInt(verifiedStartList.size());
             start = verifiedStartList.elementAt(index);
             end = verifiedEndList.elementAt(index);
-            setLine(z, start, end, MapCellBase.CLEAR);
+            setLine(z, start, end, MapCellBase.LOW_WALL);
          }
       }
       if(start == null) // no straight tunnel built, build angled tunnel
@@ -242,9 +267,9 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          end = pickCoordFromList(bList);
          Coord median1 = new Coord(start.x, (start.y + end.y) / 2);
          Coord median2 = new Coord(end.x, (start.y + end.y) / 2);
-         setLine(z, start, median1, MapCellBase.CLEAR);
-         setLine(z, median1, median2, MapCellBase.CLEAR);
-         setLine(z, median2, end, MapCellBase.CLEAR);
+         setLine(z, start, median1, MapCellBase.LOW_WALL);
+         setLine(z, median1, median2, MapCellBase.LOW_WALL);
+         setLine(z, median2, end, MapCellBase.LOW_WALL);
       }
       connectedRooms.add(start, end);
    }
@@ -279,7 +304,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
             int index = RNG.nextInt(verifiedStartList.size());
             start = verifiedStartList.elementAt(index);
             end = verifiedEndList.elementAt(index);
-            setLine(z, start, end, MapCellBase.CLEAR);
+            setLine(z, start, end, MapCellBase.LOW_WALL);
          }
       }
       if(start == null) // no straight tunnel built, build angled tunnel
@@ -288,9 +313,9 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          end = pickCoordFromList(bList);
          Coord median1 = new Coord((start.x + end.x) / 2, start.y);
          Coord median2 = new Coord((start.x + end.x) / 2, end.y);
-         setLine(z, start, median1, MapCellBase.CLEAR);
-         setLine(z, median1, median2, MapCellBase.CLEAR);
-         setLine(z, median2, end, MapCellBase.CLEAR);
+         setLine(z, start, median1, MapCellBase.LOW_WALL);
+         setLine(z, median1, median2, MapCellBase.LOW_WALL);
+         setLine(z, median2, end, MapCellBase.LOW_WALL);
       }
       connectedRooms.add(start, end);
    }

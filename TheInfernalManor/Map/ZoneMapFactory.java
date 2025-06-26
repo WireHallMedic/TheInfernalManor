@@ -31,7 +31,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return prospectList;
    }
    
-   protected static boolean isValidHorizontalDoorLocation(ZoneMap z, int x, int y)
+   protected static boolean isValidVerticalDoorLocation(ZoneMap z, int x, int y)
    {               
       return z.getTile(x, y - 1).isLowPassable() &&
              z.getTile(x, y + 1).isLowPassable() &&
@@ -39,7 +39,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
              !(z.getTile(x + 1, y) instanceof Door);
    }
    
-   protected static boolean isValidVerticalDoorLocation(ZoneMap z, int x, int y)
+   protected static boolean isValidHorizontalDoorLocation(ZoneMap z, int x, int y)
    {               
       return z.getTile(x - 1, y).isLowPassable() &&
              z.getTile(x + 1, y).isLowPassable() &&
