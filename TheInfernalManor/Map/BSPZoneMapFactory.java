@@ -202,9 +202,8 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                   setLine(z, new Coord(target.x, room.origin.y), target, MapCellBase.SHALLOW_LIQUID);
                }
             }
-
             // south
-            if(!room.connectsSouth)
+            if(!room.connectsSouth && false)
             {
                Vector<Coord> prospectList = new Vector<Coord>();
                for(int x = room.origin.x + 1; x < room.origin.x + room.size.x - 2; x++)
@@ -227,6 +226,58 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                {
                   Coord target = pickCoordFromList(prospectList);
                   setLine(z, new Coord(target.x, room.origin.y + room.size.y - 1), target, MapCellBase.SHALLOW_LIQUID);
+               }
+            }
+            // east
+            if(!room.connectsEast && false)
+            {
+               Vector<Coord> prospectList = new Vector<Coord>();
+               for(int y = room.origin.y + 1; y < room.origin.y + room.size.y - 2; y++)
+               {
+                  int x = room.origin.x + room.size.x - 1;
+                  boolean foundF = false;
+                  while(z.isInBounds(x, y) && !foundF)
+                  {
+                     if(z.getTile(x + 1, y).isLowPassable() ||
+                        z.getTile(x, y + 1).isLowPassable() ||
+                        z.getTile(x, y - 1).isLowPassable())
+                        foundF = true;
+                     else
+                        x++;
+                  }
+                  if(foundF)
+                     prospectList.add(new Coord(x, y));
+               }
+               if(prospectList.size() > 0)
+               {
+                  Coord target = pickCoordFromList(prospectList);
+                  setLine(z, new Coord(room.origin.x + room.size.x - 1, target.y), target, MapCellBase.SHALLOW_LIQUID);
+               }
+            }
+            // west
+            if(!room.connectsWest)
+            {
+               Vector<Coord> prospectList = new Vector<Coord>();
+               for(int y = room.origin.y + 1; y < room.origin.y + room.size.y - 2; y++)
+               {
+                  int x = room.origin.x;
+                  boolean foundF = false;
+                  while(z.isInBounds(x, y) && !foundF)
+                  {
+                     if(z.getTile(x - 1, y).isLowPassable() ||
+                        z.getTile(x, y + 1).isLowPassable() ||
+                        z.getTile(x, y - 1).isLowPassable())
+                        foundF = true;
+                     else
+                        x--;
+                  }
+                  if(foundF)
+                     prospectList.add(new Coord(x, y));
+               }
+               if(prospectList.size() > 0)
+               {
+                  Coord target = pickCoordFromList(prospectList);
+                  setLine(z, new Coord(room.origin.x, target.y), target, MapCellBase.SHALLOW_LIQUID);
                }
             }
          }

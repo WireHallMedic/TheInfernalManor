@@ -87,7 +87,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       
       bspPanel = new JPanel();
       bspPanel.setLayout(new GridLayout(12, 1));
-      // not added yet, swaps out with gridPanel
+      // swaps out with gridPanel
       
       loadDeckB = new JButton("Load Deck");
       loadDeckB.addActionListener(this);
