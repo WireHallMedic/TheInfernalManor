@@ -66,7 +66,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       }
       addTunnels(z, roomList, newRoomList); // use low walls instead of clear to avoid misidentifying paths as rooms
       replaceAll(z, MapCellBase.LOW_WALL, MapCellBase.ROUGH);
-      //increaseConnectivity(z, roomList, newRoomList, connChance, connRatio);
+      increaseDungeonConnectivity(z, newRoomList, connChance, connRatio);
       z.updateAllMaps();
       z.setRoomList(TIMRoom.removeParents(newRoomList));
       return z;
@@ -168,18 +168,35 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
    }
 
    
-   protected static void increaseConnectivity(ZoneMap z, Vector<TIMRoom> largeRoomList, Vector<TIMRoom> smallRoomList, double connectionChance, double affectedRooms)
+   protected static void increaseDungeonConnectivity(ZoneMap z, Vector<TIMRoom> roomList, double connectionChance, double affectedRooms)
    {
-      largeRoomList = TIMRoom.removeParents(largeRoomList);
-      smallRoomList = TIMRoom.removeParents(smallRoomList);
-      for(int i = 0; i < largeRoomList.size(); i++)
+      for(TIMRoom room : roomList)
       {
-         if(!largeRoomList.elementAt(i).isParent)
+         if(!room.isParent)
          {
-            TIMRoom smallRoom = smallRoomList.elementAt(i);
-            smallRoom.setConnections(z);
-            if(!smallRoom.connectsNorth)
+            room.setConnections(z);
+            if(!room.connectsNorth)
             {
+               int x = room.origin.x + 1;
+               x += RNG.nextInt(room.size.x - 2);
+               int y = room.origin.y;
+               boolean foundF = false;
+               while(z.isInBounds(x, y) && !foundF)
+               {
+                  if(z.getTile(x, y).isLowPassable())
+                  {
+                     foundF = true;
+                  }
+                  else
+                  {
+                     y--;
+                  }
+               }
+               if(foundF)
+               {
+                  setLine(z, new Coord(x, room.origin.y), new Coord(x, y), MapCellBase.LOW_WALL);
+               }
+               
 //                Vector<Coord> aList = new Vector<Coord>();
 //                for(int i = 0; aList.size() == 0; i++)
 //                   aList = searchVerticallyForTunnelProspects(z, a.origin.x + 1, a.origin.x + a.size.x - 2, a.origin.y + a.size.y - i);
