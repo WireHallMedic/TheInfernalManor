@@ -43,7 +43,7 @@ public class MapFactory implements GUIConstants
       map.setTile(17, 12, MapCellFactory.getGate());
       
       map.setItemAt(2, 3, new Gold(10));
-      
+      map.applyPalette(MapPalette.getBasePalette());
       return map;
    }
 }

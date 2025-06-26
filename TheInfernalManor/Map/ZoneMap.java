@@ -252,4 +252,18 @@ public class ZoneMap
       }
       return pathMap;
    }
+   
+   public void applyPalette(MapPalette palette)
+   {
+      MapCell cell;
+      for(int x = 0; x < width; x++)
+      for(int y = 0; y < height; y++)
+      {
+         cell = getTile(x, y);
+         if(cell.getBase() != null)
+         {
+            cell.setColors(palette.getFGColor(cell.getBase()), palette.getBGColor(cell.getBase()));
+         }
+      }
+   }
 }

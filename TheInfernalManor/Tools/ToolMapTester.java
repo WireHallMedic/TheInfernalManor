@@ -461,6 +461,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             System.out.println("Exception when generating BSP Island map: " + ex.toString());
          }
       }
+      zoneMap.applyPalette(MapPalette.getBasePalette());
    }
    
    private void swapLowerControlPanel()
