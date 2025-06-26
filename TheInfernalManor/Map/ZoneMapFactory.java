@@ -14,7 +14,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       Vector<Coord> prospectList = new Vector<Coord>();
       for(int y = yStart; y < yEnd; y++)
       {
-         if(isValidVerticalDoorLocation(z, x, y))
+         if(isValidHorizontalDoorLocation(z, x, y))
             prospectList.add(new Coord(x, y));
       }
       return prospectList;
@@ -25,7 +25,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       Vector<Coord> prospectList = new Vector<Coord>();
       for(int x = xStart; x < xEnd; x++)
       {
-         if(isValidHorizontalDoorLocation(z, x, y))
+         if(isValidVerticalDoorLocation(z, x, y))
             prospectList.add(new Coord(x, y));
       }
       return prospectList;
