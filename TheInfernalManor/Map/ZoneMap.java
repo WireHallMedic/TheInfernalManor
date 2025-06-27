@@ -262,14 +262,14 @@ public class ZoneMap implements GUIConstants
          cell = getTile(x, y);
          if(cell.getBase() != null)
          {
-            int bgColor = palette.getBGColor(cell.getBase());
+            int bgColor = palette.getBGColor(cell.getBase(), cell.getPaletteVariation());
             if(bgColor == VERY_DARK_GREEN)
                bgColor = VERY_DARK_GREEN_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * VERY_DARK_GREEN_GRADIENT.length)];
             if(bgColor == DARK_BLUE)
                bgColor = DARK_BLUE_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_BLUE_GRADIENT.length)];
             if(bgColor == DARK_GREY)
                bgColor = DARK_GREY_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_GREY_GRADIENT.length)];
-            cell.setColors(palette.getFGColor(cell.getBase()), bgColor);
+            cell.setColors(palette.getFGColor(cell.getBase(), cell.getPaletteVariation()), bgColor);
          }
       }
    }

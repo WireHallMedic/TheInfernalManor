@@ -83,6 +83,8 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       // no longer need sibiling pairs, can sort to add connections with preference for bigger rooms
       newRoomList = TIMRoom.removeParents(newRoomList);
       addRandomDoors(z, newRoomList);
+      for(TIMRoom r : newRoomList)
+         r.setAllPaletteVariations(z, MapPalette.ALTERNATE);
       Collections.sort(newRoomList);
       Collections.reverse(newRoomList);
       ZoneMap biggerZoneMap = new ZoneMap(z.getWidth() + 2, z.getHeight() + 2);

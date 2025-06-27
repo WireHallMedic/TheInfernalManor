@@ -137,6 +137,13 @@ public class TIMRoom extends Room implements Comparable<TIMRoom>
       return cell;
    }
    
+   public void setAllPaletteVariations(ZoneMap z, int variation)
+   {
+      for(int x = origin.x; x < origin.x + size.x; x++)
+      for(int y = origin.y; y < origin.y + size.y; y++)
+         z.getTileMap()[x][y].setPaletteVariation(variation);
+   }
+   
    public static Vector<TIMRoom> removeParents(Vector<TIMRoom> fullList)
    {
       Vector<TIMRoom> newList = new Vector<TIMRoom>();

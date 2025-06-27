@@ -12,6 +12,7 @@ public class MapCell implements GUIConstants
 	private boolean transparent;
    private MapCell brokenForm;
    private MapCellBase base;
+   private int paletteVariation;
 
 
 	public int getIconIndex(){return iconIndex;}
@@ -22,6 +23,7 @@ public class MapCell implements GUIConstants
 	public boolean isTransparent(){return transparent;}
    public MapCell getBrokenForm(){return brokenForm;}
    public MapCellBase getBase(){return base;}
+   public int getPaletteVariation(){return paletteVariation;}
 
 
 	public void setIconIndex(int i){iconIndex = i;}
@@ -32,6 +34,7 @@ public class MapCell implements GUIConstants
 	public void setTransparent(boolean t){transparent = t;}
    public void setBrokenForm(MapCell bf){brokenForm = bf;}
    public void setBase(MapCellBase b){base = b;}
+   public void setPaletteVariation(int v){paletteVariation = v;}
 
 
    public MapCell(int index, boolean lowPass, boolean highPass, boolean trans)
@@ -44,6 +47,7 @@ public class MapCell implements GUIConstants
       transparent = trans;
       brokenForm = null;
       base = null;
+      paletteVariation = MapPalette.BASE;
    }
    
    
@@ -65,6 +69,7 @@ public class MapCell implements GUIConstants
       if(that.brokenForm != null)
          this.brokenForm = new MapCell(that.brokenForm);
       this.base = that.base;
+      this.paletteVariation = that.paletteVariation;
    }
    
    public void setColors(int fg, int bg)
