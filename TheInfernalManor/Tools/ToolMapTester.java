@@ -14,7 +14,7 @@ import StrictCurses.*;
 
 public class ToolMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener, MouseMotionListener
 {
-   private static final String[] layoutList = {"MapGrid", "GridOfGrids", "BSP", "BSP Islands"};
+   private static final String[] layoutList = {"MapGrid", "GridOfGrids", "BSP", "BSP Islands", "BSPVillage"};
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
    private JPanel controlPanel;
@@ -278,10 +278,11 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             if(!gridPanelVisible)
                swapLowerControlPanel();
          }
-         if(generationType == 2 || generationType == 3)
+         if(generationType == 2 || generationType == 3 || generationType == 4)
          {
             if(gridPanelVisible)
                swapLowerControlPanel();
+            generateRoomList();
             generateZoneMap();
          }
       }
@@ -350,7 +351,10 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          int roomMax = Integer.parseInt(bspMaxRoomF.getText());
          int roomMin = Integer.parseInt(bspMinRoomF.getText());
          TIMBinarySpacePartitioning.setPartitionChance(.5);
-         roomList = TIMBinarySpacePartitioning.partition(mapWidth, mapHeight, roomMin, roomMax);
+         if(generationType == 4)
+            roomList = TIMBinarySpacePartitioning.partition(mapWidth - 2, mapHeight - 2, roomMin, roomMax);
+         else
+            roomList = TIMBinarySpacePartitioning.partition(mapWidth, mapHeight, roomMin, roomMax);
       }
       catch(Exception ex)
       {
@@ -459,6 +463,23 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
          catch(Exception ex)
          {
             System.out.println("Exception when generating BSP Island map: " + ex.toString());
+         }
+      }
+      else if(generationType == 4)
+      {
+         if(roomList.size() == 0)
+            generateRoomList();
+         try
+         {
+            double connChance = Double.parseDouble(bspConnectivityChanceF.getText());
+            double connRatio = Double.parseDouble(bspConnectivityRatioF.getText());
+            int lowerMin = Integer.parseInt(dungeonRoomMinF.getText());
+            int lowerMax = Integer.parseInt(dungeonRoomMaxF.getText());
+            zoneMap = BSPZoneMapFactory.generateVillage(roomList, lowerMin, lowerMax, connChance, connRatio);
+         }
+         catch(Exception ex)
+         {
+            System.out.println("Exception when generating BSP Village map: " + ex.toString());
          }
       }
       zoneMap.applyPalette(MapPalette.getBasePalette());

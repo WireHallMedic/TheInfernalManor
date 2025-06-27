@@ -26,9 +26,11 @@ public interface MapConstants
       FIELD    ("Fields"),    // gridArea, maximize connections
       FOREST   ("Forest"),    // gridArea
       CAVERN   ("Cavern"),    // gridArea
+      SWAMP    ("Swamp"),     // gridOfGrids
       CATACOMB ("Catacomb"),  // gridOfGrids
       MOUNTAIN ("Mountain"),  // gridOfGrids, maximize lower connections
       BUILDING ("Building"),  // BSP
+      VILLAGE  ("Village"),   // BSP, rooms less than full size
       DUNGEON  ("Dungeon");   // BSP, rooms less than full size
       
       public String name;

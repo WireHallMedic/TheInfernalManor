@@ -46,6 +46,54 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       return generate(w, h, min, max, .5, .5);
    }
    
+   public static ZoneMap generateVillage(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
+   {
+      Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
+      for(int i = 0; i < roomList.size(); i++)
+         if(roomList.elementAt(i).isParent)
+            newRoomList.add(roomList.elementAt(i));
+         else
+            newRoomList.add(generateSubroom(roomList.elementAt(i), minRoomSize, maxRoomSize));
+      ZoneMap z = new ZoneMap(roomList.elementAt(0).size.x, roomList.elementAt(0).size.y);
+      for(int x = 0; x < z.getWidth(); x++)
+      for(int y = 0; y < z.getHeight(); y++)
+         z.getTileMap()[x][y] = MapCellFactory.getMapCell(MapCellBase.CLEAR);
+         
+      for(TIMRoom r : newRoomList)
+      {
+         if(!r.isParent)
+         {
+            for(int x = r.origin.x; x < r.origin.x + r.size.x; x++)
+            {
+               z.getTileMap()[x][r.origin.y] = MapCellFactory.getMapCell(MapCellBase.WALL);
+               z.getTileMap()[x][r.origin.y + r.size.y - 1] = MapCellFactory.getMapCell(MapCellBase.WALL);
+            }
+            for(int y = r.origin.y; y < r.origin.y + r.size.y; y++)
+            {
+               z.getTileMap()[r.origin.x][y] = MapCellFactory.getMapCell(MapCellBase.WALL);
+               z.getTileMap()[r.origin.x + r.size.x - 1][y] = MapCellFactory.getMapCell(MapCellBase.WALL);
+            }
+//             for(int x = r.origin.x + 1; x < r.origin.x + r.size.x - 1; x++)
+//             for(int y = r.origin.y + 1; y < r.origin.y + r.size.y - 1; y++)
+//             {
+//                z.getTileMap()[x][y] = MapCellFactory.getMapCell(MapCellBase.CLEAR);
+//             }
+         }
+      }
+      // no longer need sibiling pairs, can sort to add connections with preference for bigger rooms
+      newRoomList = TIMRoom.removeParents(newRoomList);
+      addRandomDoors(z, newRoomList);
+      Collections.sort(newRoomList);
+      Collections.reverse(newRoomList);
+      ZoneMap biggerZoneMap = new ZoneMap(z.getWidth() + 2, z.getHeight() + 2);
+      overlay(z, biggerZoneMap, 1, 1);
+      z = biggerZoneMap;
+      z.updateAllMaps();
+      setConnections(z, newRoomList);
+      z.setRoomList(TIMRoom.removeParents(newRoomList));
+      return z;
+   }
+   
    public static ZoneMap generateDungeon(Vector<TIMRoom> roomList, int minRoomSize, int maxRoomSize, double connChance, double connRatio)
    {
       Vector<TIMRoom> newRoomList = new Vector<TIMRoom>();
@@ -117,6 +165,26 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          {
             Coord target = prospectList.elementAt(RNG.nextInt(prospectList.size()));
             z.getTileMap()[target.x][target.y] = MapCellFactory.getDoor();
+         }
+      }
+   }
+      
+   protected static void addRandomDoors(ZoneMap z, Vector<TIMRoom> roomList)
+   {
+      for(TIMRoom room : roomList)
+      {
+         if(!room.isParent)
+         {
+            int x = room.origin.x + 1 + RNG.nextInt(room.size.x - 2);
+            int y = room.origin.y + 1 + RNG.nextInt(room.size.y - 2);
+            switch(RNG.nextInt(4))
+            {
+               case 0 : x = room.origin.x; break;
+               case 1 : x = room.origin.x + room.size.x - 1; break;
+               case 2 : y = room.origin.y; break;
+               case 3 : y = room.origin.y + room.size.y - 1; break;
+            }
+            z.getTileMap()[x][y] = MapCellFactory.getDoor();
          }
       }
    }

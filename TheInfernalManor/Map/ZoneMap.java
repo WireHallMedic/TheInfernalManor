@@ -3,11 +3,10 @@ package TheInfernalManor.Map;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
-import WidlerSuite.SpiralSearch;
-import WidlerSuite.Coord;
+import WidlerSuite.*;
 import java.util.*;
 
-public class ZoneMap
+public class ZoneMap implements GUIConstants
 {
 	private int width;
 	private int height;
@@ -256,13 +255,21 @@ public class ZoneMap
    public void applyPalette(MapPalette palette)
    {
       MapCell cell;
+      NoiseChoir choir = new NoiseChoir();
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
       {
          cell = getTile(x, y);
          if(cell.getBase() != null)
          {
-            cell.setColors(palette.getFGColor(cell.getBase()), palette.getBGColor(cell.getBase()));
+            int bgColor = palette.getBGColor(cell.getBase());
+            if(bgColor == VERY_DARK_GREEN)
+               bgColor = VERY_DARK_GREEN_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * VERY_DARK_GREEN_GRADIENT.length)];
+            if(bgColor == DARK_BLUE)
+               bgColor = DARK_BLUE_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_BLUE_GRADIENT.length)];
+            if(bgColor == DARK_GREY)
+               bgColor = DARK_GREY_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_GREY_GRADIENT.length)];
+            cell.setColors(palette.getFGColor(cell.getBase()), bgColor);
          }
       }
    }

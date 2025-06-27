@@ -138,6 +138,17 @@ public class GUITools implements GUIConstants, SCConstants
       return indexArr;
    }
    
+   // returns the average of the two colors
+   public static int getAverageColor(int a, int b)
+   {
+      Color c1 = new Color(a);
+      Color c2 = new Color(b);
+      int red = (c1.getRed() + c2.getRed()) / 2;
+      int green = (c1.getGreen() + c2.getGreen()) / 2;
+      int blue = (c1.getBlue() + c2.getBlue()) / 2;
+      return new Color(red, green, blue).getRGB();
+   }
+   
    // returns a gradient from 45% darker to original
    public static int[] getGradient(int original)
    {

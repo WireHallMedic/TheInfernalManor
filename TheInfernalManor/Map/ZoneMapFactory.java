@@ -129,6 +129,12 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             bottomMap[x + xOrigin][y + yOrigin] = topMap[x][y];
          }
       }
+      for(TIMRoom room : top.getRoomList())
+      {
+         room.origin.x += xOrigin;
+         room.origin.y += yOrigin;
+         bottom.getRoomList().add(room);
+      }
    }
    
    protected static void setConnections(ZoneMap z, Vector<TIMRoom> roomList)
