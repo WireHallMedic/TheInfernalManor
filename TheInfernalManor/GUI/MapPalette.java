@@ -5,33 +5,40 @@ import TheInfernalManor.Map.*;
 
 public class MapPalette implements GUIConstants
 {
-   public static final int CLEAR_DECORATION_1 = MapCellBase.values().length;
-   public static final int CLEAR_DECORATION_2 = CLEAR_DECORATION_1 + 1;
-   public static final int CLEAR_DECORATION_3 = CLEAR_DECORATION_2 + 1;
-   private static final int ARRAY_LENGTH = CLEAR_DECORATION_3 + 1;
+   public static final int BASE = 0;
+   public static final int ALTERNATE = 1;    
+   public static final int DECORATION_1 = 2; 
+   public static final int DECORATION_2 = 3; 
+   public static final int INDICATOR = 4;   // such as a path 
+   public static final int VARIATIONS = 5;
    
-   private int fgArr[];
-   private int bgArr[];
-   private String nameArr[];
+   private int[][] fgArr;
+   private int[][] bgArr;
+   private String[][] nameArr;
    
    public MapPalette()
    {
-      fgArr = new int[ARRAY_LENGTH];
-      bgArr = new int[ARRAY_LENGTH];
-      nameArr = new String[ARRAY_LENGTH];
+      fgArr = new int[MapCellBase.values().length][VARIATIONS];
+      bgArr = new int[MapCellBase.values().length][VARIATIONS];
+      nameArr = new String[MapCellBase.values().length][VARIATIONS];
       for(int i = 0; i < fgArr.length; i++)
+      for(int j = 0; j < VARIATIONS; j++)
       {
-         fgArr[i] = WHITE;
-         bgArr[i] = DARK_GREY;
-         nameArr[i] = "";
+         fgArr[i][j] = WHITE;
+         bgArr[i][j] = DARK_GREY;
+         nameArr[i][j] = "";
       }
    }
    
+   public void set(int i, int v, String name, int fgColor, int bgColor)
+   {
+      fgArr[i][v] = fgColor;
+      bgArr[i][v] = bgColor;
+      nameArr[i][v] = name;
+   }
    public void set(int i, String name, int fgColor, int bgColor)
    {
-      fgArr[i] = fgColor;
-      bgArr[i] = bgColor;
-      nameArr[i] = name;
+      set(i, 0, name, fgColor, bgColor);
    }
    
    public void set(MapCellBase base, String name, int fgColor, int bgColor)
@@ -39,31 +46,66 @@ public class MapPalette implements GUIConstants
       set(base.ordinal(), name, fgColor, bgColor);
    }
    
-   public int getFGColor(int i){return fgArr[i];}
-   public int getBGColor(int i){return bgArr[i];}
-   public String getName(int i){return nameArr[i];}
+   public void set(MapCellBase base, int v, String name, int fgColor, int bgColor)
+   {
+      set(base.ordinal(), v, name, fgColor, bgColor);
+   }
+   
+   public void setAllVariations(MapCellBase base, String name, int fgColor, int bgColor)
+   {
+      setAllVariations(base.ordinal(), name, fgColor, bgColor);
+   }
+   
+   public void setAllVariations(int index, String name, int fgColor, int bgColor)
+   {
+      for(int v = 0; v < VARIATIONS; v++)
+      {
+         set(index, v, name, fgColor, bgColor);
+      }
+   }
+   
+   public int getFGColor(int i){return getFGColor(i, 0);}
+   public int getBGColor(int i){return getBGColor(i, 0);}
+   public String getName(int i){return getName(i, 0);}
    public int getFGColor(MapCellBase base){return getFGColor(base.ordinal());}
    public int getBGColor(MapCellBase base){return getBGColor(base.ordinal());}
    public String getNaqme(MapCellBase base){return getName(base.ordinal());}
    
+   public int getFGColor(int i, int v){return fgArr[i][v];}
+   public int getBGColor(int i, int v){return bgArr[i][v];}
+   public String getName(int i, int v){return nameArr[i][v];}
+   public int getFGColor(MapCellBase base, int v){return getFGColor(base.ordinal(), v);}
+   public int getBGColor(MapCellBase base, int v){return getBGColor(base.ordinal(), v);}
+   public String getNaqme(MapCellBase base, int v){return getName(base.ordinal(), v);}
+   
    public static MapPalette getBasePalette()
    {
       MapPalette mp = new MapPalette();
-      mp.set(MapCellBase.CLEAR, "Grass", GREEN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.ROUGH, "Rough", GREEN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.WALL, "Tree", GREEN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.LOW_WALL, "Stump", GREEN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.SHALLOW_LIQUID, "Water", BLUE, DARK_BLUE);
-      mp.set(MapCellBase.DEEP_LIQUID, "Deep Water", BLUE, DARK_BLUE);
-      mp.set(MapCellBase.CHEST_CLOSED, "", LIGHT_BROWN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.CHEST_OPEN, "", LIGHT_BROWN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.DOOR_CLOSED, "", LIGHT_BROWN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.DOOR_OPEN, "", LIGHT_BROWN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.TOGGLE_UNFLIPPED, "", LIGHT_BROWN, VERY_DARK_GREEN);
-      mp.set(MapCellBase.TOGGLE_FLIPPED, "", LIGHT_BROWN, VERY_DARK_GREEN);
-      mp.set(CLEAR_DECORATION_1, "Flowers", YELLOW, VERY_DARK_GREEN);
-      mp.set(CLEAR_DECORATION_1, "Flowers", BLUE, VERY_DARK_GREEN);
-      mp.set(CLEAR_DECORATION_1, "Stones", LIGHT_GREY, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.CLEAR, "Grass", GREEN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.ROUGH, "Rough", GREEN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.WALL, "Tree", GREEN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.LOW_WALL, "Stump", GREEN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.SHALLOW_LIQUID, "Water", BLUE, DARK_BLUE);
+      mp.setAllVariations(MapCellBase.DEEP_LIQUID, "Deep Water", BLUE, DARK_BLUE);
+      mp.setAllVariations(MapCellBase.CHEST_CLOSED, "", LIGHT_BROWN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.CHEST_OPEN, "", LIGHT_BROWN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.DOOR_CLOSED, "", LIGHT_BROWN, DARK_GREY);
+      mp.setAllVariations(MapCellBase.DOOR_OPEN, "", LIGHT_BROWN, DARK_GREY);
+      mp.setAllVariations(MapCellBase.TOGGLE_UNFLIPPED, "", LIGHT_BROWN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.TOGGLE_FLIPPED, "", LIGHT_BROWN, VERY_DARK_GREEN);
+      
+      mp.set(MapCellBase.CLEAR, ALTERNATE, "Floor", LIGHT_GREY, DARK_GREY);
+      mp.set(MapCellBase.CLEAR, DECORATION_1, "Flowers", YELLOW, VERY_DARK_GREEN);
+      mp.set(MapCellBase.CLEAR, DECORATION_2, "Flowers", BLUE, VERY_DARK_GREEN);
+      mp.set(MapCellBase.CLEAR, INDICATOR, "Path", BROWN, VERY_DARK_GREEN);
+      
+      mp.set(MapCellBase.WALL, ALTERNATE, "Wall", LIGHT_GREY, DARK_GREY);
+      mp.set(MapCellBase.LOW_WALL, ALTERNATE, "Window", LIGHT_GREY, DARK_GREY);
+      
+      mp.set(MapCellBase.CHEST_CLOSED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
+      mp.set(MapCellBase.CHEST_OPEN, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
+      mp.set(MapCellBase.TOGGLE_UNFLIPPED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
+      mp.set(MapCellBase.TOGGLE_FLIPPED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
       return mp;
    }
 }
