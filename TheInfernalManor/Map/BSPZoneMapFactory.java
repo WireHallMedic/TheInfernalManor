@@ -177,7 +177,28 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          {
             int x = room.origin.x + 1 + RNG.nextInt(room.size.x - 2);
             int y = room.origin.y + 1 + RNG.nextInt(room.size.y - 2);
-            switch(RNG.nextInt(4))
+            int roll = RNG.nextInt(4);
+            // rooms near edge should not point door towards that edge
+            switch(roll)
+            {
+               // west
+               case 0 : if(!z.isInBounds(room.origin.x - 10, y))
+                           roll = 1;
+                        break;
+               // east
+               case 1 : if(!z.isInBounds(room.origin.x + room.size.x + 9, y))
+                           roll = 0;
+                        break;
+               // north
+               case 2 : if(!z.isInBounds(x, room.origin.y - 10))
+                           roll = 3;
+                        break;
+               // south
+               case 3 : if(!z.isInBounds(x, room.origin.y + room.size.y + 9))
+                           roll = 2;
+                        break;
+            }
+            switch(roll)
             {
                case 0 : x = room.origin.x; break;
                case 1 : x = room.origin.x + room.size.x - 1; break;
