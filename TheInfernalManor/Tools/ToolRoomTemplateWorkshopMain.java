@@ -286,8 +286,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       setLocationValues();
       setCountLabel();
       ConnectionType ct = ConnectionType.values()[curConnectionType];
-      String curStr = "Current Room: %s (%d/%d)";
-      currentRoomL.setText(String.format(curStr, ct.name, curConnectionIndex + 1, deck.size(ct)));
+      String curStr = "Current Room: %dx%d %s (%d/%d)";
+      currentRoomL.setText(String.format(curStr, roomTemplate.getWidth(), roomTemplate.getHeight(), ct.name, curConnectionIndex + 1, deck.size(ct)));
       curStr = "Complete Deck: " + ((deck.isComplete()) ? "True" : "False");
       completeL.setText(curStr);
       curStr = "Uniform Squares: " + ((deck.isUniformSquareSize()) ? "True" : "False");
