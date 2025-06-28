@@ -454,11 +454,18 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
    private void save()
    {
       String saveLoc = "";
-      saveLoc = JOptionPane.showInputDialog(this, "Enter file name: ", fileName);
-      if(saveLoc == null || saveLoc.equals(""))
+      JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+      FileNameExtensionFilter filter = new FileNameExtensionFilter(
+         "TIM Template Deck ", "ttd");
+      chooser.setFileFilter(filter);
+      if(chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) 
       {
-         JOptionPane.showMessageDialog(this, "File name cannot be blank.","Save Attempt Aborted",  JOptionPane.ERROR_MESSAGE);
-         return;
+         saveLoc = chooser.getSelectedFile().getAbsolutePath();
+         if(saveLoc == null || saveLoc.equals(""))
+         {
+            JOptionPane.showMessageDialog(this, "File name cannot be blank.","Save Attempt Aborted",  JOptionPane.ERROR_MESSAGE);
+            return;
+         }
       }
       fileName = saveLoc;
       if(!fileName.contains(".ttd"))
