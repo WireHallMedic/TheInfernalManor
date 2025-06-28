@@ -458,6 +458,8 @@ public class ToolRoomTemplateWorkshopMain extends JFrame implements ActionListen
       FileNameExtensionFilter filter = new FileNameExtensionFilter(
          "TIM Template Deck ", "ttd");
       chooser.setFileFilter(filter);
+      if(!fileName.equals(""))
+         chooser.setSelectedFile(new File(fileName));
       if(chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) 
       {
          saveLoc = chooser.getSelectedFile().getAbsolutePath();
