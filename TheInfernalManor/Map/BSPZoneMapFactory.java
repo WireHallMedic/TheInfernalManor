@@ -87,12 +87,12 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
          r.setAllPaletteVariations(z, MapPalette.ALTERNATE);
       Collections.sort(newRoomList);
       Collections.reverse(newRoomList);
+      z.setRoomList(newRoomList);
       ZoneMap biggerZoneMap = new ZoneMap(z.getWidth() + 2, z.getHeight() + 2);
       overlay(z, biggerZoneMap, 1, 1);
       z = biggerZoneMap;
       z.updateAllMaps();
       setConnections(z, newRoomList);
-      z.setRoomList(TIMRoom.removeParents(newRoomList));
       return z;
    }
    

@@ -29,6 +29,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JButton rollGridB;
    private JButton rollTemplateB;
    private JButton rollRandomB;
+   private JCheckBox showRoomsCB;
    // grid controls
    private JTextField roomsWideF;
    private JTextField roomsTallF;
@@ -76,7 +77,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       controlPanel = new JPanel();
       controlPanel.setLayout(new GridLayout(2, 1));
       upperControlPanel = new JPanel();
-      upperControlPanel.setLayout(new GridLayout(5, 1));
+      upperControlPanel.setLayout(new GridLayout(6, 1));
       controlPanel.add(upperControlPanel);
       
       lowerControlPanel = new JPanel();
@@ -111,6 +112,10 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       rollRandomB = new JButton("Reroll Random Tiles");
       rollRandomB.addActionListener(this);
       upperControlPanel.add(rollRandomB);
+      
+      showRoomsCB = new JCheckBox("Show Rooms");
+      showRoomsCB.addActionListener(this);
+      upperControlPanel.add(showRoomsCB);
       
       JPanel anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
@@ -310,6 +315,14 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             else
             {
                mapPanel.setTile(x, y, ' ', WHITE, BLACK);
+            }
+         }
+         if(showRoomsCB.isSelected())
+         {
+            for(TIMRoom room : zoneMap.getRoomList())
+            {
+               if(!room.isParent)
+                  mapPanel.fillTileFG(room.origin.x - xCorner, room.origin.y - yCorner, room.size.x, room.size.y, RED);
             }
          }
       }
