@@ -22,6 +22,13 @@ public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, 
       for(int y = 0; y < roomsTall; y++)
       {
          placeTemplate(zm, templateGrid[x][y].resolveRandomTiles(), x * (widthOfRoom - 1), y * (heightOfRoom - 1));
+         if(templateGrid[x][y].getConnectionType() != ConnectionType.ISOLATED)
+         {
+            TIMRoom room = new TIMRoom();
+            room.origin = new Coord(x * (widthOfRoom - 1), y * (heightOfRoom - 1));
+            room.size = new Coord(widthOfRoom, heightOfRoom);
+            zm.getRoomList().add(room);
+         }
       }
       zm.updateAllMaps();
       return zm;
