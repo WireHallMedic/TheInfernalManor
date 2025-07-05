@@ -28,7 +28,7 @@ public interface GUIConstants
    public static final int YELLOW = -154;
    public static final int GREEN = -11681715;
    public static final int DARK_GREEN = -14460637;
-   public static final int VERY_DARK_GREEN = new Color(DARK_GREEN).darker().darker().getRGB();
+   public static final int VERY_DARK_GREEN = GUITools.getAverageColor(DARK_GREEN, new Color(DARK_GREEN).darker().darker().getRGB());
    public static final int BLUE = -10066177;
    public static final int DARK_BLUE = -13421696;
    public static final int PURPLE = -8375424;
@@ -36,7 +36,7 @@ public interface GUIConstants
    public static final int DARK_PINK = -2583404;
    public static final int BROWN = -10074327;
    public static final int LIGHT_BROWN = new Color(BROWN).brighter().brighter().getRGB();
-   public static final int DARK_BROWN = -14543091;
+   public static final int DARK_BROWN = new Color(BROWN).darker().getRGB();
    public static final int LIGHT_GREY = -4144960;
    public static final int GREY = -8355712;
    public static final int DARK_GREY = -12566464;
@@ -49,12 +49,12 @@ public interface GUIConstants
    public static final int RETICLE_COLOR = BLUE;
    
    public static final int[] COLOR_ARRAY = {
-      RED, DARK_RED, ORANGE, YELLOW, GREEN, DARK_GREEN, BLUE, DARK_BLUE, PURPLE, PINK,
-      DARK_PINK, BROWN, DARK_BROWN, WHITE, LIGHT_GREY, GREY, DARK_GREY, BLACK
+      BRIGHT_RED, RED, DARK_RED, BRIGHT_ORANGE, ORANGE, BRIGHT_YELLOW, YELLOW, GREEN, DARK_GREEN, BLUE, DARK_BLUE, PURPLE, PINK,
+      DARK_PINK, LIGHT_BROWN, BROWN, DARK_BROWN, WHITE, LIGHT_GREY, GREY, DARK_GREY, BLACK
       };
    
    public static final int[] DARK_GREEN_GRADIENT = GUITools.getGradient(DARK_GREEN);
-   public static final int[] VERY_DARK_GREEN_GRADIENT = GUITools.getGradient(GUITools.getAverageColor(DARK_GREEN, VERY_DARK_GREEN));
+   public static final int[] VERY_DARK_GREEN_GRADIENT = GUITools.getGradient(VERY_DARK_GREEN);
    public static final int[] DARK_BLUE_GRADIENT = GUITools.getGradient(DARK_BLUE);
    public static final int[] DARK_BROWN_GRADIENT = GUITools.getGradient(DARK_BROWN);
    public static final int[] DARK_GREY_GRADIENT = GUITools.getGradient(DARK_GREY);
