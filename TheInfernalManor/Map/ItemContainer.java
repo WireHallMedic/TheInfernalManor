@@ -4,7 +4,7 @@ import java.util.*;
 import StrictCurses.*;
 import TheInfernalManor.Item.*;
 
-// class for things like barrels and crates, partial parent class of chests
+// class for things like barrels and crates
 public class ItemContainer extends MapCell implements ItemDropper
 {
    private Vector<Item> itemList;
