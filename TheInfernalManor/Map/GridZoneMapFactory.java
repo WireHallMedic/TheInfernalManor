@@ -8,7 +8,7 @@ import java.util.*;
 
 public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, GUIConstants
 {
-   public static ZoneMap generate(RoomTemplate[][] templateGrid)
+   public static ZoneMap generate(RoomTemplate[][] templateGrid, boolean addExits)
    {
       int roomsWide = templateGrid.length;
       int roomsTall = templateGrid[0].length;
@@ -30,9 +30,12 @@ public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, 
             zm.getRoomList().add(room);
          }
       }
+      if(addExits)
+         addEntranceAndExit(zm, Direction.WEST);
       zm.updateAllMaps();
       return zm;
    }
+   public static ZoneMap generate(RoomTemplate[][] templateGrid){return generate(templateGrid, true);}
    
    
    // generate map for island-style
@@ -52,7 +55,7 @@ public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, 
       for(int x = 0; x < upper.getWidth(); x++)
       for(int y = 0; y < upper.getHeight(); y++)
       {
-         ZoneMap submap = generate(upper.getLowerGrid(x, y).getTemplateMap());
+         ZoneMap submap = generate(upper.getLowerGrid(x, y).getTemplateMap(), false);
          int maxXInset = islandWidth - submap.getWidth() - 4;
          int maxYInset = islandHeight - submap.getHeight() - 4;
          overlay(submap, zm, (x * islandWidth) + RNG.nextInt(maxXInset + 3), (y * islandHeight) + RNG.nextInt(maxYInset + 3));
@@ -61,6 +64,7 @@ public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, 
       fillNulls(zm);
       replaceAll(zm, MapCellBase.WALL, MapCellBase.DEEP_LIQUID);
       zm.updateAllMaps();
+      addEntranceAndExit(zm, Direction.WEST);
       
       return zm;
    }

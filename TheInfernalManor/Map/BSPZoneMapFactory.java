@@ -73,11 +73,6 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
                z.getTileMap()[r.origin.x][y] = MapCellFactory.getMapCell(MapCellBase.WALL);
                z.getTileMap()[r.origin.x + r.size.x - 1][y] = MapCellFactory.getMapCell(MapCellBase.WALL);
             }
-//             for(int x = r.origin.x + 1; x < r.origin.x + r.size.x - 1; x++)
-//             for(int y = r.origin.y + 1; y < r.origin.y + r.size.y - 1; y++)
-//             {
-//                z.getTileMap()[x][y] = MapCellFactory.getMapCell(MapCellBase.CLEAR);
-//             }
          }
       }
       // no longer need sibiling pairs, can sort to add connections with preference for bigger rooms
@@ -91,6 +86,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       ZoneMap biggerZoneMap = new ZoneMap(z.getWidth() + 2, z.getHeight() + 2);
       overlay(z, biggerZoneMap, 1, 1);
       z = biggerZoneMap;
+      addEntranceAndExit(z, Direction.WEST);
       z.updateAllMaps();
       setConnections(z, newRoomList);
       return z;
@@ -126,6 +122,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       z.updateAllMaps();
       setConnections(z, newRoomList);
       z.setRoomList(TIMRoom.removeParents(newRoomList));
+      addEntranceAndExit(z, Direction.WEST);
       return z;
    }
    

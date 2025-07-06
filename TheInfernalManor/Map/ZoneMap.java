@@ -276,13 +276,6 @@ public class ZoneMap implements GUIConstants
          {
             int bgColor = palette.getBGColor(cell.getBase(), cell.getPaletteVariation());
             int fgColor = palette.getFGColor(cell.getBase(), cell.getPaletteVariation());
-        //     if(bgColor == VERY_DARK_GREEN)
-//                bgColor = VERY_DARK_GREEN_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * VERY_DARK_GREEN_GRADIENT.length)];
-//             if(bgColor == DARK_BLUE)
-//                bgColor = DARK_BLUE_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_BLUE_GRADIENT.length)];
-//             if(bgColor == DARK_GREY)
-//                bgColor = DARK_GREY_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_GREY_GRADIENT.length)];
-//             
             for(int i = 0; i < COLOR_ARRAY.length; i++)
             {
                if(bgColor == COLOR_ARRAY[i])

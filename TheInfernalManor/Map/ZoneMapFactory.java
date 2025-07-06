@@ -8,7 +8,6 @@ import java.util.*;
 
 public class ZoneMapFactory implements MapConstants, GUIConstants
 {   
-   
    protected static Vector<Coord> searchVerticallyForDoorProspects(ZoneMap z, int x, int yStart, int yEnd)
    {
       Vector<Coord> prospectList = new Vector<Coord>();
@@ -164,7 +163,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       }
    }
    
-   private static MapCell resolveOverwrite(MapCell c1, MapCell c2)
+   protected static MapCell resolveOverwrite(MapCell c1, MapCell c2)
    {
       MapCell newCell = null;
       // doors have highest priority
@@ -178,7 +177,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return newCell;
    }
    
-   private static MapCell resolveOverwriteCorner(MapCell c1, MapCell c2)
+   protected static MapCell resolveOverwriteCorner(MapCell c1, MapCell c2)
    {
       MapCell newCell = null;
       // doors have highest priority
@@ -192,7 +191,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return newCell;
    }
    
-   private static MapCell resolveDoors(MapCell c1, MapCell c2)
+   protected static MapCell resolveDoors(MapCell c1, MapCell c2)
    {
       if(c1 instanceof Door && c2 instanceof Door)
          return randomPick(c1, c2);
@@ -203,7 +202,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return null;
    }
    
-   private static MapCell resolveLowPassable(MapCell c1, MapCell c2)
+   protected static MapCell resolveLowPassable(MapCell c1, MapCell c2)
    {
       if(c1.isLowPassable() && c2.isLowPassable())
         return randomPick(c1, c2);
@@ -214,7 +213,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return null;
    }
    
-   private static MapCell resolveHighImpassable(MapCell c1, MapCell c2)
+   protected static MapCell resolveHighImpassable(MapCell c1, MapCell c2)
    {
       if(!c1.isHighPassable() && !c2.isHighPassable())
          return randomPick(c1, c2);
@@ -225,7 +224,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return null;
    }
    
-   private static MapCell randomPick(MapCell c1, MapCell c2)
+   protected static MapCell randomPick(MapCell c1, MapCell c2)
    {
       if(RNG.nextBoolean())
          return c1;
@@ -233,8 +232,156 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          return c2;
    }
    
+   protected static void addEntranceAndExit(ZoneMap z, Direction fromDir)
+   {
+      TIMRoom r = null;
+      Coord target = null;
+      Direction[] dirList = new Direction[3];
+      switch(RNG.nextInt(3))
+      {
+         case 0 : dirList[0] = fromDir;
+                  dirList[1] = fromDir.clockwise();
+                  dirList[2] = fromDir.counterClockwise();
+                  break;
+         case 1 : dirList[0] = fromDir.clockwise();
+                  dirList[1] = fromDir.counterClockwise();
+                  dirList[2] = fromDir;
+                  break;
+         default: dirList[0] = fromDir.counterClockwise();
+                  dirList[1] = fromDir;
+                  dirList[2] = fromDir.clockwise();
+                  break;
+      }
+      for(int i = 0; i < dirList.length && r == null; i++)
+         r = getRoomInSector(z, dirList[i]);
+      // entrance
+      if(r != null)
+      {
+         Vector<Coord> prospectList = new Vector<Coord>();
+         for(int x = 0; x < r.size.x - 4; x++)
+         for(int y = 0; y < r.size.y - 4; y++)
+            if(z.isLowPassable(x + r.origin.x + 2, y + r.origin.y + 2))
+               prospectList.add(new Coord(x + r.origin.x + 2, y + r.origin.y + 2));
+         if(prospectList.size() > 0)
+         {
+            target = pickCoordFromList(prospectList);
+            z.setTile(target.x, target.y, MapCellFactory.getEntrance());
+         }
+      }
+      
+      // exit; can be opposite or adjacent to opposite
+      r = null;
+      Direction toDir = Direction.getDirectionTo(fromDir.x, fromDir.y, 0, 0);
+      switch(RNG.nextInt(3))
+      {
+         case 0 : dirList[0] = toDir;
+                  dirList[1] = toDir.clockwise();
+                  dirList[2] = toDir.counterClockwise();
+                  break;
+         case 1 : dirList[0] = toDir.clockwise();
+                  dirList[1] = toDir.counterClockwise();
+                  dirList[2] = toDir;
+                  break;
+         default: dirList[0] = toDir.counterClockwise();
+                  dirList[1] = toDir;
+                  dirList[2] = toDir.clockwise();
+                  break;
+      }
+      r = null;
+      for(int i = 0; i < dirList.length && r == null; i++)
+         r = getRoomInSector(z, dirList[i]);
+      if(r != null)
+      {
+         Vector<Coord> prospectList = new Vector<Coord>();
+         for(int x = 0; x < r.size.x - 4; x++)
+         for(int y = 0; y < r.size.y - 4; y++)
+            if(z.isLowPassable(x + r.origin.x + 2, y + r.origin.y + 2))
+               prospectList.add(new Coord(x + r.origin.x + 2, y + r.origin.y + 2));
+         if(prospectList.size() > 0)
+         {
+            target = pickCoordFromList(prospectList);
+            z.setTile(target.x, target.y, MapCellFactory.getExit());
+         }
+      }
+   }
+   
+   protected static TIMRoom getRoomInSector(ZoneMap z, Direction dir)
+   {
+      Vector<TIMRoom> roomList = getRoomsInSector(z, dir);
+      if(roomList.size() == 0)
+         return null;
+      return roomList.elementAt(RNG.nextInt(roomList.size()));
+   }
+   
+   protected static Vector<TIMRoom> getRoomsInSector(ZoneMap z, Direction dir)
+   {
+      Vector<TIMRoom> roomList = new Vector<TIMRoom>();
+      Coord min = new Coord(0, 0);
+      Coord max = new Coord(0, 0);
+      int width = z.getWidth();
+      int height = z.getHeight();
+      switch(dir)
+      {
+         case NORTH :      min.x = width / 3;
+                           max.x = (width * 2) / 3;
+                           min.y = 0;
+                           max.y = height / 3;
+                           break;
+         case NORTHEAST :  min.x = (width * 2) / 3;
+                           max.x = width - 1;
+                           min.y = 0;
+                           max.y = height / 3;
+                           break;
+         case EAST :       min.x = (width * 2) / 3;
+                           max.x = width - 1;
+                           min.y = height / 3;
+                           max.y = (height * 2) / 3;
+                           break;
+         case SOUTHEAST :  min.x = (width * 2) / 3;
+                           max.x = width;
+                           min.y = (height * 2) / 3;
+                           max.y = height - 1;
+                           break;
+         case SOUTH :      min.x = width / 3;
+                           max.x = (width * 2) / 3;
+                           min.y = (height * 2) / 3;
+                           max.y = height - 1;
+                           break;
+         case SOUTHWEST :  min.x = 0;
+                           max.x = width / 3;
+                           min.y = (height * 2) / 3;
+                           max.y = height - 1;
+                           break;
+         case WEST :       min.x = 0;
+                           max.x = width / 3;
+                           min.y = height / 3;
+                           max.y = (height * 2) / 3;
+                           break;
+         case NORTHWEST :  min.x = 0;
+                           max.x = width / 3;
+                           min.y = 0;
+                           max.y = height / 3;
+                           break;
+         case ORIGIN :     min.x = width / 3;
+                           max.x = (width * 2) / 3;
+                           min.y = height / 3;
+                           max.y = (height * 2) / 3;
+                           break;
+      }
+      for(TIMRoom curRoom : z.getRoomList())
+      {
+         Coord c = curRoom.getCenter();
+         if(c.x >= min.x && c.x <= max.x &&
+            c.y >= min.y && c.y <= max.y)
+            roomList.add(curRoom);
+      }
+      return roomList;
+   }
+   
+   
+   
    // removes high-impassable rows and columns beyond the first in contact with low-impassable
-   private static ZoneMap getTrimmed(ZoneMap original)
+   protected static ZoneMap getTrimmed(ZoneMap original)
    {
       int xLeading = 0;
       int yLeading = 0;

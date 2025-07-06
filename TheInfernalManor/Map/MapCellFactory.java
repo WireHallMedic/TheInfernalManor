@@ -4,6 +4,16 @@ import TheInfernalManor.GUI.*;
 
 public class MapCellFactory implements GUIConstants, MapConstants
 {
+   public static MapCell getEntrance()
+   {
+      return new MapCell(MapCellBase.ENTRANCE);
+   }
+   
+   public static MapCell getExit()
+   {
+      return new MapCell(MapCellBase.EXIT);
+   }
+   
    public static Door getDoor()
    {
       return new Door();
