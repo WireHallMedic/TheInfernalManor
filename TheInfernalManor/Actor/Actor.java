@@ -298,13 +298,11 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void die()
    {
       GameState.getCurZone().setDecoration(getXLocation(), getYLocation(), getCorpse());
-      System.out.println("Calling die() for " + getName());
       if(this != GameState.getPlayerCharacter())
       {
          for(Item i : takeItems())
          {
             GameState.getCurZone().dropItem(i, getXLocation(), getYLocation());
-            System.out.println("Dropped " + i.getName());
          }
       }
          
