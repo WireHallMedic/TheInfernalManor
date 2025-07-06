@@ -591,7 +591,7 @@ public class Actor extends ForegroundObject implements ActorConstants
          item = relicList.elementAt(slot - Inventory.RELIC_SLOT);
          relicList.removeElementAt(slot - Inventory.RELIC_SLOT);
       }
-      if(!inventory.hasRoom())
+      if(!inventory.hasRoom() && !swapping)
          GameState.getCurZone().dropItem(item, getXLocation(), getYLocation());
       else
          inventory.add(item);
@@ -599,4 +599,31 @@ public class Actor extends ForegroundObject implements ActorConstants
    }
    public void unequipItem(int itemIndex){unequipItem(itemIndex, false);}
    
+   
+   public void unequipAll()
+   {
+      if(getMainHand() != null)
+         unequipItem(Inventory.MAIN_HAND_SLOT, false);
+      if(getOffHand() != null)
+         unequipItem(Inventory.OFF_HAND_SLOT, false);
+      if(getArmor() != null)
+         unequipItem(Inventory.ARMOR_SLOT, false);
+      for(int i = 0; i < MAX_RELICS; i++)
+         if(getRelic(i) != null)
+            unequipItem(Inventory.RELIC_SLOT + i, false);
+   }
+   
+   
+   // itemDropper functions
+   public Vector<Item> getItems()
+   {
+      Vector<Item> iList = new Vector<Item>();
+      if(this == GameState.getPlayerCharacter())
+         return iList;
+      for(Item i : inventory.getItemList())
+         iList.add(i);
+      return iList;
+   }
+   public void setItems(Vector<Item> list){inventory.setItemList(list);};
+   public void addItem(Item i){inventory.add(i);}
 }
