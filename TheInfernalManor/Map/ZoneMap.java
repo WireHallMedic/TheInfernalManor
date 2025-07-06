@@ -181,13 +181,24 @@ public class ZoneMap implements GUIConstants
          ToggleTile tt = (ToggleTile)getTile(x, y);
          tt.toggle();
          updateMaps(x, y);
+         if(getTile(x, y) instanceof ItemDropper)
+            for(Item i : ((ItemDropper)getTile(x, y)).getItems())
+               dropItem(i, x, y);
       }
    }
    
    public void breakTile(int x, int y)
    {
       if(getTile(x, y).isBreakable())
+      {
+         Vector<Item> dropList = null;
+         if(getTile(x, y) instanceof ItemDropper)
+            dropList = ((ItemDropper)getTile(x, y)).getItems();
          setTile(x, y, getTile(x, y).getBrokenForm());
+         if(dropList != null)
+            for(Item i : dropList)
+               dropItem(i, x, y);
+      }
    }
    public void breakTile(Coord c){breakTile(c.x, c.y);}
    

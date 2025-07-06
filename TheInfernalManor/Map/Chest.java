@@ -4,7 +4,7 @@ import java.util.*;
 import StrictCurses.*;
 import TheInfernalManor.Item.*;
 
-// class for things like barrels and crates, partial parent class of chests
+
 public class Chest extends ToggleTile implements ItemDropper
 {
    private Vector<Item> itemList;

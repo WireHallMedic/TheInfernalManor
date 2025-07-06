@@ -4,7 +4,7 @@ import TheInfernalManor.GUI.*;
 
 public class MapCellFactory implements GUIConstants, MapConstants
 {
-   public static MapCell getDoor()
+   public static Door getDoor()
    {
       return new Door();
    }
@@ -17,14 +17,9 @@ public class MapCellFactory implements GUIConstants, MapConstants
       return d;
    }
    
-   public static MapCell getChest()
+   public static Chest getChest()
    {
-      MapCell a = new MapCell(MapCellBase.CHEST_CLOSED);
-      MapCell b = new MapCell(MapCellBase.CHEST_OPEN);
-      ToggleTile tt = new ToggleTile(a, b);
-      tt.setOneUseOnly(true);
-      tt.setBrokenForm(new MapCell(MapCellBase.ROUGH));
-      return tt;
+      return new Chest();
    }
    
    public static MapCell getMapCell(MapCellBase base, int fg, int bg)
