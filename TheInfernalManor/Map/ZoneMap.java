@@ -182,7 +182,7 @@ public class ZoneMap implements GUIConstants
          tt.toggle();
          updateMaps(x, y);
          if(getTile(x, y) instanceof ItemDropper)
-            for(Item i : ((ItemDropper)getTile(x, y)).getItems())
+            for(Item i : ((ItemDropper)getTile(x, y)).takeItems())
                dropItem(i, x, y);
       }
    }
@@ -193,7 +193,7 @@ public class ZoneMap implements GUIConstants
       {
          Vector<Item> dropList = null;
          if(getTile(x, y) instanceof ItemDropper)
-            dropList = ((ItemDropper)getTile(x, y)).getItems();
+            dropList = ((ItemDropper)getTile(x, y)).takeItems();
          setTile(x, y, getTile(x, y).getBrokenForm());
          if(dropList != null)
             for(Item i : dropList)
@@ -228,7 +228,8 @@ public class ZoneMap implements GUIConstants
             break;
          target.x += xCorner;
          target.y += yCorner;
-         if(getItemAt(target.x, target.y) != null)
+         if(getItemAt(target.x, target.y) != null ||
+            !isLowPassable(target.x, target.y))
             target = null;
       }
       return target;

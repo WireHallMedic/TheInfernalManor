@@ -22,6 +22,14 @@ public class MapCellFactory implements GUIConstants, MapConstants
       return new Chest();
    }
    
+   public static ItemContainer getBarrel()
+   {
+      ItemContainer ic = new ItemContainer(MapCellBase.LOW_WALL);
+      ic.setIconIndex('0');
+      ic.setBrokenForm(MapCellFactory.getMapCell(MapCellBase.ROUGH, BROWN, DARK_GREY));
+      return ic;
+   }
+   
    public static MapCell getMapCell(MapCellBase base, int fg, int bg)
    {
       MapCell mc = new MapCell(base);

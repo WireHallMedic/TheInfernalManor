@@ -22,6 +22,12 @@ public class ItemContainer extends MapCell implements ItemDropper
    }
    
    
+   public Vector<Item> takeItems()
+   {
+      Vector<Item> temp = itemList;
+      itemList = new Vector<Item>();
+      return temp;
+   }
    public Vector<Item> getItems(){return itemList;}
    public void setItems(Vector<Item> list){itemList = list;};
    public void addItem(Item i){itemList.add(i);}

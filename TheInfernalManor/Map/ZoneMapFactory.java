@@ -328,8 +328,15 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       map.setTile(w - 3, h - 3, MapCellFactory.getMapCell(MapCellBase.WALL, LIGHT_GREY, DARK_GREY));
       map.setTile(w - 3, 2, MapCellFactory.getMapCell(MapCellBase.WALL, LIGHT_GREY, DARK_GREY));
       map.setTile(2, h - 3, MapCellFactory.getMapCell(MapCellBase.WALL, LIGHT_GREY, DARK_GREY));
+      ItemContainer ic = MapCellFactory.getBarrel();
+      ic.addItem(new Gold(10));
+      map.setTile(10, 3, ic);
       map.setTile(10, 5, MapCellFactory.getDoor());
-      map.setTile(10, 7, MapCellFactory.getChest());
+      Chest c = MapCellFactory.getChest();
+      c.addItem(new Gold(10));
+      c.addItem(new Gold(10));
+      c.addItem(new Gold(10));
+      map.setTile(10, 7, c);
       map.setItemAt(1, 2, new Armor("Filthy Rags"));
       
       MapCell fragilePillar = MapCellFactory.getMapCell(MapCellBase.WALL, BROWN, DARK_GREY);
