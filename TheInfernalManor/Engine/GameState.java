@@ -47,6 +47,7 @@ public class GameState implements EngineConstants, Runnable
       actorList.add(a);
       Actor b = ActorFactory.getTestZombie(14, 15);
       b.setOffHand(OffHandFactory.getShield());
+      b.addItem(new Gold(24));
       actorList.add(b);
       //actorList.add(ActorFactory.getTestWizard(17, 15));
       setCurZone(ZoneMapFactory.getTestMap1());
