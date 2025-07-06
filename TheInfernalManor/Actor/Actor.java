@@ -10,7 +10,7 @@ import TheInfernalManor.Ability.*;
 import WidlerSuite.Coord;
 import WidlerSuite.WSTools;
 
-public class Actor extends ForegroundObject implements ActorConstants
+public class Actor extends ForegroundObject implements ActorConstants, ItemDropper
 {
 	private int[] location;
    private BaseAI ai;
