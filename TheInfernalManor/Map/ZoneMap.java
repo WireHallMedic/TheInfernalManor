@@ -275,13 +275,22 @@ public class ZoneMap implements GUIConstants
          if(cell.getBase() != null)
          {
             int bgColor = palette.getBGColor(cell.getBase(), cell.getPaletteVariation());
-            if(bgColor == VERY_DARK_GREEN)
-               bgColor = VERY_DARK_GREEN_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * VERY_DARK_GREEN_GRADIENT.length)];
-            if(bgColor == DARK_BLUE)
-               bgColor = DARK_BLUE_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_BLUE_GRADIENT.length)];
-            if(bgColor == DARK_GREY)
-               bgColor = DARK_GREY_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_GREY_GRADIENT.length)];
-            cell.setColors(palette.getFGColor(cell.getBase(), cell.getPaletteVariation()), bgColor);
+            int fgColor = palette.getFGColor(cell.getBase(), cell.getPaletteVariation());
+        //     if(bgColor == VERY_DARK_GREEN)
+//                bgColor = VERY_DARK_GREEN_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * VERY_DARK_GREEN_GRADIENT.length)];
+//             if(bgColor == DARK_BLUE)
+//                bgColor = DARK_BLUE_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_BLUE_GRADIENT.length)];
+//             if(bgColor == DARK_GREY)
+//                bgColor = DARK_GREY_GRADIENT[(int)(choir.getValue(.1 * x, .1 * y) * DARK_GREY_GRADIENT.length)];
+//             
+            for(int i = 0; i < COLOR_ARRAY.length; i++)
+            {
+               if(bgColor == COLOR_ARRAY[i])
+                  bgColor = GRADIENT_ARRAY[i][(int)(choir.getValue(.1 * x, .1 * y) * GRADIENT_ARRAY[i].length)];
+               if(fgColor == COLOR_ARRAY[i])
+                  fgColor = GRADIENT_ARRAY[i][(int)(choir.getValue(.1 * x, .1 * y) * GRADIENT_ARRAY[i].length)];
+            }
+            cell.setColors(fgColor, bgColor);
          }
       }
    }

@@ -87,6 +87,8 @@ public class MapPalette implements GUIConstants
       mp.setAllVariations(MapCellBase.LOW_WALL, "Stump", GREEN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.SHALLOW_LIQUID, "Water", BLUE, DARK_BLUE);
       mp.setAllVariations(MapCellBase.DEEP_LIQUID, "Deep Water", BLUE, DARK_BLUE);
+      mp.setAllVariations(MapCellBase.PIT, "Pit", WHITE, BLACK);
+      mp.setAllVariations(MapCellBase.CONTAINER, "Barrel", LIGHT_BROWN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.CHEST_CLOSED, "", LIGHT_BROWN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.CHEST_OPEN, "", LIGHT_BROWN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.DOOR_CLOSED, "", LIGHT_BROWN, DARK_GREY);
@@ -102,6 +104,7 @@ public class MapPalette implements GUIConstants
       mp.set(MapCellBase.WALL, ALTERNATE, "Wall", LIGHT_GREY, DARK_GREY);
       mp.set(MapCellBase.LOW_WALL, ALTERNATE, "Window", LIGHT_GREY, DARK_GREY);
       
+      mp.set(MapCellBase.CONTAINER, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
       mp.set(MapCellBase.CHEST_CLOSED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
       mp.set(MapCellBase.CHEST_OPEN, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
       mp.set(MapCellBase.TOGGLE_UNFLIPPED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);

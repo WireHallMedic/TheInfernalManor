@@ -24,8 +24,7 @@ public class MapCellFactory implements GUIConstants, MapConstants
    
    public static ItemContainer getBarrel()
    {
-      ItemContainer ic = new ItemContainer(MapCellBase.LOW_WALL);
-      ic.setIconIndex('0');
+      ItemContainer ic = new ItemContainer(MapCellBase.CONTAINER);
       ic.setBrokenForm(MapCellFactory.getMapCell(MapCellBase.ROUGH, BROWN, DARK_GREY));
       return ic;
    }

@@ -59,4 +59,14 @@ public interface GUIConstants
    public static final int[] DARK_BROWN_GRADIENT = GUITools.getGradient(DARK_BROWN);
    public static final int[] DARK_GREY_GRADIENT = GUITools.getGradient(DARK_GREY);
    public static final int[] DARK_RED_GRADIENT = GUITools.getGradient(DARK_RED);
+   
+   public static final int[][] GRADIENT_ARRAY = getArrayOfGradients();
+   
+   private static int[][] getArrayOfGradients()
+   {
+      int[][] arr = new int[COLOR_ARRAY.length][];
+      for(int i = 0; i < arr.length; i++)
+         arr[i] = GUITools.getGradient(COLOR_ARRAY[i]);
+      return arr;
+   }
 }

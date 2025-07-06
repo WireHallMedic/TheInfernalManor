@@ -22,18 +22,18 @@ public class ToolColorTester extends JFrame implements GUIConstants, MouseListen
       setTitle("Color Tester");
       
       setLayout(new GridLayout(1, 1));
-      tilePanel = new SCPanel(new SCTilePalette("WidlerTiles_16x16.png", 16, 16), 10, 5);
+      tilePanel = new SCPanel(new SCTilePalette("WidlerTiles_16x16.png", 16, 16), COLOR_ARRAY.length, 15);
       add(tilePanel);
       for(int i = 0; i < BG_COLOR_ARRAY.length; i++)
       {
          tilePanel.setTile(i, 0, 'X', WHITE, BG_COLOR_ARRAY[i]);
       }
       
-      for(int i = 0; i < COLOR_ARRAY.length; i++)
+      for(int x = 0; x < COLOR_ARRAY.length; x++)
       {
-         int x = i % 10;
-         int y = 2 + (i / 10);
-         tilePanel.setTileBG(x, y, COLOR_ARRAY[i]);
+         tilePanel.setTileBG(x, 2, COLOR_ARRAY[x]);
+         for(int y = 0; y < GRADIENT_ARRAY[0].length; y++)
+            tilePanel.setTileBG(x, y + 4, GRADIENT_ARRAY[x][y]);
       }
       
       tilePanel.addMouseListener(this);
@@ -42,18 +42,14 @@ public class ToolColorTester extends JFrame implements GUIConstants, MouseListen
    
    public boolean isValidColor(int x, int y)
    {
-      int i = x % 10;
-      i += 10 * (y - 2);
-      return i >= 0 && i < COLOR_ARRAY.length;
+      return x >= 0 && x < COLOR_ARRAY.length && y == 2;
    }
    
    public int getFGColor(int x, int y)
    {
       if(isValidColor(x, y))
       {
-         int i = x % 10;
-         i += 10 * (y - 2);
-         return COLOR_ARRAY[i];
+         return COLOR_ARRAY[x];
       }
       return 0;
    }
