@@ -269,7 +269,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       }
    }
    
-   // exit; can be opposite or adjacent to opposite
+   // exit can be opposite or adjacent to opposite
    protected static void addRoomExit(ZoneMap z, Direction fromDir)
    {
       TIMRoom r = null;

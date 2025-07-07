@@ -39,6 +39,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       z.updateAllMaps();
       setConnections(z, roomList);
       z.setRoomList(roomList);
+      addEntranceAndExit(z, Direction.WEST);
       return z;
    }
    public static ZoneMap generate(int w, int h, int min, int max)
