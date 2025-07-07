@@ -232,7 +232,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          return c2;
    }
    
-   protected static void addEntranceAndExit(ZoneMap z, Direction fromDir)
+   protected static void addRoomEntrance(ZoneMap z, Direction fromDir)
    {
       TIMRoom r = null;
       Coord target = null;
@@ -254,7 +254,6 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       }
       for(int i = 0; i < dirList.length && r == null; i++)
          r = getRoomInSector(z, dirList[i]);
-      // entrance
       if(r != null)
       {
          Vector<Coord> prospectList = new Vector<Coord>();
@@ -268,10 +267,14 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
             z.setTile(target.x, target.y, MapCellFactory.getEntrance());
          }
       }
-      
-      // exit; can be opposite or adjacent to opposite
-      r = null;
+   }
+   
+   // exit; can be opposite or adjacent to opposite
+   protected static void addRoomExit(ZoneMap z, Direction fromDir)
+   {
+      TIMRoom r = null;
       Direction toDir = Direction.getDirectionTo(fromDir.x, fromDir.y, 0, 0);
+      Direction[] dirList = new Direction[3];
       switch(RNG.nextInt(3))
       {
          case 0 : dirList[0] = toDir;
@@ -299,10 +302,18 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
                prospectList.add(new Coord(x + r.origin.x + 2, y + r.origin.y + 2));
          if(prospectList.size() > 0)
          {
-            target = pickCoordFromList(prospectList);
+            Coord target = pickCoordFromList(prospectList);
             z.setTile(target.x, target.y, MapCellFactory.getExit());
          }
       }
+
+   
+   }
+   
+   protected static void addEntranceAndExit(ZoneMap z, Direction fromDir)
+   {
+      addRoomEntrance(z, fromDir);
+      addRoomExit(z, fromDir);   
    }
    
    protected static TIMRoom getRoomInSector(ZoneMap z, Direction dir)
