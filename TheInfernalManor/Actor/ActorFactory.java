@@ -70,34 +70,44 @@ public class ActorFactory implements ActorConstants, GUIConstants
       return a;
    }
    
-   public static void setHealthByLevel(Actor a, Quality quality)
+   public static void setHealthByLevel(Actor a)
    {
       int level = Math.max(a.getPowerLevel(), 0);
-      int multiplier = 5;
-      switch(quality)
-      {
-         case Quality.CONSCRIPT  : multiplier = 3; break;
-         case Quality.REGULAR    : multiplier = 5; break;
-         case Quality.VETERAN    : multiplier = 7; break;
-         case Quality.ELITE      : multiplier = 9; break;
-         case Quality.UNIQUE     : multiplier = 15; break;
-      }
-      a.getBaseStats().setMaxHealth(multiplier + (level + 2));
+      a.getBaseStats().setMaxHealth(5 * (level + 2));
    }
-   public static void setHealthByLevel(Actor a){setHealthByLevel(a, Quality.REGULAR);}
+   
+   public static Actor getWolf(int level)
+   {
+      Actor a = new Actor("Wolf", 'w');
+      a.setColor(LIGHT_GREY);
+      a.setPowerLevel(level);
+      a.setAI(new StandardAI(a));
+      a.setNaturalWeapon(WeaponFactory.getWolfJaws());
+      a.setMoveSpeed(ActionSpeed.FAST);
+      a.fullHeal();
+      return a;
+   }
    
    
-   public static Actor getBandit(int level, Quality quality, CombatRole role)
+   public static Actor getBandit(int level, CombatRole role)
    {
       Actor a = new Actor("Bandit", 'b');
       a.setPowerLevel(level);
+      setHealthByLevel(a);
       a.setAI(new StandardAI(a));
       Weapon weapon = WeaponFactory.getDagger();
       Armor armor = null;
+      OffHand offHand = null;
       switch(role)
       {
-         case GRUNT :   if(quality == Quality.CONSCRIPT)
-                           a.setColor(LIGHT_GREY);
+         case CONSCRIPT : a = getWolf(level);
+                        a.setName("Attack Dog");
+                        a.setIconIndex('d');
+                        int health = a.getMaxHealth() / 2;
+                        a.getBaseStats().setMaxHealth(health);
+                        weapon = null;
+                        break;
+         case GRUNT :   ;
                         break;
          case SCOUT :   a.setName(a.getName() + " Tracker");
                         a.setColor(GREEN);
@@ -108,12 +118,10 @@ public class ActorFactory implements ActorConstants, GUIConstants
                         a.setColor(DARK_RED);
                         weapon = WeaponFactory.getSword();
                         armor = ArmorFactory.getLeatherArmor();
+                        offHand = OffHandFactory.getShield();
                         break;
          case ARCHER :  a.setName(a.getName() + " Hunter");
-                        if(quality == Quality.CONSCRIPT)
-                           a.setColor(DARK_YELLOW);
-                        else
-                           a.setColor(YELLOW);
+                        a.setColor(DARK_YELLOW);
                         weapon = WeaponFactory.getSling();
                         break;
          case LEADER :  a.setName(a.getName() + " Warlock");
@@ -123,18 +131,9 @@ public class ActorFactory implements ActorConstants, GUIConstants
                         a.addAbility(AttackFactory.getBlast());
                         break;
       }
-      if(quality == Quality.CONSCRIPT)
-      {
-         if(weapon != null)
-            weapon.adjustForQuality(ItemQuality.LOW);
-         if(armor != null)
-            armor.adjustForQuality(ItemQuality.LOW);
-      }
-      if(quality.ordinal() > Quality.REGULAR.ordinal())
-         a.setIconIndex('B');
       a.setMainHand(weapon);
+      a.setOffHand(offHand);
       a.setArmor(armor);
-      setHealthByLevel(a, quality);
       a.fullHeal();
       return a;
    }

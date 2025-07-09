@@ -13,5 +13,5 @@ public interface ActorConstants
    
    public enum Quality{CONSCRIPT, REGULAR, VETERAN, ELITE, UNIQUE};
    
-   public enum CombatRole{GRUNT, SCOUT, SOLDIER, ARCHER, LEADER};
+   public enum CombatRole{CONSCRIPT, GRUNT, SCOUT, SOLDIER, ARCHER, LEADER};
 }

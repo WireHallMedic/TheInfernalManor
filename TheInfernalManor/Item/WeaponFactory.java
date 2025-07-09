@@ -12,6 +12,14 @@ public class WeaponFactory implements GUIConstants
       return w;
    }
    
+   public static Weapon getWolfJaws()
+   {
+      Weapon w = new Weapon("Jaws");
+      w.setSize(Weapon.LIGHT);
+      w.setPhysicalDamage(5);
+      return w;
+   }
+   
    // basic melee weapons
    public static Weapon getDagger()
    {
