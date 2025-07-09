@@ -4,6 +4,15 @@ import TheInfernalManor.GUI.*;
 
 public class WeaponFactory implements GUIConstants
 {
+   // natural weapons
+   public static Weapon getFist()
+   {
+      Weapon w = new Weapon("Fist");
+      w.setSize(Weapon.LIGHT);
+      return w;
+   }
+   
+   // basic melee weapons
    public static Weapon getDagger()
    {
       Weapon w = new Weapon("Dagger");
@@ -28,6 +37,7 @@ public class WeaponFactory implements GUIConstants
       return w;
    }
    
+   // basic ranged weapons
    public static Weapon getSling()
    {
       Weapon w = new Weapon("Sling");
@@ -43,6 +53,25 @@ public class WeaponFactory implements GUIConstants
       w.setSize(Weapon.HEAVY);
       w.setPhysicalDamage(6);
       w.setRange(10);
+      return w;
+   }
+   
+   // basic magic implements
+   public static Weapon getWand()
+   {
+      Weapon w = new Weapon("Wand");
+      w.setSize(Weapon.LIGHT);
+      w.setPhysicalDamage(0);
+      w.setMagicalDamage(3);
+      return w;
+   }
+   
+   public static Weapon getStaff()
+   {
+      Weapon w = new Weapon("Staff");
+      w.setSize(Weapon.HEAVY);
+      w.setPhysicalDamage(4);
+      w.setMagicalDamage(6);
       return w;
    }
    

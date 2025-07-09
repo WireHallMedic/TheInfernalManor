@@ -120,8 +120,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       powerLevel = 1;
       basicAttack = AttackFactory.getBasicAttack();
       abilityList = new Vector<Ability>();
-      Weapon w = new Weapon("Fist");
-      naturalWeapon = w;
+      naturalWeapon = WeaponFactory.getFist();
       armor = null;
       mainHand = null;
       offHand = null;

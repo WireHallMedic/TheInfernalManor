@@ -10,4 +10,8 @@ public interface ActorConstants
    
    // Memory
    public static final int DEFAULT_MEMORY_DURATION = 7;
+   
+   public enum Quality{CONSCRIPT, REGULAR, VETERAN, ELITE, UNIQUE};
+   
+   public enum CombatRole{GRUNT, SCOUT, SOLDIER, ARCHER, LEADER};
 }

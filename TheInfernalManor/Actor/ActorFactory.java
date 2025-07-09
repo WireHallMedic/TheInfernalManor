@@ -5,7 +5,7 @@ import TheInfernalManor.AI.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Ability.*;
 
-public class ActorFactory
+public class ActorFactory implements ActorConstants, GUIConstants
 {
    public static Actor getTestPlayer()
    {
@@ -70,9 +70,70 @@ public class ActorFactory
       return a;
    }
    
-   public static void setHealthByLevel(Actor a)
+   public static void setHealthByLevel(Actor a, Quality quality)
    {
       int level = Math.max(a.getPowerLevel(), 0);
-      a.getBaseStats().setMaxHealth(5 + (5 * level));
+      int multiplier = 5;
+      switch(quality)
+      {
+         case Quality.CONSCRIPT  : multiplier = 3; break;
+         case Quality.REGULAR    : multiplier = 5; break;
+         case Quality.VETERAN    : multiplier = 7; break;
+         case Quality.ELITE      : multiplier = 9; break;
+         case Quality.UNIQUE     : multiplier = 15; break;
+      }
+      a.getBaseStats().setMaxHealth(multiplier + (level + 2));
+   }
+   public static void setHealthByLevel(Actor a){setHealthByLevel(a, Quality.REGULAR);}
+   
+   
+   public static Actor getBandit(int level, Quality quality, CombatRole role)
+   {
+      Actor a = new Actor("Bandit", 'b');
+      a.setPowerLevel(level);
+      a.setAI(new StandardAI(a));
+      Weapon weapon = WeaponFactory.getDagger();
+      Armor armor = null;
+      switch(role)
+      {
+         case GRUNT :   if(quality == Quality.CONSCRIPT)
+                           a.setColor(LIGHT_GREY);
+                        break;
+         case SCOUT :   a.setName(a.getName() + " Tracker");
+                        a.setColor(GREEN);
+                        armor = null;
+                        a.setMoveSpeed(ActionSpeed.FAST);
+                        break;
+         case SOLDIER : a.setName(a.getName() + " Enforcer");
+                        a.setColor(BRIGHT_RED);
+                        weapon = WeaponFactory.getSword();
+                        armor = ArmorFactory.getLeatherArmor();
+                        break;
+         case ARCHER :  a.setName(a.getName() + " Hunter");
+                        if(quality == Quality.CONSCRIPT)
+                           a.setColor(YELLOW);
+                        else
+                           a.setColor(BRIGHT_YELLOW);
+                        weapon = WeaponFactory.getSling();
+                        break;
+         case LEADER :  a.setName(a.getName() + " Warlock");
+                        a.setColor(PURPLE);
+                        weapon = WeaponFactory.getWand();
+                        armor = ArmorFactory.getRobes();
+                        a.addAbility(AttackFactory.getBlast());
+                        break;
+      }
+      if(quality == Quality.CONSCRIPT)
+      {
+         if(weapon != null)
+            weapon.adjustForQuality(ItemQuality.LOW);
+         if(armor != null)
+            armor.adjustForQuality(ItemQuality.LOW);
+      }
+      a.setMainHand(weapon);
+      a.setArmor(armor);
+      setHealthByLevel(a, quality);
+      a.fullHeal();
+      return a;
    }
 }
