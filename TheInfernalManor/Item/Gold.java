@@ -14,7 +14,7 @@ public class Gold extends Item
 
    public Gold(int v)
    {
-      super("Gold", '$', BRIGHT_YELLOW);
+      super("Gold", '$', YELLOW);
       value = v;
    }
    

@@ -39,11 +39,11 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
       for(int i = 0; i < len; i++)
       {
          if(i < len / 3)
-            fgArr[i] = BRIGHT_YELLOW;
+            fgArr[i] = YELLOW;
          else if(i < (len * 2) / 3)
-            fgArr[i] = BRIGHT_ORANGE;
+            fgArr[i] = ORANGE;
          else
-            fgArr[i] = BRIGHT_RED;
+            fgArr[i] = RED;
       }
       for(int i = 0; i < len; i++)
       {
@@ -78,7 +78,7 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
    
    public static void registerLightning(int xOrigin, int yOrigin, Direction dirToSource)
    {
-      int[] colorArr = GUITools.getGradient(WHITE, BRIGHT_YELLOW, 12);
+      int[] colorArr = GUITools.getGradient(WHITE, YELLOW, 12);
       int indexVal = -1;
       switch(dirToSource)
       {

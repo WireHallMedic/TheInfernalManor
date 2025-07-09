@@ -45,7 +45,7 @@ public class Combat
          // hit flash
          if(!defender.isDead())
          {
-            ActorVisualEffect hitEffect = new ActorVisualEffect(defender, null, GUITools.getGradient(GUIConstants.BRIGHT_RED, defender.getColor(), 12));
+            ActorVisualEffect hitEffect = new ActorVisualEffect(defender, null, GUITools.getGradient(GUIConstants.RED, defender.getColor(), 12));
             hitEffect.setTicksPerFrame(1);
             AnimationManager.add(hitEffect);
          }

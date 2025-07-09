@@ -105,19 +105,19 @@ public class ActorFactory implements ActorConstants, GUIConstants
                         a.setMoveSpeed(ActionSpeed.FAST);
                         break;
          case SOLDIER : a.setName(a.getName() + " Enforcer");
-                        a.setColor(BRIGHT_RED);
+                        a.setColor(DARK_RED);
                         weapon = WeaponFactory.getSword();
                         armor = ArmorFactory.getLeatherArmor();
                         break;
          case ARCHER :  a.setName(a.getName() + " Hunter");
                         if(quality == Quality.CONSCRIPT)
-                           a.setColor(YELLOW);
+                           a.setColor(DARK_YELLOW);
                         else
-                           a.setColor(BRIGHT_YELLOW);
+                           a.setColor(YELLOW);
                         weapon = WeaponFactory.getSling();
                         break;
          case LEADER :  a.setName(a.getName() + " Warlock");
-                        a.setColor(PURPLE);
+                        a.setColor(LIGHT_PURPLE);
                         weapon = WeaponFactory.getWand();
                         armor = ArmorFactory.getRobes();
                         a.addAbility(AttackFactory.getBlast());
@@ -130,6 +130,8 @@ public class ActorFactory implements ActorConstants, GUIConstants
          if(armor != null)
             armor.adjustForQuality(ItemQuality.LOW);
       }
+      if(quality.ordinal() > Quality.REGULAR.ordinal())
+         a.setIconIndex('B');
       a.setMainHand(weapon);
       a.setArmor(armor);
       setHealthByLevel(a, quality);
