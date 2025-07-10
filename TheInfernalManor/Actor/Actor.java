@@ -158,6 +158,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       location[0] = x;
       location[1] = y;
    }
+   public void setLocation(Coord c){setLocation(c.x, c.y);}
    
    public Coord getLocation()
    {

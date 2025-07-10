@@ -19,6 +19,8 @@ public class ZoneMap implements GUIConstants
    private ForegroundObject[][] decorationMap;
    private MapCell oobTile;
    private Vector<TIMRoom> roomList;
+   private Coord entranceLoc;
+   private Coord exitLoc;
 
 
 	public int getWidth(){return width;}
@@ -31,6 +33,8 @@ public class ZoneMap implements GUIConstants
    public ForegroundObject[][] getDecorationMap(){return decorationMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
    public Vector<TIMRoom> getRoomList(){return roomList;}
+   public Coord getEntranceLoc(){return new Coord(entranceLoc);}
+   public Coord getExitLoc(){return new Coord(exitLoc);}
 
 
 	public void setName(String n){name = n;}
@@ -151,6 +155,10 @@ public class ZoneMap implements GUIConstants
       lowPassMap[x][y] = getTile(x, y).isLowPassable();
       highPassMap[x][y] = getTile(x, y).isHighPassable();
       transparentMap[x][y] = getTile(x, y).isTransparent();
+      if(getTile(x, y).getBase() == MapCellBase.ENTRANCE)
+         entranceLoc = new Coord(x, y);
+      if(getTile(x, y).getBase() == MapCellBase.EXIT)
+         exitLoc = new Coord(x, y);
    }
    
    public void updateAllMaps()
@@ -286,5 +294,32 @@ public class ZoneMap implements GUIConstants
             cell.setColors(fgColor, bgColor);
          }
       }
+   }
+   
+   public boolean hasChest(TIMRoom r)
+   {
+      for(int x = 0; x < r.size.x; x++)
+      for(int y = 0; y < r.size.y; y++)
+         if(getTile(r.origin.x + x, r.origin.y + y) instanceof Chest)
+            return true;
+      return false;
+   }
+   
+   public boolean hasEntrance(TIMRoom r)
+   {
+      for(int x = 0; x < r.size.x; x++)
+      for(int y = 0; y < r.size.y; y++)
+         if(getTile(r.origin.x + x, r.origin.y + y).getBase() == MapCellBase.ENTRANCE)
+            return true;
+      return false;
+   }
+   
+   public boolean hasExit(TIMRoom r)
+   {
+      for(int x = 0; x < r.size.x; x++)
+      for(int y = 0; y < r.size.y; y++)
+         if(getTile(r.origin.x + x, r.origin.y + y).getBase() == MapCellBase.EXIT)
+            return true;
+      return false;
    }
 }

@@ -7,6 +7,7 @@ import TheInfernalManor.Map.*;
 import TheInfernalManor.GUI.*;
 import WidlerSuite.Coord;
 import WidlerSuite.ShadowFoVRect;
+import WidlerSuite.SpiralSearch;
 import java.util.*;
 
 public class GameState implements EngineConstants, Runnable
@@ -38,7 +39,14 @@ public class GameState implements EngineConstants, Runnable
    public static void setTestValues()
    {
       fov = null;
+      TIMBinarySpacePartitioning.setPartitionChance(.5);
+      Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(80, 80, 15, 25);
+      setCurZone(BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5));
+      curZone.applyPalette(MapPalette.getBasePalette());
       setPlayerCharacter(ActorFactory.getTestPlayer());
+      playerCharacter.setLocation(curZone.getEntranceLoc());
+      populate();
+      /*
       actorList.add(playerCharacter);
       actorList.add(ActorFactory.getTestEnemy(4, 15));
       Actor a = ActorFactory.getTestEnemy(9, 15);
@@ -51,6 +59,7 @@ public class GameState implements EngineConstants, Runnable
       actorList.add(b);
       //actorList.add(ActorFactory.getTestWizard(17, 15));
       setCurZone(ZoneMapFactory.getTestMap1());
+      */
       runF = true;
    }
    
@@ -194,6 +203,91 @@ public class GameState implements EngineConstants, Runnable
    public static void notifyOfDeath(Actor a)
    {
    
+   }
+   
+   // adds actor as near as possible to the target location
+   public static void addActorAt(Actor a, int x, int y)
+   {
+      if(curZone.canStep(x, y, a))
+      {
+         if(!isActorAt(x, y))
+         {
+            a.setLocation(x, y);
+            actorList.add(a);
+         }
+         else
+         {
+            SpiralSearch search = new SpiralSearch(curZone.getLowPassMap(), x, y);
+            Coord target = null;
+            while(target == null)
+            {
+               target = search.getNext();
+               if(target == null)
+                  break;
+               if(isActorAt(target))
+               {
+                  target = null;
+               }
+            }
+            if(target != null)
+            {
+               a.setLocation(target);
+               actorList.add(a);
+            }
+         }
+      }
+      // can't step at passed location; find nearest steppable and rerun
+      else
+      {
+         int radius = 5;
+         int diameter = (radius * 2) + 1;
+         boolean[][] searchGrid = new boolean[diameter][diameter];
+         for(int xx = 0; xx < diameter; xx++)
+         for(int yy = 0; yy < diameter; yy++)
+            searchGrid[xx][yy] = true;
+         SpiralSearch search = new SpiralSearch(searchGrid, radius, radius);
+         Coord target = null;
+         while(target == null)
+         {
+            target = search.getNext();
+            if(target == null)
+               break;
+            target.x += x - radius;
+            target.y += y - radius;
+            if(!curZone.isLowPassable(target.x, target.y))
+               target = null;
+         }
+         if(target != null)
+            addActorAt(a, target);
+      }
+   }
+   public static void addActorAt(Actor a, Coord c){addActorAt(a, c.x, c.y);}
+   
+   public static void populate()
+   {
+      if(curZone != null)
+      {
+         runF = false;
+         actorList = new Vector<Actor>();
+         actorList.add(playerCharacter);
+         for(TIMRoom room : curZone.getRoomList())
+         {
+            Vector<Actor> newEnemies = new Vector<Actor>();
+            if(curZone.hasEntrance(room))
+               continue;
+            if(curZone.hasChest(room) && RNG.nextDouble() < .9)
+               newEnemies = ActorFactory.getBanditGroup(1);
+            else if(RNG.nextDouble() < .75)
+               newEnemies = ActorFactory.getBanditGroup(1);
+            if(newEnemies.size() > 0)
+            {
+               Coord c = room.getCenter();
+               for(Actor a : newEnemies)
+                  addActorAt(a, c);
+            }
+         }
+         runF = true;
+      }
    }
    
    // adventure mode loop
