@@ -1,9 +1,40 @@
 package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Engine.*;
 
-public class WeaponFactory implements GUIConstants
+public class WeaponFactory implements GUIConstants, ItemConstants
 {
+   public static Weapon randomWeapon(int level)
+   {
+      WeaponBase roll = (WeaponBase)EngineTools.roll(WeaponBase.values(), level);
+      ItemQuality quality = (ItemQuality)EngineTools.roll(ItemQuality.values(), level);
+      Weapon w = new Weapon("temp");
+      switch(roll)
+      {
+         case DAGGER:      w = getDagger();
+                           break;
+         case SWORD:       w = getSword();
+                           break; 
+         case GREATSWORD:  w = getGreatsword();
+                           break;
+         case SLING:       w = getSling();
+                           break; 
+         case BOW:         w = getBow();
+                           break;
+         case WAND:        w = getWand();
+                           break;   
+         case STAFF:       w = getStaff();
+                           break;
+      }
+      switch(quality)
+      {
+         case LOW :  w.adjustForQuality(ItemQuality.LOW); break; 
+         case HIGH : w.adjustForQuality(ItemQuality.HIGH); break; 
+      }
+      return w;
+   }
+   
    // natural weapons
    public static Weapon getFist()
    {

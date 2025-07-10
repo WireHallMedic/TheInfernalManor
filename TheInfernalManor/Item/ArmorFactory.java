@@ -1,9 +1,34 @@
 package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Engine.*;
 
-public class ArmorFactory implements GUIConstants
+public class ArmorFactory implements GUIConstants, ItemConstants
 {
+   public static Armor randomArmor(int level)
+   {
+      ArmorBase roll = (ArmorBase)EngineTools.roll(ArmorBase.values(), level);
+      ItemQuality quality = (ItemQuality)EngineTools.roll(ItemQuality.values(), level);
+      Armor a = new Armor("temp");
+      switch(roll)
+      {
+         case ROBES:       a = getRobes();
+                           break;
+         case LEATHER:     a = getLeatherArmor();
+                           break; 
+         case CHAIN_MAIL:  a = getChainMail();
+                           break;
+         case PLATE_MAIL:  a = getPlateMail();
+                           break;
+      }
+      switch(quality)
+      {
+         case LOW :  a.adjustForQuality(ItemQuality.LOW); break; 
+         case HIGH : a.adjustForQuality(ItemQuality.HIGH); break; 
+      }
+      return a;
+   }
+   
    public static Armor getRobes()
    {
       Armor a = new Armor("Robes");

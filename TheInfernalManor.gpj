@@ -14,7 +14,7 @@ s#k0
 s#j0
 s#l0
 !217;u
-a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.Tools.ToolMapTester	iTheInfernalManor.Tools.ToolMapTester!5521;g
+a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.Tools.ToolMapTester	iTheInfernalManor.Tools.ToolMapTester!5569;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -52,6 +52,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011%uWidlerSuite%sVect.java
 %\011TheInfernalManor%sGUI%sActorVisualEffect.java
 %\011TheInfernalManor%sAI%sTeam.java
+%\011TheInfernalManor%sItem%sItemConstants.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011%uWidlerSuite%sRectLine.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
@@ -141,7 +142,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!5521;f
+!5569;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -179,6 +180,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011%uWidlerSuite%sVect.java
 %\011TheInfernalManor%sGUI%sActorVisualEffect.java
 %\011TheInfernalManor%sAI%sTeam.java
+%\011TheInfernalManor%sItem%sItemConstants.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011%uWidlerSuite%sRectLine.java
 %\011TheInfernalManor%sItem%sRelicFactory.java

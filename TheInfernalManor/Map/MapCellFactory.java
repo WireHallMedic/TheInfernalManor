@@ -32,12 +32,12 @@ public class MapCellFactory implements GUIConstants, MapConstants
    public static Chest getChest(int level)
    {
       Chest c = new Chest();
-      int iterations = RNG.nextInt(3) + 2;
+      int iterations = RNG.nextInt(4) + 2;
       for(int i = 0; i < iterations; i++)
       {
-         ItemRoll roll = (ItemRoll)EngineTools.roll(ItemRoll.values());
+         c.addItem(LootFactory.getRandomLoot(level));
       }
-      return new Chest();
+      return c;
    }
    public static Chest getChest(){return getChest(1);}
    

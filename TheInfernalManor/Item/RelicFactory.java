@@ -1,9 +1,30 @@
 package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Engine.*;
 
-public class RelicFactory implements GUIConstants
+public class RelicFactory implements GUIConstants, ItemConstants
 {
+   public static Relic randomRelic(int level)
+   {
+      RelicBase roll = (RelicBase)EngineTools.roll(RelicBase.values(), level);
+      Relic r = new Relic("temp");
+      switch(roll)
+      {
+         case HELM:        r = getHelm();
+                           break;
+         case GLOVES:      r = getGloves();
+                           break; 
+         case BOOTS:       r = getBoots();
+                           break;
+         case BRACERS:     r = getBracers();
+                           break;
+         case AMULET:      r = getAmulet();
+                           break;
+      }
+      return r;
+   }
+   
    public static Relic getHelm()
    {
       Relic r = new Relic("Helm");
