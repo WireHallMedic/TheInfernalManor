@@ -32,6 +32,8 @@ public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, 
       }
       if(addExits)
          addEntranceAndExit(zm, Direction.WEST);
+      setConnections(zm, zm.getRoomList());
+      addChests(zm);
       zm.updateAllMaps();
       return zm;
    }

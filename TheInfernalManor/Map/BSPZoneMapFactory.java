@@ -39,6 +39,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       z.updateAllMaps();
       setConnections(z, roomList);
       z.setRoomList(roomList);
+      addChests(z);
       addEntranceAndExit(z, Direction.WEST);
       return z;
    }
@@ -123,6 +124,7 @@ public class BSPZoneMapFactory extends ZoneMapFactory implements MapConstants, G
       z.updateAllMaps();
       setConnections(z, newRoomList);
       z.setRoomList(TIMRoom.removeParents(newRoomList));
+      addChests(z);
       addEntranceAndExit(z, Direction.WEST);
       return z;
    }

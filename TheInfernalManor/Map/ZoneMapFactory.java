@@ -247,10 +247,10 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    {
       Coord target = null;
       Vector<Coord> prospectList = new Vector<Coord>();
-      for(int x = 0; x < r.size.x - 4; x++)
-      for(int y = 0; y < r.size.y - 4; y++)
-         if(z.isLowPassable(x + r.origin.x + 2, y + r.origin.y + 2))
-            prospectList.add(new Coord(x + r.origin.x + 2, y + r.origin.y + 2));
+      for(int x = 0; x < r.size.x - 2; x++)
+      for(int y = 0; y < r.size.y - 2; y++)
+         if(z.isLowPassable(x + r.origin.x + 1, y + r.origin.y + 1))
+            prospectList.add(new Coord(x + r.origin.x + 1, y + r.origin.y + 1));
       if(prospectList.size() > 0)
       {
          target = pickCoordFromList(prospectList);
