@@ -3,7 +3,9 @@ package TheInfernalManor.Actor;
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.AI.*;
 import TheInfernalManor.Item.*;
+import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
+import java.util.*;
 
 public class ActorFactory implements ActorConstants, GUIConstants
 {
@@ -86,6 +88,35 @@ public class ActorFactory implements ActorConstants, GUIConstants
       a.setMoveSpeed(ActionSpeed.FAST);
       a.fullHeal();
       return a;
+   }
+   
+   public static Vector<Actor> getBanditGroup(int level)
+   {
+      Vector<Actor> aList = new Vector<Actor>();
+      switch(RNG.nextInt(5))
+      {
+         case 0 : aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.GRUNT));
+                  break;
+         case 1 : aList.add(getBandit(level, CombatRole.CONSCRIPT));
+                  aList.add(getBandit(level, CombatRole.CONSCRIPT));
+                  aList.add(getBandit(level, CombatRole.SCOUT));
+                  break;
+         case 2 : aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.SOLDIER));
+                  break;
+         case 3 : aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.ARCHER));
+                  break;
+         case 4 : aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.GRUNT));
+                  aList.add(getBandit(level, CombatRole.LEADER));
+                  break;
+      }
+      return aList;
    }
    
    

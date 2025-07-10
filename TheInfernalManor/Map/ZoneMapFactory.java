@@ -232,6 +232,32 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          return c2;
    }
    
+   protected static void addChests(ZoneMap z)
+   {
+      for(TIMRoom r : z.getRoomList())
+      {
+         if(r.isTerminal() && RNG.nextDouble() <= .75)
+            addChest(z, r);
+         else if(RNG.nextDouble() <= .20)
+            addChest(z, r);
+      }
+   }
+   
+   protected static void addChest(ZoneMap z, TIMRoom r)
+   {
+      Coord target = null;
+      Vector<Coord> prospectList = new Vector<Coord>();
+      for(int x = 0; x < r.size.x - 4; x++)
+      for(int y = 0; y < r.size.y - 4; y++)
+         if(z.isLowPassable(x + r.origin.x + 2, y + r.origin.y + 2))
+            prospectList.add(new Coord(x + r.origin.x + 2, y + r.origin.y + 2));
+      if(prospectList.size() > 0)
+      {
+         target = pickCoordFromList(prospectList);
+         z.setTile(target.x, target.y, MapCellFactory.getChest());
+      }
+   }
+   
    protected static void addRoomEntrance(ZoneMap z, Direction fromDir)
    {
       TIMRoom r = null;

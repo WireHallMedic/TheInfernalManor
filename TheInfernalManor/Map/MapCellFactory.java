@@ -1,6 +1,8 @@
 package TheInfernalManor.Map;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Item.*;
+import TheInfernalManor.Engine.*;
 
 public class MapCellFactory implements GUIConstants, MapConstants
 {
@@ -27,10 +29,17 @@ public class MapCellFactory implements GUIConstants, MapConstants
       return d;
    }
    
-   public static Chest getChest()
+   public static Chest getChest(int level)
    {
+      Chest c = new Chest();
+      int iterations = RNG.nextInt(3) + 2;
+      for(int i = 0; i < iterations; i++)
+      {
+         ItemRoll roll = (ItemRoll)EngineTools.roll(ItemRoll.values());
+      }
       return new Chest();
    }
+   public static Chest getChest(){return getChest(1);}
    
    public static ItemContainer getBarrel()
    {
