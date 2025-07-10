@@ -42,9 +42,12 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
                // item
                if(map.isItemAt(x + xOffset, y + yOffset))
                   setTile(x, y, map.getItemAt(x + xOffset, y + yOffset));
+               
+               // update lastSeenMap
+                  map.setLastSeen(x + xOffset, y + yOffset, getTileIndex(x, y));
             }
             else
-               setTile(x, y, ' ', WHITE, BLACK);
+               setTile(x, y, map.getLastSeen(x + xOffset, y + yOffset), DARK_GREY, BLACK);
          }
          
          // ground effects go under actors

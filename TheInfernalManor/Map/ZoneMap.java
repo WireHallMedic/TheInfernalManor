@@ -59,6 +59,7 @@ public class ZoneMap implements GUIConstants
       highPassMap = new boolean[w][h];
       transparentMap = new boolean[w][h];
       tileMap = new MapCell[w][h];
+      lastSeenMap = new int[w][h];
       itemMap = new Item[w][h];
       decorationMap = new ForegroundObject[w][h];
       oobTile = new MapCell(MapCellBase.WALL);

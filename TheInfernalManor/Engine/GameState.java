@@ -46,6 +46,7 @@ public class GameState implements EngineConstants, Runnable
       setPlayerCharacter(ActorFactory.getTestPlayer());
       playerCharacter.setLocation(curZone.getEntranceLoc());
       populate();
+      calcFoV();
       /*
       actorList.add(playerCharacter);
       actorList.add(ActorFactory.getTestEnemy(4, 15));
