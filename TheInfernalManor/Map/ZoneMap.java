@@ -15,9 +15,11 @@ public class ZoneMap implements GUIConstants
 	private boolean[][] highPassMap;
 	private boolean[][] transparentMap;
 	private MapCell[][] tileMap;
+   private int[][] lastSeenMap;
    private Item[][] itemMap;
    private ForegroundObject[][] decorationMap;
    private MapCell oobTile;
+   private MapCell defaultLastSeenTile;
    private Vector<TIMRoom> roomList;
    private Coord entranceLoc;
    private Coord exitLoc;
@@ -32,6 +34,7 @@ public class ZoneMap implements GUIConstants
    public Item[][] getItemMap(){return itemMap;}
    public ForegroundObject[][] getDecorationMap(){return decorationMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
+   public int[][] getLastSeenMap(){return lastSeenMap;}
    public Vector<TIMRoom> getRoomList(){return roomList;}
    public Coord getEntranceLoc(){return new Coord(entranceLoc);}
    public Coord getExitLoc(){return new Coord(exitLoc);}
@@ -65,6 +68,7 @@ public class ZoneMap implements GUIConstants
          setTile(x, y, new MapCell(MapCellBase.WALL));
          itemMap[x][y] = null;
          decorationMap[x][y] = null;
+         lastSeenMap[x][y] = ' ';
       }
    }
    
@@ -150,6 +154,14 @@ public class ZoneMap implements GUIConstants
       }
    }
    
+   public void setLastSeen(int x, int y, int index)
+   {
+      if(isInBounds(x, y))
+      {
+         lastSeenMap[x][y] = index;
+      }
+   }
+   
    public void updateMaps(int x, int y)
    {
       lowPassMap[x][y] = getTile(x, y).isLowPassable();
@@ -175,6 +187,14 @@ public class ZoneMap implements GUIConstants
       return oobTile;
    }
    public MapCell getTile(Coord c){return getTile(c.x, c.y);}
+   
+   public int getLastSeen(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return lastSeenMap[x][y];
+      return ' ';
+   }
+   public int getLastSeen(Coord c){return getLastSeen(c.x, c.y);}
    
    public boolean canStep(int x, int y, Actor a)
    {
