@@ -55,6 +55,9 @@ public class ForegroundObject implements GUIConstants
    
    public String[] getDeserializationArray(String str)
    {
+      int start = str.indexOf("[") + 1;
+      int end = str.indexOf("]") - 1;
+      str = str.substring(start, end);
       String[] strList = str.split(",");
       for(int i = 0; i < strList.length; i++)
          strList[i] = strList[i].replace("\"", "").trim();
@@ -68,7 +71,10 @@ public class ForegroundObject implements GUIConstants
    
    public String serialize()
    {
-      return String.format("\"%s\",\"%s\",\"%d\"", name, "" + iconIndex, color);
+      String str = String.format("\"%s\",\"%s\",\"%d\"", name, "" + iconIndex, color);
+      if(this instanceof ForegroundObject)
+         str = "FOREGROUND_OBJECT[" + str + "]";
+      return str;
    }
    
    public void deserialize(String str)

@@ -39,7 +39,10 @@ public class Item extends ForegroundObject implements GUIConstants
    public String serialize()
    {
       String str = super.serialize();
+      str = str.replace("FOREGROUND_OBJECT[", "");
+      str = str.replace("]", "");
       str += getSerializationString(description);
+      str = "ITEM[" + str + "]";
       return str;
    }
    

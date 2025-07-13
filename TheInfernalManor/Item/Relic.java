@@ -85,10 +85,13 @@ public class Relic extends EquippableItem implements GUIConstants
    public String serialize()
    {
       String str = super.serialize();
+      str = str.replace("EQUIPPABLE_ITEM[", "");
+      str = str.replace("]", "");
       if(restriction == null)
          str += getSerializationString(-1);
       else
          str += getSerializationString(restriction.ordinal());
+      str = "RELIC[" + str + "]";
       return str;
    }
    

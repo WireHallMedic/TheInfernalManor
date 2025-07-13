@@ -27,6 +27,9 @@ public class OffHand extends EquippableItem implements GUIConstants
    public String serialize()
    {
       String str = super.serialize();
+      str = str.replace("EQUIPPABLE_ITEM[", "");
+      str = str.replace("]", "");
+      str = "OFF_HAND[" + str + "]";
       return str;
    }
    

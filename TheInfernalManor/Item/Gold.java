@@ -51,7 +51,7 @@ public class Gold extends Item
    
    public String serialize()
    {
-      return String.format("\"%d\"", value);
+      return String.format("GOLD[\"%d\"]", value);
    }
    
    public void deserialize(String str)
