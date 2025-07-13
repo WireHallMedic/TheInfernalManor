@@ -3,6 +3,7 @@ package TheInfernalManor.GUI;
 import StrictCurses.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.lang.*;
 
 public class GUITools implements GUIConstants, SCConstants
 {
@@ -208,4 +209,69 @@ public class GUITools implements GUIConstants, SCConstants
          valArr[0] = (char)SCConstants.PLUS_MINUS_TILE;
       return new String(valArr);
    }
+   
+   public static String serializeColor(int color)
+   {
+      String str = "UNKNOWN_COLOR";
+      switch(color)
+      {
+         case WHITE:             str = "WHITE"; break;
+         case BLACK:             str = "BLACK"; break;
+         case RED:               str = "RED"; break;
+         case DARK_RED:          str = "DARK_RED"; break;
+         case VERY_DARK_RED:     str = "VERY_DARK_RED"; break;
+         case ORANGE:            str = "ORANGE"; break;
+         case DARK_ORANGE:       str = "DARK_ORANGE"; break;
+         case YELLOW:            str = "YELLOW"; break;
+         case DARK_YELLOW:       str = "DARK_YELLOW"; break;
+         case GREEN:             str = "GREEN"; break;
+         case DARK_GREEN:        str = "DARK_GREEN"; break;
+         case VERY_DARK_GREEN:   str = "VERY_DARK_GREEN"; break;
+         case TURQUOISE:         str = "TURQUOISE"; break;
+         case BLUE:              str = "BLUE"; break;
+         case DARK_BLUE:         str = "DARK_BLUE"; break;
+         case LIGHT_PURPLE:      str = "LIGHT_PURPLE"; break;
+         case PURPLE:            str = "PURPLE"; break;
+         case PINK:              str = "PINK"; break;
+         case BROWN:             str = "BROWN"; break;
+         case LIGHT_BROWN:       str = "LIGHT_BROWN"; break;
+         case DARK_BROWN:        str = "DARK_BROWN"; break;
+         case LIGHT_GREY:        str = "LIGHT_GREY"; break;
+         case GREY:              str = "GREY"; break;
+         case DARK_GREY:         str = "DARK_GREY"; break;
+         default:                throw new RuntimeException("Attempt to serialize unknown color: " + color);
+      }
+      return str;
+   }
+   
+   public static int deserializeColor(String str)
+   {
+      int val = 0;
+      if(str.equals("WHITE")) val = WHITE;
+      else if(str.equals("BLACK")) val = BLACK;
+      else if(str.equals("RED")) val = RED;
+      else if(str.equals("DARK_RED")) val = DARK_RED;
+      else if(str.equals("VERY_DARK_RED")) val = VERY_DARK_RED;
+      else if(str.equals("ORANGE")) val = ORANGE;
+      else if(str.equals("DARK_ORANGE")) val = DARK_ORANGE;
+      else if(str.equals("YELLOW")) val = YELLOW;
+      else if(str.equals("DARK_YELLOW")) val = DARK_YELLOW;
+      else if(str.equals("GREEN")) val = GREEN;
+      else if(str.equals("DARK_GREEN")) val = DARK_GREEN;
+      else if(str.equals("VERY_DARK_GREEN")) val = VERY_DARK_GREEN;
+      else if(str.equals("TURQUOISE")) val = TURQUOISE;
+      else if(str.equals("BLUE")) val = BLUE;
+      else if(str.equals("DARK_BLUE")) val = DARK_BLUE;
+      else if(str.equals("LIGHT_PURPLE")) val = LIGHT_PURPLE;
+      else if(str.equals("PURPLE")) val = PURPLE;
+      else if(str.equals("PINK")) val = PINK;
+      else if(str.equals("BROWN")) val = BROWN;
+      else if(str.equals("LIGHT_BROWN")) val = LIGHT_BROWN;
+      else if(str.equals("DARK_BROWN")) val = DARK_BROWN;
+      else if(str.equals("LIGHT_GREY")) val = LIGHT_GREY;
+      else if(str.equals("GREY")) val = GREY;
+      else if(str.equals("DARK_GREY")) val = DARK_GREY;
+      else throw new RuntimeException("Attempt to deserialize unknown color: " + str);
+      return val;
+  }
 }
