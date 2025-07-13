@@ -65,4 +65,58 @@ public class ItemTest {
       defender.applyCombatDamage(5, Ability.PHYSICAL);
       Assert.assertEquals("Magical armor does not help against physical", defender.getCurHealth(), 5);
    }
+   
+   
+   @Test public void testWeaponSerialization()
+   {
+      Weapon a = new Weapon("Weapon A");
+      Weapon b = new Weapon("Weapon B");
+      a.setTestingValues();
+      Assert.assertFalse("Items do not match before.", a.equals(b));
+      b.deserialize(a.serialize());
+      Assert.assertTrue("Items match after.", a.equals(b));
+   }
+   
+   
+   @Test public void testArmorSerialization()
+   {
+      Armor a = new Armor("Armor A");
+      Armor b = new Armor("Armor B");
+      a.setTestingValues();
+      Assert.assertFalse("Items do not match before.", a.equals(b));
+      b.deserialize(a.serialize());
+      Assert.assertTrue("Items match after.", a.equals(b));
+   }
+   
+   
+   @Test public void testOffHandSerialization()
+   {
+      OffHand a = new OffHand("OffHand A");
+      OffHand b = new OffHand("OffHand B");
+      a.setTestingValues();
+      Assert.assertFalse("Items do not match before.", a.equals(b));
+      b.deserialize(a.serialize());
+      Assert.assertTrue("Items match after.", a.equals(b));
+   }
+   
+   
+   @Test public void testRelicSerialization()
+   {
+      Relic a = new Relic("Relic A");
+      Relic b = new Relic("Relic B");
+      a.setTestingValues();
+      Assert.assertFalse("Items do not match before.", a.equals(b));
+      b.deserialize(a.serialize());
+      Assert.assertTrue("Items match after.", a.equals(b));
+   }
+   
+   
+   @Test public void testGoldSerialization()
+   {
+      Gold a = new Gold(27);
+      Gold b = new Gold(195);
+      Assert.assertFalse("Items do not match before.", a.equals(b));
+      b.deserialize(a.serialize());
+      Assert.assertTrue("Items match after.", a.equals(b));
+   }
 }

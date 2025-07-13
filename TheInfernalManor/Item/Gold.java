@@ -43,4 +43,20 @@ public class Gold extends Item
    {
       value -= v;
    }
+   
+   public boolean equals(Gold that)
+   {
+      return this.value == that.value;
+   }
+   
+   public String serialize()
+   {
+      return String.format("\"%d\"", value);
+   }
+   
+   public void deserialize(String str)
+   {
+      String[] strList = getDeserializationArray(str);
+      value = Integer.parseInt(strList[0]);
+   }
 }

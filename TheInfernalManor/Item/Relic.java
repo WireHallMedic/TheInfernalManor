@@ -71,6 +71,12 @@ public class Relic extends EquippableItem implements GUIConstants
       return strList;
    }
    
+   public boolean equals(Relic that)
+   {
+      return super.equals(that) &&
+         this.restriction == that.restriction;
+   }
+   
    public int numOfSerializedComponents()
    {
       return super.numOfSerializedComponents() + 1;
@@ -96,5 +102,11 @@ public class Relic extends EquippableItem implements GUIConstants
          restriction = null;
       else
          restriction = Restriction.values()[val];
+   }
+   
+   public void setTestingValues()
+   {
+      super.setTestingValues();
+      restriction = Restriction.HEAD;
    }
 }

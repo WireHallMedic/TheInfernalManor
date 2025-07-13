@@ -83,6 +83,13 @@ public class Weapon extends EquippableItem implements GUIConstants
       return strList;
    }
    
+   public boolean equals(Weapon that)
+   {
+      return super.equals(that) &&
+         this.size == that.size &&
+         this.range == that.range;
+   }
+   
    public int numOfSerializedComponents()
    {
       return super.numOfSerializedComponents() + 2;
@@ -103,5 +110,12 @@ public class Weapon extends EquippableItem implements GUIConstants
       int startingIndex = super.numOfSerializedComponents();
       size = Integer.parseInt(strList[startingIndex]);
       range = Integer.parseInt(strList[startingIndex + 1]);
+   }
+   
+   public void setTestingValues()
+   {
+      super.setTestingValues();
+      range = 10;
+      size = 11;
    }
 }

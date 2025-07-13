@@ -25,6 +25,12 @@ public class Item extends ForegroundObject implements GUIConstants
       this.description = that.description;
    }
    
+   public boolean equals(Item that)
+   {
+      return super.equals(that) &&
+         this.description.equals(that.description);
+   }
+   
    public int numOfSerializedComponents()
    {
       return super.numOfSerializedComponents() + 1;
@@ -43,5 +49,10 @@ public class Item extends ForegroundObject implements GUIConstants
       String[] strList = getDeserializationArray(str);
       int startingIndex = super.numOfSerializedComponents();
       description = strList[startingIndex];
+   }
+   
+   public void setTestingValues()
+   {
+      super.setTestingValues();
    }
 }

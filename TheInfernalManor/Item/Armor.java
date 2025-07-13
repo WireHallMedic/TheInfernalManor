@@ -60,6 +60,12 @@ public class Armor extends EquippableItem implements GUIConstants
       return strList;
    }
    
+   public boolean equals(Armor that)
+   {
+      return super.equals(that) &&
+         this.weight == that.weight;
+   }
+   
    public int numOfSerializedComponents()
    {
       return super.numOfSerializedComponents() + 1;
@@ -78,6 +84,12 @@ public class Armor extends EquippableItem implements GUIConstants
       String[] strList = getDeserializationArray(str);
       int startingIndex = super.numOfSerializedComponents();
       weight = Integer.parseInt(strList[startingIndex]);
+   }
+   
+   public void setTestingValues()
+   {
+      super.setTestingValues();
+      weight = 12;
    }
    
 }

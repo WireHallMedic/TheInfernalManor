@@ -14,6 +14,11 @@ public class OffHand extends EquippableItem implements GUIConstants
       super(that);
    }
    
+   public boolean equals(OffHand that)
+   {
+      return super.equals(that);
+   }
+   
    public int numOfSerializedComponents()
    {
       return super.numOfSerializedComponents() + 0;
@@ -28,5 +33,10 @@ public class OffHand extends EquippableItem implements GUIConstants
    public void deserialize(String str)
    {
       super.deserialize(str);
+   }
+   
+   public void setTestingValues()
+   {
+      super.setTestingValues();
    }
 }

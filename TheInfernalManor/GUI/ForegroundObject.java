@@ -46,11 +46,18 @@ public class ForegroundObject implements GUIConstants
       return ",\"" + i + "\"";
    }
    
+   public boolean equals(ForegroundObject that)
+   {
+      return this.name.equals(that.name) &&
+         this.iconIndex == that.iconIndex &&
+         this.color == that.color;
+   }
+   
    public String[] getDeserializationArray(String str)
    {
-      String[] strList = str.split(", ");
+      String[] strList = str.split(",");
       for(int i = 0; i < strList.length; i++)
-         strList[i] = strList[i].replace("\"", "");
+         strList[i] = strList[i].replace("\"", "").trim();
       return strList;
    }
    
@@ -67,7 +74,15 @@ public class ForegroundObject implements GUIConstants
    public void deserialize(String str)
    {
       String[] strList = getDeserializationArray(str);
+      name = strList[0];
       iconIndex = Integer.parseInt(strList[1]);
       color = Integer.parseInt(strList[2]);
+   }
+   
+   public void setTestingValues()
+   {
+      name = "Testing Object";
+      iconIndex = '?';
+      color = -1;
    }
 }

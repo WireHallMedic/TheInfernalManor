@@ -200,6 +200,20 @@ public class EquippableItem extends Item implements GUIConstants
       return newVal;
    }   
    
+   public boolean equals(EquippableItem that)
+   {
+      return super.equals(that) &&
+         this.physicalDamage == that.physicalDamage &&
+         this.magicalDamage == that.magicalDamage &&
+         this.physicalArmor == that.physicalArmor &&
+         this.magicalArmor == that.magicalArmor &&
+         this.block == that.block &&
+         this.energyRecharge == that.energyRecharge &&
+         this.maxHealth == that.maxHealth &&
+         this.maxEnergy == that.maxEnergy &&
+         this.vision == that.vision;
+   }
+   
    public int numOfSerializedComponents()
    {
       return super.numOfSerializedComponents() + 9;
@@ -234,5 +248,19 @@ public class EquippableItem extends Item implements GUIConstants
       maxHealth = Integer.parseInt(strList[startingIndex + 6]);
       maxEnergy = Integer.parseInt(strList[startingIndex + 7]);
       vision = Integer.parseInt(strList[startingIndex + 8]);
+   }
+   
+   public void setTestingValues()
+   {
+      super.setTestingValues();
+      physicalDamage = 1;
+      magicalDamage = 2;
+      physicalArmor = 3;
+      magicalArmor = 4;
+      block = 5;
+      energyRecharge = 6;
+      maxHealth = 7;
+      maxEnergy = 8;
+      vision = 9;
    }
 }
