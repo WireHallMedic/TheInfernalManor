@@ -35,4 +35,24 @@ public class ForegroundObject implements GUIConstants
       this.iconIndex = that.iconIndex;
       this.color = that.color;
    }
+   
+   public String getSerializationString(String str)
+   {
+      return ",\"" + str + "\"";
+   }
+   
+   public String getSerializationString(int i)
+   {
+      return ",\"" + i + "\"";
+   }
+   
+   public int numOfSerializedComponents()
+   {
+      return 3;
+   }
+   
+   public String serialize()
+   {
+      return String.format("\"%s\",\"%s\",\"%d\"", name, "" + iconIndex, color);
+   }
 }

@@ -13,4 +13,15 @@ public class OffHand extends EquippableItem implements GUIConstants
    {
       super(that);
    }
+   
+   public int numOfSerializedComponents()
+   {
+      return super.numOfSerializedComponents() + 0;
+   }
+   
+   public String serialize()
+   {
+      String str = super.serialize();
+      return str;
+   }
 }

@@ -82,4 +82,17 @@ public class Weapon extends EquippableItem implements GUIConstants
       strList.insertElementAt(str, 1);
       return strList;
    }
+   
+   public int numOfSerializedComponents()
+   {
+      return super.numOfSerializedComponents() + 2;
+   }
+   
+   public String serialize()
+   {
+      String str = super.serialize();
+      str += getSerializationString(size);
+      str += getSerializationString(range);
+      return str;
+   }
 }

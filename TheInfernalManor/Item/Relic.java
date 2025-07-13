@@ -65,9 +65,24 @@ public class Relic extends EquippableItem implements GUIConstants
       Vector<String> strList = super.getComparisonSummary(that);
       if(this.restriction != null || that.restriction != null)
       {
-         String sizeStr = String.format("%s Slot (%s Slot)", this.restriction.string, that.restriction.string);;
+         String sizeStr = String.format("%s Slot (%s Slot)", this.restriction.string, that.restriction.string);
          strList.insertElementAt(sizeStr, 0);
       }
       return strList;
+   }
+   
+   public int numOfSerializedComponents()
+   {
+      return super.numOfSerializedComponents() + 1;
+   }
+   
+   public String serialize()
+   {
+      String str = super.serialize();
+      if(restriction == null)
+         str += getSerializationString(-1);
+      else
+         str += getSerializationString(restriction.ordinal());
+      return str;
    }
 }

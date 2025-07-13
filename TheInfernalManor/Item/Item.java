@@ -24,4 +24,16 @@ public class Item extends ForegroundObject implements GUIConstants
       super(that);
       this.description = that.description;
    }
+   
+   public int numOfSerializedComponents()
+   {
+      return super.numOfSerializedComponents() + 1;
+   }
+   
+   public String serialize()
+   {
+      String str = super.serialize();
+      str += getSerializationString(description);
+      return str;
+   }
 }

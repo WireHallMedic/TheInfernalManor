@@ -198,5 +198,25 @@ public class EquippableItem extends Item implements GUIConstants
             newVal = 1;
       }
       return newVal;
+   }   
+   
+   public int numOfSerializedComponents()
+   {
+      return super.numOfSerializedComponents() + 9;
+   }
+   
+   public String serialize()
+   {
+      String str = super.serialize();
+      str += getSerializationString(physicalDamage);
+      str += getSerializationString(magicalDamage);
+      str += getSerializationString(physicalArmor);
+      str += getSerializationString(magicalArmor);
+      str += getSerializationString(block);
+      str += getSerializationString(energyRecharge);
+      str += getSerializationString(maxHealth);
+      str += getSerializationString(maxEnergy);
+      str += getSerializationString(vision);
+      return str;
    }
 }
