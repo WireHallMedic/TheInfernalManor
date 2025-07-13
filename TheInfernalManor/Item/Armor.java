@@ -72,4 +72,12 @@ public class Armor extends EquippableItem implements GUIConstants
       return str;
    }
    
+   public void deserialize(String str)
+   {
+      super.deserialize(str);
+      String[] strList = getDeserializationArray(str);
+      int startingIndex = super.numOfSerializedComponents();
+      weight = Integer.parseInt(strList[startingIndex]);
+   }
+   
 }

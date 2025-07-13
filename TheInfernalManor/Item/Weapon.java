@@ -95,4 +95,13 @@ public class Weapon extends EquippableItem implements GUIConstants
       str += getSerializationString(range);
       return str;
    }
+   
+   public void deserialize(String str)
+   {
+      super.deserialize(str);
+      String[] strList = getDeserializationArray(str);
+      int startingIndex = super.numOfSerializedComponents();
+      size = Integer.parseInt(strList[startingIndex]);
+      range = Integer.parseInt(strList[startingIndex + 1]);
+   }
 }

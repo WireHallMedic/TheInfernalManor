@@ -36,4 +36,12 @@ public class Item extends ForegroundObject implements GUIConstants
       str += getSerializationString(description);
       return str;
    }
+   
+   public void deserialize(String str)
+   {
+      super.deserialize(str);
+      String[] strList = getDeserializationArray(str);
+      int startingIndex = super.numOfSerializedComponents();
+      description = strList[startingIndex];
+   }
 }

@@ -85,4 +85,16 @@ public class Relic extends EquippableItem implements GUIConstants
          str += getSerializationString(restriction.ordinal());
       return str;
    }
+   
+   public void deserialize(String str)
+   {
+      super.deserialize(str);
+      String[] strList = getDeserializationArray(str);
+      int startingIndex = super.numOfSerializedComponents();
+      int val = Integer.parseInt(strList[startingIndex]);
+      if(val == -1)
+         restriction = null;
+      else
+         restriction = Restriction.values()[val];
+   }
 }

@@ -219,4 +219,20 @@ public class EquippableItem extends Item implements GUIConstants
       str += getSerializationString(vision);
       return str;
    }
+   
+   public void deserialize(String str)
+   {
+      super.deserialize(str);
+      String[] strList = getDeserializationArray(str);
+      int startingIndex = super.numOfSerializedComponents();
+      physicalDamage = Integer.parseInt(strList[startingIndex]);
+      magicalDamage = Integer.parseInt(strList[startingIndex + 1]);
+      physicalArmor = Integer.parseInt(strList[startingIndex + 2]);
+      magicalArmor = Integer.parseInt(strList[startingIndex + 3]);
+      block = Integer.parseInt(strList[startingIndex + 4]);
+      energyRecharge = Integer.parseInt(strList[startingIndex + 5]);
+      maxHealth = Integer.parseInt(strList[startingIndex + 6]);
+      maxEnergy = Integer.parseInt(strList[startingIndex + 7]);
+      vision = Integer.parseInt(strList[startingIndex + 8]);
+   }
 }

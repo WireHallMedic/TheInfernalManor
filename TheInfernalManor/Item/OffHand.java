@@ -24,4 +24,9 @@ public class OffHand extends EquippableItem implements GUIConstants
       String str = super.serialize();
       return str;
    }
+   
+   public void deserialize(String str)
+   {
+      super.deserialize(str);
+   }
 }
