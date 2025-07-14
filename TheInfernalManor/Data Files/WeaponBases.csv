@@ -1,0 +1,8 @@
+Name,Icon,Color,Description,pDmg,mDmg,pArm,mArm,Guard,Recharge,Health,Energy,Vision,Size,Range,minL,maxLvl,tableWeight
+Dagger,},-1,No Description.,3,0,0,0,0,0,0,0,0,0,1,,,
+Sword,},-1,No Description.,6,0,0,0,0,0,0,0,0,1,1,,,
+Greatsword,},-1,No Description.,9,0,0,0,0,0,0,0,0,2,1,,,
+Sling,},-1,No Description.,3,0,0,0,0,0,0,0,0,1,5,,,
+Bow,},-1,No Description.,6,0,0,0,0,0,0,0,0,2,10,,,
+Wand,},-1,No Description.,0,3,0,0,0,0,0,0,0,0,1,,,
+Staff,},-1,No Description.,4,6,0,0,0,0,0,0,0,2,1,,,

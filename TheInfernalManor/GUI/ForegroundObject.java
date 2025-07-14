@@ -71,7 +71,7 @@ public class ForegroundObject implements GUIConstants
    
    public String serialize()
    {
-      String str = String.format("\"%s\",\"%s\",\"%d\"", name, "" + iconIndex, color);
+      String str = String.format("\"%s\",\"%s\",%d", name, "" + (char)iconIndex, color);
       if(this instanceof ForegroundObject)
          str = "FOREGROUND_OBJECT[" + str + "]";
       return str;
@@ -81,7 +81,7 @@ public class ForegroundObject implements GUIConstants
    {
       String[] strList = getDeserializationArray(str);
       name = strList[0];
-      iconIndex = Integer.parseInt(strList[1]);
+      iconIndex = strList[1].charAt(0);
       color = Integer.parseInt(strList[2]);
    }
    
