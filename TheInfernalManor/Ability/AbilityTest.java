@@ -76,16 +76,16 @@ public class AbilityTest {
       Actor attacker = new Actor("", ' ');
       Actor defender = new Actor("", ' ');
       Armor shield = new Armor("");
-      shield.setBlock(1);
+      shield.setGuard(1);
       defender.setArmor(shield);
       defender.fullHeal();
-      Assert.assertEquals("Defender at full block", defender.getCurBlock(), 1);
+      Assert.assertEquals("Defender at full block", defender.getCurGuard(), 1);
       Assert.assertEquals("Defender at full health", defender.getCurHealth(), 10);
       Combat.resolveAttack(attacker, defender, attacker.getBasicAttack());
-      Assert.assertNotEquals("Defender not at full block", defender.getCurBlock(), 1);
+      Assert.assertNotEquals("Defender not at full block", defender.getCurGuard(), 1);
       Assert.assertEquals("Defender at full health", defender.getCurHealth(), 10);
       Combat.resolveAttack(attacker, defender, attacker.getBasicAttack());
-      Assert.assertNotEquals("Defender not at full block", defender.getCurBlock(), 1);
+      Assert.assertNotEquals("Defender not at full block", defender.getCurGuard(), 1);
       Assert.assertNotEquals("Defender not at full health", defender.getCurHealth(), 10);
    }
 }

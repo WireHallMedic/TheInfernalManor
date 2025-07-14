@@ -9,7 +9,7 @@ public class EquippableItem extends Item implements GUIConstants
 	private int magicalDamage;
 	private int physicalArmor;
 	private int magicalArmor;
-	private int block;
+	private int guard;
    private int energyRecharge;   // each point of this is worth .25 energy per tick
    private int maxHealth;
    private int maxEnergy;
@@ -20,7 +20,7 @@ public class EquippableItem extends Item implements GUIConstants
 	public int getMagicalDamage(){return magicalDamage;}
 	public int getPhysicalArmor(){return physicalArmor;}
 	public int getMagicalArmor(){return magicalArmor;}
-	public int getBlock(){return block;}
+	public int getGuard(){return guard;}
    public int getEnergyRecharge(){return energyRecharge;}
    public int getMaxHealth(){return maxHealth;}
    public int getMaxEnergy(){return maxEnergy;}
@@ -31,7 +31,7 @@ public class EquippableItem extends Item implements GUIConstants
 	public void setMagicalDamage(int m){magicalDamage = m;}
 	public void setPhysicalArmor(int p){physicalArmor = p;}
 	public void setMagicalArmor(int m){magicalArmor = m;}
-	public void setBlock(int b){block = b;}
+	public void setGuard(int b){guard = b;}
    public void setEnergyRecharge(int er){energyRecharge = er;}
    public void setMaxHealth(int mh){maxHealth = mh;}
    public void setMaxEnergy(int me){maxEnergy = me;}
@@ -55,7 +55,7 @@ public class EquippableItem extends Item implements GUIConstants
       this.magicalDamage += that.magicalDamage;
       this.physicalArmor += that.physicalArmor;
       this.magicalArmor += that.magicalArmor;
-      this.block += that.block;
+      this.guard += that.guard;
       this.energyRecharge += that.energyRecharge;
       this.maxHealth += that.maxHealth;
       this.maxEnergy += that.maxEnergy;
@@ -73,8 +73,8 @@ public class EquippableItem extends Item implements GUIConstants
          strList.add("Physical Armor  " + GUITools.getSignedString(physicalArmor));
       if(magicalArmor != 0)
          strList.add("Magical Armor   " + GUITools.getSignedString(magicalArmor));
-      if(block != 0)
-         strList.add("Block           " + GUITools.getSignedString(block));
+      if(guard != 0)
+         strList.add("Guard           " + GUITools.getSignedString(guard));
       if(energyRecharge != 0)
          strList.add("Energy Recharge " + GUITools.getSignedString(energyRecharge));
       if(maxHealth != 0)
@@ -115,10 +115,10 @@ public class EquippableItem extends Item implements GUIConstants
          str = String.format("Magical Armor   %s (%s)", GUITools.getSignedString(magicalArmor), GUITools.getSignedString(val));
          strList.add(str);
       }
-      if(this.block != 0 ||  that.block != 0)
+      if(this.guard != 0 ||  that.guard != 0)
       {
-         val = this.block - that.block;
-         str = String.format("Block           %s (%s)", GUITools.getSignedString(block), GUITools.getSignedString(val));
+         val = this.guard - that.guard;
+         str = String.format("Guard           %s (%s)", GUITools.getSignedString(guard), GUITools.getSignedString(val));
          strList.add(str);
       }
       if(this.energyRecharge != 0 ||  that.energyRecharge != 0)
@@ -169,7 +169,7 @@ public class EquippableItem extends Item implements GUIConstants
       magicalDamage = getAdjusted(magicalDamage, qualityMod);
       physicalArmor = getAdjusted(physicalArmor, qualityMod);
       magicalArmor = getAdjusted(magicalArmor, qualityMod);
-      block = getAdjusted(block, qualityMod);
+      guard = getAdjusted(guard, qualityMod);
       energyRecharge = getAdjusted(energyRecharge, qualityMod);
       maxHealth = getAdjusted(maxHealth, qualityMod);
       maxEnergy = getAdjusted(maxEnergy, qualityMod);
@@ -207,7 +207,7 @@ public class EquippableItem extends Item implements GUIConstants
          this.magicalDamage == that.magicalDamage &&
          this.physicalArmor == that.physicalArmor &&
          this.magicalArmor == that.magicalArmor &&
-         this.block == that.block &&
+         this.guard == that.guard &&
          this.energyRecharge == that.energyRecharge &&
          this.maxHealth == that.maxHealth &&
          this.maxEnergy == that.maxEnergy &&
@@ -228,7 +228,7 @@ public class EquippableItem extends Item implements GUIConstants
       str += getSerializationString(magicalDamage);
       str += getSerializationString(physicalArmor);
       str += getSerializationString(magicalArmor);
-      str += getSerializationString(block);
+      str += getSerializationString(guard);
       str += getSerializationString(energyRecharge);
       str += getSerializationString(maxHealth);
       str += getSerializationString(maxEnergy);
@@ -246,7 +246,7 @@ public class EquippableItem extends Item implements GUIConstants
       magicalDamage = Integer.parseInt(strList[startingIndex + 1]);
       physicalArmor = Integer.parseInt(strList[startingIndex + 2]);
       magicalArmor = Integer.parseInt(strList[startingIndex + 3]);
-      block = Integer.parseInt(strList[startingIndex + 4]);
+      guard = Integer.parseInt(strList[startingIndex + 4]);
       energyRecharge = Integer.parseInt(strList[startingIndex + 5]);
       maxHealth = Integer.parseInt(strList[startingIndex + 6]);
       maxEnergy = Integer.parseInt(strList[startingIndex + 7]);
@@ -260,7 +260,7 @@ public class EquippableItem extends Item implements GUIConstants
       magicalDamage = 2;
       physicalArmor = 3;
       magicalArmor = 4;
-      block = 5;
+      guard = 5;
       energyRecharge = 6;
       maxHealth = 7;
       maxEnergy = 8;

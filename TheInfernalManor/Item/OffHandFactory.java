@@ -31,7 +31,7 @@ public class OffHandFactory implements GUIConstants, ItemConstants
    public static OffHand getShield()
    {
       OffHand oh = new OffHand("Shield");
-      oh.setBlock(5);
+      oh.setGuard(5);
       return oh;
    }
    

@@ -20,8 +20,8 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    private int curEnergy;
    private int energyRecharge;
    private double partialEnergy;
-   private int maxBlock;
-   private int curBlock;
+   private int maxGuard;
+   private int curGuard;
    private int ticksSinceHit;
    private int physicalDamage;
    private int magicalDamage;
@@ -53,8 +53,8 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
 	public int getMaxEnergy(){return maxEnergy;}
 	public int getCurEnergy(){return curEnergy;}
 	public int getEnergyRecharge(){return energyRecharge;}
-	public int getMaxBlock(){return maxBlock;}
-	public int getCurBlock(){return curBlock;}
+	public int getMaxGuard(){return maxGuard;}
+	public int getCurGuard(){return curGuard;}
    public int getTicksSinceHit(){return ticksSinceHit;}
    public ActionSpeed getMoveSpeed(){return moveSpeed;}
    public ActionSpeed getInteractSpeed(){return interactSpeed;}
@@ -82,7 +82,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void setAI(BaseAI newAI){ai = newAI;}
 	public void setCurHealth(int c){curHealth = c;}
 	public void setCurEnergy(int c){curEnergy = c;}
-	public void setCurBlock(int c){curBlock = c;}
+	public void setCurGuard(int c){curGuard = c;}
    public void setTicksSineHit(int tsh){ticksSinceHit = tsh;}
    public void setMoveSpeed(ActionSpeed ms){moveSpeed = ms;}
    public void setInteractSpeed(ActionSpeed is){interactSpeed = is;}
@@ -251,7 +251,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    {
       curHealth = maxHealth;
       curEnergy = maxEnergy;
-      curBlock = maxBlock;
+      curGuard = maxGuard;
       ticksSinceHit = TICKS_TO_RECOVER_BLOCK;
       for(int i = 0; i < abilityList.size(); i++)
          abilityList.elementAt(i).fullyCharge();
@@ -264,11 +264,11 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          ticksSinceHit = 0;
          
       // gets through block
-      if(damage >= getCurBlock())
+      if(damage >= getCurGuard())
       {
          // reduce by block and set block to zero
-         damage = damage - getCurBlock();
-         setCurBlock(0);
+         damage = damage - getCurGuard();
+         setCurGuard(0);
          
          // apply armor
          if(getArmor() != null && damage > 0)
@@ -286,7 +286,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       // does not get through block
       else
       {
-         setCurBlock(getCurBlock() - damage);
+         setCurGuard(getCurGuard() - damage);
       }
    }
    
@@ -366,15 +366,15 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       magicalDamage = sum.getMagicalDamage();
       physicalArmor = sum.getPhysicalArmor();
       magicalArmor = sum.getMagicalArmor();
-      maxBlock = sum.getBlock();
+      maxGuard = sum.getGuard();
       maxHealth = sum.getMaxHealth();
       maxEnergy = sum.getMaxEnergy();
       vision = sum.getVision();
       energyRecharge = sum.getEnergyRecharge() + 2;
-      if(maxBlock < curBlock)
-         curBlock = maxBlock;
+      if(maxGuard < curGuard)
+         curGuard = maxGuard;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
-         curBlock = maxBlock;
+         curGuard = maxGuard;
    }
    
    // initiative methods
@@ -403,7 +403,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       if(ticksSinceHit < TICKS_TO_RECOVER_BLOCK)
          ticksSinceHit++;
       if(ticksSinceHit >= TICKS_TO_RECOVER_BLOCK)
-         curBlock = getMaxBlock();
+         curGuard = getMaxGuard();
       
       // increment status effects
       for(int i = 0; i < seList.size(); i++)

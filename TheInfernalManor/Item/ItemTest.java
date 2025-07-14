@@ -38,13 +38,13 @@ public class ItemTest {
       defender.getBaseStats().setMaxHealth(10);
       Armor a = new Armor("Test armor");
       a.setPhysicalArmor(5);
-      a.setBlock(10);
+      a.setGuard(10);
       defender.setArmor(a);
       defender.fullHeal();
       defender.applyCombatDamage(5, Ability.PHYSICAL);
-      Assert.assertEquals("Armor is not applied before block", 5, defender.getCurBlock());
+      Assert.assertEquals("Armor is not applied before block", 5, defender.getCurGuard());
       
-      a.setBlock(0);
+      a.setGuard(0);
       defender.setArmor(a);
       defender.fullHeal();
       defender.applyCombatDamage(3, Ability.PHYSICAL);

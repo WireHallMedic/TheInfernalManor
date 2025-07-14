@@ -35,10 +35,10 @@ public class InfoPanel extends TIMPanel implements GUIConstants
       writeLine(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN, player.getName());
       
       // draw block info
-      writeLine(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 1, "Block  [        ]");
+      writeLine(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 1, "Guard  [        ]");
       fillTileFG(CHARACTER_SUMMARY_PANEL_X_ORIGIN, Y_ORIGIN + 1, 17, 1, WHITE);
       fillTileBG(CHARACTER_SUMMARY_PANEL_X_ORIGIN + 8, Y_ORIGIN + 1, 8, 1, RED);
-      int[] bar = GUITools.getBar(player.getCurBlock(), player.getMaxBlock(), 8);
+      int[] bar = GUITools.getBar(player.getCurGuard(), player.getMaxGuard(), 8);
       for(int i = 0; i < bar.length; i++)
          setTileIndex(CHARACTER_SUMMARY_PANEL_X_ORIGIN + 8 + i, Y_ORIGIN + 1, bar[i]);
       
@@ -133,7 +133,7 @@ public class InfoPanel extends TIMPanel implements GUIConstants
       writeLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + startRow + 1, "  [        ]");
       fillTileFG(ENVIRONMENT_PANEL_X_ORIGIN + 3, Y_ORIGIN + startRow + 1, 8, 1, WHITE);
       fillTileBG(ENVIRONMENT_PANEL_X_ORIGIN + 3, Y_ORIGIN + startRow + 1, 8, 1, RED);
-      int[] bar = GUITools.getBar(a.getCurBlock(), a.getMaxBlock(), 8);
+      int[] bar = GUITools.getBar(a.getCurGuard(), a.getMaxGuard(), 8);
       for(int i = 0; i < bar.length; i++)
          setTileIndex(ENVIRONMENT_PANEL_X_ORIGIN + 3 + i, Y_ORIGIN + startRow + 1, bar[i]);
       

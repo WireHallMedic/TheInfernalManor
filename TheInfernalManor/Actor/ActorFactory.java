@@ -98,22 +98,40 @@ public class ActorFactory implements ActorConstants, GUIConstants
          case 0 : aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.GRUNT));
+                  for(int i = 0; i < level / 4; i++)
+                     aList.add(getBandit(level, CombatRole.GRUNT));
                   break;
          case 1 : aList.add(getBandit(level, CombatRole.CONSCRIPT));
                   aList.add(getBandit(level, CombatRole.CONSCRIPT));
                   aList.add(getBandit(level, CombatRole.SCOUT));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.SCOUT));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.CONSCRIPT));
                   break;
          case 2 : aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.SOLDIER));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.SOLDIER));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.GRUNT));
                   break;
          case 3 : aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.ARCHER));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.ARCHER));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.GRUNT));
                   break;
          case 4 : aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.GRUNT));
                   aList.add(getBandit(level, CombatRole.LEADER));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.LEADER));
+                  for(int i = 0; i < level / 5; i++)
+                     aList.add(getBandit(level, CombatRole.GRUNT));
                   break;
       }
       return aList;
