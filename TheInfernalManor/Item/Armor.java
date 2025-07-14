@@ -74,10 +74,8 @@ public class Armor extends EquippableItem implements GUIConstants
    public String serialize()
    {
       String str = super.serialize();
-      str = str.replace("EQUIPPABLE_ITEM[", "");
-      str = str.replace("]", "");
+      str = str.replace("EQUIPPABLE_ITEM@", "ARMOR@");
       str += getSerializationString(weight);
-      str = "ARMOR[" + str + "]";
       return str;
    }
    

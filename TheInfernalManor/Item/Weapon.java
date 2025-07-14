@@ -98,11 +98,9 @@ public class Weapon extends EquippableItem implements GUIConstants
    public String serialize()
    {
       String str = super.serialize();
-      str = str.replace("EQUIPPABLE_ITEM[", "");
-      str = str.replace("]", "");
+      str = str.replace("EQUIPPABLE_ITEM@", "WEAPON@");
       str += getSerializationString(size);
       str += getSerializationString(range);
-      str = "WEAPON[" + str + "]";
       return str;
    }
    

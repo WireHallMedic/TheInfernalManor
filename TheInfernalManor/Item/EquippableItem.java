@@ -222,8 +222,7 @@ public class EquippableItem extends Item implements GUIConstants
    public String serialize()
    {
       String str = super.serialize();
-      str = str.replace("ITEM[", "");
-      str = str.replace("]", "");
+      str = str.replace("ITEM@", "EQUIPPABLE_ITEM@");
       str += getSerializationString(physicalDamage);
       str += getSerializationString(magicalDamage);
       str += getSerializationString(physicalArmor);
@@ -233,7 +232,6 @@ public class EquippableItem extends Item implements GUIConstants
       str += getSerializationString(maxHealth);
       str += getSerializationString(maxEnergy);
       str += getSerializationString(vision);
-      str = "EQUIPPABLE_ITEM[" + str + "]";
       return str;
    }
    
