@@ -18,25 +18,25 @@ public class ActorFactory implements ActorConstants, GUIConstants
       a.getBaseStats().setMaxEnergy(10);
       a.setLocation(1, 1);
       
-      a.setMainHand(WeaponFactory.getSword());
-      a.setOffHand(OffHandFactory.getShield());
-      a.setArmor(ArmorFactory.getChainMail());
+      a.setMainHand(WeaponFactory.getBase("Sword"));
+      a.setOffHand(OffHandFactory.getBase("Shield"));
+      a.setArmor(ArmorFactory.getBase("Leather Armor"));
       
       a.addAbility(AttackFactory.getAuraBlast());
       a.addAbility(AttackFactory.getBlast());
       a.addAbility(AttackFactory.getConeAttack());
       
-      a.getInventory().add(OffHandFactory.getTome());
-      EquippableItem i = WeaponFactory.getSword();
+      a.getInventory().add(OffHandFactory.getBase("Tome"));
+      EquippableItem i = WeaponFactory.getBase("Sword");
       i.adjustForQuality(ItemQuality.LOW);
       a.getInventory().add(i);
-      i = WeaponFactory.getSword();
+      i = WeaponFactory.getBase("Sword");
       i.adjustForQuality(ItemQuality.HIGH);
       a.getInventory().add(i);
-      i = WeaponFactory.getBow();
+      i = WeaponFactory.getBase("Bow");
       i.adjustForQuality(ItemQuality.LOW);
       a.getInventory().add(i);
-      i = WeaponFactory.getBow();
+      i = WeaponFactory.getBase("Bow");
       i.adjustForQuality(ItemQuality.HIGH);
       a.getInventory().add(i);
       
@@ -144,7 +144,7 @@ public class ActorFactory implements ActorConstants, GUIConstants
       a.setPowerLevel(level);
       setHealthByLevel(a);
       a.setAI(new StandardAI(a));
-      Weapon weapon = WeaponFactory.getDagger();
+      Weapon weapon = WeaponFactory.getBase("Dagger");
       Armor armor = null;
       OffHand offHand = null;
       switch(role)
@@ -165,18 +165,18 @@ public class ActorFactory implements ActorConstants, GUIConstants
                         break;
          case SOLDIER : a.setName(a.getName() + " Enforcer");
                         a.setColor(DARK_RED);
-                        weapon = WeaponFactory.getSword();
-                        armor = ArmorFactory.getLeatherArmor();
-                        offHand = OffHandFactory.getShield();
+                        weapon = WeaponFactory.getBase("Sword");
+                        armor = ArmorFactory.getBase("Leather Armor");
+                        offHand = OffHandFactory.getBase("Shield");
                         break;
          case ARCHER :  a.setName(a.getName() + " Hunter");
                         a.setColor(DARK_YELLOW);
-                        weapon = WeaponFactory.getSling();
+                        weapon = WeaponFactory.getBase("Sling");
                         break;
          case LEADER :  a.setName(a.getName() + " Warlock");
                         a.setColor(LIGHT_PURPLE);
-                        weapon = WeaponFactory.getWand();
-                        armor = ArmorFactory.getRobes();
+                        weapon = WeaponFactory.getBase("Wand");
+                        armor = ArmorFactory.getBase("Robes");
                         a.addAbility(AttackFactory.getBlast());
                         break;
       }

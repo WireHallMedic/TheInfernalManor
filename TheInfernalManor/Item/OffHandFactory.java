@@ -52,29 +52,6 @@ public class OffHandFactory implements GUIConstants, ItemConstants
    }
    
    
-   public static OffHand getShield()
-   {
-      OffHand oh = new OffHand("Shield");
-      oh.setGuard(5);
-      return oh;
-   }
-   
-   public static OffHand getOrb()
-   {
-      OffHand oh = new OffHand("Orb");
-      oh.setMagicalDamage(4);
-      return oh;
-   }
-   
-   public static OffHand getTome()
-   {
-      OffHand oh = new OffHand("Tome");
-      oh.setEnergyRecharge(2);
-      oh.setMagicalArmor(3);
-      return oh;
-   }
-   
-   
    private static class OffHandBase implements Rollable
    {
       private int minLevel;
