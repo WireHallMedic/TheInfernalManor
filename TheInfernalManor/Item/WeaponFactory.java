@@ -7,27 +7,27 @@ import java.util.*;
 
 public class WeaponFactory implements GUIConstants, ItemConstants
 {
-   public static WeaponBaseItem[] baseList = getBaseList();
+   public static WeaponBase[] baseList = setBaseList();
    
    public static Weapon getBase(String name)
    {
-      for(WeaponBaseItem wb : baseList)
+      for(WeaponBase wb : baseList)
          if(wb.is(name))
             return wb.getCopy();
       return null;
    }
    
-   private static WeaponBaseItem[] getBaseList()
+   private static WeaponBase[] setBaseList()
    {
       BufferedReader bReader = EngineTools.getTextReader("WeaponBases.csv");
-      Vector<WeaponBaseItem> list = new Vector<WeaponBaseItem>();
+      Vector<WeaponBase> list = new Vector<WeaponBase>();
       try
       {
          bReader.readLine(); // discard header
          String str = bReader.readLine();
          while(str != null)
          {
-            list.add(new WeaponBaseItem(str));
+            list.add(new WeaponBase(str));
             str = bReader.readLine();
          }
       }
@@ -35,32 +35,15 @@ public class WeaponFactory implements GUIConstants, ItemConstants
       {
          System.out.println(ex.toString());
       }
-      return list.toArray(new WeaponBaseItem[list.size()]);
+      return list.toArray(new WeaponBase[list.size()]);
    }
    
    
    public static Weapon randomWeapon(int level)
    {
-      WeaponBase roll = (WeaponBase)EngineTools.roll(WeaponBase.values(), level);
+      WeaponBase base = (WeaponBase)EngineTools.roll(baseList, level);
       ItemQuality quality = (ItemQuality)EngineTools.roll(ItemQuality.values(), level);
-      Weapon w = new Weapon("temp");
-      switch(roll)
-      {
-         case DAGGER:      w = getDagger();
-                           break;
-         case SWORD:       w = getSword();
-                           break; 
-         case GREATSWORD:  w = getGreatsword();
-                           break;
-         case SLING:       w = getSling();
-                           break; 
-         case BOW:         w = getBow();
-                           break;
-         case WAND:        w = getWand();
-                           break;   
-         case STAFF:       w = getStaff();
-                           break;
-      }
+      Weapon w = base.getCopy();
       switch(quality)
       {
          case LOW :  w.adjustForQuality(ItemQuality.LOW); break; 
@@ -149,7 +132,7 @@ public class WeaponFactory implements GUIConstants, ItemConstants
    }
    
    
-   private static class WeaponBaseItem implements Rollable
+   private static class WeaponBase implements Rollable
    {
       private int minLevel;
       private int maxLevel;
@@ -163,7 +146,7 @@ public class WeaponFactory implements GUIConstants, ItemConstants
       
       public boolean is(String str){return str.equals(weapon.getName());}
       
-      private WeaponBaseItem(String serialStr)
+      private WeaponBase(String serialStr)
       {
          weapon = new Weapon("Temp");
          weapon.deserialize(serialStr);
