@@ -75,7 +75,6 @@ public class OffHandFactory implements GUIConstants, ItemConstants
    }
    
    
-   
    private static class OffHandBase implements Rollable
    {
       private int minLevel;

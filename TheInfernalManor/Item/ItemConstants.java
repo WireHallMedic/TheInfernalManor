@@ -5,31 +5,7 @@ import TheInfernalManor.GUI.*;
 import java.util.*;
 
 public interface ItemConstants 
-{  
-   public enum ArmorBase implements Rollable
-   {
-      ROBES       (0, 30, 5),
-      LEATHER     (0, 30, 10),
-      CHAIN_MAIL  (0, 30, 10),
-      PLATE_MAIL  (0, 30, 5);
-      
-      private int minLevel;
-      private int maxLevel;
-      private int weight;
-      
-      private ArmorBase(int min, int max, int w)
-      {
-         minLevel = min;
-         maxLevel = max;
-         weight = w;
-      }
-      
-      public int getMinLevel(){return minLevel;}
-      public int getMaxLevel(){return maxLevel;}
-      public int getWeight(){return weight;}
-   }
-   
-   
+{     
    public enum RelicBase implements Rollable
    {
       HELM     (0, 30, 5),
