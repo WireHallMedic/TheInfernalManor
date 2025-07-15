@@ -37,13 +37,32 @@ public class Weapon extends EquippableItem implements GUIConstants
    
    public String getSizeString()
    {
-      switch(size)
+      return sizeIntToString(size);
+   }
+   
+   public static String sizeIntToString(int sizeInt)
+   {
+      switch(sizeInt)
       {
          case LIGHT :   return "Light";
          case MEDIUM :  return "Medium";
          case HEAVY :   return "Heavy";
       }
       return "Unknown Size";
+   }
+   
+   public static int sizeStringToInt(String sizeStr)
+   {
+      if(sizeStr.toLowerCase().equals("light")
+         || sizeStr.equals("" + LIGHT)) 
+         return LIGHT;
+      if(sizeStr.toLowerCase().equals("medium")
+         || sizeStr.equals("" + MEDIUM)) 
+         return MEDIUM;
+      if(sizeStr.toLowerCase().equals("heavy")
+         || sizeStr.equals("" + HEAVY)) 
+         return HEAVY;
+      return -1;
    }
    
    @Override
@@ -99,7 +118,7 @@ public class Weapon extends EquippableItem implements GUIConstants
    {
       String str = super.serialize();
       str = str.replace("EQUIPPABLE_ITEM@", "WEAPON@");
-      str += getSerializationString(size);
+      str += getSerializationString(sizeIntToString(size));
       str += getSerializationString(range);
       return str;
    }
@@ -109,7 +128,7 @@ public class Weapon extends EquippableItem implements GUIConstants
       super.deserialize(str);
       String[] strList = getDeserializationArray(str);
       int startingIndex = super.numOfSerializedComponents();
-      size = Integer.parseInt(strList[startingIndex]);
+      size = sizeStringToInt(strList[startingIndex]);
       range = Integer.parseInt(strList[startingIndex + 1]);
    }
    

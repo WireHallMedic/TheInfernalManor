@@ -11,6 +11,6 @@ public class TIMMain
    {
       TIMFrame frame = new TIMFrame();
       GameState gameState = new GameState();
-      System.out.println(WeaponFactory.getBase("Sword").getName());
+      System.out.println(WeaponFactory.getBase("Sword").serialize());
    }
 }
