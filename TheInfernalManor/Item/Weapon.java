@@ -136,6 +136,6 @@ public class Weapon extends EquippableItem implements GUIConstants
    {
       super.setTestingValues();
       range = 10;
-      size = 11;
+      size = MEDIUM;
    }
 }
