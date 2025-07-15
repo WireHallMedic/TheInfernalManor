@@ -63,7 +63,7 @@ public class ForegroundObject implements GUIConstants
       return strList;
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
       return 3;
    }

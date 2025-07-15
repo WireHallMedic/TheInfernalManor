@@ -90,9 +90,9 @@ public class Weapon extends EquippableItem implements GUIConstants
          this.range == that.range;
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
-      return super.numOfSerializedComponents() + 2;
+      return EquippableItem.numOfSerializedComponents() + 2;
    }
    
    public String serialize()

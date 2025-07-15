@@ -4,6 +4,7 @@ import java.util.*;
 import WidlerSuite.*;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.Actor.*;
+import java.io.*;
 
 public class EngineTools implements EngineConstants
 {
@@ -292,5 +293,24 @@ public class EngineTools implements EngineConstants
          System.out.println();
       }
       System.out.println();
+   }
+   
+   // File I/O
+   public static BufferedReader getTextReader(String fileName)
+   {
+      BufferedReader bReader = null;
+      if(EngineTools.class.getResource("EngineTools.class").toString().contains(".jar"))
+         fileName = "/" + fileName;
+      try
+      {
+         InputStream is = EngineTools.class.getClassLoader().getResourceAsStream(fileName);
+         bReader = new BufferedReader(new InputStreamReader(is));
+      }
+      catch(Exception ex)
+      {
+         System.out.println(String.format("Unable to load file %s: %s\n%s", fileName, ex.toString(),
+            "If running as a .jar, make sure the file's location is listed in the manifest file."));
+      }
+      return bReader;
    }
 }

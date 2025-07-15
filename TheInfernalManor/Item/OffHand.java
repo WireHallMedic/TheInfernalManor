@@ -19,9 +19,9 @@ public class OffHand extends EquippableItem implements GUIConstants
       return super.equals(that);
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
-      return super.numOfSerializedComponents() + 0;
+      return EquippableItem.numOfSerializedComponents() + 0;
    }
    
    public String serialize()

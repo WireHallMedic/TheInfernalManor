@@ -77,9 +77,9 @@ public class Relic extends EquippableItem implements GUIConstants
          this.restriction == that.restriction;
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
-      return super.numOfSerializedComponents() + 1;
+      return EquippableItem.numOfSerializedComponents() + 1;
    }
    
    public String serialize()

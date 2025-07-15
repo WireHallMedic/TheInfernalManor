@@ -66,9 +66,9 @@ public class Armor extends EquippableItem implements GUIConstants
          this.weight == that.weight;
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
-      return super.numOfSerializedComponents() + 1;
+      return EquippableItem.numOfSerializedComponents() + 1;
    }
    
    public String serialize()

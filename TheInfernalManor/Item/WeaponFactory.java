@@ -2,9 +2,43 @@ package TheInfernalManor.Item;
 
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Engine.*;
+import java.io.*;
+import java.util.*;
 
 public class WeaponFactory implements GUIConstants, ItemConstants
 {
+   public static WeaponBaseItem[] baseList = getBaseList();
+   
+   public static Weapon getBase(String name)
+   {
+      for(WeaponBaseItem wb : baseList)
+         if(wb.is(name))
+            return wb.getCopy();
+      return null;
+   }
+   
+   private static WeaponBaseItem[] getBaseList()
+   {
+      BufferedReader bReader = EngineTools.getTextReader("WeaponBases.csv");
+      Vector<WeaponBaseItem> list = new Vector<WeaponBaseItem>();
+      try
+      {
+         bReader.readLine(); // discard header
+         String str = bReader.readLine();
+         while(str != null)
+         {
+            list.add(new WeaponBaseItem(str));
+            str = bReader.readLine();
+         }
+      }
+      catch(Exception ex)
+      {
+         System.out.println(ex.toString());
+      }
+      return list.toArray(new WeaponBaseItem[list.size()]);
+   }
+   
+   
    public static Weapon randomWeapon(int level)
    {
       WeaponBase roll = (WeaponBase)EngineTools.roll(WeaponBase.values(), level);
@@ -115,5 +149,29 @@ public class WeaponFactory implements GUIConstants, ItemConstants
    }
    
    
-   
+   private static class WeaponBaseItem implements Rollable
+   {
+      private int minLevel;
+      private int maxLevel;
+      private int weight;
+      private Weapon weapon;
+      
+      public int getMinLevel(){return minLevel;}
+      public int getMaxLevel(){return maxLevel;}
+      public int getWeight(){return weight;}
+      public Weapon getCopy(){return new Weapon(weapon);}
+      
+      public boolean is(String str){return str.equals(weapon.getName());}
+      
+      private WeaponBaseItem(String serialStr)
+      {
+         weapon = new Weapon("Temp");
+         weapon.deserialize(serialStr);
+         int startingIndex = Weapon.numOfSerializedComponents();
+         String[] strList = weapon.getDeserializationArray(serialStr);
+         minLevel = Integer.parseInt(strList[startingIndex]);
+         maxLevel = Integer.parseInt(strList[startingIndex + 1]);
+         weight = Integer.parseInt(strList[startingIndex + 2]);
+      }
+   }
 }

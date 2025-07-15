@@ -214,9 +214,9 @@ public class EquippableItem extends Item implements GUIConstants
          this.vision == that.vision;
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
-      return super.numOfSerializedComponents() + 9;
+      return Item.numOfSerializedComponents() + 9;
    }
    
    public String serialize()

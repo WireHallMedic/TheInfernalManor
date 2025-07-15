@@ -31,9 +31,9 @@ public class Item extends ForegroundObject implements GUIConstants
          this.description.equals(that.description);
    }
    
-   public int numOfSerializedComponents()
+   public static int numOfSerializedComponents()
    {
-      return super.numOfSerializedComponents() + 1;
+      return ForegroundObject.numOfSerializedComponents() + 1;
    }
    
    public String serialize()
