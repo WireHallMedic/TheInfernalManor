@@ -53,13 +53,13 @@ public class Weapon extends EquippableItem implements GUIConstants
    
    public static int sizeStringToInt(String sizeStr)
    {
-      if(sizeStr.toLowerCase().equals("light")
+      if(sizeStr.toUpperCase().equals("LIGHT")
          || sizeStr.equals("" + LIGHT)) 
          return LIGHT;
-      if(sizeStr.toLowerCase().equals("medium")
+      if(sizeStr.toUpperCase().equals("MEDIUM")
          || sizeStr.equals("" + MEDIUM)) 
          return MEDIUM;
-      if(sizeStr.toLowerCase().equals("heavy")
+      if(sizeStr.toUpperCase().equals("HEAVY")
          || sizeStr.equals("" + HEAVY)) 
          return HEAVY;
       return -1;

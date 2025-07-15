@@ -33,7 +33,12 @@ public class Armor extends EquippableItem implements GUIConstants
    
    public String getWeightString()
    {
-      switch(weight)
+      return weightIntToString(weight);
+   }
+   
+   public static String weightIntToString(int weightInt)
+   {
+      switch(weightInt)
       {
          case CLOTH :   return "Cloth";
          case LIGHT :   return "Light";
@@ -41,6 +46,23 @@ public class Armor extends EquippableItem implements GUIConstants
          case HEAVY :   return "Heavy";
       }
       return "Unknown Weight";
+   }
+   
+   public static int weightStringToInt(String weightStr)
+   {
+      if(weightStr.toUpperCase().equals("CLOTH")
+         || weightStr.equals("" + CLOTH)) 
+         return CLOTH;
+      if(weightStr.toUpperCase().equals("LIGHT")
+         || weightStr.equals("" + LIGHT)) 
+         return LIGHT;
+      if(weightStr.toUpperCase().equals("MEDIUM")
+         || weightStr.equals("" + MEDIUM)) 
+         return MEDIUM;
+      if(weightStr.toUpperCase().equals("HEAVY")
+         || weightStr.equals("" + HEAVY)) 
+         return HEAVY;
+      return -1;
    }
    
    @Override
@@ -75,7 +97,7 @@ public class Armor extends EquippableItem implements GUIConstants
    {
       String str = super.serialize();
       str = str.replace("EQUIPPABLE_ITEM@", "ARMOR@");
-      str += getSerializationString(weight);
+      str += getSerializationString(weightIntToString(weight));
       return str;
    }
    
@@ -84,13 +106,13 @@ public class Armor extends EquippableItem implements GUIConstants
       super.deserialize(str);
       String[] strList = getDeserializationArray(str);
       int startingIndex = super.numOfSerializedComponents();
-      weight = Integer.parseInt(strList[startingIndex]);
+      weight = weightStringToInt(strList[startingIndex]);
    }
    
    public void setTestingValues()
    {
       super.setTestingValues();
-      weight = 12;
+      weight = MEDIUM;
    }
    
 }
