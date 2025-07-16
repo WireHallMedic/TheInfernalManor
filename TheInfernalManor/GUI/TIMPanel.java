@@ -9,11 +9,13 @@ public class TIMPanel extends SCPanel implements GUIConstants, KeyListener, Swap
    
    public String getPanelName(){return this.getClass().getSimpleName();}
    
-   public TIMPanel(SCTilePalette tilePalette, TIMFrame pFrame)
+   public TIMPanel(SCTilePalette tilePalette, TIMFrame pFrame, int w, int h)
    {
-      super(tilePalette, TILES_WIDE, TILES_TALL);
+      super(tilePalette, w, h);
       parentFrame = pFrame;
    }
+   public TIMPanel(SCTilePalette tilePalette, TIMFrame pFrame){this(tilePalette, pFrame, TILES_WIDE, TILES_TALL);}
+   
    
    public void keyPressed(KeyEvent ke){}
    public void keyTyped(KeyEvent ke){}
