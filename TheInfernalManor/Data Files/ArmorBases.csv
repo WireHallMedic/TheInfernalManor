@@ -1,5 +1,5 @@
 Name;Icon;Color;Description;pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;Weight;minLvl;maxLvl;tableWeight
-Robes;];-1;No Description.;0;0;0;0;0;0;0;0;0;Cloth;0;30;0
-Leather Armor;];-1;No Description.;0;0;2;0;0;0;0;0;0;Light;0;30;0
-Chain Mail;];-1;No Description.;0;0;4;0;0;0;0;0;0;Medium;0;30;0
-Plate Mail;];-1;No Description.;0;0;7;0;0;0;0;0;0;Heavy;5;30;0
+Robes;];-1;No Description.;0;0;0;0;0;0;0;0;0;Cloth;0;30;5
+Leather Armor;];-1;No Description.;0;0;2;0;0;0;0;0;0;Light;0;30;20
+Chain Mail;];-1;No Description.;0;0;4;0;0;0;0;0;0;Medium;0;30;20
+Plate Mail;];-1;No Description.;0;0;7;0;0;0;0;0;0;Heavy;5;30;5
