@@ -629,7 +629,6 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    }
    public Vector<Item> takeItems()
    {
-      unequipAll();
       Vector<Item> iList = getItems();
       inventory.setItemList(new Vector<Item>());
       return iList;
