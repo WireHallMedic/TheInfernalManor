@@ -43,6 +43,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
    public static int getMode(){return mode;}
    public static int getTargetX(){return targetX;}
    public static int getTargetY(){return targetY;}
+   public static Coord getTarget(){return new Coord(targetX, targetY);}
    public static Ability getPendingAbility(){return pendingAbility;}
    
    public AdventurePanel(SCTilePalette x1y2TilePalette, SCTilePalette x1y1TilePalette, TIMFrame pFrame)

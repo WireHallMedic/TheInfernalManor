@@ -5,7 +5,9 @@ import StrictCurses.*;
 import TheInfernalManor.Ability.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
+import TheInfernalManor.Item.*;
 import TheInfernalManor.Map.*;
+import WidlerSuite.Coord;
 
 public class InfoPanel extends TIMPanel implements GUIConstants
 {
@@ -96,28 +98,78 @@ public class InfoPanel extends TIMPanel implements GUIConstants
     
     private void setEnvironmentPanel()
     {
-      String str = "Unknown mode";
+      // clear first
+      fillTile(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN, SIDE_PANEL_WIDTH, SIDE_PANEL_HEIGHT, ' ', WHITE, BLACK);
+      String modeStr = "Unknown mode";
       switch(AdventurePanel.getMode())
       {
-         case AdventurePanel.NORMAL_MODE:          str = "Normal Mode"; break;
-         case AdventurePanel.ADJACENT_TARGET_MODE: str = "Adj Target Mode"; break;
-         case AdventurePanel.RANGED_TARGET_MODE:   str = "Ranged Target Mode"; break;
-         case AdventurePanel.LOOK_MODE:            str = "Look Mode"; break;
+         case AdventurePanel.NORMAL_MODE:          modeStr = "Normal Mode"; break;
+         case AdventurePanel.ADJACENT_TARGET_MODE: modeStr = "Targeting Adjacent"; break;
+         case AdventurePanel.RANGED_TARGET_MODE:   modeStr = "Ranged Targeting"; break;
+         case AdventurePanel.LOOK_MODE:            modeStr = "Looking"; break;
       }
-      overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN, str, SIDE_PANEL_WIDTH);
-      Vector<Actor> aList = GameState.getActorList();
-      int writeLine = 2;
-      for(Actor a : aList)
+      int writeLine = 0;
+      if(AdventurePanel.getMode() == AdventurePanel.NORMAL_MODE)
       {
-         if(GameState.playerCanSee(a))
-            if(a != GameState.getPlayerCharacter())
-               writeLine += showActorSummary(writeLine, a);
+         Vector<Actor> aList = GameState.getActorList();
+         for(Actor a : aList)
+         {
+            if(GameState.playerCanSee(a))
+               if(a != GameState.getPlayerCharacter())
+                  writeLine += showActorSummary(writeLine, a);
+         }
       }
-      // clear remaining rows
-      for(int i = writeLine + 1; i < Y_ORIGIN + SIDE_PANEL_HEIGHT; i++)
+      else //looking, adj targeting, ranged targeting
       {
-         fillTile(ENVIRONMENT_PANEL_X_ORIGIN, i, SIDE_PANEL_WIDTH, 1, ' ', WHITE, BLACK);
+         overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN, modeStr, SIDE_PANEL_WIDTH);
+         overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + 1, "Escape to Cancel", SIDE_PANEL_WIDTH);
+         writeLine = 3;
+         Coord targetLoc = AdventurePanel.getTarget();
+         
+         if(GameState.playerCanSee(targetLoc))
+         {
+            Actor actor = GameState.getActorAt(targetLoc);
+            Item item = GameState.getCurZone().getItemAt(targetLoc);
+            MapCell mapCell = GameState.getCurZone().getTile(targetLoc);
+            ForegroundObject groundObj = GameState.getCurZone().getDecoration(targetLoc);
+            // actor
+            if(actor != null)
+            {
+               writeLine += 1 + showActorSummary(writeLine, actor);
+            }
+            // item
+            if(item != null)
+            {
+               setTileIndex(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, item.getIconIndex());
+               setTileFG(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, item.getColor());
+               writeLine += 1 + writeBox(ENVIRONMENT_PANEL_X_ORIGIN + 2, Y_ORIGIN + writeLine, SIDE_PANEL_WIDTH - 3, SIDE_PANEL_HEIGHT - writeLine, item.getName());
+            }
+            // ground object
+            if(groundObj != null)
+            {
+               setTileIndex(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, groundObj.getIconIndex());
+               setTileFG(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, groundObj.getColor());
+               writeLine += 1 + writeBox(ENVIRONMENT_PANEL_X_ORIGIN + 2, Y_ORIGIN + writeLine, SIDE_PANEL_WIDTH - 3, SIDE_PANEL_HEIGHT - writeLine, groundObj.getName());
+            }
+            // map tile
+            setTile(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, mapCell.getIconIndex(), mapCell.getFGColor(), mapCell.getBGColor());
+            overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN + 1, Y_ORIGIN + writeLine, " " + mapCell.getBase().toString(), SIDE_PANEL_WIDTH - 2);
+            writeLine++;
+            overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, "", SIDE_PANEL_WIDTH);
+            writeLine += 2;
+         }
+         else // out of view
+         {
+            overwriteLine(ENVIRONMENT_PANEL_X_ORIGIN, Y_ORIGIN + writeLine, "Out of View", SIDE_PANEL_WIDTH);
+            writeLine++;
+         }
+
       }
+//       // clear remaining rows
+//       for(int i = writeLine + 1; i < Y_ORIGIN + SIDE_PANEL_HEIGHT; i++)
+//       {
+//          fillTile(ENVIRONMENT_PANEL_X_ORIGIN, i, SIDE_PANEL_WIDTH, 1, ' ', WHITE, BLACK);
+//       }
     }
     
     // returns number of rows taken to write the summary
