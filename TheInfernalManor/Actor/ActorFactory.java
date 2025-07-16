@@ -33,10 +33,10 @@ public class ActorFactory implements ActorConstants, GUIConstants
       i = WeaponFactory.getBase("Sword");
       i.adjustForQuality(ItemQuality.HIGH);
       a.getInventory().add(i);
-      i = WeaponFactory.getBase("Bow");
+      i = WeaponFactory.getBase("Longbow");
       i.adjustForQuality(ItemQuality.LOW);
       a.getInventory().add(i);
-      i = WeaponFactory.getBase("Bow");
+      i = WeaponFactory.getBase("Longbow");
       i.adjustForQuality(ItemQuality.HIGH);
       a.getInventory().add(i);
       

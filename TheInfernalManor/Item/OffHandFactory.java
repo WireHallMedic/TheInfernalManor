@@ -64,7 +64,7 @@ public class OffHandFactory implements GUIConstants, ItemConstants
       public int getWeight(){return weight;}
       public OffHand getCopy(){return new OffHand(offHand);}
       
-      public boolean is(String str){return str.equals(offHand.getName());}
+      public boolean is(String str){return str.toLowerCase().equals(offHand.getName().toLowerCase());}
       
       private OffHandBase(String serialStr)
       {

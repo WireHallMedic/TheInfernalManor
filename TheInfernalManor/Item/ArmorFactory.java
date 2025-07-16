@@ -62,7 +62,7 @@ public class ArmorFactory implements GUIConstants, ItemConstants
       public int getWeight(){return weight;}
       public Armor getCopy(){return new Armor(armor);}
       
-      public boolean is(String str){return str.equals(armor.getName());}
+      public boolean is(String str){return str.toLowerCase().equals(armor.getName().toLowerCase());}
       
       private ArmorBase(String serialStr)
       {

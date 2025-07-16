@@ -81,7 +81,7 @@ public class WeaponFactory implements GUIConstants, ItemConstants
       public int getWeight(){return weight;}
       public Weapon getCopy(){return new Weapon(weapon);}
       
-      public boolean is(String str){return str.equals(weapon.getName());}
+      public boolean is(String str){return str.toLowerCase().equals(weapon.getName().toLowerCase());}
       
       private WeaponBase(String serialStr)
       {
