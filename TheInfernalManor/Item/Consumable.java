@@ -27,6 +27,16 @@ public class Consumable extends Item implements GUIConstants, SCConstants
       Consumable c = new Consumable("Healing Potion");
       c.getStatusEffect().setName("Healing");
       c.getStatusEffect().addEffect(StatusEffect.OngoingEffect.HEALING);
+      c.getStatusEffect().setPhysicalDamage(5);
+      return c;
+   }
+   
+   public static Consumable getTestPotion2()
+   {
+      Consumable c = new Consumable("Greater Healing Potion");
+      c.getStatusEffect().setName("More Healing");
+      c.getStatusEffect().addEffect(StatusEffect.OngoingEffect.GREATER_HEALING);
+      c.getStatusEffect().setPhysicalArmor(5);
       return c;
    }
 }

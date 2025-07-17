@@ -90,11 +90,11 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void setPowerLevel(int pl){powerLevel = pl;}
    public void setBasicAttack(Attack atk){basicAttack = atk;}
    public void setAbilityList(Vector<Ability> al){abilityList = al;}
-   public void setNaturalWeapon(Weapon nw){naturalWeapon = nw; calcItemStats();}
-   public void setMainHand(Weapon mh){mainHand = mh; calcItemStats();}
-   public void setArmor(Armor a){armor = a; calcItemStats();}
-   public void setOffHand(OffHand oh){offHand = oh; calcItemStats();}
-   public void setRelicList(Vector<Relic> list){relicList = list; calcItemStats();}
+   public void setNaturalWeapon(Weapon nw){naturalWeapon = nw; calcStats();}
+   public void setMainHand(Weapon mh){mainHand = mh; calcStats();}
+   public void setArmor(Armor a){armor = a; calcStats();}
+   public void setOffHand(OffHand oh){offHand = oh; calcStats();}
+   public void setRelicList(Vector<Relic> list){relicList = list; calcStats();}
    public void setGold(Gold g){gold = g;}
    public void setInventory(Inventory i){inventory = i; i.setOwner(this);}
    public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
@@ -130,7 +130,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       visualEffect = null;
       seList = new Vector<StatusEffect>();
       inTurn = false;
-      calcItemStats();
+      calcStats();
       fullHeal();
    }
    
@@ -243,7 +243,34 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    // status effect methods
    public void add(StatusEffect se)
    {
+      // combine if matches existing status effect
+      for(StatusEffect existing : seList)
+         if(existing.equals(se))
+         {
+            existing.combine(se);
+            return;
+         }
+      // no matching, add new
       seList.add(se);
+      calcStats();
+   }
+   
+   private void applyOngoingEffects()
+   {
+      // healing does not stack, greater healing overrides regular healing
+      boolean hasHealing = false;
+      boolean hasGreaterHealing = false;
+      for(StatusEffect se : seList)
+      {
+         if(se.hasEffect(StatusEffect.OngoingEffect.HEALING))
+            hasHealing = true;
+         if(se.hasEffect(StatusEffect.OngoingEffect.GREATER_HEALING))
+            hasGreaterHealing = true;
+      }
+      if(hasGreaterHealing)
+         heal(2);
+      else if(hasHealing)
+         heal(1);
    }
    
    // resource methods
@@ -255,6 +282,16 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       ticksSinceHit = TICKS_TO_RECOVER_BLOCK;
       for(int i = 0; i < abilityList.size(); i++)
          abilityList.elementAt(i).fullyCharge();
+   }
+   
+   public void heal(int amt)
+   {
+      curHealth = Math.min(maxHealth, curHealth + amt);
+   }
+   
+   public void applyDamage(int damage)
+   {
+      setCurHealth(getCurHealth() - damage);
    }
    
    public void applyCombatDamage(int damage, boolean damageType)
@@ -280,8 +317,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
             damage = Math.max(damage, 1);
          }
          
-         // take damage
-         setCurHealth(getCurHealth() - damage);
+         applyDamage(damage);
       }
       // does not get through block
       else
@@ -344,7 +380,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void addRelic(Relic r)
    {
       relicList.add(r);
-      calcItemStats();
+      calcStats();
    }
    
    public Relic getRelic(int index)
@@ -354,7 +390,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       return relicList.elementAt(index);
    }
    
-   public void calcItemStats()
+   public void calcStats()
    {
       EquippableItem sum = new EquippableItem(baseStats);
       sum.add(getWeapon());
@@ -362,6 +398,8 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       if(offHand != null) sum.add(offHand);
       for(Relic relic : relicList)
          sum.add(relic);
+      for(StatusEffect se : seList)
+         sum.add(se);
       physicalDamage = sum.getPhysicalDamage();
       magicalDamage = sum.getMagicalDamage();
       physicalArmor = sum.getPhysicalArmor();
@@ -419,8 +457,10 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          {
             seList.removeElementAt(i);
             i--;
+            calcStats();
          }
       }
+      applyOngoingEffects();
       
       // increment ability charges
       for(int i = 0; i < abilityList.size(); i++)
@@ -608,7 +648,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          GameState.getCurZone().dropItem(item, getXLocation(), getYLocation());
       else
          inventory.add(item);
-      calcItemStats();
+      calcStats();
    }
    public void unequipItem(int itemIndex){unequipItem(itemIndex, false);}
    

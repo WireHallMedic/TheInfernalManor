@@ -43,6 +43,7 @@ public class ActorFactory implements ActorConstants, GUIConstants
       a.getInventory().add(Consumable.getTestPotion());
       a.getInventory().add(Consumable.getTestPotion());
       a.getInventory().add(Consumable.getTestPotion());
+      a.getInventory().add(Consumable.getTestPotion2());
       
       a.fullHeal();
       return a;

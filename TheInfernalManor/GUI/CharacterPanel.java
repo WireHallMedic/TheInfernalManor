@@ -48,6 +48,7 @@ public class CharacterPanel extends TIMPanel implements GUIConstants
          overwriteLine(2, lineIndex++, String.format("Vison:           %d", a.getVision()), COLUMN_WIDTH - 1);
          lineIndex++;
          overwriteLine(2, lineIndex++, "Status Effects:", COLUMN_WIDTH);
+         overwriteLine(2, lineIndex, "", COLUMN_WIDTH); // clear line as writeBox() does not
          String str = "";
          for(StatusEffect se : a.getSEList())
             str += se.getName() + ", ";

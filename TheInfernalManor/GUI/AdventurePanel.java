@@ -344,7 +344,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_M :       parentFrame.setVisiblePanel("ZoneMapPanel"); break;
          
          // testing
-         case KeyEvent.VK_BACK_QUOTE : player.setLocation(1, 1); break;
+         case KeyEvent.VK_BACK_QUOTE : player.applyDamage(5); break;
       }
    }
    public void keyTyped(KeyEvent ke){}

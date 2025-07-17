@@ -8,10 +8,11 @@ public class StatusEffect extends EquippableItem implements GUIConstants, Abilit
 {
    public enum OngoingEffect
    {
-      HEALING     ("Healing", false),
-      RECHARGING  ("Recharging", false),
-      BURNING     ("Burning", true),
-      POISONED    ("Poisoned", true);
+      HEALING           ("Healing", false),
+      GREATER_HEALING   ("Greater Healing", false),
+      RECHARGING        ("Recharging", false),
+      BURNING           ("Burning", true),
+      POISONED          ("Poisoned", true);
       
       public String name;
       public boolean isHarmful;
@@ -44,6 +45,11 @@ public class StatusEffect extends EquippableItem implements GUIConstants, Abilit
       effectList = new Vector<OngoingEffect>();
    }
    
+   public boolean hasEffect(OngoingEffect e)
+   {
+      return effectList.contains(e);
+   }
+   
    public void addEffect(OngoingEffect e)
    {
       effectList.add(e);
@@ -57,6 +63,27 @@ public class StatusEffect extends EquippableItem implements GUIConstants, Abilit
    public boolean isExpired()
    {
       return remainingDuration <= 0;
+   }
+   
+   public boolean ongoingEffectsEqual(StatusEffect that)
+   {
+      for(OngoingEffect oe : effectList)
+         if(!that.hasEffect(oe))
+            return false;
+      for(OngoingEffect oe : that.getEffectList())
+         if(!this.hasEffect(oe))
+            return false;
+      return true;
+   }
+   
+   public boolean equals(StatusEffect that)
+   {
+      return super.equals(that) && ongoingEffectsEqual(that);
+   }
+   
+   public void combine(StatusEffect that)
+   {
+      this.remainingDuration += that.getRemainingDuration();
    }
 
 }
