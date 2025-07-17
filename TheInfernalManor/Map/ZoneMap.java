@@ -18,7 +18,7 @@ public class ZoneMap implements GUIConstants
    private int[][] lastSeenMap;
    private int[][] lastSeenColorMap;
    private Item[][] itemMap;
-   private ForegroundObject[][] decorationMap;
+   private ForegroundObject[][] corpseMap;
    private MapCell oobTile;
    private MapCell defaultLastSeenTile;
    private Vector<TIMRoom> roomList;
@@ -33,7 +33,7 @@ public class ZoneMap implements GUIConstants
 	public boolean[][] getHighPassMap(){return highPassMap;}
 	public boolean[][] getTransparentMap(){return transparentMap;}
    public Item[][] getItemMap(){return itemMap;}
-   public ForegroundObject[][] getDecorationMap(){return decorationMap;}
+   public ForegroundObject[][] getCorpseMap(){return corpseMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
    public int[][] getLastSeenMap(){return lastSeenMap;}
    public int[][] getLastSeenColorMap(){return lastSeenColorMap;}
@@ -64,14 +64,14 @@ public class ZoneMap implements GUIConstants
       lastSeenMap = new int[w][h];
       lastSeenColorMap = new int[w][h];
       itemMap = new Item[w][h];
-      decorationMap = new ForegroundObject[w][h];
+      corpseMap = new ForegroundObject[w][h];
       oobTile = new MapCell(MapCellBase.WALL);
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
       {
          setTile(x, y, new MapCell(MapCellBase.WALL));
          itemMap[x][y] = null;
-         decorationMap[x][y] = null;
+         corpseMap[x][y] = null;
          lastSeenMap[x][y] = 0; // default is 0 instead of ' ' to differentiate
          lastSeenColorMap[x][y] = WHITE;
       }
@@ -116,18 +116,30 @@ public class ZoneMap implements GUIConstants
    }
    public boolean isPermeable(Coord c){return isPermeable(c.x, c.y);}
    
-   public ForegroundObject getDecoration(int x, int y)
+   public ForegroundObject getCorpse(int x, int y)
    {
       if(isInBounds(x, y))
-         return decorationMap[x][y];
+         return corpseMap[x][y];
       return null;
    }
-   public ForegroundObject getDecoration(Coord c){return getDecoration(c.x, c.y);}
+   public ForegroundObject getCorpse(Coord c){return getCorpse(c.x, c.y);}
    
-   public void setDecoration(int x, int y, ForegroundObject fo)
+   public void setCorpse(int x, int y, ForegroundObject fo)
    {
       if(isInBounds(x, y))
-         decorationMap[x][y] = fo;
+         corpseMap[x][y] = fo;
+   }
+   
+   public void dropCorpse(int x, int y, ForegroundObject fo)
+   {
+      if(getCorpse(x, y) == null)
+         setCorpse(x, y, fo);
+      else
+      {
+         Coord target = getCorpseDropLoc(x, y);
+         if(target != null)
+            setCorpse(target.x, target.y, fo);
+      }
    }
    
    public boolean isItemAt(int x, int y)
@@ -272,6 +284,27 @@ public class ZoneMap implements GUIConstants
          target.y += yCorner;
          if(getItemAt(target.x, target.y) != null ||
             !isLowPassable(target.x, target.y))
+            target = null;
+      }
+      return target;
+  }
+   
+   // does a floodfill to find the nearest place to drop an item
+   private Coord getCorpseDropLoc(int startX, int startY)
+   {
+      int serachSize = 6;
+      int xCorner = startX - serachSize;
+      int yCorner = startY - serachSize;
+      SpiralSearch search = getLowPassSearch(startX, startY, serachSize);
+      Coord target = null;
+      while(target == null)
+      {
+         target = search.getNext();
+         if(target == null)
+            break;
+         target.x += xCorner;
+         target.y += yCorner;
+         if(getCorpse(target.x, target.y) != null)
             target = null;
       }
       return target;

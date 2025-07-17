@@ -131,7 +131,7 @@ public class InfoPanel extends TIMPanel implements GUIConstants
             Actor actor = GameState.getActorAt(targetLoc);
             Item item = GameState.getCurZone().getItemAt(targetLoc);
             MapCell mapCell = GameState.getCurZone().getTile(targetLoc);
-            ForegroundObject groundObj = GameState.getCurZone().getDecoration(targetLoc);
+            ForegroundObject groundObj = GameState.getCurZone().getCorpse(targetLoc);
             // actor
             if(actor != null)
             {

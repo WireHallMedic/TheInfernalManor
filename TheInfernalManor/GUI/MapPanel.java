@@ -36,8 +36,8 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
                setTile(x, y, map.getTile(x + xOffset, y + yOffset));
                int fgColor = map.getTile(x + xOffset, y + yOffset).getFGColor();
                
-               // decoration
-               ForegroundObject fo = map.getDecoration(x + xOffset, y + yOffset);
+               // corpse
+               ForegroundObject fo = map.getCorpse(x + xOffset, y + yOffset);
                if(fo != null)
                {
                   setTile(x, y, fo);
