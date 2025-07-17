@@ -341,6 +341,7 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
          case KeyEvent.VK_I :       parentFrame.setVisiblePanel("InventoryPanel"); break;
          case KeyEvent.VK_C :       parentFrame.setVisiblePanel("CharacterPanel"); break;
          case KeyEvent.VK_H :       parentFrame.setVisiblePanel("HelpPanel"); break;
+         case KeyEvent.VK_M :       parentFrame.setVisiblePanel("ZoneMapPanel"); break;
          
          // testing
          case KeyEvent.VK_BACK_QUOTE : player.setLocation(1, 1); break;

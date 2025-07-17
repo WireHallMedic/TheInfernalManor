@@ -30,6 +30,7 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
    private QuestEndPanel questEndPanel;
    private CharacterPanel characterPanel;
    private InventoryPanel inventoryPanel;
+   private ZoneMapPanel zoneMapPanel;
    private QuestInProgressPanel questInProgressPanel;
    private BankPanel bankPanel;
    private GameOverPanel gameOverPanel;
@@ -87,6 +88,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       addPanel(characterPanel);
       inventoryPanel = new InventoryPanel(x1y2Palette, this);
       addPanel(inventoryPanel);
+      zoneMapPanel = new ZoneMapPanel(x1y1Palette, this);
+      addPanel(zoneMapPanel);
       questInProgressPanel = new QuestInProgressPanel(x1y2Palette, this);
       addPanel(questInProgressPanel);
       gameOverPanel = new GameOverPanel(x1y2Palette, this);

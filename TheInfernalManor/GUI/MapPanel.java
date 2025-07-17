@@ -1,6 +1,7 @@
 package TheInfernalManor.GUI;
 
 import TheInfernalManor.Map.*;
+import TheInfernalManor.Item.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Ability.*;
 import TheInfernalManor.Engine.*;
@@ -33,18 +34,26 @@ public class MapPanel extends SCPanel implements GUIConstants, SCConstants
             {
                // mapCell
                setTile(x, y, map.getTile(x + xOffset, y + yOffset));
+               int fgColor = map.getTile(x + xOffset, y + yOffset).getFGColor();
                
                // decoration
                ForegroundObject fo = map.getDecoration(x + xOffset, y + yOffset);
                if(fo != null)
+               {
                   setTile(x, y, fo);
+                  fgColor = fo.getColor();
+               }
                   
                // item
                if(map.isItemAt(x + xOffset, y + yOffset))
-                  setTile(x, y, map.getItemAt(x + xOffset, y + yOffset));
+               {
+                  Item item = map.getItemAt(x + xOffset, y + yOffset);
+                  setTile(x, y, item);
+                  fgColor = item.getColor();
+               }
                
                // update lastSeenMap
-                  map.setLastSeen(x + xOffset, y + yOffset, getTileIndex(x, y));
+               map.setLastSeen(x + xOffset, y + yOffset, getTileIndex(x, y), fgColor);
             }
             else
                setTile(x, y, map.getLastSeen(x + xOffset, y + yOffset), DARK_GREY, BLACK);

@@ -16,6 +16,7 @@ public class ZoneMap implements GUIConstants
 	private boolean[][] transparentMap;
 	private MapCell[][] tileMap;
    private int[][] lastSeenMap;
+   private int[][] lastSeenColorMap;
    private Item[][] itemMap;
    private ForegroundObject[][] decorationMap;
    private MapCell oobTile;
@@ -35,6 +36,7 @@ public class ZoneMap implements GUIConstants
    public ForegroundObject[][] getDecorationMap(){return decorationMap;}
 	public MapCell[][] getTileMap(){return tileMap;}
    public int[][] getLastSeenMap(){return lastSeenMap;}
+   public int[][] getLastSeenColorMap(){return lastSeenColorMap;}
    public Vector<TIMRoom> getRoomList(){return roomList;}
    public Coord getEntranceLoc(){return new Coord(entranceLoc);}
    public Coord getExitLoc(){return new Coord(exitLoc);}
@@ -60,6 +62,7 @@ public class ZoneMap implements GUIConstants
       transparentMap = new boolean[w][h];
       tileMap = new MapCell[w][h];
       lastSeenMap = new int[w][h];
+      lastSeenColorMap = new int[w][h];
       itemMap = new Item[w][h];
       decorationMap = new ForegroundObject[w][h];
       oobTile = new MapCell(MapCellBase.WALL);
@@ -69,7 +72,8 @@ public class ZoneMap implements GUIConstants
          setTile(x, y, new MapCell(MapCellBase.WALL));
          itemMap[x][y] = null;
          decorationMap[x][y] = null;
-         lastSeenMap[x][y] = ' ';
+         lastSeenMap[x][y] = 0; // default is 0 instead of ' ' to differentiate
+         lastSeenColorMap[x][y] = WHITE;
       }
    }
    
@@ -155,11 +159,12 @@ public class ZoneMap implements GUIConstants
       }
    }
    
-   public void setLastSeen(int x, int y, int index)
+   public void setLastSeen(int x, int y, int index, int color)
    {
       if(isInBounds(x, y))
       {
          lastSeenMap[x][y] = index;
+         lastSeenColorMap[x][y] = color;
       }
    }
    
@@ -193,9 +198,17 @@ public class ZoneMap implements GUIConstants
    {
       if(isInBounds(x, y))
          return lastSeenMap[x][y];
-      return ' ';
+      return 0;
    }
    public int getLastSeen(Coord c){return getLastSeen(c.x, c.y);}
+   
+   public int getLastSeenColor(int x, int y)
+   {
+      if(isInBounds(x, y))
+         return lastSeenColorMap[x][y];
+      return WHITE;
+   }
+   public int getLastSeenColor(Coord c){return getLastSeenColor(c.x, c.y);}
    
    public boolean canStep(int x, int y, Actor a)
    {
