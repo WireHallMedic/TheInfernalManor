@@ -1,35 +1,32 @@
 package TheInfernalManor.Ability;
 
 import TheInfernalManor.GUI.*;
+import TheInfernalManor.Item.*;
 
-public class StatusEffect implements GUIConstants, AbilityConstants
+public class StatusEffect extends EquippableItem implements GUIConstants, AbilityConstants
 {
-	private int remainingDuration;
 	private int startingDuration;
-	private int iconIndex;
-	private int color;
-	private String name;
+	private int remainingDuration;
+	private boolean healsHealth;
+	private boolean healsEnergy;
 
 
-	public int getRemainingDuration(){return remainingDuration;}
 	public int getStartingDuration(){return startingDuration;}
-	public int getIconIndex(){return iconIndex;}
-	public int getColor(){return color;}
-	public String getName(){return name;}
+	public int getRemainingDuration(){return remainingDuration;}
+	public boolean isHealsHealth(){return healsHealth;}
+	public boolean isHealsEnergy(){return healsEnergy;}
 
 
+	public void setStartingDuration(int s){startingDuration = s;}
 	public void setRemainingDuration(int r){remainingDuration = r;}
-	public void setStartingDuration(int s){startingDuration = s; setRemainingDuration(s);}
-	public void setIconIndex(int i){iconIndex = i;}
-	public void setColor(int c){color = c;}
-	public void setName(String n){name = n;}
+	public void setHealsHealth(boolean h){healsHealth = h;}
+	public void setHealsEnergy(boolean h){healsEnergy = h;}
 
-   public StatusEffect()
+
+   public StatusEffect(String name, int icon, int fgColor)
    {
+      super(name, icon, fgColor);
       setStartingDuration(MEDIUM_DURATION);
-      setIconIndex('?');
-      setColor(WHITE);
-      setName("Unknown status effect");
    }
    
    public void increment()

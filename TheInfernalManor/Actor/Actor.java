@@ -377,6 +377,11 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          curGuard = maxGuard;
    }
    
+   public void consume(Consumable c)
+   {
+      add(c.getStatusEffect());
+   }
+   
    // initiative methods
    public boolean isCharged()
    {

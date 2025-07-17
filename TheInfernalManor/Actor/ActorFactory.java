@@ -40,6 +40,7 @@ public class ActorFactory implements ActorConstants, GUIConstants
       i = WeaponFactory.getBase("Longbow");
       i.adjustForQuality(ItemQuality.HIGH);
       a.getInventory().add(i);
+      a.getInventory().add(Consumable.getTestPotion());
       
       a.fullHeal();
       return a;

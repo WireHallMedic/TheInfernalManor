@@ -15,7 +15,7 @@ s#k0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Dat
 s#j0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files
 s#l0
 !193;u
-a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!5768;g
+a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!5867;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -33,6 +33,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sMemoryObject.java
 %\011TheInfernalManor%sTools%sToolColorTester.java
 %\011TheInfernalManor%sItem%sOffHand.java
+%\011TheInfernalManor%sAbility%sStatusEffectBase.java
 %\011TheInfernalManor%sMap%sRoomTemplate.java
 %\011%uWidlerSuite%sRoom.java
 %\011TheInfernalManor%sGUI%sAnimationManager.java
@@ -118,6 +119,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sItem%sArmorFactory.java
 %\011TheInfernalManor%sMap%sTIMRoom.java
 %\011TheInfernalManor%sGUI%sZoneMapPanel.java
+%\011TheInfernalManor%sItem%sConsumable.java
 %\011TheInfernalManor%sGUI%sInfoPanel.java
 %\011TheInfernalManor%sAI%sZombieAI.java
 %\011TheInfernalManor%sAI%sActorMemory.java
@@ -147,7 +149,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!5768;f
+!5867;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -165,6 +167,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sMemoryObject.java
 %\011TheInfernalManor%sTools%sToolColorTester.java
 %\011TheInfernalManor%sItem%sOffHand.java
+%\011TheInfernalManor%sAbility%sStatusEffectBase.java
 %\011TheInfernalManor%sMap%sRoomTemplate.java
 %\011%uWidlerSuite%sRoom.java
 %\011TheInfernalManor%sGUI%sAnimationManager.java
@@ -250,6 +253,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sItem%sArmorFactory.java
 %\011TheInfernalManor%sMap%sTIMRoom.java
 %\011TheInfernalManor%sGUI%sZoneMapPanel.java
+%\011TheInfernalManor%sItem%sConsumable.java
 %\011TheInfernalManor%sGUI%sInfoPanel.java
 %\011TheInfernalManor%sAI%sZombieAI.java
 %\011TheInfernalManor%sAI%sActorMemory.java
