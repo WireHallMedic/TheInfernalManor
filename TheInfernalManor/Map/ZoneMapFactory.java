@@ -524,7 +524,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       map.setItemAt(1, 2, new Armor("Filthy Rags"));
       
       MapCell fragilePillar = MapCellFactory.getMapCell(MapCellBase.WALL, BROWN, DARK_GREY);
-      fragilePillar.setBrokenForm(MapCellFactory.getMapCell(MapCellBase.ROUGH, BROWN, DARK_GREY));
+      fragilePillar.setBreakable(true);
       map.setTile(10, 9, new MapCell(fragilePillar));
       map.setTile(10, 10, new MapCell(fragilePillar));
       map.setTile(11, 9, new MapCell(fragilePillar));

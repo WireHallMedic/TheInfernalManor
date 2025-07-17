@@ -12,6 +12,7 @@ public class ItemContainer extends MapCell implements ItemDropper
    public ItemContainer(int index, boolean lowPass, boolean highPass, boolean trans)
    {
       super(index, lowPass, highPass, trans);
+      setBreakable(true);
       itemList = new Vector<Item>();
    }
    

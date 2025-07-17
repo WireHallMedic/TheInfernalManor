@@ -13,7 +13,7 @@ public class Chest extends ToggleTile implements ItemDropper
    {
       super(new MapCell(MapCellBase.CHEST_CLOSED), new MapCell(MapCellBase.CHEST_OPEN));
       setOneUseOnly(true);
-      setBrokenForm(new MapCell(MapCellBase.ROUGH));
+      setBreakable(true);
       itemList = new Vector<Item>();
    }
    

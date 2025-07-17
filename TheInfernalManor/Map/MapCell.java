@@ -13,6 +13,7 @@ public class MapCell implements GUIConstants
    private MapCell brokenForm;
    private MapCellBase base;
    private int paletteVariation;
+   private boolean breakable;
 
 
 	public int getIconIndex(){return iconIndex;}
@@ -21,9 +22,9 @@ public class MapCell implements GUIConstants
 	public boolean isLowPassable(){return lowPassable;}
 	public boolean isHighPassable(){return highPassable;}
 	public boolean isTransparent(){return transparent;}
-   public MapCell getBrokenForm(){return brokenForm;}
    public MapCellBase getBase(){return base;}
    public int getPaletteVariation(){return paletteVariation;}
+   public boolean isBreakable(){return breakable;}
 
 
 	public void setIconIndex(int i){iconIndex = i;}
@@ -32,9 +33,9 @@ public class MapCell implements GUIConstants
 	public void setLowPassable(boolean l){lowPassable = l;}
 	public void setHighPassable(boolean h){highPassable = h;}
 	public void setTransparent(boolean t){transparent = t;}
-   public void setBrokenForm(MapCell bf){brokenForm = bf;}
    public void setBase(MapCellBase b){base = b;}
    public void setPaletteVariation(int v){paletteVariation = v;}
+   public void setBreakable(boolean b){breakable = b;}
 
 
    public MapCell(int index, boolean lowPass, boolean highPass, boolean trans)
@@ -45,7 +46,7 @@ public class MapCell implements GUIConstants
       lowPassable = lowPass;
       highPassable = highPass;
       transparent = trans;
-      brokenForm = null;
+      breakable = false;
       base = null;
       paletteVariation = MapPalette.BASE;
    }
@@ -79,14 +80,17 @@ public class MapCell implements GUIConstants
    }
    
    
-   public boolean isBreakable()
-   {
-      return brokenForm != null;
-   }
-   
-   
    public boolean isPermeable()
    {
       return isHighPassable() || isBreakable();
+   }
+   
+   
+   public MapCell getBrokenForm()
+   {
+      MapCell broken = new MapCell(MapCellBase.ROUGH);
+      broken.setFGColor(getFGColor());
+      broken.setBGColor(getBGColor());
+      return broken;
    }
 }
