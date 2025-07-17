@@ -257,6 +257,11 @@ public class BaseAI
             self.unequipItem(plan.getIndex());
             self.discharge(self.getInteractSpeed());
          }
+         if(plan.getActionType() == ActionType.CONSUME)
+         {
+            self.consumeFromInventory(plan.getIndex());
+            self.discharge(self.getInteractSpeed());
+         }
       }
       cleanUp();
    }

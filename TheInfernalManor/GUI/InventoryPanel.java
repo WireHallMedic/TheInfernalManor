@@ -335,7 +335,10 @@ public class InventoryPanel extends TIMPanel implements GUIConstants
                                        break;
             case KeyEvent.VK_ENTER :   if(curIndex > -1)
                                        {
-                                          ap = new ActionPlan(ActionType.EQUIP, curIndex);
+                                          if(curIndex != -1 && onLeft && getPlayerItemList().elementAt(curIndex) instanceof Consumable)
+                                             ap = new ActionPlan(ActionType.CONSUME, curIndex);
+                                          else
+                                             ap = new ActionPlan(ActionType.EQUIP, curIndex);
                                           GameState.getPlayerCharacter().getAI().setPendingAction(ap);
                                           parentFrame.returnToMainPanel();
                                        }

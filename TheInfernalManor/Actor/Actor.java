@@ -626,6 +626,13 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
             unequipItem(Inventory.RELIC_SLOT + i, false);
    }
    
+   public void consumeFromInventory(int index)
+   {
+      Consumable c = (Consumable)inventory.getItemAt(index);
+      inventory.removeItemAt(index);
+      consume(c);
+   }
+   
    
    // itemDropper functions
    public Vector<Item> getItems()

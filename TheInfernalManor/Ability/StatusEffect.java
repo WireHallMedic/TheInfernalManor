@@ -2,31 +2,51 @@ package TheInfernalManor.Ability;
 
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
+import java.util.*;
 
 public class StatusEffect extends EquippableItem implements GUIConstants, AbilityConstants
 {
+   public enum OngoingEffect
+   {
+      HEALING     ("Healing", false),
+      RECHARGING  ("Recharging", false),
+      BURNING     ("Burning", true),
+      POISONED    ("Poisoned", true);
+      
+      public String name;
+      public boolean isHarmful;
+      
+      private OngoingEffect(String n, boolean h)
+      {
+         name = n;
+         isHarmful = h;
+      }
+   }
 	private int startingDuration;
 	private int remainingDuration;
-	private boolean healsHealth;
-	private boolean healsEnergy;
+	private Vector<OngoingEffect> effectList;
 
 
 	public int getStartingDuration(){return startingDuration;}
 	public int getRemainingDuration(){return remainingDuration;}
-	public boolean isHealsHealth(){return healsHealth;}
-	public boolean isHealsEnergy(){return healsEnergy;}
+   public Vector<OngoingEffect> getEffectList(){return effectList;}
 
 
-	public void setStartingDuration(int s){startingDuration = s;}
+	public void setStartingDuration(int s){startingDuration = s; remainingDuration = s;}
 	public void setRemainingDuration(int r){remainingDuration = r;}
-	public void setHealsHealth(boolean h){healsHealth = h;}
-	public void setHealsEnergy(boolean h){healsEnergy = h;}
+	public void setEffectList(Vector<OngoingEffect> el){effectList = el;}
 
 
    public StatusEffect(String name, int icon, int fgColor)
    {
       super(name, icon, fgColor);
       setStartingDuration(MEDIUM_DURATION);
+      effectList = new Vector<OngoingEffect>();
+   }
+   
+   public void addEffect(OngoingEffect e)
+   {
+      effectList.add(e);
    }
    
    public void increment()

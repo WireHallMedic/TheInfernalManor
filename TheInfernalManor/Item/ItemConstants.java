@@ -5,7 +5,7 @@ import TheInfernalManor.GUI.*;
 import java.util.*;
 
 public interface ItemConstants 
-{     
+{  
    public enum RelicBase implements Rollable
    {
       HELM     (0, 30, 5),
