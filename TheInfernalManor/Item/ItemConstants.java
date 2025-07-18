@@ -35,7 +35,8 @@ public interface ItemConstants
    {
       HEALING_P         (0, 30, 10),
       DEFENSE_P         (0, 30, 10),
-      OFFENSE_P         (0, 30, 10);
+      OFFENSE_P         (0, 30, 10),
+      MOVE_HASTE_P      (0, 30, 10);
 //      HASTE_P           (0, 30, 5),
 //      FLIGHT_P          (0, 30, 5);
       

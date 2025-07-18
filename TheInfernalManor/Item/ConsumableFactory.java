@@ -19,6 +19,8 @@ public class ConsumableFactory implements GUIConstants, ItemConstants
                            break; 
          case OFFENSE_P:   c = getOffensePotion();
                            break;
+         case MOVE_HASTE_P:c = getFleetnessPotion();
+                           break;
       }
       switch(quality)
       {
@@ -52,7 +54,7 @@ public class ConsumableFactory implements GUIConstants, ItemConstants
    
    public static Consumable getDefensePotion()
    {
-      Consumable c = getPotionBase("Defense Potion");
+      Consumable c = getPotionBase("Potion of Defense");
       c.setDescription("Increases your defenses and heals.");
       c.getStatusEffect().setName("Bulwark");
       c.getStatusEffect().setPhysicalArmor(5);
@@ -62,11 +64,29 @@ public class ConsumableFactory implements GUIConstants, ItemConstants
    
    public static Consumable getOffensePotion()
    {
-      Consumable c = getPotionBase("Offense Potion");
+      Consumable c = getPotionBase("Potion of Brutality");
       c.setDescription("Increases your offenses and heals.");
       c.getStatusEffect().setName("Aggressive");
       c.getStatusEffect().setPhysicalDamage(5);
       c.getStatusEffect().setMagicalDamage(5);
+      return c;
+   }
+   
+   public static Consumable getFleetnessPotion()
+   {
+      Consumable c = getPotionBase("Potion of Fleetness");
+      c.setDescription("Increases movement speeds, and heals.");
+      c.getStatusEffect().setName("Fleet");
+      c.getStatusEffect().addEffect(StatusEffect.OngoingEffect.FLEET);
+      return c;
+   }
+   
+   public static Consumable getHastePotion()
+   {
+      Consumable c = getPotionBase("Potion of Haste");
+      c.setDescription("Increases all speeds, and heals.");
+      c.getStatusEffect().setName("Hasted");
+      c.getStatusEffect().addEffect(StatusEffect.OngoingEffect.HASTE);
       return c;
    }
    

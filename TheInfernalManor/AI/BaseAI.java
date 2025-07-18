@@ -225,7 +225,7 @@ public class BaseAI
          if(plan.getActionType() == ActionType.BASIC_ATTACK)
          {
             self.doAttack(self.getBasicAttack(), x, y);
-            self.discharge(self.getBasicAttack().getSpeed());
+            self.dischargeAbility(self.getBasicAttack().getSpeed());
          }
          if(plan.getActionType() == ActionType.ABILITY)
          {
@@ -234,7 +234,7 @@ public class BaseAI
             {
                Attack attack = (Attack)ability;
                self.doAttack(attack, x, y);
-               self.discharge(attack.getSpeed());
+               self.dischargeAbility(attack.getSpeed());
             }
          }
          if(plan.getActionType() == ActionType.PICK_UP)

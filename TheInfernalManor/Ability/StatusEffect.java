@@ -10,7 +10,11 @@ public class StatusEffect extends EquippableItem implements GUIConstants, Abilit
    {
       HEALING           ("Healing", false),
       GREATER_HEALING   ("Greater Healing", false),
+      FLEET             ("Fleet", false),
+      HASTE             ("Hasted", false),
       RECHARGING        ("Recharging", false),
+      SLUGGISH          ("Sluggish", true),
+      SLOW              ("Slowed", true),
       BURNING           ("Burning", true),
       POISONED          ("Poisoned", true);
       

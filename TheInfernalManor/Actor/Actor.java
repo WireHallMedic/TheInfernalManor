@@ -56,8 +56,6 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
 	public int getMaxGuard(){return maxGuard;}
 	public int getCurGuard(){return curGuard;}
    public int getTicksSinceHit(){return ticksSinceHit;}
-   public ActionSpeed getMoveSpeed(){return moveSpeed;}
-   public ActionSpeed getInteractSpeed(){return interactSpeed;}
    public int getChargeLevel(){return chargeLevel;}
    public int getPowerLevel(){return powerLevel;}
    public Attack getBasicAttack(){return basicAttack;}
@@ -273,6 +271,60 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          heal(1);
    }
    
+   public boolean hasOngoingEffect(StatusEffect.OngoingEffect query)
+   {
+      for(StatusEffect se : seList)
+         if(se.hasEffect(query))
+            return true;
+      return false;
+   }
+   
+   public ActionSpeed getMoveSpeed()
+   {
+      int mod = 0;
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.FLEET) || 
+         hasOngoingEffect(StatusEffect.OngoingEffect.HASTE))
+         mod++;
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.SLUGGISH) || 
+         hasOngoingEffect(StatusEffect.OngoingEffect.SLOW))
+         mod--;
+      if(mod == 1)
+         return moveSpeed.faster();
+      if(mod == -1)
+         return moveSpeed.slower();
+      return moveSpeed;
+   }
+   
+   public ActionSpeed getInteractSpeed()
+   {
+      int mod = 0;
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.FLEET) || 
+         hasOngoingEffect(StatusEffect.OngoingEffect.HASTE))
+         mod++;
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.SLUGGISH) || 
+         hasOngoingEffect(StatusEffect.OngoingEffect.SLOW))
+         mod--;
+      if(mod == 1)
+         return interactSpeed.faster();
+      if(mod == -1)
+         return interactSpeed.slower();
+      return interactSpeed;
+   }   
+   
+   public ActionSpeed getAbilitySpeed(ActionSpeed base)
+   {
+      int mod = 0;
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.HASTE))
+         mod++;
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.SLOW))
+         mod--;
+      if(mod == 1)
+         return base.faster();
+      else if(mod == -1)
+         return base.slower();
+      return base;
+   }
+   
    // resource methods
    public void fullHeal()
    {
@@ -469,6 +521,11 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void discharge(ActionSpeed speed)
    {
       chargeLevel -= speed.ticks;
+   }
+   
+   public void dischargeAbility(ActionSpeed base)
+   {
+      discharge(getAbilitySpeed(base));
    }
    
    // AI methods

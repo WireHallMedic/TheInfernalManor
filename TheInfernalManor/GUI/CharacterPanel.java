@@ -40,6 +40,7 @@ public class CharacterPanel extends TIMPanel implements GUIConstants
          lineIndex++;
          overwriteLine(2, lineIndex++, String.format("Move Speed:      %s", a.getMoveSpeed().toString()), COLUMN_WIDTH - 1);
          overwriteLine(2, lineIndex++, String.format("Interact Speed:  %s", a.getInteractSpeed().toString()), COLUMN_WIDTH - 1);
+         overwriteLine(2, lineIndex++, String.format("Ability Speed:   %s", a.getAbilitySpeed(ActionSpeed.NORMAL).toString()), COLUMN_WIDTH - 1);
          lineIndex++;
          overwriteLine(2, lineIndex++, String.format("Physical Damage: %d", a.getPhysicalDamage()), COLUMN_WIDTH - 1);
          overwriteLine(2, lineIndex++, String.format("Physical Armor:  %d", a.getPhysicalArmor()), COLUMN_WIDTH - 1);

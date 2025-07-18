@@ -33,7 +33,8 @@ public class ActorFactory implements ActorConstants, GUIConstants
       for(int iter = 0; iter < 5; iter++)
          a.getInventory().add(ConsumableFactory.randomConsumable(5));
       a.getInventory().add(ConsumableFactory.getDefensePotion());
-      a.getInventory().add(ConsumableFactory.getOffensePotion());
+      a.getInventory().add(ConsumableFactory.getFleetnessPotion());
+      a.getInventory().add(ConsumableFactory.getHastePotion());
       
       a.fullHeal();
       return a;
