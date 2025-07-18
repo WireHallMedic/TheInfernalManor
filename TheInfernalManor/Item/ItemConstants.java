@@ -33,13 +33,11 @@ public interface ItemConstants
    
    public enum ConsumableBase implements Rollable
    {
-      DAGGER      (0, 30, 5),
-      SWORD       (0, 30, 5),
-      GREATSWORD  (0, 30, 5),
-      SLING       (0, 30, 5),
-      BOW         (0, 30, 5),
-      WAND        (0, 30, 5),
-      STAFF       (0, 30, 5);
+      HEALING_P         (0, 30, 20),
+      DEFENSE_P         (0, 30, 5),
+      OFFENSE_P         (0, 30, 5);
+//      HASTE_P           (0, 30, 5),
+//      FLIGHT_P          (0, 30, 5);
       
       private int minLevel;
       private int maxLevel;

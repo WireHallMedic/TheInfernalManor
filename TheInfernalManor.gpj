@@ -15,7 +15,7 @@ s#k0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Dat
 s#j0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files
 s#l0
 !193;u
-a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!5867;g
+a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!5919;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -101,6 +101,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sAI%sStandardAI.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
+%\011TheInfernalManor%sItem%sConsumableFactory.java
 %\011TheInfernalManor%sItem%sArmor.java
 %\011TheInfernalManor%sData Files%sArmorBases.csv
 %\011TheInfernalManor%sTools%sToolRoomTemplateWorkshopMain.java
@@ -149,7 +150,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!5867;f
+!5919;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -235,6 +236,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sEngine%sEngineConstants.java
 %\011TheInfernalManor%sAI%sStandardAI.java
 %\011TheInfernalManor%sGUI%sLoadPanel.java
+%\011TheInfernalManor%sItem%sConsumableFactory.java
 %\011TheInfernalManor%sItem%sArmor.java
 %\011TheInfernalManor%sData Files%sArmorBases.csv
 %\011TheInfernalManor%sTools%sToolRoomTemplateWorkshopMain.java
