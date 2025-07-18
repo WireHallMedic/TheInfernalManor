@@ -24,9 +24,11 @@ public class ConsumableFactory implements GUIConstants, ItemConstants
       {
          case LOW :  c.setName("Weak " + c.getName());
                      c.getStatusEffect().setStartingDuration(c.getStatusEffect().getStartingDuration() / 2);
+                     c.setDescription(c.getDescription() + " Lasts half as long as normal.");
                      break; 
          case HIGH : c.setName("Strong " + c.getName());
                      c.getStatusEffect().setStartingDuration(c.getStatusEffect().getStartingDuration() * 2);
+                     c.setDescription(c.getDescription() + " Lasts twice as long as normal.");
                      break;
       }
       return c;

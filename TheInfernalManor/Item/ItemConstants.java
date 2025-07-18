@@ -33,9 +33,9 @@ public interface ItemConstants
    
    public enum ConsumableBase implements Rollable
    {
-      HEALING_P         (0, 30, 20),
-      DEFENSE_P         (0, 30, 5),
-      OFFENSE_P         (0, 30, 5);
+      HEALING_P         (0, 30, 10),
+      DEFENSE_P         (0, 30, 10),
+      OFFENSE_P         (0, 30, 10);
 //      HASTE_P           (0, 30, 5),
 //      FLIGHT_P          (0, 30, 5);
       

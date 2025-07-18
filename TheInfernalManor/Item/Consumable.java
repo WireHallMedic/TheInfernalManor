@@ -21,22 +21,4 @@ public class Consumable extends Item implements GUIConstants, SCConstants
       super(name, CONSUMABLE_ICON, WHITE);
       statusEffect = new StatusEffect("Unknown Status Effect", HEART_TILE, RED);
    }
-   
-   public static Consumable getTestPotion()
-   {
-      Consumable c = new Consumable("Healing Potion");
-      c.getStatusEffect().setName("Healing");
-      c.getStatusEffect().addEffect(StatusEffect.OngoingEffect.HEALING);
-      c.getStatusEffect().setPhysicalDamage(5);
-      return c;
-   }
-   
-   public static Consumable getTestPotion2()
-   {
-      Consumable c = new Consumable("Greater Healing Potion");
-      c.getStatusEffect().setName("More Healing");
-      c.getStatusEffect().addEffect(StatusEffect.OngoingEffect.GREATER_HEALING);
-      c.getStatusEffect().setPhysicalArmor(5);
-      return c;
-   }
 }
