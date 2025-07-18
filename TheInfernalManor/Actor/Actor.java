@@ -308,7 +308,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          setCurGuard(0);
          
          // apply armor
-         if(getArmor() != null && damage > 0)
+         if(damage > 0)
          {
             if(damageType == Ability.PHYSICAL)
                damage -= getPhysicalArmor();
@@ -316,7 +316,6 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
                damage -= getMagicalArmor();
             damage = Math.max(damage, 1);
          }
-         
          applyDamage(damage);
       }
       // does not get through block

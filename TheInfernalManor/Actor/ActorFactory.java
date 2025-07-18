@@ -26,22 +26,14 @@ public class ActorFactory implements ActorConstants, GUIConstants
       a.addAbility(AttackFactory.getBlast());
       a.addAbility(AttackFactory.getConeAttack());
       
-      a.getInventory().add(OffHandFactory.getBase("Tome"));
-      EquippableItem i = WeaponFactory.getBase("Sword");
-      i.adjustForQuality(ItemQuality.LOW);
-      a.getInventory().add(i);
-      i = WeaponFactory.getBase("Sword");
+      EquippableItem i = ArmorFactory.getBase("Chain Mail");
       i.adjustForQuality(ItemQuality.HIGH);
       i.setName(i.getName() + " with very long name for testing purposes");
       a.getInventory().add(i);
-      i = WeaponFactory.getBase("Longbow");
-      i.adjustForQuality(ItemQuality.LOW);
-      a.getInventory().add(i);
-      i = WeaponFactory.getBase("Longbow");
-      i.adjustForQuality(ItemQuality.HIGH);
-      a.getInventory().add(i);
       for(int iter = 0; iter < 5; iter++)
          a.getInventory().add(ConsumableFactory.randomConsumable(5));
+      a.getInventory().add(ConsumableFactory.getDefensePotion());
+      a.getInventory().add(ConsumableFactory.getOffensePotion());
       
       a.fullHeal();
       return a;

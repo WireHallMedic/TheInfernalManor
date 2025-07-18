@@ -17,7 +17,7 @@ public class ConsumableFactory implements GUIConstants, ItemConstants
                            break;
          case DEFENSE_P:   c = getDefensePotion();
                            break; 
-         case OFFENSE_P:   c = getOffensivePotion();
+         case OFFENSE_P:   c = getOffensePotion();
                            break;
       }
       switch(quality)
@@ -60,7 +60,7 @@ public class ConsumableFactory implements GUIConstants, ItemConstants
       return c;
    }
    
-   public static Consumable getOffensivePotion()
+   public static Consumable getOffensePotion()
    {
       Consumable c = getPotionBase("Offense Potion");
       c.setDescription("Increases your offenses and heals.");
