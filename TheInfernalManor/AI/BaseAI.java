@@ -203,7 +203,6 @@ public class BaseAI
          
          if(plan.getActionType() == ActionType.DELAY)
          {
-            self.takeStep(Direction.ORIGIN);
             self.discharge(self.getMoveSpeed());
          }
          if(plan.getActionType() == ActionType.STEP)

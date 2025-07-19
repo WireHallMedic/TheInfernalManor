@@ -473,6 +473,10 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void consume(Consumable c)
    {
       add(c.getStatusEffect());
+      if(this == GameState.getPlayerCharacter())
+      {
+         MessagePanel.addMessage("You consume " + GUITools.prependArticle(c.getName()) + ".");
+      }
    }
    
    // initiative methods
@@ -577,6 +581,13 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void takeStep(Coord c)
    {
       setLocation(c.x, c.y);
+      
+      if(this == GameState.getPlayerCharacter())
+      {
+         Item item = GameState.getCurZone().getItemAt(c.x, c.y);
+         if(item != null)
+            MessagePanel.addMessage("You are standing on " + GUITools.prependArticle(item.getName()) + ".");
+      }
    }
    
    public void doToggle(Direction dir)
@@ -618,7 +629,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       }
       if(this == GameState.getPlayerCharacter())
       {
-         MessagePanel.addMessage("You picked up a(n) " + item.getName());
+         MessagePanel.addMessage("You picked up " + GUITools.prependArticle(item.getName()) + ".");
       }
    }
    

@@ -273,5 +273,23 @@ public class GUITools implements GUIConstants, SCConstants
       else if(str.equals("DARK_GREY")) val = DARK_GREY;
       else throw new RuntimeException("Attempt to deserialize unknown color: " + str);
       return val;
-  }
+   }
+   
+   public static String getArticle(String str)
+   {
+      switch(str.toLowerCase().charAt(0))
+      {
+         case 'a' :
+         case 'e' :
+         case 'i' :
+         case 'o' :
+         case 'u' : return "an";
+      }
+      return "a";
+   }
+   
+   public static String prependArticle(String str)
+   {
+      return getArticle(str) + " " + str;
+   }
 }
