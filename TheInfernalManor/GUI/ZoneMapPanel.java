@@ -12,7 +12,7 @@ public class ZoneMapPanel extends TIMPanel implements GUIConstants
 {
    public ZoneMapPanel(SCTilePalette tilePalette, TIMFrame pFrame)
    {
-      super(tilePalette, pFrame, TILES_WIDE * 2, TILES_TALL * 4);
+      super(tilePalette, pFrame, (int)(TILES_WIDE * 1.5), (int)(TILES_TALL * 3.0));
       GUITools.drawSimpleBorder(this);
    }
    
@@ -51,8 +51,8 @@ public class ZoneMapPanel extends TIMPanel implements GUIConstants
          }
          if(AnimationManager.getMediumBlink())
          {
-            setTileIndex(w / 2, h / 2, player.getIconIndex());
-            setTileFG(w / 2, h / 2,  player.getColor());
+            setTileIndex((w / 2) + 1, (h / 2) + 1, player.getIconIndex());
+            setTileFG((w / 2) + 1, (h / 2) + 1,  player.getColor());
          }
       }
       super.paint(g);
