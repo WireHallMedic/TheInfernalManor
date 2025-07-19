@@ -44,6 +44,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    private ActorVisualEffect visualEffect;
    private Vector<StatusEffect> seList;
    private EquippableItem baseStats;
+   private Quality quality;
    private boolean inTurn;
 
 
@@ -75,6 +76,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public boolean isInTurn(){return inTurn;}
    public int getVision(){return vision;}
    public EquippableItem getBaseStats(){return baseStats;}
+   public Quality getQuality(){return quality;}
 
 
    public void setAI(BaseAI newAI){ai = newAI;}
@@ -98,6 +100,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void setVisualEffect(ActorVisualEffect ve){visualEffect = ve;}
    public void setSEList(Vector<StatusEffect> newList){seList = newList;}
    public void setBaseStats(EquippableItem bs){baseStats = bs;}
+   public void setQuality(Quality q){quality = q;}
    
 
    public Actor(String n, int icon)
@@ -128,6 +131,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       visualEffect = null;
       seList = new Vector<StatusEffect>();
       inTurn = false;
+      quality = Quality.REGULAR;
       calcStats();
       fullHeal();
    }

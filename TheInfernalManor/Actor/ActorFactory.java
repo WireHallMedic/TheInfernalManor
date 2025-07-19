@@ -148,6 +148,7 @@ public class ActorFactory implements ActorConstants, GUIConstants
          case CONSCRIPT : a = getWolf(level);
                         a.setName("Attack Dog");
                         a.setIconIndex('d');
+                        a.setQuality(Quality.CONSCRIPT);
                         int health = a.getMaxHealth() / 2;
                         a.getBaseStats().setMaxHealth(health);
                         weapon = null;
@@ -158,22 +159,26 @@ public class ActorFactory implements ActorConstants, GUIConstants
                         a.setColor(GREEN);
                         armor = null;
                         a.setMoveSpeed(ActionSpeed.FAST);
+                        a.setQuality(Quality.VETERAN);
                         break;
          case SOLDIER : a.setName(a.getName() + " Enforcer");
                         a.setColor(DARK_RED);
                         weapon = WeaponFactory.getBase("Sword");
                         armor = ArmorFactory.getBase("Leather Armor");
                         offHand = OffHandFactory.getBase("Shield");
+                        a.setQuality(Quality.VETERAN);
                         break;
          case ARCHER :  a.setName(a.getName() + " Hunter");
                         a.setColor(DARK_YELLOW);
                         weapon = WeaponFactory.getBase("Sling");
+                        a.setQuality(Quality.VETERAN);
                         break;
          case LEADER :  a.setName(a.getName() + " Warlock");
                         a.setColor(LIGHT_PURPLE);
                         weapon = WeaponFactory.getBase("Wand");
                         armor = ArmorFactory.getBase("Robes");
                         a.addAbility(AttackFactory.getBlast());
+                        a.setQuality(Quality.VETERAN);
                         break;
       }
       a.setMainHand(weapon);

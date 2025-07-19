@@ -11,6 +11,12 @@ public enum ItemRoll implements Rollable
    RELIC       (0, 30, 1),
    CONSUMABLE  (0, 30, 10);
    
+   public static ItemRoll[] gearValues()
+   {
+      ItemRoll[] gearList = {MAIN_HAND, OFF_HAND, ARMOR, RELIC};
+      return gearList;
+   }
+   
    private int minLevel;
    private int maxLevel;
    private int weight;
