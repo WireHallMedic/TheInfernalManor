@@ -108,11 +108,16 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
    }
    public static void registerLine(Coord c, Direction dirToSource, int gradientStart, int gradientEnd){registerLine(c.x, c.y, dirToSource, gradientStart, gradientEnd);}
    
-   public static void registerAttackLine(Coord origin, Coord target)
+   // stopTile is to allow consistency with how targeting is handled
+   public static void registerAttackLine(Coord origin, Coord target, Coord stopTile)
    {
       Vector<Coord> tileList = StraightLine.findLine(origin, target, StraightLine.REMOVE_TARGET);
       for(int i = 1; i < tileList.size(); i++)
+      {
+         if(tileList.elementAt(i).equals(stopTile))
+            return;
          registerLine(tileList.elementAt(i), Direction.getDirectionTo(tileList.elementAt(i), tileList.elementAt(i-1)), WHITE, GREY);
+      }
    }
    
    private static int[] getArrayOfInt(int val, int len)

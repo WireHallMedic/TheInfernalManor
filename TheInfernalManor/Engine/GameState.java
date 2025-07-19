@@ -172,8 +172,8 @@ public class GameState implements EngineConstants, Runnable
       if(attack.getShape() == AbilityConstants.EffectShape.POINT ||
          attack.getShape() == AbilityConstants.EffectShape.BLAST)
       {
-         Coord target = EngineTools.getPointTarget(origin, new Coord(targetX, targetY), range).elementAt(0);
-         VisualEffectFactory.registerAttackLine(origin, target);
+         Coord stopTile = EngineTools.getPointTarget(origin, new Coord(targetX, targetY), range).elementAt(0);
+         VisualEffectFactory.registerAttackLine(origin, new Coord(targetX, targetY), stopTile);
       }
       
       // process each target
