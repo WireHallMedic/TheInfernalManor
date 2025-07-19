@@ -581,7 +581,6 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    public void takeStep(Coord c)
    {
       setLocation(c.x, c.y);
-      
       if(this == GameState.getPlayerCharacter())
       {
          Item item = GameState.getCurZone().getItemAt(c.x, c.y);

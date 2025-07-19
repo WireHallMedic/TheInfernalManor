@@ -2,6 +2,7 @@ package TheInfernalManor.GUI;
 
 import StrictCurses.*;
 import WidlerSuite.*;
+import java.util.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 
@@ -78,7 +79,14 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
    
    public static void registerLightning(int xOrigin, int yOrigin, Direction dirToSource)
    {
-      int[] colorArr = GUITools.getGradient(WHITE, YELLOW, 12);
+      registerLine(xOrigin, yOrigin, dirToSource, WHITE, YELLOW);
+   }
+   public static void registerLightning(Coord c, Direction dirToSource){registerLightning(c.x, c.y, dirToSource);}
+   
+   
+   public static void registerLine(int xOrigin, int yOrigin, Direction dirToSource, int gradientStart, int gradientEnd)
+   {
+      int[] colorArr = GUITools.getGradient(gradientStart, gradientEnd, 12);
       int indexVal = -1;
       switch(dirToSource)
       {
@@ -98,7 +106,14 @@ public class VisualEffectFactory implements GUIConstants, SCConstants
       ve.setYLocation(yOrigin);
       AnimationManager.addLocking(ve);
    }
-   public static void registerLightning(Coord c, Direction dirToSource){registerLightning(c.x, c.y, dirToSource);}
+   public static void registerLine(Coord c, Direction dirToSource, int gradientStart, int gradientEnd){registerLine(c.x, c.y, dirToSource, gradientStart, gradientEnd);}
+   
+   public static void registerAttackLine(Coord origin, Coord target)
+   {
+      Vector<Coord> tileList = StraightLine.findLine(origin, target, StraightLine.REMOVE_TARGET);
+      for(int i = 1; i < tileList.size(); i++)
+         registerLine(tileList.elementAt(i), Direction.getDirectionTo(tileList.elementAt(i), tileList.elementAt(i-1)), WHITE, GREY);
+   }
    
    private static int[] getArrayOfInt(int val, int len)
    {

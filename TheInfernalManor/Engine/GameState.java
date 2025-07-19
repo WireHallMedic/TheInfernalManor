@@ -147,7 +147,7 @@ public class GameState implements EngineConstants, Runnable
       if(range == AbilityConstants.USE_WEAPON_RANGE)
          range = attacker.getWeapon().getRange();
       if(attack.getShape() == AbilityConstants.EffectShape.POINT)
-         targetList.add(new Coord(targetX, targetY));
+         targetList = EngineTools.getPointTarget(origin, new Coord(targetX, targetY), range);
       if(attack.getShape() == AbilityConstants.EffectShape.BEAM)
       {
          Coord target = new Coord(targetX, targetY);
@@ -168,6 +168,15 @@ public class GameState implements EngineConstants, Runnable
          Coord target = new Coord(targetX, targetY);
          targetList = EngineTools.getAuraTargets(origin, attack.getRadius());
       }
+      // ranged attack line visual effects
+      if(attack.getShape() == AbilityConstants.EffectShape.POINT ||
+         attack.getShape() == AbilityConstants.EffectShape.BLAST)
+      {
+         Coord target = EngineTools.getPointTarget(origin, new Coord(targetX, targetY), range).elementAt(0);
+         VisualEffectFactory.registerAttackLine(origin, target);
+      }
+      
+      // process each target
       for(int i = 0; i < targetList.size(); i++)
       {
          // resolve attack
@@ -181,21 +190,19 @@ public class GameState implements EngineConstants, Runnable
          {
             curZone.breakTile(targetList.elementAt(i));
          }
-         // visual effects
-         if(attack.getShape() == AbilityConstants.EffectShape.BEAM)
+         // aoe visual effects
+         switch(attack.getShape())
          {
-            Coord t = targetList.elementAt(i);
-            Coord o = origin;
-            if(i > 0)
-               o = targetList.elementAt(i - 1);
-            VisualEffectFactory.registerLightning(t, Direction.getDirectionTo(t, o));
-         }
-         if(attack.getShape() == AbilityConstants.EffectShape.CONE ||
-            attack.getShape() == AbilityConstants.EffectShape.AURA ||
-            attack.getShape() == AbilityConstants.EffectShape.BLAST)
-         {
-            for(Coord c : targetList)
-               VisualEffectFactory.registerExplosion(c);
+            case BLAST :   
+            case CONE :    
+            case AURA :    VisualEffectFactory.registerExplosion(targetList.elementAt(i));
+                           break;
+            case BEAM :    Coord t = targetList.elementAt(i);
+                           Coord o = origin;
+                           if(i > 0)
+                              o = targetList.elementAt(i - 1);
+                           VisualEffectFactory.registerLightning(t, Direction.getDirectionTo(t, o));
+                           break;
          }
       }
    }
