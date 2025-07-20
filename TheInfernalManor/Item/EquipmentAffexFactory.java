@@ -36,6 +36,13 @@ public class EquipmentAffexFactory implements GUIConstants, ItemConstants
       return (AffixBase)EngineTools.roll(getWeaponBases(), level);
    }
    
+   public static AffixBase getOffHandAffix(boolean isShield, int level)
+   {
+      if(isShield)
+         return getShieldAffix(level);
+      return getImplementAffix(level);
+   }
+   
    public static AffixBase getShieldAffix(int level)
    {
       return (AffixBase)EngineTools.roll(getShieldBases(), level);

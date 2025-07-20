@@ -43,10 +43,23 @@ public class OffHandFactory implements GUIConstants, ItemConstants
       OffHandBase base = (OffHandBase)EngineTools.roll(baseList, level);
       ItemQuality quality = (ItemQuality)EngineTools.roll(ItemQuality.values(), level);
       OffHand o = base.getCopy();
-      switch(quality)
+      o.adjustForQuality(quality);
+      if(quality == ItemQuality.RARE)
       {
-         case LOW :  o.adjustForQuality(ItemQuality.LOW); break; 
-         case HIGH : o.adjustForQuality(ItemQuality.HIGH); break; 
+         AffixBase prefix = EquipmentAffexFactory.getOffHandAffix(base.isShield(), level);
+         AffixBase suffix = null;
+         while(suffix == null || suffix.conflicts(prefix))
+            suffix = EquipmentAffexFactory.getOffHandAffix(base.isShield(), level);
+         prefix.apply(o, AffixBase.PREFIX);
+         suffix.apply(o, AffixBase.SUFFIX);
+      }
+      if(quality == ItemQuality.MAGICAL)
+      {
+         AffixBase affix = EquipmentAffexFactory.getOffHandAffix(base.isShield(), level);
+         if(RNG.nextBoolean())
+            affix.apply(o, AffixBase.PREFIX);
+         else
+            affix.apply(o, AffixBase.SUFFIX);
       }
       return o;
    }
@@ -58,11 +71,13 @@ public class OffHandFactory implements GUIConstants, ItemConstants
       private int maxLevel;
       private int weight;
       private OffHand offHand;
+      private boolean shield;
       
       public int getMinLevel(){return minLevel;}
       public int getMaxLevel(){return maxLevel;}
       public int getWeight(){return weight;}
       public OffHand getCopy(){return new OffHand(offHand);}
+      public boolean isShield(){return shield;}
       
       public boolean is(String str){return str.toLowerCase().equals(offHand.getName().toLowerCase());}
       
@@ -72,9 +87,10 @@ public class OffHandFactory implements GUIConstants, ItemConstants
          offHand.deserialize(serialStr);
          int startingIndex = OffHand.numOfSerializedComponents();
          String[] strList = offHand.getDeserializationArray(serialStr);
-         minLevel = Integer.parseInt(strList[startingIndex]);
-         maxLevel = Integer.parseInt(strList[startingIndex + 1]);
-         weight = Integer.parseInt(strList[startingIndex + 2]);
+         shield = strList[startingIndex].toUpperCase().equals("SHIELD");
+         minLevel = Integer.parseInt(strList[startingIndex + 1]);
+         maxLevel = Integer.parseInt(strList[startingIndex + 2]);
+         weight = Integer.parseInt(strList[startingIndex + 3]);
       }
    }
 }

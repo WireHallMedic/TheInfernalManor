@@ -44,10 +44,23 @@ public class WeaponFactory implements GUIConstants, ItemConstants
       WeaponBase base = (WeaponBase)EngineTools.roll(baseList, level);
       ItemQuality quality = (ItemQuality)EngineTools.roll(ItemQuality.values(), level);
       Weapon w = base.getCopy();
-      switch(quality)
+      w.adjustForQuality(quality);
+      if(quality == ItemQuality.RARE)
       {
-         case LOW :  w.adjustForQuality(ItemQuality.LOW); break; 
-         case HIGH : w.adjustForQuality(ItemQuality.HIGH); break; 
+         AffixBase prefix = EquipmentAffexFactory.getWeaponAffix(level);
+         AffixBase suffix = null;
+         while(suffix == null || suffix.conflicts(prefix))
+            suffix = EquipmentAffexFactory.getWeaponAffix(level);
+         prefix.apply(w, AffixBase.PREFIX);
+         suffix.apply(w, AffixBase.SUFFIX);
+      }
+      if(quality == ItemQuality.MAGICAL)
+      {
+         AffixBase affix = EquipmentAffexFactory.getWeaponAffix(level);
+         if(RNG.nextBoolean())
+            affix.apply(w, AffixBase.PREFIX);
+         else
+            affix.apply(w, AffixBase.SUFFIX);
       }
       return w;
    }

@@ -42,10 +42,23 @@ public class ArmorFactory implements GUIConstants, ItemConstants
       ArmorBase base = (ArmorBase)EngineTools.roll(baseList, level);
       ItemQuality quality = (ItemQuality)EngineTools.roll(ItemQuality.values(), level);
       Armor a = base.getCopy();
-      switch(quality)
+      a.adjustForQuality(quality);
+      if(quality == ItemQuality.RARE)
       {
-         case LOW :  a.adjustForQuality(ItemQuality.LOW); break; 
-         case HIGH : a.adjustForQuality(ItemQuality.HIGH); break; 
+         AffixBase prefix = EquipmentAffexFactory.getArmorAffix(level);
+         AffixBase suffix = null;
+         while(suffix == null || suffix.conflicts(prefix))
+            suffix = EquipmentAffexFactory.getArmorAffix(level);
+         prefix.apply(a, AffixBase.PREFIX);
+         suffix.apply(a, AffixBase.SUFFIX);
+      }
+      if(quality == ItemQuality.MAGICAL)
+      {
+         AffixBase affix = EquipmentAffexFactory.getArmorAffix(level);
+         if(RNG.nextBoolean())
+            affix.apply(a, AffixBase.PREFIX);
+         else
+            affix.apply(a, AffixBase.SUFFIX);
       }
       return a;
    }   
