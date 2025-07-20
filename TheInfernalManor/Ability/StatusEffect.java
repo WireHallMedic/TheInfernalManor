@@ -4,7 +4,7 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Item.*;
 import java.util.*;
 
-public class StatusEffect extends EquippableItem implements GUIConstants, AbilityConstants
+public class StatusEffect extends StatItem implements GUIConstants, AbilityConstants
 {
    public enum OngoingEffect
    {

@@ -75,7 +75,7 @@ public class AbilityTest {
    {
       Actor attacker = new Actor("", ' ');
       Actor defender = new Actor("", ' ');
-      Armor shield = new Armor("");
+      Armor shield = new Armor("Fake Shield");
       shield.setGuard(1);
       defender.setArmor(shield);
       defender.fullHeal();
