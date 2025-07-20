@@ -15,7 +15,7 @@ s#k0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Dat
 s#j0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files
 s#l0
 !193;u
-a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!5971;g
+a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6027;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -57,6 +57,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sItem%sItemConstants.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011%uWidlerSuite%sRectLine.java
+%\011TheInfernalManor%sItem%sEquipmentAffexFactory.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sMap%sGridOfMapGrids.java
@@ -151,7 +152,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!5971;f
+!6027;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -193,6 +194,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sItem%sItemConstants.java
 %\011TheInfernalManor%sActor%sActor.java
 %\011%uWidlerSuite%sRectLine.java
+%\011TheInfernalManor%sItem%sEquipmentAffexFactory.java
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sMap%sGridOfMapGrids.java
