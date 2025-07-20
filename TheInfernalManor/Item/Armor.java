@@ -115,4 +115,24 @@ public class Armor extends EquippableItem implements GUIConstants
       weight = MEDIUM;
    }
    
+   @Override
+   public void adjustForQuality(ItemQuality quality)
+   {
+      super.adjustForQuality(quality);
+      switch(quality)
+      {
+         case HIGH :       physicalArmor = Math.max(physicalArmor, 1);
+                           magicalArmor = Math.max(magicalArmor, 1);
+                           break;
+         case MAGICAL :    physicalArmor = Math.max(physicalArmor, 2);
+                           magicalArmor = Math.max(magicalArmor, 2);
+                           break;
+         case RARE :       physicalArmor = Math.max(physicalArmor, 4);
+                           magicalArmor = Math.max(magicalArmor, 4);
+                           break;
+         case LEGENDARY :  physicalArmor = Math.max(physicalArmor, 6);
+                           magicalArmor = Math.max(magicalArmor, 6);
+                           break;
+      }
+   }
 }

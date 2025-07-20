@@ -5,15 +5,15 @@ import java.util.*;
 
 public class EquippableItem extends Item implements GUIConstants
 {
-	private int physicalDamage;
-	private int magicalDamage;
-	private int physicalArmor;
-	private int magicalArmor;
-	private int guard;
-   private int energyRecharge;   // each point of this is worth .25 energy per tick
-   private int maxHealth;
-   private int maxEnergy;
-   private int vision;
+	protected int physicalDamage;
+	protected int magicalDamage;
+	protected int physicalArmor;
+	protected int magicalArmor;
+	protected int guard;
+   protected int energyRecharge;   // each point of this is worth .25 energy per tick
+   protected int maxHealth;
+   protected int maxEnergy;
+   protected int vision;
 
 
 	public int getPhysicalDamage(){return physicalDamage;}

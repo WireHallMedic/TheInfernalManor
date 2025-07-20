@@ -80,6 +80,21 @@ public class Weapon extends EquippableItem implements GUIConstants
             case RARE :       range += 2; break;
             case LEGENDARY :  range += 3; break;
          }
+      }      
+      switch(quality)
+      {
+         case HIGH :       physicalDamage = Math.max(physicalDamage, 1);
+                           magicalDamage = Math.max(magicalDamage, 1);
+                           break;
+         case MAGICAL :    physicalDamage = Math.max(physicalDamage, 2);
+                           magicalDamage = Math.max(magicalDamage, 2);
+                           break;
+         case RARE :       physicalDamage = Math.max(physicalDamage, 4);
+                           magicalDamage = Math.max(magicalDamage, 4);
+                           break;
+         case LEGENDARY :  physicalDamage = Math.max(physicalDamage, 6);
+                           magicalDamage = Math.max(magicalDamage, 6);
+                           break;
       }
    }
    
