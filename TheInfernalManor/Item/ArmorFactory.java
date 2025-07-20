@@ -14,7 +14,7 @@ public class ArmorFactory implements GUIConstants, ItemConstants
       for(ArmorBase ab : baseList)
          if(ab.is(name))
             return ab.getCopy();
-      return null;
+      throw new Error("No armor named " + name);
    }
    
    private static ArmorBase[] setBaseList()

@@ -14,7 +14,7 @@ public class OffHandFactory implements GUIConstants, ItemConstants
       for(OffHandBase ohb : baseList)
          if(ohb.is(name))
             return ohb.getCopy();
-      return null;
+      throw new Error("No offhand item named " + name);
    }
    
    private static OffHandBase[] setBaseList()

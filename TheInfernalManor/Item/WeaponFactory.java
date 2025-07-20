@@ -14,7 +14,7 @@ public class WeaponFactory implements GUIConstants, ItemConstants
       for(WeaponBase wb : baseList)
          if(wb.is(name))
             return wb.getCopy();
-      return null;
+      throw new Error("No weapon named " + name);
    }
    
    private static WeaponBase[] setBaseList()
