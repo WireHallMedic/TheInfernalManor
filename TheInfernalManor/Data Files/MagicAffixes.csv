@@ -1,8 +1,10 @@
-Name;Suffix;Category;pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;Special;minLvl;maxLvl;tableWeight
-Vicious;of Viciousness;WEAPON;2;2;0;0;0;0;0;0;0;;0;30;10
-Guardian’s;of Guarding;SHIELD;0;0;0;0;2;0;0;0;0;;0;30;10
-Invoker’s;of Invocation;IMPLEMENT;0;2;0;0;0;2;0;0;0;;0;30;10
-Fortified;of Fortitude;ARMOR;0;0;2;2;0;0;0;0;0;;0;30;10
-Enchanted;of Heroism;RELIC;1;1;1;1;0;0;0;0;0;;0;30;10
-Healthy;of Health;ANY;0;0;0;0;0;0;5;0;0;;0;30;10
-Energetic;of Energy;ANY;0;0;0;0;0;0;0;5;0;;0;30;10
+pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;Special;Name;Suffix;Category;minLvl;maxLvl;tableWeight
+2;2;0;0;0;0;0;0;0;;Vicious;of Viciousness;WEAPON;0;30;10
+0;0;0;0;2;0;0;0;0;;Guardian’s;of Guarding;SHIELD;0;30;10
+0;2;0;0;0;2;0;0;0;;Invoker’s;of Invocation;IMPLEMENT;0;30;10
+0;0;2;2;0;0;0;0;0;;Fortified;of Fortitude;ARMOR;0;30;10
+1;1;1;1;0;0;0;0;0;;Hero’s;of Heroism;RELIC;0;30;10
+0;0;0;0;0;0;5;0;0;;Healthy;of Health;ANY;0;30;10
+0;0;0;0;0;1;0;5;0;;Energetic;of Energy;ANY;0;30;10
+0;0;0;0;0;0;0;0;1;;Eagle’s;of the Eagle;HELM;0;30;10
+0;0;0;0;0;0;0;0;0;FLY;Flying;of Flying;BOOTS;0;30;10
