@@ -26,7 +26,7 @@ public class EquipmentAffexFactory implements GUIConstants, ItemConstants
       }
       catch(Exception ex)
       {
-         System.out.println(ex.toString());
+         System.out.println("Error loading affix bases:\n" + ex.toString());
       }
       return list.toArray(new AffixBase[list.size()]);
    }

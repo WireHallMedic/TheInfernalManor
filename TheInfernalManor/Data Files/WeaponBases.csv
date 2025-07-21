@@ -1,15 +1,15 @@
-Name;Icon;Color;Description;pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;Size;Range;minLvl;maxLvl;tableWeight
-Dagger;};-1;No Description.;3;0;0;0;2;0;0;0;0;Light;1;0;30;10
-Sword;};-1;No Description.;6;0;0;0;2;0;0;0;0;Medium;1;0;30;10
-Greatsword;};-1;No Description.;9;0;0;0;2;0;0;0;0;Heavy;1;0;30;10
-Hand Axe;};-1;No Description.;4;0;0;0;0;0;0;0;0;Light;1;0;30;10
-Battle Axe;};-1;No Description.;7;0;0;0;0;0;0;0;0;Medium;1;0;30;10
-Greataxe;};-1;No Description.;10;0;0;0;0;0;0;0;0;Heavy;1;0;30;10
-Mace;};-1;No Description.;6;0;0;0;0;0;0;0;0;Medium;1;0;30;10
-Warhammer;};-1;No Description.;9;0;0;0;0;0;0;0;0;Heavy;1;0;30;10
-Sling;};-1;No Description.;3;0;0;0;0;0;0;0;0;Medium;5;0;30;10
-Shortbow;};-1;No Description.;5;0;0;0;0;0;0;0;0;Heavy;8;0;30;10
-Longbow;};-1;No Description.;6;0;0;0;0;0;0;0;0;Heavy;10;0;30;10
-Wand;};-1;No Description.;0;3;0;0;0;0;0;0;0;Light;1;0;30;25
-Staff;};-1;No Description.;4;6;0;0;0;0;0;0;0;Heavy;1;0;30;25
-Spear;};-1;No Description.;5;0;0;0;0;0;0;0;0;Medium;2;0;30;10
+Name;Icon;Color;Description;pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;StatusEffect;SE Chance;Size;Range;minLvl;maxLvl;tableWeight
+Dagger;};-1;No Description.;3;0;0;0;2;0;0;0;0;;0;Light;1;0;30;10
+Sword;};-1;No Description.;6;0;0;0;2;0;0;0;0;;0;Medium;1;0;30;10
+Greatsword;};-1;No Description.;9;0;0;0;2;0;0;0;0;;0;Heavy;1;0;30;10
+Hand Axe;};-1;No Description.;4;0;0;0;0;0;0;0;0;;0;Light;1;0;30;10
+Battle Axe;};-1;No Description.;7;0;0;0;0;0;0;0;0;;0;Medium;1;0;30;10
+Greataxe;};-1;No Description.;10;0;0;0;0;0;0;0;0;;0;Heavy;1;0;30;10
+Mace;};-1;No Description.;6;0;0;0;0;0;0;0;0;;0;Medium;1;0;30;10
+Warhammer;};-1;No Description.;9;0;0;0;0;0;0;0;0;;0;Heavy;1;0;30;10
+Sling;};-1;No Description.;3;0;0;0;0;0;0;0;0;;0;Medium;5;0;30;10
+Shortbow;};-1;No Description.;5;0;0;0;0;0;0;0;0;;0;Heavy;8;0;30;10
+Longbow;};-1;No Description.;6;0;0;0;0;0;0;0;0;;0;Heavy;10;0;30;10
+Wand;};-1;No Description.;0;3;0;0;0;0;0;0;0;;0;Light;1;0;30;25
+Staff;};-1;No Description.;4;6;0;0;0;0;0;0;0;;0;Heavy;1;0;30;25
+Spear;};-1;No Description.;5;0;0;0;0;0;0;0;0;;0;Medium;2;0;30;10

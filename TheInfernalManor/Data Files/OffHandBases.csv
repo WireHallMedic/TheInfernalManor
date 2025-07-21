@@ -1,4 +1,4 @@
-Name;Icon;Color;Description;pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;Type;minLvl;maxLvl;tableWeight
-Shield;);-1;No Description.;0;0;0;0;5;0;0;0;0;SHIELD;0;30;30
-Orb;);-1;No Description.;0;4;0;0;0;0;0;0;0;IMPLEMENT;0;30;10
-Tome;);-1;No Description.;0;0;0;3;0;2;0;0;0;IMPLEMENT;0;30;10
+Name;Icon;Color;Description;pDmg;mDmg;pArm;mArm;Guard;Recharge;Health;Energy;Vision;StatusEffect;SE Chance;Type;minLvl;maxLvl;tableWeight
+Shield;);-1;No Description.;0;0;0;0;5;0;0;0;0;;0;SHIELD;0;30;30
+Orb;);-1;No Description.;0;4;0;0;0;0;0;0;0;;0;IMPLEMENT;0;30;10
+Tome;);-1;No Description.;0;0;0;3;0;2;0;0;0;;0;IMPLEMENT;0;30;10

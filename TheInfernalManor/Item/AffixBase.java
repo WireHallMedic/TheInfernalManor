@@ -33,17 +33,24 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
    
    public AffixBase(String serialStr)
    {
-      item = new EquippableItem("Temp", 0, 0);
-      item.deserialize(serialStr);
-      int startingIndex = EquippableItem.numOfSerializedComponents();
-      String[] strList = item.getDeserializationArray(serialStr);
-      specialAttributes = strList[startingIndex];
-      prefixName = strList[startingIndex + 1];
-      suffixName = strList[startingIndex + 2];
-      category = strList[startingIndex + 3];
-      minLevel = Integer.parseInt(strList[startingIndex + 4]);
-      maxLevel = Integer.parseInt(strList[startingIndex + 5]);
-      weight = Integer.parseInt(strList[startingIndex + 6]);
+      try
+      {
+         item = new EquippableItem("Temp", 0, 0);
+         item.deserialize(serialStr);
+         int startingIndex = EquippableItem.numOfSerializedComponents();
+         String[] strList = item.getDeserializationArray(serialStr);
+         specialAttributes = strList[startingIndex];
+         prefixName = strList[startingIndex + 1];
+         suffixName = strList[startingIndex + 2];
+         category = strList[startingIndex + 3];
+         minLevel = Integer.parseInt(strList[startingIndex + 4]);
+         maxLevel = Integer.parseInt(strList[startingIndex + 5]);
+         weight = Integer.parseInt(strList[startingIndex + 6]);
+      }
+      catch(Exception ex)
+      {
+         System.out.println("Error deserializing AffixBase: " + ex.toString());
+      }
    }
    
    public void apply(EquippableItem ei, boolean affixType)

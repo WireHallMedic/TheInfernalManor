@@ -46,6 +46,11 @@ public class ForegroundObject implements GUIConstants
       return ";" + i;
    }
    
+   public String getSerializationString(double d)
+   {
+      return ";" + d;
+   }
+   
    public boolean equals(ForegroundObject that)
    {
       return this.name.equals(that.name) &&

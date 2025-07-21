@@ -275,10 +275,20 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          heal(1);
    }
    
+   // compare OngoingEffect by value
    public boolean hasOngoingEffect(StatusEffect.OngoingEffect query)
    {
       for(StatusEffect se : seList)
          if(se.hasEffect(query))
+            return true;
+      return false;
+   }
+   
+   // compare StatusEffect by address
+   public boolean hasStatusEffect(StatusEffect newEffect)
+   {
+      for(StatusEffect oldEffect : seList)
+         if(newEffect == oldEffect)
             return true;
       return false;
    }
@@ -445,6 +455,17 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       return relicList.elementAt(index);
    }
    
+   private void applyRelicStatusEffects()
+   {
+      for(Relic r : relicList)
+      {
+         if(r != null && 
+            r.getStatusEffect() != null &&
+            !hasStatusEffect(r.getStatusEffect()))
+            add(r.getStatusEffect());
+      }
+   }
+   
    public void calcStats()
    {
       EquippableItem sum = new EquippableItem(baseStats);
@@ -516,8 +537,9 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          {
             seList.removeElementAt(i);
             i--;
-            calcStats();
          }
+         applyRelicStatusEffects();
+         calcStats();
       }
       applyOngoingEffects();
       

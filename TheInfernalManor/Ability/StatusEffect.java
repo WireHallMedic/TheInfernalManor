@@ -49,6 +49,16 @@ public class StatusEffect extends StatItem implements GUIConstants, AbilityConst
       effectList = new Vector<OngoingEffect>();
    }
    
+   public StatusEffect(StatusEffect that)
+   {
+      this(that.getName(), that.getIconIndex(), that.getColor());
+      this.startingDuration = that.startingDuration;
+      this.remainingDuration = that.remainingDuration;
+      this.effectList = new Vector<OngoingEffect>();
+      for(OngoingEffect oe: that.effectList)
+         this.effectList.add(oe);
+   }
+   
    public boolean hasEffect(OngoingEffect e)
    {
       return effectList.contains(e);
