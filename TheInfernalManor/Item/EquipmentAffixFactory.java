@@ -6,7 +6,7 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Actor.*;
 import TheInfernalManor.Engine.*;
 
-public class EquipmentAffexFactory implements GUIConstants, ItemConstants
+public class EquipmentAffixFactory implements GUIConstants, ItemConstants
 {
    public static AffixBase[] baseList = setBaseList();
    

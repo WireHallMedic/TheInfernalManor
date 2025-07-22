@@ -16,7 +16,9 @@ public class StatusEffect extends StatItem implements GUIConstants, AbilityConst
       SLUGGISH          ("Sluggish", true),
       SLOW              ("Slowed", true),
       BURNING           ("Burning", true),
-      POISONED          ("Poisoned", true);
+      POISONED          ("Poisoned", true),
+      BERSERK           ("Berserk", true),
+      CONFUSED          ("Consfused", true);
       
       public String name;
       public boolean isHarmful;

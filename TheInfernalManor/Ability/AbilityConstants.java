@@ -24,6 +24,7 @@ public interface AbilityConstants
    
    public enum StatusEffectBase
    {
+      HEALING           ("Healing"),
       GREATER_HEALING   ("Greater Healing"),
       FLEET             ("Fleet"),
       HASTE             ("Hasted"),
@@ -31,9 +32,13 @@ public interface AbilityConstants
       SLUGGISH          ("Sluggish"),
       SLOW              ("Slowed"),
       BURNING           ("Burning"),
-      POISONED          ("Poisoned");
+      POISONED          ("Poisoned"),
+      BERSERK           ("Berserk"),
+      CONFUSED          ("Consfused");
       
-      public String name;
+      private String name;
+      
+      public String getName(){return name;}
       
       private StatusEffectBase(String n)
       {
