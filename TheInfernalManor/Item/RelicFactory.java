@@ -29,16 +29,16 @@ public class RelicFactory implements GUIConstants, ItemConstants
       ItemQuality quality = (ItemQuality)EngineTools.roll(RELIC_QUALITIES, level);
       if(quality == ItemQuality.RARE)
       {
-         AffixBase prefix = EquipmentAffexFactory.getRelicAffix(roll, level);
+         AffixBase prefix = EquipmentAffixFactory.getRelicAffix(roll, level);
          AffixBase suffix = null;
          while(suffix == null || suffix.conflicts(prefix))
-            suffix = EquipmentAffexFactory.getRelicAffix(roll, level);
+            suffix = EquipmentAffixFactory.getRelicAffix(roll, level);
          prefix.apply(r, AffixBase.PREFIX);
          suffix.apply(r, AffixBase.SUFFIX);
       }
       else // magical
       {
-         AffixBase affix = EquipmentAffexFactory.getRelicAffix(roll, level);
+         AffixBase affix = EquipmentAffixFactory.getRelicAffix(roll, level);
          if(RNG.nextBoolean())
             affix.apply(r, AffixBase.PREFIX);
          else

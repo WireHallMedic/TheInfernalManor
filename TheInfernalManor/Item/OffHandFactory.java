@@ -46,16 +46,16 @@ public class OffHandFactory implements GUIConstants, ItemConstants
       o.adjustForQuality(quality);
       if(quality == ItemQuality.RARE)
       {
-         AffixBase prefix = EquipmentAffexFactory.getOffHandAffix(base.isShield(), level);
+         AffixBase prefix = EquipmentAffixFactory.getOffHandAffix(base.isShield(), level);
          AffixBase suffix = null;
          while(suffix == null || suffix.conflicts(prefix))
-            suffix = EquipmentAffexFactory.getOffHandAffix(base.isShield(), level);
+            suffix = EquipmentAffixFactory.getOffHandAffix(base.isShield(), level);
          prefix.apply(o, AffixBase.PREFIX);
          suffix.apply(o, AffixBase.SUFFIX);
       }
       if(quality == ItemQuality.MAGICAL)
       {
-         AffixBase affix = EquipmentAffexFactory.getOffHandAffix(base.isShield(), level);
+         AffixBase affix = EquipmentAffixFactory.getOffHandAffix(base.isShield(), level);
          if(RNG.nextBoolean())
             affix.apply(o, AffixBase.PREFIX);
          else

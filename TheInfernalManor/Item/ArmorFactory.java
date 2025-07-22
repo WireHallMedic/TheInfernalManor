@@ -45,16 +45,16 @@ public class ArmorFactory implements GUIConstants, ItemConstants
       a.adjustForQuality(quality);
       if(quality == ItemQuality.RARE)
       {
-         AffixBase prefix = EquipmentAffexFactory.getArmorAffix(level);
+         AffixBase prefix = EquipmentAffixFactory.getArmorAffix(level);
          AffixBase suffix = null;
          while(suffix == null || suffix.conflicts(prefix))
-            suffix = EquipmentAffexFactory.getArmorAffix(level);
+            suffix = EquipmentAffixFactory.getArmorAffix(level);
          prefix.apply(a, AffixBase.PREFIX);
          suffix.apply(a, AffixBase.SUFFIX);
       }
       if(quality == ItemQuality.MAGICAL)
       {
-         AffixBase affix = EquipmentAffexFactory.getArmorAffix(level);
+         AffixBase affix = EquipmentAffixFactory.getArmorAffix(level);
          if(RNG.nextBoolean())
             affix.apply(a, AffixBase.PREFIX);
          else
