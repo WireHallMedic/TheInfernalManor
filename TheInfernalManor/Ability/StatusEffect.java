@@ -28,6 +28,12 @@ public class StatusEffect extends StatItem implements GUIConstants, AbilityConst
       effectList = new Vector<OngoingEffect>();
    }
    
+   public StatusEffect(String name, OngoingEffect oe)
+   {
+      this(name, oe.iconImage, oe.color);
+      effectList.add(oe);
+   }
+   
    public StatusEffect(StatusEffect that)
    {
       this(that.getName(), that.getIconIndex(), that.getColor());

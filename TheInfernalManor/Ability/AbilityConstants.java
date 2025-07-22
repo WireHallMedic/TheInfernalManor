@@ -1,5 +1,8 @@
 package TheInfernalManor.Ability;
 
+import TheInfernalManor.GUI.*;
+import StrictCurses.*;
+
 public interface AbilityConstants
 {
    public static final boolean PHYSICAL = true;
@@ -24,25 +27,29 @@ public interface AbilityConstants
    
    public enum OngoingEffect
    {
-      HEALING           ("Healing", false),
-      GREATER_HEALING   ("Greater Healing", false),
-      FLEET             ("Fleet", false),
-      HASTE             ("Hasted", false),
-      FLYING            ("Flying", false),
-      SLUGGISH          ("Sluggish", true),
-      SLOW              ("Slowed", true),
-      BURNING           ("Burning", true),
-      POISONED          ("Poisoned", true),
-      BERSERK           ("Berserk", true),
-      CONFUSED          ("Consfused", true);
+      HEALING           ("Healing", false, SCConstants.HEART_TILE, GUIConstants.DARK_RED),
+      GREATER_HEALING   ("Greater Healing", false, SCConstants.HEART_TILE, GUIConstants.RED),
+      FLEET             ("Fleet", false, '>', GUIConstants.YELLOW),
+      HASTE             ("Hasted", false, SCConstants.RIGHT_DOUBLE_ANGLE_TILE, GUIConstants.YELLOW),
+      FLYING            ("Flying", false, SCConstants.UP_TRIANGLE_TILE, GUIConstants.BLUE),
+      SLUGGISH          ("Sluggish", true, '<', GUIConstants.YELLOW),
+      SLOW              ("Slowed", true, SCConstants.LEFT_DOUBLE_ANGLE_TILE, GUIConstants.YELLOW),
+      BURNING           ("Burning", true, SCConstants.CENTERED_CARET_TILE, GUIConstants.ORANGE),
+      POISONED          ("Poisoned", true, SCConstants.HEART_TILE, GUIConstants.GREEN),
+      BERSERK           ("Berserk", true, '!', GUIConstants.ORANGE),
+      CONFUSED          ("Consfused", true, '?', GUIConstants.GREEN);
       
       public String name;
+      public int iconImage;
+      public int color;
       public boolean isHarmful;
       
-      private OngoingEffect(String n, boolean h)
+      private OngoingEffect(String n, boolean h, int ii, int c)
       {
          name = n;
          isHarmful = h;
+         iconImage = ii;
+         color = c;
       }
       
       public OngoingEffect getByIdentifier(String n)
