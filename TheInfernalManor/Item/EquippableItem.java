@@ -11,7 +11,6 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    protected OngoingEffect ongoingEffect;
 
 
-	public StatusEffect getStatusEffect(){return new StatusEffect(statusEffect);}
 	public double getStatusEffectChance(){return statusEffectChance;}
    public OngoingEffect getOngoingEffect(){return ongoingEffect;}
 
@@ -34,6 +33,14 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    {
       this(that.getName(), that.getIconIndex(), that.getColor());
       this.add(that);
+   }
+   
+   
+	public StatusEffect getStatusEffect()
+   {
+      if(statusEffect == null)
+         return null;
+      return new StatusEffect(statusEffect);
    }
    
    public void add(EquippableItem that)

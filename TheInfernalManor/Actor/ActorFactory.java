@@ -7,7 +7,7 @@ import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
 import java.util.*;
 
-public class ActorFactory implements ActorConstants, GUIConstants
+public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants, AbilityConstants
 {
    public static Actor getTestPlayer()
    {
@@ -25,6 +25,11 @@ public class ActorFactory implements ActorConstants, GUIConstants
       a.addAbility(AttackFactory.getAuraBlast());
       a.addAbility(AttackFactory.getBlast());
       a.addAbility(AttackFactory.getConeAttack());
+      
+      Relic relic = RelicFactory.getRelicFromBase(RelicBase.JEWELRY);
+      relic.setOngoingEffect(OngoingEffect.HEALING);
+      relic.setName(relic.getName() + " of Regeneration");
+      a.getInventory().add(relic);
       
       EquippableItem i = WeaponFactory.getBase("Longbow");
       a.getInventory().add(i);

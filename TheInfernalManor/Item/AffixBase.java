@@ -73,6 +73,6 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
    // relic cannot have proc effects
    public boolean okayForRelic()
    {
-      return !(item.getStatusEffect() == null);
+      return item.getStatusEffect() == null;
    }
 }

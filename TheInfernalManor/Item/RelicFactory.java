@@ -37,7 +37,7 @@ public class RelicFactory implements GUIConstants, ItemConstants
       return r;
    }
    
-   private static Relic getRelicFromBase(RelicBase base)
+   public static Relic getRelicFromBase(RelicBase base)
    {
       Relic r = new Relic("New Relic");
       r.setRestriction(base.getRestriction());

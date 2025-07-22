@@ -10,7 +10,7 @@ import TheInfernalManor.Ability.*;
 import WidlerSuite.Coord;
 import WidlerSuite.WSTools;
 
-public class Actor extends ForegroundObject implements ActorConstants, ItemDropper
+public class Actor extends ForegroundObject implements ActorConstants, ItemDropper, AbilityConstants
 {
 	private int[] location;
    private BaseAI ai;
@@ -262,13 +262,19 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       // healing does not stack, greater healing overrides regular healing
       boolean hasHealing = false;
       boolean hasGreaterHealing = false;
-      for(StatusEffect se : seList)
-      {
-         if(se.hasEffect(StatusEffect.OngoingEffect.HEALING))
-            hasHealing = true;
-         if(se.hasEffect(StatusEffect.OngoingEffect.GREATER_HEALING))
-            hasGreaterHealing = true;
-      }
+      
+      if(hasOngoingEffect(OngoingEffect.HEALING))
+         hasHealing = true;
+      if(hasOngoingEffect(OngoingEffect.GREATER_HEALING))
+         hasGreaterHealing = true;
+      
+//       for(StatusEffect se : seList)
+//       {
+//          if(se.hasEffect(StatusEffect.OngoingEffect.HEALING))
+//             hasHealing = true;
+//          if(se.hasEffect(StatusEffect.OngoingEffect.GREATER_HEALING))
+//             hasGreaterHealing = true;
+//       }
       if(hasGreaterHealing)
          heal(2);
       else if(hasHealing)
@@ -280,6 +286,15 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    {
       for(StatusEffect se : seList)
          if(se.hasEffect(query))
+            return true;
+      if(getWeapon().getOngoingEffect() == query)
+         return true;
+      if(armor != null && armor.getOngoingEffect() == query)
+         return true;
+      if(offHand != null && offHand.getOngoingEffect() == query)
+         return true;
+      for(Relic re : relicList)
+         if(re != null && re.getOngoingEffect() == query)
             return true;
       return false;
    }
