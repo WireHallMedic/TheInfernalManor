@@ -12,7 +12,7 @@ public class StatusEffect extends StatItem implements GUIConstants, AbilityConst
       GREATER_HEALING   ("Greater Healing", false),
       FLEET             ("Fleet", false),
       HASTE             ("Hasted", false),
-      RECHARGING        ("Recharging", false),
+      FLYING            ("Flying", false),
       SLUGGISH          ("Sluggish", true),
       SLOW              ("Slowed", true),
       BURNING           ("Burning", true),
