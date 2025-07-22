@@ -6,29 +6,6 @@ import java.util.*;
 
 public class StatusEffect extends StatItem implements GUIConstants, AbilityConstants
 {
-   public enum OngoingEffect
-   {
-      HEALING           ("Healing", false),
-      GREATER_HEALING   ("Greater Healing", false),
-      FLEET             ("Fleet", false),
-      HASTE             ("Hasted", false),
-      FLYING            ("Flying", false),
-      SLUGGISH          ("Sluggish", true),
-      SLOW              ("Slowed", true),
-      BURNING           ("Burning", true),
-      POISONED          ("Poisoned", true),
-      BERSERK           ("Berserk", true),
-      CONFUSED          ("Consfused", true);
-      
-      public String name;
-      public boolean isHarmful;
-      
-      private OngoingEffect(String n, boolean h)
-      {
-         name = n;
-         isHarmful = h;
-      }
-   }
 	private int startingDuration;
 	private int remainingDuration;
 	private Vector<OngoingEffect> effectList;

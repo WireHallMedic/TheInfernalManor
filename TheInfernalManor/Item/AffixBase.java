@@ -17,7 +17,7 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
    private EquippableItem item;
    private String prefixName;
    private String suffixName;
-   private String specialAttributes;
+   private String ongoingEffects;
    private String category;
    
    public int getMinLevel(){return minLevel;}
@@ -26,7 +26,7 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
    public EquippableItem getCopy(){return new EquippableItem(item);}
    public String getPrefixName(){return prefixName;}
    public String getSuffixName(){return suffixName;}
-   public String getSpecialAttributes(){return specialAttributes;}
+   public String getongoingEffects(){return ongoingEffects;}
    public String getCategory(){return category;}
    
    public boolean isCategory(String str){return str.toLowerCase().equals(category.toLowerCase());}
@@ -39,7 +39,7 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
          item.deserialize(serialStr);
          int startingIndex = EquippableItem.numOfSerializedComponents();
          String[] strList = item.getDeserializationArray(serialStr);
-         specialAttributes = strList[startingIndex];
+         ongoingEffects = strList[startingIndex];
          prefixName = strList[startingIndex + 1];
          suffixName = strList[startingIndex + 2];
          category = strList[startingIndex + 3];
@@ -64,9 +64,15 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
    
    public boolean conflicts(AffixBase that)
    {
-      if(!this.specialAttributes.equals("") &&
-         this.specialAttributes.toLowerCase().equals(that.specialAttributes.toLowerCase()))
+      if(!this.ongoingEffects.equals("") &&
+         this.ongoingEffects.toLowerCase().equals(that.ongoingEffects.toLowerCase()))
          return true;
       return false;
+   }
+   
+   // relic cannot have proc effects
+   public boolean okayForRelic()
+   {
+      return !(item.getStatusEffect() == null);
    }
 }

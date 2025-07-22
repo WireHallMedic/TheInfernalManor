@@ -4,18 +4,21 @@ import TheInfernalManor.GUI.*;
 import TheInfernalManor.Ability.*;
 import java.util.*;
 
-public class EquippableItem extends StatItem implements GUIConstants
+public class EquippableItem extends StatItem implements GUIConstants, AbilityConstants
 {
 	protected StatusEffect statusEffect;
 	protected double statusEffectChance;
+   protected OngoingEffect ongoingEffect;
 
 
 	public StatusEffect getStatusEffect(){return new StatusEffect(statusEffect);}
 	public double getStatusEffectChance(){return statusEffectChance;}
+   public OngoingEffect getOngoingEffect(){return ongoingEffect;}
 
 
 	public void setStatusEffect(StatusEffect s){statusEffect = s;}
 	public void setStatusEffectChance(double s){statusEffectChance = s;}
+   public void setOngoingEffect(OngoingEffect oe){ongoingEffect = oe;}
 
 
    
@@ -24,6 +27,7 @@ public class EquippableItem extends StatItem implements GUIConstants
       super(name, icon, color);
       statusEffect = null;
       statusEffectChance = 0.0;
+      ongoingEffect = null;
    }
    
    public EquippableItem(EquippableItem that)
@@ -40,6 +44,10 @@ public class EquippableItem extends StatItem implements GUIConstants
          this.statusEffect = that.statusEffect;
          this.statusEffectChance = that.statusEffectChance;
       }
+      if(this.ongoingEffect == null)
+      {
+         this.ongoingEffect = that.ongoingEffect;
+      }
    }
    
    public String getStatusEffectString()
@@ -47,9 +55,18 @@ public class EquippableItem extends StatItem implements GUIConstants
       String str = "";
       if(statusEffect != null)
       {
-         if(!(this instanceof Relic))
-            str += (int)(statusEffectChance * 100) + "% Chance of ";
+         str += (int)(statusEffectChance * 100) + "% Chance of ";
          str += statusEffect.toString();
+      }
+      return str;
+   }
+   
+   public String getOngoingEffectString()
+   {
+      String str = "";
+      if(ongoingEffect != null)
+      {
+         str += ongoingEffect.toString() + " while equipped";
       }
       return str;
    }
