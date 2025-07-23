@@ -35,6 +35,7 @@ public class AffixBase implements Rollable, GUIConstants, ItemConstants
    {
       try
       {
+         serialStr = EngineTools.cleanSerializationString(serialStr);
          item = new EquippableItem("Temp", 0, 0);
          item.deserialize(serialStr);
          int startingIndex = EquippableItem.numOfSerializedComponents();

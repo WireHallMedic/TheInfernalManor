@@ -49,6 +49,48 @@ public class Combat
             hitEffect.setTicksPerFrame(1);
             AnimationManager.add(hitEffect);
          }
+         resolveProcEffects(attacker, defender);
+      }
+   }
+   
+   private static void resolveProcEffects(Actor attacker, Actor defender)
+   {
+      Actor target = null;
+      // attacker's weapon
+      if(attacker.getWeapon().getProcEffect() != null &&
+         RNG.nextDouble() <= attacker.getWeapon().getProcEffectChance())
+      {
+         StatusEffect se = attacker.getWeapon().getProcEffect();
+         if(se.isHarmful())
+         {
+            defender.add(se);
+            target = defender;
+         }
+         else
+         {
+            attacker.add(se);
+            target = attacker;
+         }
+         MessagePanel.addMessage(target.getName() + " is " + se.getName() + "!");
+      }
+      // defender's armor; only works adjacent
+      if(defender.getArmor() != null &&
+         defender.getArmor().getProcEffect() != null &&
+         RNG.nextDouble() <= defender.getArmor().getProcEffectChance() &&
+         attacker.isAdjacent(defender))
+      {
+         StatusEffect se = defender.getArmor().getProcEffect();
+         if(se.isHarmful())
+         {
+            attacker.add(se);
+            target = attacker;
+         }
+         else
+         {
+            defender.add(se);
+            target = defender;
+         }
+         MessagePanel.addMessage(target.getName() + " is " + se.getName() + "!");
       }
    }
 }

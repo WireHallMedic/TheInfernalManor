@@ -251,6 +251,21 @@ public class StatItem extends Item implements GUIConstants
       vision = Integer.parseInt(strList[startingIndex + 8]);
    }
    
+   public boolean isHarmful()
+   {
+      int sum = 0;
+      sum += physicalDamage;
+      sum += magicalDamage;
+      sum += physicalArmor;
+      sum += magicalArmor;
+      sum += guard;
+      sum += energyRecharge;
+      sum += maxHealth;
+      sum += maxEnergy;
+      sum += vision;
+      return sum < 0;
+   }
+   
    public void setTestingValues()
    {
       super.setTestingValues();

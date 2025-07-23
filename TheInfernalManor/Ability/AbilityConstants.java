@@ -90,7 +90,7 @@ public interface AbilityConstants
          for(StatusEffectBase seb : StatusEffectBase.values())
             if(seb.toString().equals(n.toUpperCase()))
                return seb;
-         return null;
+         throw new Error("StatusEffectBase " + n + " not found.");
       }
    }
 }

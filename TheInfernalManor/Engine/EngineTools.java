@@ -313,4 +313,10 @@ public class EngineTools implements EngineConstants
       }
       return bReader;
    }
+   
+   public static String cleanSerializationString(String str)
+   {
+      str = str.replace("’", "'");
+      return str;
+   }
 }

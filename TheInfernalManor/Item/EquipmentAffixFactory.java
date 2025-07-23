@@ -122,5 +122,13 @@ public class EquipmentAffixFactory implements GUIConstants, ItemConstants
          if(ab.isCategory(category))
             list.add(ab);
    }
+   
+   public static AffixBase getByPrefix(String str)
+   {
+      for(AffixBase base : baseList)
+         if(base.getPrefixName().toUpperCase().equals(str.toUpperCase()))
+            return base;
+      return null;
+   }
   
 }

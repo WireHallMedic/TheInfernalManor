@@ -84,5 +84,13 @@ public class StatusEffect extends StatItem implements GUIConstants, AbilityConst
    {
       this.remainingDuration += that.getRemainingDuration();
    }
+   
+   public boolean isHarmful()
+   {
+      for(OngoingEffect oe : effectList)
+         if(oe.isHarmful)
+            return true;
+      return super.isHarmful();
+   }
 
 }
