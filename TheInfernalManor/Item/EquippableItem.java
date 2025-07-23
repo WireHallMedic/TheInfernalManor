@@ -6,17 +6,17 @@ import java.util.*;
 
 public class EquippableItem extends StatItem implements GUIConstants, AbilityConstants
 {
-	protected StatusEffect statusEffect;
-	protected double statusEffectChance;
+	protected StatusEffect procEffect;
+	protected double procEffectChance;
    protected OngoingEffect ongoingEffect;
 
 
-	public double getStatusEffectChance(){return statusEffectChance;}
+	public double getProcEffectChance(){return procEffectChance;}
    public OngoingEffect getOngoingEffect(){return ongoingEffect;}
 
 
-	public void setStatusEffect(StatusEffect s){statusEffect = s;}
-	public void setStatusEffectChance(double s){statusEffectChance = s;}
+	public void setProcEffect(StatusEffect s){procEffect = s;}
+	public void setProcEffectChance(double s){procEffectChance = s;}
    public void setOngoingEffect(OngoingEffect oe){ongoingEffect = oe;}
 
 
@@ -24,8 +24,8 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    public EquippableItem(String name, int icon, int color)
    {
       super(name, icon, color);
-      statusEffect = null;
-      statusEffectChance = 0.0;
+      procEffect = null;
+      procEffectChance = 0.0;
       ongoingEffect = null;
    }
    
@@ -36,20 +36,20 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    }
    
    
-	public StatusEffect getStatusEffect()
+	public StatusEffect getProcEffect()
    {
-      if(statusEffect == null)
+      if(procEffect == null)
          return null;
-      return new StatusEffect(statusEffect);
+      return new StatusEffect(procEffect);
    }
    
    public void add(EquippableItem that)
    {
       super.add(that);
-      if(this.statusEffect == null)
+      if(this.procEffect == null)
       {
-         this.statusEffect = that.statusEffect;
-         this.statusEffectChance = that.statusEffectChance;
+         this.procEffect = that.procEffect;
+         this.procEffectChance = that.procEffectChance;
       }
       if(this.ongoingEffect == null)
       {
@@ -57,13 +57,13 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
       }
    }
    
-   public String getStatusEffectString()
+   public String getProcEffectString()
    {
       String str = "";
-      if(statusEffect != null)
+      if(procEffect != null)
       {
-         str += (int)(statusEffectChance * 100) + "% Chance of ";
-         str += statusEffect.toString();
+         str += (int)(procEffectChance * 100) + "% Chance of ";
+         str += procEffect.toString();
       }
       return str;
    }
@@ -81,18 +81,18 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    public Vector<String> getSummary()
    {
       Vector<String> strList = super.getSummary();
-      if(statusEffect != null)
-         strList.add("Status Effect   " + getStatusEffectString());
+      if(procEffect != null)
+         strList.add("Status Effect   " + getProcEffectString());
       return strList;
    }
    
    public Vector<String> getComparisonSummary(EquippableItem that)
    {
       Vector<String> strList = super.getComparisonSummary(that);
-      if(that.statusEffect != null)
-         strList.add("Status Effect  -" + that.statusEffect);
-      if(this.statusEffect != null)
-         strList.add("Status Effect  +" + this.statusEffect);
+      if(that.procEffect != null)
+         strList.add("Status Effect  -" + that.procEffect);
+      if(this.procEffect != null)
+         strList.add("Status Effect  +" + this.procEffect);
       return strList;
    }
    
@@ -110,11 +110,11 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    {
       String str = super.serialize();
       str = str.replace("STAT_ITEM@", "EQUIPPABLE_ITEM@");
-      if(statusEffect != null)
-         str += getSerializationString(statusEffect.toString());
+      if(procEffect != null)
+         str += getSerializationString(procEffect.toString());
       else
          str += getSerializationString("");
-      str += getSerializationString(statusEffectChance);
+      str += getSerializationString(procEffectChance);
       return str;
    }
    
@@ -123,8 +123,11 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
       super.deserialize(str);
       String[] strList = getDeserializationArray(str);
       int startingIndex = super.numOfSerializedComponents();
-      //statusEffect = strList[startingIndex];
-      statusEffectChance = Double.parseDouble(strList[startingIndex + 1]);
+      if(strList[startingIndex].equals(""))
+         procEffect = null;
+      else
+         procEffect = StatusEffectFactory.getStatusEffectFromSerialization(strList[startingIndex]);
+      procEffectChance = Double.parseDouble(strList[startingIndex + 1]);
    }
    
    public void setTestingValues()

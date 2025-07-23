@@ -475,9 +475,9 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       for(Relic r : relicList)
       {
          if(r != null && 
-            r.getStatusEffect() != null &&
-            !hasStatusEffect(r.getStatusEffect()))
-            add(r.getStatusEffect());
+            r.getProcEffect() != null &&
+            !hasStatusEffect(r.getProcEffect()))
+            add(r.getProcEffect());
       }
    }
    

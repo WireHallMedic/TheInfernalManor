@@ -66,6 +66,12 @@ public class StatusEffectFactory implements GUIConstants, AbilityConstants, SCCo
    {
       return getStatusEffect(base, RELIC_DURATION);
    }
+   
+   public static StatusEffect getStatusEffectFromSerialization(String str)
+   {
+      StatusEffectBase base = StatusEffectBase.getByIdentifier(str);
+      return getStatusEffect(base);
+   }
 
    
 }

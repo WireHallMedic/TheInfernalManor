@@ -84,5 +84,13 @@ public interface AbilityConstants
       {
          name = n;
       }
+      
+      public static StatusEffectBase getByIdentifier(String n)
+      {
+         for(StatusEffectBase seb : StatusEffectBase.values())
+            if(seb.toString().equals(n.toUpperCase()))
+               return seb;
+         return null;
+      }
    }
 }
