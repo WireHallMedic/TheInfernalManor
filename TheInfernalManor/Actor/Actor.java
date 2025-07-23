@@ -267,18 +267,15 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
          hasHealing = true;
       if(hasOngoingEffect(OngoingEffect.GREATER_HEALING))
          hasGreaterHealing = true;
-      
-//       for(StatusEffect se : seList)
-//       {
-//          if(se.hasEffect(StatusEffect.OngoingEffect.HEALING))
-//             hasHealing = true;
-//          if(se.hasEffect(StatusEffect.OngoingEffect.GREATER_HEALING))
-//             hasGreaterHealing = true;
-//       }
       if(hasGreaterHealing)
          heal(2);
       else if(hasHealing)
          heal(1);
+      
+      if(hasOngoingEffect(OngoingEffect.POISONED))
+         applyDamage(1);
+      if(hasOngoingEffect(OngoingEffect.BURNING))
+         applyDamage(2);
    }
    
    // compare OngoingEffect by value
@@ -372,6 +369,9 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    
    public void applyDamage(int damage)
    {
+      // getting hit resets block clock
+      if(damage > 0)
+         ticksSinceHit = 0;
       setCurHealth(getCurHealth() - damage);
    }
    

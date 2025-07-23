@@ -34,6 +34,11 @@ public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants
       EquippableItem i = ArmorFactory.getBase("Chain Mail");
       EquipmentAffixFactory.getByPrefix("Toad's").apply(i, AffixBase.PREFIX);
       a.getInventory().add(i);
+      
+      i = WeaponFactory.getBase("Longbow");
+      EquipmentAffixFactory.getByPrefix("Serpent's").apply(i, AffixBase.PREFIX);
+      a.getInventory().add(i);
+      
       for(int iter = 0; iter < 5; iter++)
          a.getInventory().add(ConsumableFactory.randomConsumable(5));
       a.getInventory().add(ConsumableFactory.getDefensePotion());
