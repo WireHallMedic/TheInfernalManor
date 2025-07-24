@@ -52,6 +52,11 @@ public class Item extends ForegroundObject implements GUIConstants
       description = strList[startingIndex];
    }
    
+   public String getNameWithArticle()
+   {
+      return GUITools.prependArticle(getName());
+   }
+   
    public void setTestingValues()
    {
       super.setTestingValues();

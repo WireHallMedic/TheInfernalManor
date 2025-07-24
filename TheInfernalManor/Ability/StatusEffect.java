@@ -80,9 +80,9 @@ public class StatusEffect extends StatItem implements GUIConstants, AbilityConst
       return super.equals(that) && ongoingEffectsEqual(that);
    }
    
-   public void combine(StatusEffect that)
+   public void useHigherDuration(StatusEffect that)
    {
-      this.remainingDuration += that.getRemainingDuration();
+      this.remainingDuration = Math.max(that.getRemainingDuration(), this.getRemainingDuration());
    }
    
    public boolean isHarmful()

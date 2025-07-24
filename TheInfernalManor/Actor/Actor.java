@@ -245,11 +245,11 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    // status effect methods
    public void add(StatusEffect se)
    {
-      // combine if matches existing status effect
+      // refresh duration if matches existing status effect
       for(StatusEffect existing : seList)
          if(existing.equals(se))
          {
-            existing.combine(se);
+            existing.useHigherDuration(se);
             return;
          }
       // no matching, add new
@@ -511,7 +511,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       add(c.getStatusEffect());
       if(this == GameState.getPlayerCharacter())
       {
-         MessagePanel.addMessage("You consume " + GUITools.prependArticle(c.getName()) + ".");
+         MessagePanel.addMessage("You consume " + c.getNameWithArticle() + ".");
       }
    }
    
@@ -622,7 +622,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       {
          Item item = GameState.getCurZone().getItemAt(c.x, c.y);
          if(item != null)
-            MessagePanel.addMessage("You are standing on " + GUITools.prependArticle(item.getName()) + ".");
+            MessagePanel.addMessage("You are standing on " + item.getNameWithArticle() + ".");
       }
    }
    

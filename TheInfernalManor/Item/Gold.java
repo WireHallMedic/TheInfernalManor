@@ -59,4 +59,10 @@ public class Gold extends Item
       String[] strList = getDeserializationArray(str);
       value = Integer.parseInt(strList[0]);
    }
+   
+   @Override
+   public String getNameWithArticle()
+   {
+      return getName();
+   }
 }
