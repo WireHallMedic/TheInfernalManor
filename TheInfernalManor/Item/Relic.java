@@ -54,7 +54,7 @@ public class Relic extends EquippableItem implements GUIConstants
       Vector<String> strList = super.getSummary();
       if(restriction != null)
       {
-         String slotStr = String.format("%s Slot ", restriction.string);
+         String slotStr = String.format("Slot             %s", restriction.string);
          strList.insertElementAt(slotStr, 0);
       }
       return strList;

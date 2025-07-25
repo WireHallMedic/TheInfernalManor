@@ -26,7 +26,7 @@ public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants
       a.addAbility(AttackFactory.getBlast());
       a.addAbility(AttackFactory.getConeAttack());
       
-      Relic relic = RelicFactory.getRelicFromBase(RelicBase.JEWELRY);
+      Relic relic = RelicFactory.getRelicFromBase(RelicBase.HELM);
       relic.setOngoingEffect(OngoingEffect.HEALING);
       relic.setName(relic.getName() + " of Regeneration");
       a.getInventory().add(relic);
