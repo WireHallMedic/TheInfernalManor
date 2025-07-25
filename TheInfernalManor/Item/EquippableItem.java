@@ -62,8 +62,7 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
       String str = "";
       if(procEffect != null)
       {
-         str += (int)(procEffectChance * 100) + "% Chance of ";
-         str += procEffect.toString();
+         str += procEffect.getName() + " (" + (int)(procEffectChance * 100) + "%)";
       }
       return str;
    }
@@ -73,7 +72,7 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
       String str = "";
       if(ongoingEffect != null)
       {
-         str += ongoingEffect.toString() + " while equipped";
+         str += ongoingEffect.getName() + " while equipped";
       }
       return str;
    }
@@ -82,17 +81,30 @@ public class EquippableItem extends StatItem implements GUIConstants, AbilityCon
    {
       Vector<String> strList = super.getSummary();
       if(procEffect != null)
-         strList.add("Status Effect   " + getProcEffectString());
+         strList.add("On Hit           " + getProcEffectString());
+      if(ongoingEffect != null)
+         strList.add("While Equipped   " + ongoingEffect.getName());
       return strList;
    }
    
    public Vector<String> getComparisonSummary(EquippableItem that)
    {
       Vector<String> strList = super.getComparisonSummary(that);
-      if(that.procEffect != null)
-         strList.add("Status Effect  -" + that.procEffect);
-      if(this.procEffect != null)
-         strList.add("Status Effect  +" + this.procEffect);
+      if(this.procEffect != null || that.procEffect == null ||
+         !this.procEffect.equals(that.procEffect))
+      {
+         if(this.procEffect != null)
+            strList.add("On Hit          +" + this.getProcEffectString());
+         if(that.procEffect != null)
+            strList.add("On Hit          -" + that.getProcEffectString());
+      }
+      if(this.ongoingEffect != that.ongoingEffect)
+      {
+         if(this.ongoingEffect != null)
+            strList.add("While Equipped  +" + this.ongoingEffect.getName());
+         if(that.procEffect != null)
+            strList.add("While Equipped  -" + that.ongoingEffect.getName());
+      }
       return strList;
    }
    

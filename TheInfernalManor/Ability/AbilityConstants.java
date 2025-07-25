@@ -44,6 +44,11 @@ public interface AbilityConstants
       public int color;
       public boolean isHarmful;
       
+      public String getName(){return name;}
+      public int getIconImage(){return iconImage;}
+      public int getColor(){return color;}
+      public boolean isHarmful(){return isHarmful;}
+      
       private OngoingEffect(String n, boolean h, int ii, int c)
       {
          name = n;
