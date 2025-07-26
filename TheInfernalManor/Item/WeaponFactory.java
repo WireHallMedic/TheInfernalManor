@@ -7,7 +7,7 @@ import java.util.*;
 
 public class WeaponFactory implements GUIConstants, ItemConstants
 {
-   public static WeaponBase[] baseList = setBaseList();
+   private static WeaponBase[] baseList = setBaseList();
    
    public static Weapon getBase(String name)
    {

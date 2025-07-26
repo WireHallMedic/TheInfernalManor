@@ -119,4 +119,83 @@ public class ItemTest {
       b.deserialize(a.serialize());
       Assert.assertTrue("Items match after.", a.equals(b));
    }
+   
+   
+   @Test public void testWeaponGeneration()
+   {
+      for(AffixBase base : EquipmentAffixFactory.baseList)
+      {
+         if(base.getCategory().equals("WEAPON") ||
+            base.getCategory().equals("RANGED") ||
+            base.getCategory().equals("MELEE") ||
+            base.getCategory().equals("ALL"))
+         {
+            Weapon w = WeaponFactory.getBase("Sword");
+            base.apply(w, AffixBase.PREFIX);
+            Assert.assertNotNull("Weapon affix " + base.getSuffixName() + " generates properly.", w);
+         }
+      }
+   }
+   
+   
+   @Test public void testOffHandGeneration()
+   {
+      for(AffixBase base : EquipmentAffixFactory.baseList)
+      {
+         if(base.getCategory().equals("OFFHAND") ||
+            base.getCategory().equals("SHIELD") ||
+            base.getCategory().equals("IMPLEMENT") ||
+            base.getCategory().equals("ALL"))
+         {
+            OffHand oe = OffHandFactory.getBase("Shield");
+            if(base.getCategory().equals("IMPLEMENT"))
+               oe = OffHandFactory.getBase("Orb");
+            base.apply(oe, AffixBase.PREFIX);
+            Assert.assertNotNull("OffHand affix " + base.getSuffixName() + " generates properly.", oe);
+         }
+      }
+   }
+   
+   
+   @Test public void testArmorGeneration()
+   {
+      for(AffixBase base : EquipmentAffixFactory.baseList)
+      {
+         if(base.getCategory().equals("ARMOR") ||
+            base.getCategory().equals("ALL"))
+         {
+            Armor a = ArmorFactory.getBase("Leather Armor");
+            base.apply(a, AffixBase.PREFIX);
+            Assert.assertNotNull("Armor affix " + base.getSuffixName() + " generates properly.", a);
+         }
+      }
+   }
+   
+   
+   @Test public void testRelicGeneration()
+   {
+      for(AffixBase base : EquipmentAffixFactory.baseList)
+      {
+         Relic r = null;
+         if(base.getCategory().equals("RELIC") ||
+            base.getCategory().equals("HELM") ||
+            base.getCategory().equals("GLOVES") ||
+            base.getCategory().equals("BOOTS") ||
+            base.getCategory().equals("BRACERS") ||
+            base.getCategory().equals("ALL"))
+         {
+            if(base.getCategory().equals("HELM"))
+               r = RelicFactory.generateRelic(ItemConstants.RelicBase.HELM, base, null);
+            else if(base.getCategory().equals("GLOVES"))
+               r = RelicFactory.generateRelic(ItemConstants.RelicBase.GLOVES, base, null);
+            else if(base.getCategory().equals("BOOTS"))
+               r = RelicFactory.generateRelic(ItemConstants.RelicBase.BOOTS, base, null);
+            else if(base.getCategory().equals("BRACERS"))
+               r = RelicFactory.generateRelic(ItemConstants.RelicBase.BRACERS, base, null);
+            else 
+               r = RelicFactory.generateRelic(ItemConstants.RelicBase.JEWELRY, base, null);
+            Assert.assertNotNull("Relic affix " + base.getSuffixName() + " generates properly.", r);
+         }
+      }
+   }
 }
