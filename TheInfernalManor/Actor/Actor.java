@@ -142,6 +142,12 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    {
       if(visualEffect != null && visualEffect.hasFGList())
          return visualEffect.getFG();
+      else if(hasOngoingEffect(OngoingEffect.BURNING))
+         return GUITools.getGradient(FIRE_COLOR, super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
+      else if(hasOngoingEffect(OngoingEffect.POISONED))
+         return GUITools.getGradient(POISON_COLOR, super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
+      else if(hasOngoingEffect(OngoingEffect.CHILLED) || hasOngoingEffect(OngoingEffect.FROZEN))
+         return GUITools.getGradient(ICE_COLOR, super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
       return super.getColor();
    }
    
@@ -281,6 +287,8 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    // compare OngoingEffect by value
    public boolean hasOngoingEffect(StatusEffect.OngoingEffect query)
    {
+      if(seList == null)
+         return false;
       for(StatusEffect se : seList)
          if(se.hasEffect(query))
             return true;
@@ -311,8 +319,8 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       if(hasOngoingEffect(StatusEffect.OngoingEffect.FLEET) || 
          hasOngoingEffect(StatusEffect.OngoingEffect.HASTE))
          mod++;
-      if(hasOngoingEffect(StatusEffect.OngoingEffect.SLUGGISH) || 
-         hasOngoingEffect(StatusEffect.OngoingEffect.SLOW))
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.CHILLED) || 
+         hasOngoingEffect(StatusEffect.OngoingEffect.FROZEN))
          mod--;
       if(mod == 1)
          return moveSpeed.faster();
@@ -327,8 +335,8 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       if(hasOngoingEffect(StatusEffect.OngoingEffect.FLEET) || 
          hasOngoingEffect(StatusEffect.OngoingEffect.HASTE))
          mod++;
-      if(hasOngoingEffect(StatusEffect.OngoingEffect.SLUGGISH) || 
-         hasOngoingEffect(StatusEffect.OngoingEffect.SLOW))
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.CHILLED) || 
+         hasOngoingEffect(StatusEffect.OngoingEffect.FROZEN))
          mod--;
       if(mod == 1)
          return interactSpeed.faster();
@@ -342,7 +350,7 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
       int mod = 0;
       if(hasOngoingEffect(StatusEffect.OngoingEffect.HASTE))
          mod++;
-      if(hasOngoingEffect(StatusEffect.OngoingEffect.SLOW))
+      if(hasOngoingEffect(StatusEffect.OngoingEffect.FROZEN))
          mod--;
       if(mod == 1)
          return base.faster();

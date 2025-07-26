@@ -27,10 +27,10 @@ public class StatusEffectFactory implements GUIConstants, AbilityConstants, SCCo
          case FLYING:            se = new StatusEffect("Flying", OngoingEffect.FLYING);
                                  se.setStartingDuration(duration);
                                  break;
-         case SLUGGISH:          se = new StatusEffect("Sluggish", OngoingEffect.SLUGGISH);
+         case CHILLED:           se = new StatusEffect("Chilled", OngoingEffect.CHILLED);
                                  se.setStartingDuration(duration);
                                  break;
-         case SLOW:              se = new StatusEffect("Slowed", OngoingEffect.SLOW);
+         case FROZEN:            se = new StatusEffect("Frozen", OngoingEffect.FROZEN);
                                  se.setStartingDuration(duration);
                                  break;
          case BURNING:           se = new StatusEffect("Burning", OngoingEffect.BURNING);

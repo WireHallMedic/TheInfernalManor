@@ -46,6 +46,10 @@ public interface GUIConstants
    public static final int GREY = -8355712;
    public static final int DARK_GREY = -12566464;
    
+   public static final int FIRE_COLOR = ORANGE;
+   public static final int POISON_COLOR = GREEN;
+   public static final int ICE_COLOR = BLUE;
+   
    
    public static final int SELECTED_COLOR = YELLOW;
    public static final int RETICLE_COLOR = TURQUOISE;

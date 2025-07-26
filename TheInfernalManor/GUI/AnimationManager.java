@@ -14,6 +14,8 @@ public class AnimationManager implements GUIConstants
    private static boolean slowBlink;
 	private static boolean mediumBlink;
 	private static boolean fastBlink;
+   private static double pulseIndex;
+   private static boolean pulseDir;
    private static Vector<VisualEffect> lockList = new Vector<VisualEffect>();
    private static Vector<VisualEffect> nonlockList = new Vector<VisualEffect>();
    private static Vector<VisualEffect> actorVEList = new Vector<VisualEffect>();
@@ -35,6 +37,8 @@ public class AnimationManager implements GUIConstants
       slowBlink = false;
       mediumBlink = false;
       fastBlink = false;
+      pulseIndex = 0.0;
+      pulseDir = true;
       tickIndex = 0;
    }
    
@@ -42,16 +46,24 @@ public class AnimationManager implements GUIConstants
    {
       tickIndex++;
       if(tickIndex == MAX_TICKS)
+      {
          tickIndex = 0;
+         pulseDir = !pulseDir;
+      }
       
-      if(tickIndex % 24 == 0)
+      if(tickIndex % MAX_TICKS == 0)
          slowBlink = !slowBlink;
       
-      if(tickIndex % 12 == 0)
+      if(tickIndex % (MAX_TICKS / 2) == 0)
          mediumBlink = !mediumBlink;
       
-      if(tickIndex % 6 == 0)
+      if(tickIndex % (MAX_TICKS / 4) == 0)
          fastBlink = !fastBlink;
+      
+      if(pulseDir)
+         pulseIndex = (1.0 / MAX_TICKS) * tickIndex;
+      else
+         pulseIndex = 1.0 - ((1.0 / MAX_TICKS) * tickIndex);
          
       for(int j = 0; j < 4; j++)
       {
@@ -95,5 +107,10 @@ public class AnimationManager implements GUIConstants
    public static boolean hasBlockingVisualEffect()
    {
       return lockList.size() > 0;
+   }
+   
+   public static int getPulseIndex(int len)
+   {
+      return Math.min(len - 1, (int)(len * pulseIndex));
    }
 }
