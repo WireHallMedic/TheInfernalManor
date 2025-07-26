@@ -142,12 +142,9 @@ public class Actor extends ForegroundObject implements ActorConstants, ItemDropp
    {
       if(visualEffect != null && visualEffect.hasFGList())
          return visualEffect.getFG();
-      else if(hasOngoingEffect(OngoingEffect.BURNING))
-         return GUITools.getGradient(FIRE_COLOR, super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
-      else if(hasOngoingEffect(OngoingEffect.POISONED))
-         return GUITools.getGradient(POISON_COLOR, super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
-      else if(hasOngoingEffect(OngoingEffect.CHILLED) || hasOngoingEffect(OngoingEffect.FROZEN))
-         return GUITools.getGradient(ICE_COLOR, super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
+      for(OngoingEffect oe : OngoingEffect.values())
+         if(hasOngoingEffect(oe))
+            return GUITools.getGradient(oe.getColor(), super.getColor(), 10)[AnimationManager.getPulseIndex(10)];
       return super.getColor();
    }
    

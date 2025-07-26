@@ -27,17 +27,17 @@ public interface AbilityConstants
    
    public enum OngoingEffect
    {
-      HEALING           ("Healing", false, SCConstants.HEART_TILE, GUIConstants.DARK_RED),
-      GREATER_HEALING   ("Greater Healing", false, SCConstants.HEART_TILE, GUIConstants.RED),
+      BURNING           ("Burning", true, SCConstants.CENTERED_CARET_TILE, GUIConstants.FIRE_COLOR),
+      POISONED          ("Poisoned", true, SCConstants.HEART_TILE, GUIConstants.POISON_COLOR),
+      CHILLED           ("Chilled", true, '<', GUIConstants.ICE_COLOR),
+      FROZEN            ("Frozen", true, SCConstants.LEFT_DOUBLE_ANGLE_TILE, GUIConstants.ICE_COLOR),
+      BERSERK           ("Berserk", true, '!', GUIConstants.RED),
+      CONFUSED          ("Consfused", true, '?', GUIConstants.WHITE),
       FLEET             ("Fleet", false, '>', GUIConstants.YELLOW),
       HASTE             ("Hasted", false, SCConstants.RIGHT_DOUBLE_ANGLE_TILE, GUIConstants.YELLOW),
       FLYING            ("Flying", false, SCConstants.UP_TRIANGLE_TILE, GUIConstants.BLUE),
-      CHILLED           ("Chilled", true, '<', GUIConstants.YELLOW),
-      FROZEN            ("Frozen", true, SCConstants.LEFT_DOUBLE_ANGLE_TILE, GUIConstants.YELLOW),
-      BURNING           ("Burning", true, SCConstants.CENTERED_CARET_TILE, GUIConstants.ORANGE),
-      POISONED          ("Poisoned", true, SCConstants.HEART_TILE, GUIConstants.GREEN),
-      BERSERK           ("Berserk", true, '!', GUIConstants.ORANGE),
-      CONFUSED          ("Consfused", true, '?', GUIConstants.GREEN);
+      GREATER_HEALING   ("Greater Healing", false, SCConstants.HEART_TILE, GUIConstants.RED),
+      HEALING           ("Healing", false, SCConstants.HEART_TILE, GUIConstants.DARK_RED);
       
       public String name;
       public int iconImage;
