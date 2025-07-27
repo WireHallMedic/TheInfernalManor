@@ -1,7 +1,19 @@
 package TheInfernalManor.Ability;
 
+import java.util.*;
+
 public class AttackFactory implements AbilityConstants
 {
+   public static Vector<Attack> getStartingAttacks()
+   {
+      Vector<Attack> list = new Vector<Attack>();
+      list.add(getBeamAttack());
+      list.add(getConeAttack());
+      list.add(getBlast());
+      list.add(getAuraBlast());
+      return list;
+   }
+   
    public static Attack getBasicAttack()
    {
       Attack a = new Attack("Strike");

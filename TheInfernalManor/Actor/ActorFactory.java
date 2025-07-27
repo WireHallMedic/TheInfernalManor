@@ -9,6 +9,19 @@ import java.util.*;
 
 public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants, AbilityConstants
 {
+   public static Actor getNewPlayer()
+   {
+      Actor a = new Actor("Player", '@');
+      a.setAI(new PlayerAI(a));
+      a.getAI().setPlayerControlled(true);
+      a.setPowerLevel(1);
+      setPlayerHealth(a);
+      a.getBaseStats().setMaxEnergy(10);
+      a.setMainHand(WeaponFactory.getBase("Dagger"));
+      a.fullHeal();
+      return a;
+   }
+   
    public static Actor getTestPlayer()
    {
       Actor a = new Actor("Player", '@');
@@ -85,6 +98,12 @@ public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants
    {
       int level = Math.max(a.getPowerLevel(), 0);
       a.getBaseStats().setMaxHealth(5 * (level + 2));
+   }
+   
+   public static void setPlayerHealth(Actor a)
+   {
+      setHealthByLevel(a);
+      a.getBaseStats().setMaxHealth(a.getBaseStats().getMaxHealth() + 10);
    }
    
    public static Actor getWolf(int level)
