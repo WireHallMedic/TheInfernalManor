@@ -8,12 +8,12 @@ public class MapCellFactory implements GUIConstants, MapConstants
 {
    public static MapCell getEntrance()
    {
-      return new MapCell(MapCellBase.ENTRANCE);
+      return new Exit(MapCellBase.ENTRANCE);
    }
    
    public static MapCell getExit()
    {
-      return new MapCell(MapCellBase.EXIT);
+      return new Exit(MapCellBase.EXIT);
    }
    
    public static Door getDoor()

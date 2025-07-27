@@ -15,22 +15,15 @@ public class Exit extends MapCell
 
    public Exit(MapCellBase base)
    {
-      super(MapCellBase.EXIT);
+      super(base);
+      if(base != MapCellBase.ENTRANCE &&
+         base != MapCellBase.EXIT)
+         throw new Error("Bad mapCellBase for exit constructor.");
       targetZone = null;
    }
    
    public Exit()
    {
       this(MapCellBase.EXIT);
-   }
-   
-   public static Exit getEntrance()
-   {
-      return new Exit(MapCellBase.ENTRANCE);
-   }
-   
-   public static Exit getExit()
-   {
-      return new Exit(MapCellBase.EXIT);
    }
 }
