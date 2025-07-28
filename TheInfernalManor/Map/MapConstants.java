@@ -7,6 +7,8 @@ public interface MapConstants
    public static final int QUEST_ENTRANCE = -2;
    public static final int UNDEFINED_EXIT = -3;
    
+   public enum MapSize{SMALL, MEDIUM, LARGE};
+   
    public enum ConnectionStatus {MUST, MUST_NOT, UNDEFINED};
    public enum ConnectionType 
    {
@@ -24,7 +26,7 @@ public interface MapConstants
          name = n;
       }
    };
-   public enum MapTypes
+   public enum MapType
    {
       ROAD     ("Road"),      // gridArea, maximize connections
       FIELD    ("Fields"),    // gridArea, maximize connections
@@ -39,7 +41,7 @@ public interface MapConstants
       
       public String name;
       
-      private MapTypes(String n)
+      private MapType(String n)
       {
          name = n;
       }

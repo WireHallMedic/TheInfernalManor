@@ -39,10 +39,11 @@ public class GameState implements EngineConstants, Runnable
    public static void setTestValues()
    {
       fov = null;
-      TIMBinarySpacePartitioning.setPartitionChance(.5);
-      Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(80, 80, 15, 25);
-      setCurZone(BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5));
-      curZone.applyPalette(MapPalette.getBasePalette());
+//       TIMBinarySpacePartitioning.setPartitionChance(.5);
+//       Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(80, 80, 15, 25);
+//       setCurZone(BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5));
+      setCurZone(ZoneMapFactory.generateZoneMap(MapConstants.MapType.DUNGEON, MapConstants.MapSize.MEDIUM));
+//      curZone.applyPalette(MapPalette.getBasePalette());
       setPlayerCharacter(ActorFactory.getTestPlayer());
       playerCharacter.setLocation(curZone.getEntranceLoc());
       populate();

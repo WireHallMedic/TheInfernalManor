@@ -29,6 +29,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
    private JButton rollGridB;
    private JButton rollTemplateB;
    private JButton rollRandomB;
+   private JButton snapToOriginB;
    private JCheckBox showRoomsCB;
    // grid controls
    private JTextField roomsWideF;
@@ -113,11 +114,19 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       rollRandomB.addActionListener(this);
       upperControlPanel.add(rollRandomB);
       
+      JPanel anonPanel = new JPanel();
+      anonPanel.setLayout(new GridLayout(1, 2));
+      upperControlPanel.add(anonPanel);
+      
       showRoomsCB = new JCheckBox("Show Rooms");
       showRoomsCB.addActionListener(this);
-      upperControlPanel.add(showRoomsCB);
+      anonPanel.add(showRoomsCB);
       
-      JPanel anonPanel = new JPanel();
+      snapToOriginB = new JButton("Snap to Corner");
+      snapToOriginB.addActionListener(this);
+      anonPanel.add(snapToOriginB);
+      
+      anonPanel = new JPanel();
       anonPanel.setLayout(new GridLayout(1, 2));
       anonPanel.add(new JLabel("Rooms Wide"));
       roomsWideF = new JTextField("5");
@@ -274,6 +283,11 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       if(ae.getSource() == rollRandomB)
       {
          generateZoneMap();
+      }
+      if(ae.getSource() == snapToOriginB)
+      {
+         xCorner = 0;
+         yCorner = 0;
       }
       if(ae.getSource() == mapTypeDD)
       {

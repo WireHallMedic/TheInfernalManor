@@ -95,6 +95,8 @@ public class MapPalette implements GUIConstants
       mp.setAllVariations(MapCellBase.DOOR_OPEN, "", LIGHT_BROWN, DARK_GREY);
       mp.setAllVariations(MapCellBase.TOGGLE_UNFLIPPED, "", LIGHT_BROWN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.TOGGLE_FLIPPED, "", LIGHT_BROWN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.ENTRANCE, "Entrance", WHITE, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.EXIT, "Exit", WHITE, VERY_DARK_GREEN);
       
       mp.set(MapCellBase.CLEAR, ALTERNATE, "Floor", LIGHT_GREY, DARK_GREY);
       mp.set(MapCellBase.CLEAR, DECORATION_1, "Flowers", YELLOW, VERY_DARK_GREEN);
@@ -109,6 +111,28 @@ public class MapPalette implements GUIConstants
       mp.set(MapCellBase.CHEST_OPEN, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
       mp.set(MapCellBase.TOGGLE_UNFLIPPED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
       mp.set(MapCellBase.TOGGLE_FLIPPED, ALTERNATE, "", LIGHT_BROWN, DARK_GREY);
+      return mp;
+   }
+   
+   public static MapPalette getDungeonPalette()
+   {
+      MapPalette mp = new MapPalette();
+      mp.setAllVariations(MapCellBase.CLEAR, "Stone", LIGHT_GREY, DARK_GREY);
+      mp.setAllVariations(MapCellBase.ROUGH, "Broken Stone", LIGHT_GREY, DARK_GREY);
+      mp.setAllVariations(MapCellBase.WALL, "Wall", LIGHT_GREY, DARK_GREY);
+      mp.setAllVariations(MapCellBase.LOW_WALL, "Raised Stone", LIGHT_GREY, DARK_GREY);
+      mp.setAllVariations(MapCellBase.SHALLOW_LIQUID, "Water", BLUE, DARK_BLUE);
+      mp.setAllVariations(MapCellBase.DEEP_LIQUID, "Deep Water", BLUE, DARK_BLUE);
+      mp.setAllVariations(MapCellBase.PIT, "Pit", WHITE, BLACK);
+      mp.setAllVariations(MapCellBase.CONTAINER, "Barrel", LIGHT_BROWN,  DARK_GREY);
+      mp.setAllVariations(MapCellBase.CHEST_CLOSED, "", LIGHT_BROWN,  DARK_GREY);
+      mp.setAllVariations(MapCellBase.CHEST_OPEN, "", LIGHT_BROWN,  DARK_GREY);
+      mp.setAllVariations(MapCellBase.DOOR_CLOSED, "", LIGHT_BROWN, DARK_GREY);
+      mp.setAllVariations(MapCellBase.DOOR_OPEN, "", LIGHT_BROWN, DARK_GREY);
+      mp.setAllVariations(MapCellBase.TOGGLE_UNFLIPPED, "", LIGHT_BROWN,  DARK_GREY);
+      mp.setAllVariations(MapCellBase.TOGGLE_FLIPPED, "", LIGHT_BROWN,  DARK_GREY);
+      mp.setAllVariations(MapCellBase.ENTRANCE, "Entrance", WHITE,  DARK_GREY);
+      mp.setAllVariations(MapCellBase.EXIT, "Exit", WHITE,  DARK_GREY);
       return mp;
    }
 }

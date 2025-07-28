@@ -7,7 +7,47 @@ import WidlerSuite.*;
 import java.util.*;
 
 public class ZoneMapFactory implements MapConstants, GUIConstants
-{   
+{
+   public static ZoneMap generateZoneMap(MapType type, MapSize size)
+   {
+      ZoneMap z = null;
+      
+      switch(type)
+      {
+         case ROAD     : z = generateDungeon(size); break;
+         case FIELD    : z = generateDungeon(size); break;
+         case FOREST   : z = generateDungeon(size); break;
+         case CAVERN   : z = generateDungeon(size); break;
+         case SWAMP    : z = generateDungeon(size); break;
+         case CATACOMB : z = generateDungeon(size); break;
+         case MOUNTAIN : z = generateDungeon(size); break;
+         case BUILDING : z = generateDungeon(size); break;
+         case VILLAGE  : z = generateDungeon(size); break;
+         case DUNGEON  : z = generateDungeon(size); break;
+      }
+      
+      return z;
+   }
+   
+   public static ZoneMap generateDungeon(MapSize size)
+   {
+      int upperMin = 15;
+      int upperMax = 25;
+      int tilesDiameter = 80;
+      
+      switch(size)
+      {
+         case SMALL :   tilesDiameter = 60; break;
+         case LARGE :   tilesDiameter = 100; break;
+      }
+      
+      TIMBinarySpacePartitioning.setPartitionChance(.5);
+      Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(tilesDiameter, tilesDiameter, upperMin, upperMax);
+      ZoneMap z = BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5);
+      z.applyPalette(MapPalette.getDungeonPalette());
+      return z;
+   }
+   
    protected static Vector<Coord> searchVerticallyForDoorProspects(ZoneMap z, int x, int yStart, int yEnd)
    {
       Vector<Coord> prospectList = new Vector<Coord>();

@@ -302,7 +302,6 @@ public class EngineTools implements EngineConstants
       BufferedReader bReader = null;
       try
       {
-         //InputStream is = EngineTools.class.getClassLoader().getResourceAsStream(fileName);
          InputStream is = TIMMain.class.getResourceAsStream(fileName);
          bReader = new BufferedReader(new InputStreamReader(is));
       }
