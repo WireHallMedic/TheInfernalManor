@@ -1,4 +1,4 @@
-!1998;s
+!1805;s
 J
 SAU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
 SCU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012GCC_COLORS=\012-Run\012ADD_EXE_PATH==Y\012
@@ -11,11 +11,11 @@ SOU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<JGRASP_PATHS>%;\012PAT
 SyU0JGRASP_MAIN_BOUNDS=%<CONTROL_SHELL_BOUNDS>\012PATH+=%<PYTHON_PATH>%;\012PATH+=%<JGRASP_PATHS>%;\012CYGWIN=nodosfilewarning\012GCC_COLORS=
 SPU0
 s#i0
-s#k0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files\000\012C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\images\000
-s#j0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files
+s#k0\\TheInfernalManor\\Data Files\000
+s#j0\\TheInfernalManor\\Data Files
 s#l0
-!200;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6196;g
+!208;u
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/Data\\\\ Files/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6204;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -81,10 +81,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sTIMBinarySpacePartitioning.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
-%\011TheInfernalManor%simages%sWidlerTiles_8x16.png
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011TheInfernalManor%sAbility%sAbilityConstants.java
-%\011TheInfernalManor%simages%sWidlerTiles_16x16.png
 %\011%uWidlerSuite%sNoiseChoir.java
 %\011%uWidlerSuite%sShadowFoV.java
 %\011%uWidlerSuite%sNoiseObj.java
@@ -122,6 +120,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
 %\011TheInfernalManor%sMap%sMapGrid.java
+%\011TheInfernalManor%sData Files%sWidlerTiles_16x16.png
 %\011TheInfernalManor%sItem%sArmorFactory.java
 %\011TheInfernalManor%sMap%sTIMRoom.java
 %\011TheInfernalManor%sGUI%sZoneMapPanel.java
@@ -130,6 +129,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sZombieAI.java
 %\011TheInfernalManor%sAI%sActorMemory.java
 %\011TheInfernalManor%sMap%sItemContainer.java
+%\011TheInfernalManor%sData Files%sWidlerTiles_8x16.png
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
 %\011TheInfernalManor%sAI%sBaseAI.java
 %\011%uWidlerSuite%sAStar.java
@@ -156,7 +156,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!6196;f
+!6204;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -222,10 +222,8 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sTIMBinarySpacePartitioning.java
 %\011TheInfernalManor%sMap%sMapCellFactory.java
 %\011TheInfernalManor%sGUI%sMapPanel.java
-%\011TheInfernalManor%simages%sWidlerTiles_8x16.png
 %\011%uWidlerSuite%sLuhnChecksum.java
 %\011TheInfernalManor%sAbility%sAbilityConstants.java
-%\011TheInfernalManor%simages%sWidlerTiles_16x16.png
 %\011%uWidlerSuite%sNoiseChoir.java
 %\011%uWidlerSuite%sShadowFoV.java
 %\011%uWidlerSuite%sNoiseObj.java
@@ -263,6 +261,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sGUI%sManagementPanel.java
 %\011TheInfernalManor%sActor%sActorFactory.java
 %\011TheInfernalManor%sMap%sMapGrid.java
+%\011TheInfernalManor%sData Files%sWidlerTiles_16x16.png
 %\011TheInfernalManor%sItem%sArmorFactory.java
 %\011TheInfernalManor%sMap%sTIMRoom.java
 %\011TheInfernalManor%sGUI%sZoneMapPanel.java
@@ -271,6 +270,7 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sAI%sZombieAI.java
 %\011TheInfernalManor%sAI%sActorMemory.java
 %\011TheInfernalManor%sMap%sItemContainer.java
+%\011TheInfernalManor%sData Files%sWidlerTiles_8x16.png
 %\011TheInfernalManor%sGUI%sCharacterCreationPanel.java
 %\011TheInfernalManor%sAI%sBaseAI.java
 %\011%uWidlerSuite%sAStar.java
