@@ -14,8 +14,8 @@ s#i0
 s#k0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files\000\012C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\images\000
 s#j0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Data Files
 s#l0
-!193;u
-a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6155;g
+!200;u
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011Class-Path\011TheInfernalManor/images/\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6196;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -61,6 +61,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sMap%sGridOfMapGrids.java
+%\011TheInfernalManor%sQuest%sQuest.java
 %\011TheInfernalManor%sTIMMain.java
 %\011TheInfernalManor%sMap%sGridZoneMapFactory.java
 %\011TheInfernalManor%sItem%sInventory.java
@@ -155,7 +156,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sAI%sActionPlan.java
 %\011TheInfernalManor%sMap%sDoor.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!6155;f
+!6196;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
@@ -201,6 +202,7 @@ a0	b68	c255	f%\011MapViewer.jar	g%\011TheInfernalManor.zip	hManifest-Version\011
 %\011TheInfernalManor%sItem%sRelicFactory.java
 %\011TheInfernalManor%sItem%sRelic.java
 %\011TheInfernalManor%sMap%sGridOfMapGrids.java
+%\011TheInfernalManor%sQuest%sQuest.java
 %\011TheInfernalManor%sTIMMain.java
 %\011TheInfernalManor%sMap%sGridZoneMapFactory.java
 %\011TheInfernalManor%sItem%sInventory.java
