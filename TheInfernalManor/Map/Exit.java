@@ -2,15 +2,15 @@ package TheInfernalManor.Map;
 
 import StrictCurses.*;
 
-public class Exit extends MapCell
+public class Exit extends MapCell implements MapConstants
 {
-   private ZoneMap targetZone;
+   private int targetZone;
 
 
-	public ZoneMap getTargetZone(){return targetZone;}
+	public int getTargetZone(){return targetZone;}
 
 
-	public void setTargetZone(ZoneMap t){targetZone = t;}
+	public void setTargetZone(int t){targetZone = t;}
 
 
    public Exit(MapCellBase base)
@@ -19,7 +19,7 @@ public class Exit extends MapCell
       if(base != MapCellBase.ENTRANCE &&
          base != MapCellBase.EXIT)
          throw new Error("Bad mapCellBase for exit constructor.");
-      targetZone = null;
+      targetZone = UNDEFINED_EXIT;
    }
    
    public Exit()

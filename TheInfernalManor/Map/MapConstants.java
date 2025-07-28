@@ -3,6 +3,10 @@ package TheInfernalManor.Map;
 
 public interface MapConstants
 {
+   public static final int QUEST_EXIT = -1;
+   public static final int QUEST_ENTRANCE = -2;
+   public static final int UNDEFINED_EXIT = -3;
+   
    public enum ConnectionStatus {MUST, MUST_NOT, UNDEFINED};
    public enum ConnectionType 
    {
