@@ -19,7 +19,7 @@ public class WeaponFactory implements GUIConstants, ItemConstants
    
    private static WeaponBase[] setBaseList()
    {
-      BufferedReader bReader = EngineTools.getTextReader("WeaponBases.csv");
+      BufferedReader bReader = EngineTools.getTextReader("/TheInfernalManor/DataFiles/WeaponBases.csv");
       Vector<WeaponBase> list = new Vector<WeaponBase>();
       try
       {

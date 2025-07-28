@@ -19,7 +19,7 @@ public class ArmorFactory implements GUIConstants, ItemConstants
    
    private static ArmorBase[] setBaseList()
    {
-      BufferedReader bReader = EngineTools.getTextReader("ArmorBases.csv");
+      BufferedReader bReader = EngineTools.getTextReader("/TheInfernalManor/DataFiles/ArmorBases.csv");
       Vector<ArmorBase> list = new Vector<ArmorBase>();
       try
       {

@@ -2,6 +2,7 @@ package TheInfernalManor.Engine;
 
 import java.util.*;
 import WidlerSuite.*;
+import TheInfernalManor.TIMMain;
 import TheInfernalManor.Map.*;
 import TheInfernalManor.Actor.*;
 import java.io.*;
@@ -299,11 +300,10 @@ public class EngineTools implements EngineConstants
    public static BufferedReader getTextReader(String fileName)
    {
       BufferedReader bReader = null;
-      if(EngineTools.class.getResource("EngineTools.class").toString().contains(".jar"))
-         fileName = "/" + fileName;
       try
       {
-         InputStream is = EngineTools.class.getClassLoader().getResourceAsStream(fileName);
+         //InputStream is = EngineTools.class.getClassLoader().getResourceAsStream(fileName);
+         InputStream is = TIMMain.class.getResourceAsStream(fileName);
          bReader = new BufferedReader(new InputStreamReader(is));
       }
       catch(Exception ex)

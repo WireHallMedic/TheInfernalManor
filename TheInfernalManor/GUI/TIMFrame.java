@@ -51,8 +51,8 @@ public class TIMFrame extends JFrame implements SCConstants, ComponentListener, 
       basePanel.setLayout(null);
       add(basePanel);
       
-      x1y1Palette = new SCTilePalette("WidlerTiles_16x16.png", 16, 16);
-      x1y2Palette = new SCTilePalette("WidlerTiles_8x16.png", 8, 16);
+      x1y1Palette = new SCTilePalette("/TheInfernalManor/DataFiles/WidlerTiles_16x16.png", 16, 16);
+      x1y2Palette = new SCTilePalette("/TheInfernalManor/DataFiles/WidlerTiles_8x16.png", 8, 16);
       
       panelList = new Vector<SwapPanel>();
       

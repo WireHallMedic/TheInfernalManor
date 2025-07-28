@@ -19,7 +19,7 @@ public class OffHandFactory implements GUIConstants, ItemConstants
    
    private static OffHandBase[] setBaseList()
    {
-      BufferedReader bReader = EngineTools.getTextReader("OffHandBases.csv");
+      BufferedReader bReader = EngineTools.getTextReader("/TheInfernalManor/DataFiles/OffHandBases.csv");
       Vector<OffHandBase> list = new Vector<OffHandBase>();
       try
       {

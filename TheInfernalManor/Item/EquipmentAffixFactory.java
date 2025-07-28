@@ -12,7 +12,7 @@ public class EquipmentAffixFactory implements GUIConstants, ItemConstants
    
    private static AffixBase[] setBaseList()
    {
-      BufferedReader bReader = EngineTools.getTextReader("MagicAffixes.csv");
+      BufferedReader bReader = EngineTools.getTextReader("/TheInfernalManor/DataFiles/MagicAffixes.csv");
       Vector<AffixBase> list = new Vector<AffixBase>();
       try
       {
