@@ -71,7 +71,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       
       ZoneMap z = GridZoneMapFactory.generate(gridOfGrids, 7);
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.DEEP_LIQUID);
-      z.applyPalette(MapPalette.getBasePalette());
+      z.applyPalette(MapPalette.getSwampPalette());
       return z;
    }
    

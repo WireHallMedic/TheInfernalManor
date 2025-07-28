@@ -224,6 +224,8 @@ public class GUITools implements GUIConstants, SCConstants
          case DARK_ORANGE:       str = "DARK_ORANGE"; break;
          case YELLOW:            str = "YELLOW"; break;
          case DARK_YELLOW:       str = "DARK_YELLOW"; break;
+         case YELLOW_GREEN:      str = "YELLOW_GREEN"; break;
+         case DARK_YELLOW_GREEN: str = "DARK_YELLOW_GREEN"; break;
          case GREEN:             str = "GREEN"; break;
          case DARK_GREEN:        str = "DARK_GREEN"; break;
          case VERY_DARK_GREEN:   str = "VERY_DARK_GREEN"; break;
@@ -256,6 +258,8 @@ public class GUITools implements GUIConstants, SCConstants
       else if(str.equals("DARK_ORANGE")) val = DARK_ORANGE;
       else if(str.equals("YELLOW")) val = YELLOW;
       else if(str.equals("DARK_YELLOW")) val = DARK_YELLOW;
+      else if(str.equals("YELLOW_GREEN")) val = YELLOW_GREEN;
+      else if(str.equals("DARK_YELLOW_GREEN")) val = DARK_YELLOW_GREEN;
       else if(str.equals("GREEN")) val = GREEN;
       else if(str.equals("DARK_GREEN")) val = DARK_GREEN;
       else if(str.equals("VERY_DARK_GREEN")) val = VERY_DARK_GREEN;

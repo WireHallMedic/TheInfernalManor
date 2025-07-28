@@ -135,4 +135,12 @@ public class MapPalette implements GUIConstants
       mp.setAllVariations(MapCellBase.EXIT, "Exit", WHITE,  DARK_GREY);
       return mp;
    }
+   
+   public static MapPalette getSwampPalette()
+   {
+      MapPalette mp = getBasePalette();
+      mp.setAllVariations(MapCellBase.SHALLOW_LIQUID, "Water", YELLOW_GREEN, DARK_YELLOW_GREEN);
+      mp.setAllVariations(MapCellBase.DEEP_LIQUID, "Deep Water", YELLOW_GREEN, DARK_YELLOW_GREEN);
+      return mp;
+   }
 }

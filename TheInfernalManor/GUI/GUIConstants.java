@@ -30,6 +30,8 @@ public interface GUIConstants
    public static final int DARK_ORANGE = -3381760;
    public static final int YELLOW = -256;
    public static final int DARK_YELLOW = -3289856;
+   public static final int YELLOW_GREEN = -5580489;
+   public static final int DARK_YELLOW_GREEN = -9728221;
    public static final int GREEN = -11681715;
    public static final int DARK_GREEN = -14460637;
    public static final int VERY_DARK_GREEN = -15121895;
@@ -47,7 +49,7 @@ public interface GUIConstants
    public static final int DARK_GREY = -12566464;
    
    public static final int FIRE_COLOR = ORANGE;
-   public static final int POISON_COLOR = GREEN;
+   public static final int POISON_COLOR = YELLOW_GREEN;
    public static final int ICE_COLOR = BLUE;
    
    
@@ -55,7 +57,7 @@ public interface GUIConstants
    public static final int RETICLE_COLOR = TURQUOISE;
    
    public static final int[] COLOR_ARRAY = {
-      RED, DARK_RED, VERY_DARK_RED, ORANGE, DARK_ORANGE, YELLOW, DARK_YELLOW, GREEN, DARK_GREEN, TURQUOISE, BLUE, DARK_BLUE, 
+      RED, DARK_RED, VERY_DARK_RED, ORANGE, DARK_ORANGE, YELLOW, DARK_YELLOW, YELLOW_GREEN, DARK_YELLOW_GREEN, GREEN, DARK_GREEN, TURQUOISE, BLUE, DARK_BLUE, 
       LIGHT_PURPLE, PURPLE, PINK, LIGHT_BROWN, BROWN, DARK_BROWN, WHITE, LIGHT_GREY, GREY, DARK_GREY, BLACK
       };
    public static final int[][] GRADIENT_ARRAY = getArrayOfGradients();
