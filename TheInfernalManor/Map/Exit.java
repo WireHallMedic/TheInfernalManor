@@ -16,10 +16,10 @@ public class Exit extends MapCell implements MapConstants
    public Exit(MapCellBase base)
    {
       super(base);
+      targetZone = UNDEFINED_EXIT;
       if(base != MapCellBase.ENTRANCE &&
          base != MapCellBase.EXIT)
-         throw new Error("Bad mapCellBase for exit constructor.");
-      targetZone = UNDEFINED_EXIT;
+         throw new Error("Bad MapCellBase for exit constructor.");
    }
    
    public Exit()
