@@ -19,7 +19,7 @@ public enum RoomTemplateCellMapping
    TOGGLE            ('!', "Switch", MapCellBase.TOGGLE_UNFLIPPED),
    FEATURE           ('f', "Feature", MapCellBase.CLEAR),
    SPAWN             ('s', "Spawn", MapCellBase.CLEAR),
-   CONNECTION        ('X', "Connection", MapCellBase.CLEAR);
+   DEFAULT_IMPASSABLE('X', "Default Impassable", MapCellBase.DEFAULT_IMPASSABLE);
    
    public char character;
    public MapCellBase mapCellBase;

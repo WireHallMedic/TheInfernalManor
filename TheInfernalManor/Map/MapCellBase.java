@@ -22,7 +22,8 @@ public enum MapCellBase
    TOGGLE_UNFLIPPED  ('!', false, false, true),
    TOGGLE_FLIPPED    (SCConstants.INVERTED_EXCLAMATION_TILE, false, false, true),
    ENTRANCE          ('<', true, true, true),
-   EXIT              ('>', true, true, true);
+   EXIT              ('>', true, true, true),
+   DEFAULT_IMPASSABLE('#', false, false, false);
    
    public int iconIndex;
    public boolean lowPassable;

@@ -5,9 +5,12 @@ import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
 import WidlerSuite.*;
 import java.util.*;
+import java.io.*;
 
 public class ZoneMapFactory implements MapConstants, GUIConstants
 {
+   private static RoomTemplateDeck forestTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/Forest Map Tiles.ttd");
+   
    public static ZoneMap generateZoneMap(MapType type, MapSize size)
    {
       ZoneMap z = null;
@@ -538,6 +541,27 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          tMap[x][y] = oMap[x + xLeading][y + yLeading];
       }
       return trimmed;
+   }
+   
+   private static RoomTemplateDeck loadRoomTemplates(String fileName)
+   {
+      BufferedReader bReader = EngineTools.getTextReader(fileName);
+		Vector<String> strList = new Vector<String>();
+      try
+      {
+         String str = bReader.readLine();
+         while(str != null)
+         {
+            str = str.replace("\n", "");
+            strList.add(str);
+            str = bReader.readLine();
+         }
+      }
+      catch(Exception ex)
+      {
+         System.out.println("Exception while loading " + fileName + ": " + ex.toString());
+      }
+		return new RoomTemplateDeck(strList);
    }
    
    public static ZoneMap getTestMap1()
