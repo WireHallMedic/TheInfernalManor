@@ -64,7 +64,6 @@ public class GridZoneMapFactory extends ZoneMapFactory implements MapConstants, 
       }
       addBridges(zm, upper.getUpperGrid(), widthOfRoom, heightOfRoom, islandWidth, islandHeight);
       fillNulls(zm);
-      replaceAll(zm, MapCellBase.WALL, MapCellBase.DEEP_LIQUID);
       zm.updateAllMaps();
       addEntranceAndExit(zm, Direction.WEST);
       

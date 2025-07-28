@@ -69,7 +69,7 @@ public class ZoneMap implements GUIConstants
       for(int x = 0; x < width; x++)
       for(int y = 0; y < height; y++)
       {
-         setTile(x, y, new MapCell(MapCellBase.WALL));
+         setTile(x, y, new MapCell(MapCellBase.DEFAULT_IMPASSABLE));
          itemMap[x][y] = null;
          corpseMap[x][y] = null;
          lastSeenMap[x][y] = 0; // default is 0 instead of ' ' to differentiate

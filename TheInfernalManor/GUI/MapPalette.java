@@ -84,7 +84,7 @@ public class MapPalette implements GUIConstants
       mp.setAllVariations(MapCellBase.CLEAR, "Grass", GREEN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.ROUGH, "Rough", GREEN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.WALL, "Tree", GREEN, VERY_DARK_GREEN);
-      mp.setAllVariations(MapCellBase.LOW_WALL, "Stump", GREEN, VERY_DARK_GREEN);
+      mp.setAllVariations(MapCellBase.LOW_WALL, "Stump", LIGHT_BROWN, VERY_DARK_GREEN);
       mp.setAllVariations(MapCellBase.SHALLOW_LIQUID, "Water", BLUE, DARK_BLUE);
       mp.setAllVariations(MapCellBase.DEEP_LIQUID, "Deep Water", BLUE, DARK_BLUE);
       mp.setAllVariations(MapCellBase.PIT, "Pit", WHITE, BLACK);

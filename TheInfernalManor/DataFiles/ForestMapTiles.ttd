@@ -146,13 +146,13 @@
 
  XiX . . . . . . . . . . .iX X
  XiX . . . . . . . . . . .iX X
- XiX . . .iXiXiX . . . . .iX X
- XiX . .iX X X XiX . . . .iX X
- XiX .iX X X X X XiX . . .iX X
- XiX .iX X X X X XiX . . .iX X
- XiX .iX X X X X XiX . . .iX X
- XiX . .iX X X XiX . . . .iX X
- XiX . . .iXiXiX . . . . .iX X
+ XiX . . .i#i# . . . . . .iX X
+ XiX . .i# # #i# . . . . .iX X
+ XiX .i# # # # #i# . . . .iX X
+ XiX .i# # # # #i# . . . .iX X
+ XiX .i# # # # #i# . . . .iX X
+ XiX . .i# # #i# . . . . .iX X
+ XiX . . .i#i# . . . . . .iX X
  XiX . . . . . . . . . . .iX X
  XiX . . . . . . . . . . .iX X
  XiX . . . . . . . . . . .iX X
@@ -161,17 +161,17 @@
  XiX . . . . . . . . . . .iX X
 
  XiX . . . . . . . . . . .iX X
- XiX . . . . .iX . . . . .iX X
- XiX . . . .iX XiX . . . .iX X
- XiX . . .iX X X XiX . . .iX X
- XiX . .iX X X X XiX . . .iX X
- XiX . .iX X X X XiX . . .iX X
- XiX . .iX X X X XiX . . .iX X
- XiX . . .iX X X XiX . . .iX X
- XiX . . .iX X X XiX . . .iX X
- XiX . . .iX X X XiX . . .iX X
- XiX . . . .iX XiX . . . .iX X
- XiX . . . . .iX . . . . .iX X
+ XiX . . . . .i# . . . . .iX X
+ XiX . . . .i# #i# . . . .iX X
+ XiX . . .i# # # #i# . . .iX X
+ XiX . .i# # # # #i# . . .iX X
+ XiX . .i# # # # #i# . . .iX X
+ XiX . .i# # # # #i# . . .iX X
+ XiX . . .i# # # #i# . . .iX X
+ XiX . . .i# # # #i# . . .iX X
+ XiX . . .i# # # #i# . . .iX X
+ XiX . . . .i# #i# . . . .iX X
+ XiX . . . . .i# . . . . .iX X
  XiX . . . . . . . . . . .iX X
  XiX . . . . . . . . . . .iX X
  XiX . . . . . . . . . . .iX X
@@ -210,12 +210,12 @@
 
  XiX . . . . . . . . . . . . .
  XiX . . . . . . . . . . . . .
- XiX . . . . . .iXiX . . . . .
- XiX . . . . .iX X XiX . . . .
- XiX . . . .iX X X X XiX . . .
- XiX . . . .iX X X X XiX . . .
- XiX . . . . .iX X XiX . . . .
- XiX . . . . . .iXiX . . . . .
+ XiX . . . . . .i#i# . . . . .
+ XiX . . . . .i# # #i# . . . .
+ XiX . . . .i# # # # #i# . . .
+ XiX . . . .i# # # # #i# . . .
+ XiX . . . . .i# # #i# . . . .
+ XiX . . . . . .i#i# . . . . .
  XiX . . . . . . . . . . . . .
  XiX . . . . . . . . . . . . .
  X XiX . . . . . . . . . . . .
@@ -225,12 +225,12 @@
  X X X X X X X X X X X X X X X
 
  XiX . . . . . . . . . . . . .
- X XiX . . . . . . .iXiX . . .
- X XiX . . . . . .iX X XiX . .
- X X XiX . . . .iX X X X XiX .
- X X XiX . . . .iX X X X XiX .
- X X X XiX . . . .iX X XiX . .
- X X X XiX . . . . .iXiX . . .
+ X XiX . . . . . . .i#i# . . .
+ X XiX . . . . . .i# # #i# . .
+ X X XiX . . . .i# # # # #i# .
+ X X XiX . . . .i# # # # #i# .
+ X X X XiX . . . .i# # #i# . .
+ X X X XiX . . . . .i#i# . . .
  X X X X XiX . . . . . . . . .
  X X X X X XiX . . . . . . . .
  X X X X X XiXiX . . . . . . .
@@ -279,29 +279,29 @@
  X XiX . . . . . . . . . . . .
  X XiX . . . . . . . . . . . .
  XiX . . . . . . . . . . . . .
- XiX . . . . .iXiXiX . . . . .
- XiX . . . .iX X X XiX . . . .
- XiX . . .iX X X X X XiX . . .
- XiX . . .iX X X X X X XiX . .
- XiX . . .iX X X X X X XiX . .
- XiX . . . .iX X X X XiX . . .
- XiX . . . . .iXiXiXiX . . . .
+ XiX . . . . .i#i#i# . . . . .
+ XiX . . . .i# # # #i# . . . .
+ XiX . . .i# # # # # #i# . . .
+ XiX . . .i# # # # # # #i# . .
+ XiX . . .i# # # # # # #i# . .
+ XiX . . . .i# # # # #i# . . .
+ XiX . . . . .i#i#i#i# . . . .
  XiX . . . . . . . . . . . . .
 
  XiX . . . . . . . . . . . . .
- XiX . . . .iXiXiXiXiX . . . .
- XiX . .iXiX X X X X XiX . . .
- XiX .iX X X X XiX X X XiX . .
- XiX .iX X XiX . . . X XiX . .
- XiX . .iXiX . . . .iX X XiX .
- XiX . . . . . . . . . X XiX .
- XiX . . . . . . . . X XiX . .
- XiX . .iX . . . . . X XiX . .
- XiX .iX XiX . . . .iX XiX . .
- XiX .iX X XiXiXiXiX X XiX . .
- XiX .iX X X X X X X X XiX . .
- XiX . .iXiX X X X XiXiX . . .
- XiX . . . .iXiXiXiX . . . . .
+ XiX . . . .i#i#i#i#i# . . . .
+ XiX . .i#i# # # # # #i# . . .
+ XiX .i# # # # #i# # # #i# . .
+ XiX .i# # #i# . . . # #i# . .
+ XiX . .i#i# . . . .i# # #i# .
+ XiX . . . . . . . . . # #i# .
+ XiX . . . . . . . . # #i# . .
+ XiX . .i# . . . . . # #i# . .
+ XiX .i# #i# . . . .i# #i# . .
+ XiX .i# # #i#i#i#i# # #i# . .
+ XiX .i# # # # # # # # #i# . .
+ XiX . .i#i# # # # #i#i# . . .
+ XiX . . . .i#i#i#i# . . . . .
  XiX . . . . . . . . . . . . .
 
  . . . . . . . . . . . . . . .
@@ -321,17 +321,17 @@
  . . . . . . . . . . . . . . .
 
  . . . . . . . . . . . . . . .
- . . . . .iXiXiX . . . . . . .
- . . .iXiX X X XiXdX . . . . .
- . .iX X X X X X XdXdX . . . .
- .iX X X X X X XdXdXdXiX . . .
- .iX X X X X X XdXdX XiX . . .
- . .iX X X X X XdXdX X XiX . .
- . .iX X X X XdXdX X X XiX . .
- . .iX XdXdXdXdX X X XiX . . .
- . . .dXdXdXdX X X X XiX . . .
- . . . .dX X X X X XiX . . . .
- . . . . .iXiXiXiXiX . . . . .
+ . . . . .i#i#i# . . . . . . .
+ . . .i#i# # # #i#d# . . . . .
+ . .i# # # # # # #d#d# . . . .
+ .i# # # # # # #d#d#d#i# . . .
+ .i# # # # # # #d#d# #i# . . .
+ . .i# # # # # #d#d# # #i# . .
+ . .i# # # # #d#d# # # #i# . .
+ . .i# #d#d#d#d# # # #i# . . .
+ . . .d#d#d#d# # # # #i# . . .
+ . . . .d# # # # # #i# . . . .
+ . . . . .i#i#i#i#i# . . . . .
  . . . . . . . . . . . . . . .
  . . . . . . . . . . . . . . .
  . . . . . . . . . . . . . . .
@@ -353,19 +353,19 @@
  . . . . . . . . . . . . . . .
 
  . . . . . . . . . . . . . . .
- . . .iXiX . . . . . . . . . .
- . .iX X XiX . . . . . . . . .
- . .iX X XiX . . .iXiX . . . .
- . . .iXiX . . .iX X XiX . . .
- . . . . . . . .iX X XiX . . .
- . . . . . . . . .iXiX . . . .
+ . . .i#i# . . . . . . . . . .
+ . .i# # #i# . . . . . . . . .
+ . .i# # #i# . . .i#i# . . . .
+ . . .i#i# . . .i# # #i# . . .
+ . . . . . . . .i# # #i# . . .
+ . . . . . . . . .i#i# . . . .
  . . . . . . . . . . . . . . .
- . . .iXiX . . .iXiX . . . . .
- . .iX X XiXiXiX X XiX . . . .
- . .iX X XiXiX X X X XiX . . .
- . . .iXiX .iX X X X XiX . . .
- . . . . . . .iX X XiX . . . .
- . . . . . . . .iXiX . . . . .
+ . . .i#i# . . .i#i# . . . . .
+ . .i# # #i#i#i# # #i# . . . .
+ . .i# # #i#i# # # # #i# . . .
+ . . .i#i# .i# # # # #i# . . .
+ . . . . . . .i# # #i# . . . .
+ . . . . . . . .i#i# . . . . .
  . . . . . . . . . . . . . . .
 
 @END

@@ -432,6 +432,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
             gridOfGrids.maximizeConnections();
          if(lowerMaxConnectionsCB.isSelected())
             gridOfGrids.maximizeLowerConnections();
+         gridOfGrids.rollLowers();
       }
       catch(Exception ex)
       {
@@ -455,7 +456,7 @@ public class ToolMapTester extends JFrame implements ActionListener, GUIConstant
       {
          if(gridOfGrids != null)
          {
-            zoneMap = GridZoneMapFactory.generate(gridOfGrids, 10);
+            zoneMap = GridZoneMapFactory.generate(gridOfGrids, 5);
          }
          else
             zoneMap = null;

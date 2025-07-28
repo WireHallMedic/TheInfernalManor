@@ -11,7 +11,7 @@ import WidlerSuite.*;
 import StrictCurses.*;
 
 
-public class ToolFinishedMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants//, MouseListener, MouseMotionListener
+public class ToolFinishedMapTester extends JFrame implements ActionListener, GUIConstants, MapConstants, MouseListener, MouseMotionListener
 {
    private LayoutPanel layoutPanel;
    private SCPanel mapPanel;
@@ -20,10 +20,11 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
    private JComboBox<MapConstants.MapSize> sizeDD;
    private JButton rerollB;
    private ZoneMap zoneMap;
-   private int tilesWide = 100;
-   private int tilesTall = 80;
+   private int tilesWide = 80;
+   private int tilesTall = 60;
    private int xCorner = 0;
    private int yCorner = 0;
+   private int[] lastMouseLoc = {0, 0};
    
    public ToolFinishedMapTester()
    {
@@ -33,6 +34,9 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
       add(layoutPanel);
       
       mapPanel = new SCPanel(new SCTilePalette("WidlerTiles_16x16.png", 16, 16), tilesWide, tilesTall);
+      mapPanel.setCenterImage(true);
+      mapPanel.addMouseListener(this);
+      mapPanel.addMouseMotionListener(this);
       layoutPanel.add(mapPanel, .8, 1.0, 0.0, 0.0);
       
       controlPanel = new JPanel();
@@ -57,6 +61,7 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       
       zoneMap = null;
+      rerollB.doClick();
       
       setVisible(true);
       redrawMap();
@@ -98,6 +103,37 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
                                                (MapConstants.MapSize)sizeDD.getSelectedItem());
       redrawMap();
    }
+   
+   public void mouseClicked(MouseEvent me)
+   {
+      int[] mouseLoc = mapPanel.getMouseLocTile();
+      int xShift = mouseLoc[0] - ((tilesWide + 1)/ 2);
+      int yShift = mouseLoc[1] - ((tilesTall + 1) / 2);
+      xCorner += xShift;
+      yCorner += yShift;
+      redrawMap();
+   }
+   public void mousePressed(MouseEvent me){lastMouseLoc = mapPanel.getMouseLocTile();}
+   public void mouseReleased(MouseEvent me){}
+   public void mouseEntered(MouseEvent me){}
+   public void mouseExited(MouseEvent me){}
+   
+   public void mouseMoved(MouseEvent me){}
+   public void mouseDragged(MouseEvent me)
+   {
+      mapPanel.mouseMoved(me); // because mouseDragged prevents mouseMoved, which SCPanel needs to update mouseloc
+      int[] dragLoc = mapPanel.getMouseLocTile();
+      int xShift = lastMouseLoc[0] - dragLoc[0];
+      int yShift = lastMouseLoc[1] - dragLoc[1];
+      if(xShift != 0 || yShift != 0)
+      {
+         xCorner += xShift;
+         yCorner += yShift;
+         lastMouseLoc = dragLoc;
+         redrawMap();
+      }
+   }
+
    
    public static void main(String[] args)
    {

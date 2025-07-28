@@ -9,7 +9,12 @@ public class RNG
    public static void setSeed(long s){random.setSeed(s);}
    
    public static double nextDouble(){return random.nextDouble();}
-   public static int nextInt(){return random.nextInt();}
-   public static int nextInt(int bound){return random.nextInt(bound);}
    public static boolean nextBoolean(){return random.nextBoolean();}
+   public static int nextInt(){return random.nextInt();}
+   public static int nextInt(int bound)
+   {
+      if(bound == 0)
+         return 0;
+      return random.nextInt(bound);
+   }
 }

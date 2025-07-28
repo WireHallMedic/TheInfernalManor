@@ -9,7 +9,7 @@ import java.io.*;
 
 public class ZoneMapFactory implements MapConstants, GUIConstants
 {
-   private static RoomTemplateDeck forestTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/Forest Map Tiles.ttd");
+   private static RoomTemplateDeck forestTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/ForestMapTiles.ttd");
    
    public static ZoneMap generateZoneMap(MapType type, MapSize size)
    {
@@ -19,9 +19,9 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          case ROAD     : z = generateDungeon(size); break;
          case FIELD    : z = generateDungeon(size); break;
-         case FOREST   : z = generateDungeon(size); break;
+         case FOREST   : z = generateForest(size); break;
          case CAVERN   : z = generateDungeon(size); break;
-         case SWAMP    : z = generateDungeon(size); break;
+         case SWAMP    : z = generateSwamp(size); break;
          case CATACOMB : z = generateDungeon(size); break;
          case MOUNTAIN : z = generateDungeon(size); break;
          case BUILDING : z = generateDungeon(size); break;
@@ -32,21 +32,63 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return z;
    }
    
+   public static ZoneMap generateForest(MapSize size)
+   {
+      double minConnectivity = .66;
+      double minRoomRatio = .75;
+      int roomDiameter = 5;
+      switch(size)
+      {
+         case SMALL :   roomDiameter = 3; break;
+         case LARGE :   roomDiameter = 7; break;
+      }
+      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, minConnectivity, forestTiles, minRoomRatio);
+      ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
+      replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
+      z.applyPalette(MapPalette.getBasePalette());
+      return z;
+   }
+   
+   public static ZoneMap generateSwamp(MapSize size)
+   {
+      double upperMinConnectivity = .66;
+      double upperMinRoomRatio = .75;
+      double lowerMinConnectivity = .5;
+      double lowerMinRoomRatio = .5;
+      int upperRoomDiameter = 4;
+      int lowerRoomDiameter = 2;
+      switch(size)
+      {
+         case SMALL :   upperRoomDiameter = 3; break;
+         case LARGE :   upperRoomDiameter = 5; break;
+      }
+      GridOfMapGrids gridOfGrids = new GridOfMapGrids(upperRoomDiameter, upperRoomDiameter, upperMinConnectivity, forestTiles, upperMinRoomRatio);
+      gridOfGrids.setLowerConnectivity(lowerMinConnectivity);
+      gridOfGrids.setLowerMinRatio(lowerMinRoomRatio);
+      gridOfGrids.setLowerWidth(lowerRoomDiameter);
+      gridOfGrids.setLowerHeight(lowerRoomDiameter);
+      gridOfGrids.rollLowers();
+      
+      ZoneMap z = GridZoneMapFactory.generate(gridOfGrids, 7);
+      replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.DEEP_LIQUID);
+      z.applyPalette(MapPalette.getBasePalette());
+      return z;
+   }
+   
    public static ZoneMap generateDungeon(MapSize size)
    {
       int upperMin = 15;
       int upperMax = 25;
       int tilesDiameter = 80;
-      
       switch(size)
       {
          case SMALL :   tilesDiameter = 60; break;
          case LARGE :   tilesDiameter = 100; break;
       }
-      
       TIMBinarySpacePartitioning.setPartitionChance(.5);
       Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(tilesDiameter, tilesDiameter, upperMin, upperMax);
       ZoneMap z = BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5);
+      replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
       z.applyPalette(MapPalette.getDungeonPalette());
       return z;
    }
@@ -147,7 +189,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       for(int x = 0; x < tileMap.length; x++)
       for(int y = 0; y < tileMap[0].length; y++)
          if(tileMap[x][y] == null)
-            tileMap[x][y] = MapCellFactory.getMapCell(MapCellBase.WALL, WHITE, BLACK);
+            tileMap[x][y] = MapCellFactory.getMapCell(MapCellBase.DEFAULT_IMPASSABLE, WHITE, BLACK);
    }
    
    protected static void replaceAll(ZoneMap zm, MapCellBase find, MapCellBase replace)

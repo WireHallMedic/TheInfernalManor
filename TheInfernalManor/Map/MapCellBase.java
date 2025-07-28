@@ -23,7 +23,7 @@ public enum MapCellBase
    TOGGLE_FLIPPED    (SCConstants.INVERTED_EXCLAMATION_TILE, false, false, true),
    ENTRANCE          ('<', true, true, true),
    EXIT              ('>', true, true, true),
-   DEFAULT_IMPASSABLE('#', false, false, false);
+   DEFAULT_IMPASSABLE('X', false, false, false);
    
    public int iconIndex;
    public boolean lowPassable;
