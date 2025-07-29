@@ -18,8 +18,8 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       
       switch(type)
       {
-         case ROAD     : z = generateDungeon(size); break;
-         case FIELD    : z = generateDungeon(size); break;
+         case ROAD     : z = generateField(size); break;
+         case FIELD    : z = generateField(size); break;
          case FOREST   : z = generateForest(size); break;
          case CAVERN   : z = generateDungeon(size); break;
          case SWAMP    : z = generateSwamp(size); break;
@@ -33,9 +33,28 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       return z;
    }
    
+   public static ZoneMap generateField(MapSize size)
+   {
+      double connectivity = .5;
+      double minRoomRatio = .75;
+      int roomDiameter = 5;
+      switch(size)
+      {
+         case SMALL :   roomDiameter = 4; break;
+         case LARGE :   roomDiameter = 6; break;
+      }
+      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, connectivity, genericTiles, minRoomRatio);
+      mapGrid.maximizeConnections();
+      mapGrid.populateTemplateMap();
+      ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
+      replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
+      z.applyPalette(MapPalette.getBasePalette());
+      return z;
+   }
+   
    public static ZoneMap generateForest(MapSize size)
    {
-      double minConnectivity = .66;
+      double connectivity = .66;
       double minRoomRatio = .75;
       int roomDiameter = 5;
       switch(size)
@@ -43,7 +62,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          case SMALL :   roomDiameter = 3; break;
          case LARGE :   roomDiameter = 7; break;
       }
-      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, minConnectivity, forestTiles, minRoomRatio);
+      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, connectivity, forestTiles, minRoomRatio);
       ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
       z.applyPalette(MapPalette.getBasePalette());
