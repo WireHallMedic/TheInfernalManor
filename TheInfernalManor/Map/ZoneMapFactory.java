@@ -23,13 +23,13 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          case FOREST   : z = generateForest(size); break;
          case CAVERN   : z = generateCavern(size); break;
          case SWAMP    : z = generateSwamp(size); break;
-         case CATACOMB : z = generateDungeon(size); break;
+         case CATACOMB : z = generateCatacomb(size); break;
          case MOUNTAIN : z = generateDungeon(size); break;
          case BUILDING : z = generateDungeon(size); break;
          case VILLAGE  : z = generateDungeon(size); break;
          case DUNGEON  : z = generateDungeon(size); break;
       }
-      
+      z = getTrimmed(z);
       return z;
    }
    
@@ -71,7 +71,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    
    public static ZoneMap generateCavern(MapSize size)
    {
-      double connectivity = .66;
+      double connectivity = .5;
       double minRoomRatio = .75;
       int roomDiameter = 5;
       switch(size)
@@ -88,19 +88,19 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    
    public static ZoneMap generateSwamp(MapSize size)
    {
-      double upperMinConnectivity = .66;
+      double upperConnectivity = .66;
       double upperMinRoomRatio = .75;
-      double lowerMinConnectivity = .5;
+      double lowerConnectivity = .5;
       double lowerMinRoomRatio = .5;
-      int upperRoomDiameter = 4;
+      int upperRoomDiameter = 3;
       int lowerRoomDiameter = 2;
       switch(size)
       {
-         case SMALL :   upperRoomDiameter = 3; break;
-         case LARGE :   upperRoomDiameter = 5; break;
+         case SMALL :   upperRoomDiameter = 2; break;
+         case LARGE :   upperRoomDiameter = 4; break;
       }
-      GridOfMapGrids gridOfGrids = new GridOfMapGrids(upperRoomDiameter, upperRoomDiameter, upperMinConnectivity, genericTiles, upperMinRoomRatio);
-      gridOfGrids.setLowerConnectivity(lowerMinConnectivity);
+      GridOfMapGrids gridOfGrids = new GridOfMapGrids(upperRoomDiameter, upperRoomDiameter, upperConnectivity, genericTiles, upperMinRoomRatio);
+      gridOfGrids.setLowerConnectivity(lowerConnectivity);
       gridOfGrids.setLowerMinRatio(lowerMinRoomRatio);
       gridOfGrids.setLowerWidth(lowerRoomDiameter);
       gridOfGrids.setLowerHeight(lowerRoomDiameter);
@@ -109,6 +109,32 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       ZoneMap z = GridZoneMapFactory.generate(gridOfGrids, 7);
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.DEEP_LIQUID);
       z.applyPalette(MapPalette.getSwampPalette());
+      return z;
+   }
+   
+   public static ZoneMap generateCatacomb(MapSize size)
+   {
+      double upperConnectivity = .66;
+      double upperMinRoomRatio = .75;
+      double lowerConnectivity = .5;
+      double lowerMinRoomRatio = .75;
+      int upperRoomDiameter = 3;
+      int lowerRoomDiameter = 2;
+      switch(size)
+      {
+         case SMALL :   upperRoomDiameter = 2; break;
+         case LARGE :   lowerRoomDiameter = 3; break;
+      }
+      GridOfMapGrids gridOfGrids = new GridOfMapGrids(upperRoomDiameter, upperRoomDiameter, upperConnectivity, genericTiles, upperMinRoomRatio);
+      gridOfGrids.setLowerConnectivity(lowerConnectivity);
+      gridOfGrids.setLowerMinRatio(lowerMinRoomRatio);
+      gridOfGrids.setLowerWidth(lowerRoomDiameter);
+      gridOfGrids.setLowerHeight(lowerRoomDiameter);
+      gridOfGrids.rollLowers();
+      
+      ZoneMap z = GridZoneMapFactory.generate(gridOfGrids, 7);
+      replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
+      z.applyPalette(MapPalette.getDungeonPalette());
       return z;
    }
    
@@ -539,7 +565,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    
    
    
-   // removes high-impassable rows and columns beyond the first in contact with low-impassable
+   // removes high-impassable rows and columns beyond the first in contact with high-passable
    protected static ZoneMap getTrimmed(ZoneMap original)
    {
       int xLeading = 0;
