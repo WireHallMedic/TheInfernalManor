@@ -21,7 +21,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          case ROAD     : z = generateField(size); break;
          case FIELD    : z = generateField(size); break;
          case FOREST   : z = generateForest(size); break;
-         case CAVERN   : z = generateDungeon(size); break;
+         case CAVERN   : z = generateCavern(size); break;
          case SWAMP    : z = generateSwamp(size); break;
          case CATACOMB : z = generateDungeon(size); break;
          case MOUNTAIN : z = generateDungeon(size); break;
@@ -66,6 +66,23 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
       z.applyPalette(MapPalette.getBasePalette());
+      return z;
+   }
+   
+   public static ZoneMap generateCavern(MapSize size)
+   {
+      double connectivity = .66;
+      double minRoomRatio = .75;
+      int roomDiameter = 5;
+      switch(size)
+      {
+         case SMALL :   roomDiameter = 3; break;
+         case LARGE :   roomDiameter = 7; break;
+      }
+      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, connectivity, genericTiles, minRoomRatio);
+      ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
+      replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
+      z.applyPalette(MapPalette.getDungeonPalette());
       return z;
    }
    
