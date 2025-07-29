@@ -9,6 +9,7 @@ import java.io.*;
 
 public class ZoneMapFactory implements MapConstants, GUIConstants
 {
+   private static RoomTemplateDeck genericTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/GenericMapTiles.ttd");
    private static RoomTemplateDeck forestTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/ForestMapTiles.ttd");
    
    public static ZoneMap generateZoneMap(MapType type, MapSize size)
@@ -62,7 +63,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          case SMALL :   upperRoomDiameter = 3; break;
          case LARGE :   upperRoomDiameter = 5; break;
       }
-      GridOfMapGrids gridOfGrids = new GridOfMapGrids(upperRoomDiameter, upperRoomDiameter, upperMinConnectivity, forestTiles, upperMinRoomRatio);
+      GridOfMapGrids gridOfGrids = new GridOfMapGrids(upperRoomDiameter, upperRoomDiameter, upperMinConnectivity, genericTiles, upperMinRoomRatio);
       gridOfGrids.setLowerConnectivity(lowerMinConnectivity);
       gridOfGrids.setLowerMinRatio(lowerMinRoomRatio);
       gridOfGrids.setLowerWidth(lowerRoomDiameter);

@@ -10,7 +10,7 @@ import StrictCurses.*;
 
 public class ToolColorTester extends JFrame implements GUIConstants, MouseListener
 {
-   private int[] BG_COLOR_ARRAY = {VERY_DARK_GREEN, DARK_BLUE, DARK_BROWN, DARK_GREY, DARK_RED};
+   private int[] BG_COLOR_ARRAY = {VERY_DARK_GREEN, DARK_BLUE, DARK_YELLOW_GREEN, DARK_BROWN, DARK_GREY, DARK_RED};
    
    private SCPanel tilePanel;
    
