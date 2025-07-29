@@ -15,11 +15,12 @@ s#k0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\Dat
 s#j0C:\\Users\\micha\\Programming\\Java\\TheInfernalManor\\TheInfernalManor\\DataFiles
 s#l0
 !271;u
-a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011CLASSPATH\011C:\\\\Users\\\\micha\\\\Programming\\\\Java\\\\TheInfernalManor\\\\TheInfernalManor\\\\DataFiles\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6432;g
+a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Version\0111.0\011CLASSPATH\011C:\\\\Users\\\\micha\\\\Programming\\\\Java\\\\TheInfernalManor\\\\TheInfernalManor\\\\DataFiles\011Main-Class\011TheInfernalManor.TIMMain	iTheInfernalManor.TIMMain!6485;g
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sDataFiles%sArmorBases.csv
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
+%\011TheInfernalManor%sDataFiles%sCavernMapTiles.ttd
 %\011TheInfernalManor%sGUI%sGameOverPanel.java
 %\011TheInfernalManor%sGUI%sInventoryPanel.java
 %\011TheInfernalManor%sGUI%sVisualEffectFactory.java
@@ -159,11 +160,12 @@ a0	b68	c255	f%\011TheInfernalManor.jar	g%\011TheInfernalManor.zip	hManifest-Vers
 %\011TheInfernalManor%sMap%sDoor.java
 %\011%uStrictCurses%sStrictCurses%sSCTilePalette.java
 %\011TheInfernalManor%sGUI%sNewGamePanel.java
-!6432;f
+!6485;f
 %\011TheInfernalManor%sGUI%sGUIConstants.java
 %\011TheInfernalManor%sDataFiles%sArmorBases.csv
 %\011TheInfernalManor%sGUI%sTIMFrame.java
 %\011TheInfernalManor%sMap%sMapConstants.java
+%\011TheInfernalManor%sDataFiles%sCavernMapTiles.ttd
 %\011TheInfernalManor%sGUI%sGameOverPanel.java
 %\011TheInfernalManor%sGUI%sInventoryPanel.java
 %\011TheInfernalManor%sGUI%sVisualEffectFactory.java

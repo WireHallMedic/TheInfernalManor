@@ -11,6 +11,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
 {
    private static RoomTemplateDeck genericTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/GenericMapTiles.ttd");
    private static RoomTemplateDeck forestTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/ForestMapTiles.ttd");
+   private static RoomTemplateDeck cavernTiles = loadRoomTemplates("/TheInfernalManor/DataFiles/CavernMapTiles.ttd");
    
    public static ZoneMap generateZoneMap(MapType type, MapSize size)
    {
@@ -73,13 +74,13 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
    {
       double connectivity = .5;
       double minRoomRatio = .75;
-      int roomDiameter = 5;
+      int roomDiameter = 7;
       switch(size)
       {
-         case SMALL :   roomDiameter = 3; break;
-         case LARGE :   roomDiameter = 7; break;
+         case SMALL :   roomDiameter = 5; break;
+         case LARGE :   roomDiameter = 9; break;
       }
-      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, connectivity, genericTiles, minRoomRatio);
+      MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, connectivity, cavernTiles, minRoomRatio);
       ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
       z.applyPalette(MapPalette.getDungeonPalette());
