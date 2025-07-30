@@ -1,6 +1,7 @@
 package TheInfernalManor.Engine;
 
 import TheInfernalManor.Actor.*;
+import TheInfernalManor.Quest.*;
 import TheInfernalManor.Ability.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Map.*;
@@ -15,6 +16,7 @@ public class GameState implements EngineConstants, Runnable
 	private static Actor playerCharacter = null;
 	private static ZoneMap curZone = null;
    private static Vector<Actor> actorList = new Vector<Actor>();
+   private static Quest curQuest = null;
    private static int gameMode = PREGAME_MODE;
    private static boolean runF;
    private static int initiativeIndex;
@@ -25,6 +27,7 @@ public class GameState implements EngineConstants, Runnable
 	public static Actor getPlayerCharacter(){return playerCharacter;}
 	public static ZoneMap getCurZone(){return curZone;}
    public static Vector<Actor> getActorList(){return actorList;}
+   public static Quest getCurQuest(){return curQuest;}
    public static int getGameMode(){return gameMode;}
    public static boolean getRunFlag(){return runF;}
    public static ShadowFoVRect getFoV(){return fov;}
@@ -33,6 +36,7 @@ public class GameState implements EngineConstants, Runnable
 
 	public static void setPlayerCharacter(Actor p){playerCharacter = p;}
    public static void setActorList(Vector<Actor> al){actorList = al;}
+   public static void setCurQuest(Quest cq){curQuest = cq;}
    public static void setGameMode(int m){gameMode = m;}
    public static void setRunFlag(boolean rf){runF = rf;}
 
@@ -42,13 +46,12 @@ public class GameState implements EngineConstants, Runnable
 //       TIMBinarySpacePartitioning.setPartitionChance(.5);
 //       Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(80, 80, 15, 25);
 //       setCurZone(BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5));
-      setCurZone(ZoneMapFactory.generateZoneMap(MapConstants.MapType.DUNGEON, MapConstants.MapSize.MEDIUM));
+   //   setCurZone(ZoneMapFactory.generateZoneMap(MapConstants.MapType.DUNGEON, MapConstants.MapSize.MEDIUM));
 //      curZone.applyPalette(MapPalette.getBasePalette());
       setPlayerCharacter(ActorFactory.getTestPlayer());
-      playerCharacter.setLocation(curZone.getEntranceLoc());
-      populate();
-      LootFactory.addLoot(actorList, 5);
-      calcFoV();
+   //   playerCharacter.setLocation(curZone.getEntranceLoc());
+   //   populate();
+   //   LootFactory.addLoot(actorList, 5);
       /*
       actorList.add(playerCharacter);
       actorList.add(ActorFactory.getTestEnemy(4, 15));
@@ -63,6 +66,9 @@ public class GameState implements EngineConstants, Runnable
       //actorList.add(ActorFactory.getTestWizard(17, 15));
       setCurZone(ZoneMapFactory.getTestMap1());
       */
+      curQuest = Quest.mock();
+      setActiveQuestSegment(1, true);
+      calcFoV();
       runF = true;
    }
    
@@ -296,6 +302,29 @@ public class GameState implements EngineConstants, Runnable
                   addActorAt(a, c);
             }
          }
+         runF = true;
+      }
+   }
+   
+   public static void setActiveQuestSegment(int segment, boolean movingForward)
+   {
+      runF = false;
+      if(segment == MapConstants.QUEST_EXIT)
+      {
+         ; //TODO
+      }
+      else
+      {
+         curQuest.clean();
+         setCurZone(curQuest.getZoneMap(segment));
+         actorList = new Vector<Actor>();
+         if(movingForward)
+            addActorAt(playerCharacter, curZone.getEntranceLoc());
+         else
+            addActorAt(playerCharacter, curZone.getExitLoc());
+         for(Actor a : curQuest.getActorList(segment))
+            addActorAt(a, a.getLocation());
+         initiativeIndex = 0;
          runF = true;
       }
    }

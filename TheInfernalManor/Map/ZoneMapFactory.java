@@ -31,6 +31,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
          case DUNGEON  : z = generateDungeon(size); break;
       }
       z = getTrimmed(z);
+      z.updateAllMaps();
       return z;
    }
    

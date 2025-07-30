@@ -77,9 +77,16 @@ public class Quest
       getZoneMap(size() - 1).getExit().setTargetZone(MapConstants.QUEST_EXIT);
    }
    
-   public static Quest mockQuest()
+   public void clean()
+   {
+      for(ActorList curList : actorList)
+         curList.clean();
+   }
+   
+   public static Quest mock()
    {
       Quest q = new Quest(1);
+      q.setName("Test Quest");
       ZoneMap map = ZoneMapFactory.generateZoneMap(MapConstants.MapType.FOREST, MapConstants.MapSize.SMALL);
       Vector<Actor> actors = ActorFactory.getPopulation(map, 1);
       q.add(map, actors);
@@ -108,6 +115,18 @@ public class Quest
       {
          this();
          list = a;
+      }
+      
+      public void clean()
+      {
+         for(int i = 0; i < list.size(); i++)
+         {
+            if(list.elementAt(i).isDead())
+            {
+               list.removeElementAt(i);
+               i--;
+            }
+         }
       }
    }
 }

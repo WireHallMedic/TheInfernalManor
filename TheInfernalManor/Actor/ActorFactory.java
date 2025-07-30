@@ -44,6 +44,7 @@ public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants
             }
          }
       }
+      LootFactory.addLoot(actorList, level);
       return actorList;
    }
    
