@@ -308,6 +308,15 @@ public class AdventurePanel extends JPanel implements GUIConstants, ComponentLis
                                        centerTarget();
                                     }
                                     break;
+         case KeyEvent.VK_X :       if(mode == NORMAL_MODE)
+                                    {
+                                       MapCell cell = GameState.getCurZone().getTile(player.getLocation());
+                                       if(cell instanceof Exit)
+                                          GameState.useExit((Exit)cell);
+                                       else
+                                          MessagePanel.addMessage("You are not standing on an exit.");
+                                    }
+                                    break;
          case KeyEvent.VK_ENTER :   if(mode == RANGED_TARGET_MODE)
                                     {
                                        setPlan(getPendingType(), null, getPendingIndex());

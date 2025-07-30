@@ -18,6 +18,7 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
    private JPanel controlPanel;
    private JComboBox<MapConstants.MapType> typeDD;
    private JComboBox<MapConstants.MapSize> sizeDD;
+   private JCheckBox showRoomsCB;
    private JButton rerollB;
    private ZoneMap zoneMap;
    private int tilesWide = 80;
@@ -49,6 +50,10 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
       sizeDD = new JComboBox<MapConstants.MapSize>(MapConstants.MapSize.values());
       sizeDD.addActionListener(this);
       controlPanel.add(sizeDD);
+      
+      showRoomsCB = new JCheckBox("Show Rooms");
+      showRoomsCB.addActionListener(this);
+      controlPanel.add(showRoomsCB);
       
       controlPanel.add(new JLabel());
       rerollB = new JButton("Reroll Map");
@@ -92,6 +97,13 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
                mapPanel.setTile(x, y, ' ', WHITE, BLACK);
             }
          }
+         if(showRoomsCB.isSelected())
+            for(TIMRoom room : zoneMap.getRoomList())
+            {
+               for(int x = 0; x < room.size.x; x++)
+               for(int y = 0; y < room.size.y; y++)
+                  mapPanel.fillTileFG(room.origin.x - xCorner, room.origin.y - yCorner, room.size.x, room.size.y, RED);
+            }
       }
       mapPanel.repaint();
    }
@@ -99,8 +111,9 @@ public class ToolFinishedMapTester extends JFrame implements ActionListener, GUI
 
    public void actionPerformed(ActionEvent ae)
    {
-      zoneMap = ZoneMapFactory.generateZoneMap((MapConstants.MapType)typeDD.getSelectedItem(), 
-                                               (MapConstants.MapSize)sizeDD.getSelectedItem());
+      if(ae.getSource() != showRoomsCB)
+         zoneMap = ZoneMapFactory.generateZoneMap((MapConstants.MapType)typeDD.getSelectedItem(), 
+                                                  (MapConstants.MapSize)sizeDD.getSelectedItem());
       redrawMap();
    }
    

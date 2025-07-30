@@ -43,30 +43,8 @@ public class GameState implements EngineConstants, Runnable
    public static void setTestValues()
    {
       fov = null;
-//       TIMBinarySpacePartitioning.setPartitionChance(.5);
-//       Vector<TIMRoom> roomList = TIMBinarySpacePartitioning.partition(80, 80, 15, 25);
-//       setCurZone(BSPZoneMapFactory.generateDungeon(roomList, 7, 13, .5, .5));
-   //   setCurZone(ZoneMapFactory.generateZoneMap(MapConstants.MapType.DUNGEON, MapConstants.MapSize.MEDIUM));
-//      curZone.applyPalette(MapPalette.getBasePalette());
       setPlayerCharacter(ActorFactory.getTestPlayer());
-   //   playerCharacter.setLocation(curZone.getEntranceLoc());
-   //   populate();
-   //   LootFactory.addLoot(actorList, 5);
-      /*
-      actorList.add(playerCharacter);
-      actorList.add(ActorFactory.getTestEnemy(4, 15));
-      Actor a = ActorFactory.getTestEnemy(9, 15);
-      //a.setMainHand(WeaponFactory.getSling());
-      a.getAI().setUsesDoors(false);
-      actorList.add(a);
-      Actor b = ActorFactory.getTestZombie(14, 15);
-      b.setOffHand(OffHandFactory.getShield());
-      b.addItem(new Gold(24));
-      actorList.add(b);
-      //actorList.add(ActorFactory.getTestWizard(17, 15));
-      setCurZone(ZoneMapFactory.getTestMap1());
-      */
-      curQuest = Quest.mock();
+      setCurQuest(Quest.mock());
       setActiveQuestSegment(1, true);
       calcFoV();
       runF = true;
@@ -78,7 +56,6 @@ public class GameState implements EngineConstants, Runnable
       curZone = c;
       fov = new ShadowFoVRect(curZone.getTransparentMap());
       enemyFoV = new ShadowFoVRect(curZone.getTransparentMap());
-      calcFoV();
    }
    
    public static void calcFoV()
@@ -279,33 +256,11 @@ public class GameState implements EngineConstants, Runnable
    }
    public static void addActorAt(Actor a, Coord c){addActorAt(a, c.x, c.y);}
    
-   public static void populate()
+   public static void useExit(Exit exit)
    {
-      if(curZone != null)
-      {
-         runF = false;
-         actorList = new Vector<Actor>();
-         actorList.add(playerCharacter);
-         for(TIMRoom room : curZone.getRoomList())
-         {
-            Vector<Actor> newEnemies = new Vector<Actor>();
-            if(curZone.hasEntrance(room))
-               continue;
-            if(curZone.hasChest(room) && RNG.nextDouble() < .9)
-               newEnemies = ActorFactory.getBanditGroup(1);
-            else if(RNG.nextDouble() < .75)
-               newEnemies = ActorFactory.getBanditGroup(1);
-            if(newEnemies.size() > 0)
-            {
-               Coord c = room.getCenter();
-               for(Actor a : newEnemies)
-                  addActorAt(a, c);
-            }
-         }
-         runF = true;
-      }
+      setActiveQuestSegment(exit.getTargetZone(), exit.getBase() == MapCellBase.EXIT);
    }
-   
+      
    public static void setActiveQuestSegment(int segment, boolean movingForward)
    {
       runF = false;
@@ -325,6 +280,7 @@ public class GameState implements EngineConstants, Runnable
          for(Actor a : curQuest.getActorList(segment))
             addActorAt(a, a.getLocation());
          initiativeIndex = 0;
+         calcFoV();
          runF = true;
       }
    }

@@ -612,7 +612,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          for(int y = 0; y < original.getHeight(); y++)
          {
-            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            if(original.getTile(x, y).isLowPassable() || original.getTile(x, y) instanceof ToggleTile)
             {
                continueF = false;
                break;
@@ -626,7 +626,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          for(int y = 0; y < original.getHeight(); y++)
          {
-            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            if(original.getTile(x, y).isLowPassable() || original.getTile(x, y) instanceof ToggleTile)
             {
                continueF = false;
                break;
@@ -640,7 +640,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          for(int x = 0; x < original.getWidth(); x++)
          {
-            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            if(original.getTile(x, y).isLowPassable() || original.getTile(x, y) instanceof ToggleTile)
             {
                continueF = false;
                break;
@@ -654,7 +654,7 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       {
          for(int x = 0; x < original.getWidth(); x++)
          {
-            if(original.getTile(x, y).isHighPassable() || original.getTile(x, y) instanceof ToggleTile)
+            if(original.getTile(x, y).isLowPassable() || original.getTile(x, y) instanceof ToggleTile)
             {
                continueF = false;
                break;
@@ -679,6 +679,12 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       for(int y = 0; y < trimmed.getHeight(); y++)
       {
          tMap[x][y] = oMap[x + xLeading][y + yLeading];
+      }
+      for(TIMRoom curRoom : original.getRoomList())
+      {
+         curRoom.origin.x -= xLeading;
+         curRoom.origin.y -= yLeading;
+         trimmed.getRoomList().add(curRoom);
       }
       return trimmed;
    }
