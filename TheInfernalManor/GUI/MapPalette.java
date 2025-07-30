@@ -10,7 +10,7 @@ public class MapPalette implements GUIConstants
    public static final int DECORATION_1 = 2; 
    public static final int DECORATION_2 = 3; 
    public static final int INDICATOR = 4;   // such as a path 
-   public static final int VARIATIONS = 5;
+   public static final int VARIATIONS = 5; // control variable, needs to be the number of variations
    
    private int[][] fgArr;
    private int[][] bgArr;
@@ -141,6 +141,10 @@ public class MapPalette implements GUIConstants
       MapPalette mp = getBasePalette();
       mp.setAllVariations(MapCellBase.SHALLOW_LIQUID, "Water", YELLOW_GREEN, DARK_YELLOW_GREEN);
       mp.setAllVariations(MapCellBase.DEEP_LIQUID, "Deep Water", YELLOW_GREEN, DARK_YELLOW_GREEN);
+      
+      // decorative stuff in water
+      mp.set(MapCellBase.WALL, ALTERNATE, "Tree", GREEN, DARK_YELLOW_GREEN);
+      mp.set(MapCellBase.LOW_WALL, ALTERNATE, "Stump", LIGHT_BROWN, DARK_YELLOW_GREEN);
       return mp;
    }
 }

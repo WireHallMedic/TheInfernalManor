@@ -65,7 +65,11 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       }
       MapGrid mapGrid = new MapGrid(roomDiameter, roomDiameter, connectivity, forestTiles, minRoomRatio);
       ZoneMap z = GridZoneMapFactory.generate(mapGrid.getTemplateMap());
+      replaceSome(z, MapCellBase.CLEAR, MapCellBase.WALL, 0.07, true);
+      replaceSome(z, MapCellBase.CLEAR, MapCellBase.LOW_WALL, 0.01, true);
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL);
+//       replaceSome(z, MapCellBase.CLEAR, MapCellBase.CLEAR, 0.02, false, MapPalette.DECORATION_1);
+//       replaceSome(z, MapCellBase.CLEAR, MapCellBase.CLEAR, 0.02, false, MapPalette.DECORATION_2);
       z.applyPalette(MapPalette.getBasePalette());
       return z;
    }
@@ -108,6 +112,10 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       gridOfGrids.rollLowers();
       
       ZoneMap z = GridZoneMapFactory.generate(gridOfGrids, 7);
+      replaceSome(z, MapCellBase.CLEAR, MapCellBase.WALL, 0.07, true);
+      replaceSome(z, MapCellBase.CLEAR, MapCellBase.LOW_WALL, 0.01, true);
+      replaceSome(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.WALL, 0.2, false, MapPalette.ALTERNATE);
+      replaceSome(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.LOW_WALL, 0.02, false, MapPalette.ALTERNATE);
       replaceAll(z, MapCellBase.DEFAULT_IMPASSABLE, MapCellBase.DEEP_LIQUID);
       z.applyPalette(MapPalette.getSwampPalette());
       return z;
@@ -261,8 +269,33 @@ public class ZoneMapFactory implements MapConstants, GUIConstants
       MapCell[][] tileMap = zm.getTileMap();
       for(int x = 0; x < tileMap.length; x++)
       for(int y = 0; y < tileMap[0].length; y++)
-         if(tileMap[x][y].getIconIndex() == find.iconIndex)
+         if(tileMap[x][y].getBase() == find)
             tileMap[x][y] = MapCellFactory.getMapCell(replace, WHITE, BLACK);
+   }
+   
+   protected static void replaceSome(ZoneMap zm, MapCellBase find, MapCellBase replace, double replaceChance, boolean dontBlock, int paletteVariation)
+   {
+      MapCell[][] tileMap = zm.getTileMap();
+      for(int x = 0; x < tileMap.length; x++)
+      for(int y = 0; y < tileMap[0].length; y++)
+         if(tileMap[x][y].getBase() == find &&
+            RNG.nextDouble() <= replaceChance)
+         {
+            if(!dontBlock || wontBlock(zm, x, y))
+            {
+               tileMap[x][y] = MapCellFactory.getMapCell(replace, WHITE, BLACK);
+               tileMap[x][y].setPaletteVariation(paletteVariation);
+            }
+         }
+   }
+   protected static void replaceSome(ZoneMap zm, MapCellBase find, MapCellBase replace, double replaceChance, boolean dontBlock){replaceSome(zm, find, replace, replaceChance, dontBlock, MapPalette.BASE);}
+   
+   protected static boolean wontBlock(ZoneMap zm, int x, int y)
+   {
+      return zm.getTile(x + 1, y).isLowPassable() &&
+             zm.getTile(x - 1, y).isLowPassable() &&
+             zm.getTile(x, y + 1).isLowPassable() &&
+             zm.getTile(x, y - 1).isLowPassable();
    }
    
    protected static void overlay(ZoneMap top, ZoneMap bottom, int xOrigin, int yOrigin)

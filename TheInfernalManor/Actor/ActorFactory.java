@@ -2,6 +2,7 @@ package TheInfernalManor.Actor;
 
 import TheInfernalManor.GUI.*;
 import TheInfernalManor.AI.*;
+import TheInfernalManor.Map.*;
 import TheInfernalManor.Item.*;
 import TheInfernalManor.Engine.*;
 import TheInfernalManor.Ability.*;
@@ -20,6 +21,30 @@ public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants
       a.setMainHand(WeaponFactory.getBase("Dagger"));
       a.fullHeal();
       return a;
+   }
+   
+   public static Vector<Actor> getPopulation(ZoneMap zone, int level)
+   {
+      Vector<Actor> actorList = new Vector<Actor>();
+      for(TIMRoom room : zone.getRoomList())
+      {
+         Vector<Actor> newEnemies = new Vector<Actor>();
+         if(zone.hasEntrance(room))
+            continue;
+         if(zone.hasChest(room) && RNG.nextDouble() < .9)
+            newEnemies = ActorFactory.getBanditGroup(level);
+         else if(RNG.nextDouble() < .75)
+            newEnemies = ActorFactory.getBanditGroup(level);
+         if(newEnemies.size() > 0)
+         {
+            for(Actor a : newEnemies)
+            {
+               a.setLocation(room.getCenter());
+               actorList.add(a);
+            }
+         }
+      }
+      return actorList;
    }
    
    public static Actor getTestPlayer()
@@ -65,35 +90,7 @@ public class ActorFactory implements ActorConstants, GUIConstants, ItemConstants
       a.fullHeal();
       return a;
    }
-   
-   public static Actor getTestEnemy(int x, int y)
-   {
-      Actor a = new Actor("Basic Enemy", 'e');
-      a.setAI(new StandardAI(a));
-      a.setLocation(x, y);
-      a.fullHeal();
-      return a;
-   }
-   
-   public static Actor getTestZombie(int x, int y)
-   {
-      Actor a = new Actor("Zombie", 'z');
-      a.setAI(new ZombieAI(a));
-      a.setLocation(x, y);
-      a.fullHeal();
-      return a;
-   }
-   
-   public static Actor getTestWizard(int x, int y)
-   {
-      Actor a = new Actor("Wizard", 'w');
-      a.setAI(new StandardAI(a));
-      a.addAbility(AttackFactory.getBlast());
-      a.setLocation(x, y);
-      a.fullHeal();
-      return a;
-   }
-   
+      
    public static void setHealthByLevel(Actor a)
    {
       int level = Math.max(a.getPowerLevel(), 0);

@@ -162,6 +162,16 @@ public class ZoneMap implements GUIConstants
          itemMap[x][y] = item;
    }
    
+   public Exit getEntrance()
+   {
+      return (Exit)getTile(getEntranceLoc());
+   }
+   
+   public Exit getExit()
+   {
+      return (Exit)getTile(getExitLoc());
+   }
+   
    public void setTile(int x, int y, MapCell cell)
    {
       if(isInBounds(x, y))

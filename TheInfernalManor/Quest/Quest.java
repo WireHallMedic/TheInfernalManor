@@ -10,25 +10,34 @@ public class Quest
 	private Vector<ActorList> actorList;
 	private String name;
 	private String description;
+   private int level;
 
 
 	public Vector<ZoneMap> getZoneList(){return zoneList;}
 	public Vector<ActorList> getActorList(){return actorList;}
 	public String getName(){return name;}
 	public String getDescription(){return description;}
+   public int getLevel(){return level;}
 
 
 	public void setZoneList(Vector<ZoneMap> z){zoneList = z;}
 	public void setActorList(Vector<ActorList> a){actorList = a;}
 	public void setName(String n){name = n;}
 	public void setDescription(String d){description = d;}
+   public void setLevel(int l){level = l;}
 
    public Quest()
+   {
+      this(1);
+   }
+   
+   public Quest(int l)
    {
       zoneList = new Vector<ZoneMap>();
       actorList = new Vector<ActorList>();
       name = "Unnamed Quest";
       description = "No description.";
+      level = l;
    }
    
    public void add(ZoneMap m, Vector<Actor> a)
@@ -55,6 +64,33 @@ public class Quest
    public void setActorList(int i, Vector<Actor> a)
    {
       actorList.elementAt(i).list = a;
+   }
+   
+   public void connectExits()
+   {
+      for(int i = 0; i < size(); i++)
+      {
+         getZoneMap(i).getEntrance().setTargetZone(i - 1);
+         getZoneMap(i).getExit().setTargetZone(i + 1);
+      }
+      getZoneMap(0).getEntrance().setTargetZone(MapConstants.QUEST_ENTRANCE);
+      getZoneMap(size() - 1).getExit().setTargetZone(MapConstants.QUEST_EXIT);
+   }
+   
+   public static Quest mockQuest()
+   {
+      Quest q = new Quest(1);
+      ZoneMap map = ZoneMapFactory.generateZoneMap(MapConstants.MapType.FOREST, MapConstants.MapSize.SMALL);
+      Vector<Actor> actors = ActorFactory.getPopulation(map, 1);
+      q.add(map, actors);
+      map = ZoneMapFactory.generateZoneMap(MapConstants.MapType.FOREST, MapConstants.MapSize.SMALL);
+      actors = ActorFactory.getPopulation(map, 1);
+      q.add(map, actors);
+      map = ZoneMapFactory.generateZoneMap(MapConstants.MapType.CAVERN, MapConstants.MapSize.SMALL);
+      actors = ActorFactory.getPopulation(map, 1);
+      q.add(map, actors);
+      q.connectExits();
+      return q;
    }
 
    
